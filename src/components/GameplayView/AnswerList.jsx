@@ -1,6 +1,18 @@
-function AnswerList() {
+import AnswerItem from "./AnswerItem";
+
+
+
+function AnswerList(props) {
+  const {answers} = props
+
+  const list = answers.map(answer => <AnswerItem answer />)
+
   return (
-   <h1>AnswerList Component</h1>
+    <div>
+      <h1>AnswerList Component</h1>
+     {list}
+    </div>
+   
   );
 }
 

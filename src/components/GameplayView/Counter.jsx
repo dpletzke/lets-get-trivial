@@ -1,6 +1,13 @@
+import CounterIcon from './CounterIcon'
+import Timer from './Timer'
+
 function Counter() {
   return (
-   <h1>Counter Component</h1>
+    <div>
+      <h1>Counter Component</h1>
+      <CounterIcon />
+      <Timer />
+    </div>
   );
 }
 

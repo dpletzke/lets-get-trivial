@@ -1,6 +1,14 @@
+import Scoreboard from './Scoreboard'
+import VictoryString from './VictoryString'
+
 function ShowScore() {
   return (
-   <h1>ShowScore Component</h1>
+    <div> 
+      <h1>ShowScore Component</h1>
+      <VictoryString />
+      <Scoreboard />
+   </div>
+ 
   );
 }
 
