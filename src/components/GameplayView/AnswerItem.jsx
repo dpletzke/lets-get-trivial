@@ -1,14 +1,13 @@
-//fixture for development
-const answerObj = {
-  answer: "Herman Melville"
-}
+import './AnswerItem.scss';
 
 function AnswerItem(props) {
   // replace answerObj with props
-  const {answer} = answerObj
+  const {answer} = props
 
   return (
-  <h1>{answer}</h1>
+    <div className="panel panel__answer">
+      <p>{answer}</p>
+    </div>
   );
 }
 

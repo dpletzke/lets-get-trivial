@@ -1,0 +1,11 @@
+@import "../../styles/variables.scss";
+
+.panel {
+  width: 95%;
+  background-color: $color-secondary-background;
+  text-align: center;
+  border-radius: 10px;
+  &:hover {
+    background-color: lighten($color-secondary-background, $amount: 5%);
+  }
+}
