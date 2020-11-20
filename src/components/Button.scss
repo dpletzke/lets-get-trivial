@@ -1,0 +1,16 @@
+@import "../styles/variables.scss";
+
+.btn {
+  font-family: $Audiowide;
+  background-color: $color-secondary-background;
+  color: $color-primary-background;
+  border-radius: 0.5em;
+  border: none;
+  padding: 0.5em;
+  transition: background-color 0.5s ease-in;
+
+  &:hover {
+    background-color: $color-primary-text;
+    cursor: pointer;
+  }
+}
