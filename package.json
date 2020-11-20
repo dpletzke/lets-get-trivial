@@ -7,6 +7,7 @@
     "@testing-library/react": "^11.2.1",
     "@testing-library/user-event": "^12.2.2",
     "node-sass": "^4.14.1",
+    "axios": "^0.21.0",
     "react": "^17.0.1",
     "react-dom": "^17.0.1",
     "react-loader-spinner": "^3.1.14",
@@ -19,7 +20,8 @@
     "test": "react-scripts test",
     "eject": "react-scripts eject",
     "storybook": "start-storybook -p 6006 -s public",
-    "build-storybook": "build-storybook -s public"
+    "build-storybook": "build-storybook -s public",
+    "test:mocha": "mocha"
   },
   "eslintConfig": {
     "extends": [
@@ -46,7 +48,6 @@
     "@storybook/addon-links": "^6.1.1",
     "@storybook/node-logger": "^6.1.1",
     "@storybook/preset-create-react-app": "^3.1.5",
-    "@storybook/react": "^6.1.1",
-    "babel-loader": "^8.2.1"
+    "@storybook/react": "^6.1.1"
   }
 }

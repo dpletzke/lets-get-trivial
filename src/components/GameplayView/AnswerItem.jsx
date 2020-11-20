@@ -1,6 +1,14 @@
-function AnswerItem() {
+//fixture for development
+const answerObj = {
+  answer: "Herman Melville"
+}
+
+function AnswerItem(props) {
+  // replace answerObj with props
+  const {answer} = answerObj
+
   return (
-   <h1>AnswerItem Component</h1>
+  <h1>{answer}</h1>
   );
 }
 
