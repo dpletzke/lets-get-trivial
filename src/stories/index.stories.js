@@ -6,8 +6,10 @@ import { action } from "@storybook/addon-actions";
 import Button from "../components/Button";
 import Loading from "../components/Loading";
 import Timer from "../components/GameplayView/Timer";
-import AnswerItem from "../components/GameplayView/AnswerItem";
-import AnswerList from "../components/GameplayView/AnswerList";
+import Panel from "../components/GameplayView/Panel";
+import PanelList from "../components/GameplayView/PanelList";
+import GameplayHeader from "../components/GameplayView/GameplayHeader";
+import ActiveQuestion from "../components/GameplayView/Question";
 
 storiesOf("Button", module).add("Submit", () => <Button>Submit</Button>);
 storiesOf("Loading", module).add("Dots", () => (
@@ -25,12 +27,15 @@ storiesOf("Timer", module)
     <Timer duration={5} size={50} strokeWidth={4} />
   ));
 
-storiesOf("AnswerItem", module)
-  .add("AnswerItem", () => (
-    <AnswerItem answer="Charles Dickens" setSelected={action("selected")} />
+storiesOf("Panel", module)
+  .add("Panel", () => (
+    <Panel
+      info={{ answerString: "Charles Dickens" }}
+      setSelected={action("selected")}
+    />
   ))
-  .add("Selected AnswerItem", () => (
-    <AnswerItem answer="Jodie Foster" selected />
+  .add("Selected Panel", () => (
+    <Panel info={{ answerString: "Jodie Foster" }} selected />
   ));
 
 const answersArray = [
@@ -40,6 +45,26 @@ const answersArray = [
   { answerString: "J.R.R. Tolkein", selected: true, correct: false },
 ];
 
-storiesOf("AnswerList", module).add("AnswerList", () => (
-  <AnswerList answers={answersArray} />
+const questionArray = [{ questionString: "Is this going to work?" }];
+
+storiesOf("PanelList", module)
+  .add("PanelList of answers", () => <PanelList infoArray={answersArray} />)
+  .add("PanelList of Question", () => <PanelList infoArray={questionArray} />);
+
+storiesOf("GameplayHeader", module).add("Gameplay Header", () => (
+  <GameplayHeader questionId="3" />
+));
+
+const questionObj = {
+  question: "Who wrote the novel &quot;Moby-Dick&quot;?",
+  correct_answer: "Herman Melville",
+  incorrect_answers: [
+    "William Golding",
+    "William Shakespeare",
+    "J. R. R. Tolkien",
+  ],
+};
+
+storiesOf("Question View", module).add("Active Question View", () => (
+  <ActiveQuestion questionObj={questionObj} />
 ));

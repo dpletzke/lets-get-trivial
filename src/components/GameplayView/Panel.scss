@@ -1,10 +1,13 @@
 @import "../../styles/variables.scss";
 
-.panel__answer {
+.panel {
   width: 90%;
   background-color: $color-secondary-background;
   text-align: center;
   border-radius: 10px;
+  font-family: $FancyFont;
+}
+.panel__answer {
   &:hover {
     background-color: lighten($color-secondary-background, $amount: 5%);
   }
