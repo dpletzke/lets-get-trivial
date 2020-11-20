@@ -1,11 +1,14 @@
 @import "../../styles/variables.scss";
 
-.panel {
-  width: 95%;
+.panel__answer {
+  width: 90%;
   background-color: $color-secondary-background;
   text-align: center;
   border-radius: 10px;
   &:hover {
     background-color: lighten($color-secondary-background, $amount: 5%);
+  }
+  &--selected {
+    border: 1rem dashed $color-primary-button-background;
   }
 }
