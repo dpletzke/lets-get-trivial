@@ -1,16 +1,14 @@
 
 const { getCategories } = require('.');
 
-getCategories().then(res => {
-  console.log(res)
-})
-
 describe("getCategories", () => {
   test('should return categories', async () => {
-    // expect(getCategories()).resolves.to.have.property('trivia_categories');
+    await expect(getCategories()).resolves.toHaveProperty('trivia_categories');
+  });
+
+  test('should return 24 categories', async () => {
+
+    const data = await getCategories();
+    expect(data.trivia_categories).toHaveLength(24);
   });
 });
-
-// getSessionToken().then(res => {
-//   console.log(res)
-// })
