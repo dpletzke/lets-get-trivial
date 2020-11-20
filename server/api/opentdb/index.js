@@ -17,18 +17,18 @@ module.exports = {
     return await axios.get(url).data;
   }
 
-  getQuestions: async (params) => {
-    const { token, numQuestions, categoryId, difficulty, type } = params;
+  // getQuestions: async (params) => {
+  //   const { token, numQuestions, categoryId, difficulty, type } = params;
 
-    if(categoryId < 9 || 32 categoryId) {
-      throw console.error('Invalid category! defaulting to any category')
-    };
+  //   if(categoryId < 9 || 32 < categoryId) {
+  //     throw console.error('Invalid category! defaulting to any category')
+  //   };
 
-    const url = `https://opentdb.com/api.php?amount=${numQuestions}`
-    if(categoryId) url += `&category=${categoryId}`;
-    if(difficulty) &difficulty=easy&type=multiple`
+  //   const url = `https://opentdb.com/api.php?amount=${numQuestions}`
+  //   if(categoryId) url += `&category=${categoryId}`;
+  //   if(difficulty) &difficulty=easy&type=multiple`
 
-    const categories = await axios.get('https://opentdb.com/api_category.php');
-    return categories.data.trivia_categories
-  }
+  //   const categories = await axios.get('https://opentdb.com/api_category.php');
+  //   return categories.data.trivia_categories
+  // }
 }

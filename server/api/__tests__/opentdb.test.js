@@ -1,15 +1,13 @@
-const expect = require('chai').expect;
 
-const { getCategories, getSessionToken } = require('../opentdb/index');
+const { getCategories } = require('../opentdb');
 
 getCategories().then(res => {
   console.log(res)
 })
 
 describe('getCategories',  ()  => {
-  it('should return categories', async () => {
-    const response = await getCategories();
-    expect(response).to.have.property('trivia_categories');
+  test('should return categories', async () => {
+    expect(getCategories()).resolves.to.have.property('trivia_categories');
   });
 })
 
