@@ -10,7 +10,10 @@ const app = express();
 const server = http.createServer(app);
 
 // STEP 4 wrap socket with server above
-const io  = socketio(server);
+const io = socketio(server);
+
+
+const ikea = require('ikea-name-generator');
 
 app.get('/', (req, res) => {
   res.json({status: 'ok'});
@@ -31,7 +34,7 @@ io.on('connection', (socket) => {
   // when anyone connects, NOTIFY EVERYONE WHO's connected that someone else has connected!
   socket.broadcast.emit('user_connected', { users });
   socket.on('greetings', data => {
-    console.log("Message recieved");
+    console.log("Message received");
     console.log(data);
   });
 
