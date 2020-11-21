@@ -37,7 +37,7 @@ function ActiveQuestion({questionObj}) {
     <div>
       <GameplayHeader questionIndex={questionIndex}/>
       <div>
-        {/* the two panels in this view can be targeted individually due to their condition css, see PanelList component */}
+        {/* the two panels in this view can be targeted individually due to their conditional css, see PanelList component */}
     <PanelList infoArray = {question} />
      <PanelList 
        infoArray = {answers}
