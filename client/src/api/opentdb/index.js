@@ -21,10 +21,23 @@ module.exports = {
   },
 
   getQuestions: async function (params, token) {
-    // const tokenObj = await this.getSessionToken();
-    // const token = tokenObj.token;
     const url = urlConstructor(params, token);
     const questions = await axios.get(url);
-    return questions.data;
+    const { data } = questions;
+
+    // if the token is invalid...do it again! Would be better if it could be recursive but I can't figure out how to call functions from within this object (this.getQuestions is not working)
+    if (data.response_code === 3 || data.response_code === 4) {
+      const newTokenObj = await axios.get(
+        "https://opentdb.com/api_token.php?command=request"
+      );
+      // return this.getQuestions(params, newTokenObj.data.token);
+      const newUrl = urlConstructor(params, newTokenObj.data.token);
+      const newQuestions = await axios.get(newUrl);
+      const newData = newQuestions.data;
+      console.log("Returning from inside the 'if'");
+      return newData;
+    }
+    console.log("Returning from outside the 'if'");
+    return data;
   },
 };
