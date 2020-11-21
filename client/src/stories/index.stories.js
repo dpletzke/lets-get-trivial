@@ -10,6 +10,7 @@ import Panel from "../components/GameplayView/Panel";
 import PanelList from "../components/GameplayView/PanelList";
 import GameplayHeader from "../components/GameplayView/GameplayHeader";
 import ActiveQuestion from "../components/GameplayView/Question";
+import Home from "../components/Home";
 
 storiesOf("Button", module).add("Submit", () => <Button>Submit</Button>);
 storiesOf("Loading", module).add("Dots", () => (
@@ -75,4 +76,8 @@ const questionObj = {
 
 storiesOf("Question View", module).add("Active Question View", () => (
   <ActiveQuestion questionObj={questionObj} />
+));
+
+storiesOf("Home View", module).add("Landing Page", () => (
+  <Home />
 ));

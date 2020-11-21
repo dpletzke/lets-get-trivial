@@ -14,3 +14,13 @@
     cursor: pointer;
   }
 }
+
+.btn--home{
+  background-color: $color-primary-background;
+  color: $color-secondary-background;
+    margin:2em;
+    align-self: center;
+    &:hover{
+      background-color: $color-secondary-text;
+    }
+  }
