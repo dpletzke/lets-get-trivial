@@ -25,6 +25,7 @@ function App() {
     })
 
     connection.current.on('user_connected', data => {
+      console.log("users", data.users)
       setUsers(data.users);
     })
 
@@ -34,18 +35,25 @@ function App() {
 
   }, [])
 
-  useEffect(() => {
+  const changeName = (newName) => {
+    setName(newName);
+    connection.current.emit('change_name', newName);
 
-    console.log(firstUpdate.current);
-    if (!firstUpdate.current) connection.current.emit('change_name', name);
-    firstUpdate.current = false;
+  }
 
-  }, [name])
+  // useEffect(() => {
+
+  //   // console.log(firstUpdate.current);
+  //   // if (!firstUpdate.current) 
+  //   connection.current.emit('change_name', updatedName);
+  //   // firstUpdate.current = false;
+
+  // }, [updatedName])
 
 
   return (
     <>
-      <Home onSave={setName} name={name} />
+      <Home onSave={changeName} name={name} />
       <div className="App">
           <h3>{room}</h3>
           <h3>Users App</h3>

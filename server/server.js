@@ -51,11 +51,14 @@ io.on('connection', (socket) => {
   socket.on('change_name', (newName) => {
 
     const position = rooms[socket.room].findIndex(name => name === socket.user);
-    const users = rooms[socket.room].splice(position, 1, newName);
 
-    console.log('On change name:', socket.user, newName, rooms);
+    console.log({position});
 
-    io.in(socket.room).emit('user_connected', { users });
+    rooms[socket.room].splice(position, 1, newName);
+
+    console.log('On change name:', socket.user, {newName, rooms});
+
+    io.in(socket.room).emit('user_connected', { users:rooms[socket.room] });
 
   });
 
