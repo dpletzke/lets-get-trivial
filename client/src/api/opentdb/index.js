@@ -5,6 +5,7 @@ const { urlConstructor } = require("../apiHelpers.js");
 // Information taken from https://opentdb.com/api_config.php
 
 module.exports = {
+  // const apiCalls = {
   getCategories: async () => {
     const categories = await axios.get("https://opentdb.com/api_category.php");
     return categories.data;
@@ -15,10 +16,13 @@ module.exports = {
   // one, it seems no benefit to reset, only going to generate new one
   getSessionToken: async () => {
     const url = "https://opentdb.com/api_token.php?command=request";
-    return await axios.get(url).data;
+    const token = await axios.get(url);
+    return token.data;
   },
 
   getQuestions: async (params) => {
+    // const tokenObj = await this.getSessionToken();
+    // const token = tokenObj.token;
     const url = urlConstructor(params);
     const questions = await axios.get(url);
     return questions.data;
