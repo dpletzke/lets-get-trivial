@@ -1,4 +1,5 @@
-import AnswerList from './AnswerList'
+import PanelList from './PanelList'
+import GameplayHeader from './GameplayHeader'
 
 const questionObj = {
   "question": "Who wrote the novel &quot;Moby-Dick&quot;?",
@@ -10,15 +11,34 @@ const questionObj = {
   ]
   }
 
-function ActiveQuestion() {
-  const {question, correct_answer, incorrect_answers} = questionObj;
+// move this into a helper file at some point?
+const digestQuestionObj = (questionObject) => {
+  return {
+    questionIndex: questionObject.questionIndex,
+    question: [{questionString: questionObject.question}],
+    
+    answers: [
+    ...questionObject.incorrect_answers.map((incorrectAnswer) => ({answerString: incorrectAnswer, correct: false, selected: false})),
+    {answerString: questionObject.correct_answer, correct: true, selected: false}
+    ]
+    
+    
+  };
+}
+
+function ActiveQuestion({questionObj}) {
+  
+  const {question, answers, questionIndex} = digestQuestionObj(questionObj)
+
   return (
     <div>
-      <h1>ActiveQuestion Component</h1>
-     <p>{question}</p>
-     <AnswerList 
-       answers = {[...incorrect_answers, correct_answer]}
+      <GameplayHeader questionIndex={questionIndex}/>
+      <div>
+    <PanelList infoArray = {question} />
+     <PanelList 
+       infoArray = {answers}
        />
+      </div>
     </div>
   );
 }
