@@ -1,0 +1,10 @@
+@import "../../styles/variables.scss";
+
+.header {
+  &__gameplay {
+    display: flex;
+    padding: 0 $medium-spacer;
+    justify-content: space-between;
+    font-family: $FancyFont;
+  }
+}
