@@ -23,8 +23,7 @@ app.get('/', (req, res) => {
 //  {id: "", name: "", score: "", roomId: "", host: false }
 //  ];
 
-// rooms object with all rooms containing users 
-
+// rooms object with all rooms containing users
 const rooms = {};
 
 io.on('connection', (socket) => {
