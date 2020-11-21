@@ -10,7 +10,6 @@ function App() {
   const [users, setUsers] = useState([]);
   const [room, setRoom] = useState(String(Math.floor(Math.random() * 2) + 1));
   const connection = useRef(null);
-  const firstUpdate = useRef(true);
   
   
   
@@ -21,11 +20,10 @@ function App() {
     connection.current.on('initial', (data) => {
       setName(data.name);
 
-      connection.current.emit('room', room);
+      connection.current.emit('join_room', room);
     })
 
     connection.current.on('user_connected', data => {
-      console.log("users", data.users)
       setUsers(data.users);
     })
 
@@ -38,18 +36,7 @@ function App() {
   const changeName = (newName) => {
     setName(newName);
     connection.current.emit('change_name', newName);
-
   }
-
-  // useEffect(() => {
-
-  //   // console.log(firstUpdate.current);
-  //   // if (!firstUpdate.current) 
-  //   connection.current.emit('change_name', updatedName);
-  //   // firstUpdate.current = false;
-
-  // }, [updatedName])
-
 
   return (
     <>

@@ -19,64 +19,60 @@ app.get('/', (req, res) => {
   res.json({status: 'ok'});
 });
 
+// const users = [
+//  {id: "", name: "", score: "", roomId: "", host: false }
+//  ];
+
+// rooms object with all rooms containing users 
+
 const rooms = {};
 
 io.on('connection', (socket) => {
-  console.log('a user connected');
   
   let user = ikea.getName(false);
-  console.log(user);
+  // console.log(`a user connected: ${user}`);
 
   socket.emit('initial',{name: user, users:[]});
-  console.log("On initial:", rooms);
+  // console.log("On initial:", rooms);
 
-  // made user name
+  //set name as user on socket object
   socket.user = user;
   
-  socket.on('room', function(room) {
+  socket.on('join_room', function(room) {
     
     socket.room = room;
 
     if (!rooms[room]) rooms[room] = [];
     rooms[room].push(user);
 
-    console.log('On join room:', rooms);
+    // console.log('On join room:', rooms);
 
     socket.join(room);
 
-    // when anyone connects, NOTIFY EVERYONE WHO's in this room that someone else has connected, send the full list of users with new user
     io.in(room).emit('user_connected', { users:rooms[room] });
   });
 
   socket.on('change_name', (newName) => {
 
     const position = rooms[socket.room].findIndex(name => name === socket.user);
-
-    console.log({position});
-
     rooms[socket.room].splice(position, 1, newName);
 
-    console.log('On change name:', socket.user, {newName, rooms});
-
     io.in(socket.room).emit('user_connected', { users:rooms[socket.room] });
-
   });
 
 
   socket.on('disconnect', () => {
-    console.log("user has disconnected!");
-    console.log('DISCONNECTED USER, ', socket.user);
 
-    console.log('Before disconnect', socket.room, rooms);
-
+    /* find position of user in array and remove by mutation */
     const position = rooms[socket.room].findIndex(name => name === socket.user);
-    const users = rooms[socket.room].splice(position, 1);
+    rooms[socket.room].splice(position, 1);
+
+    const users = rooms[socket.room];
+
     socket.to(socket.room).emit('user_disconnected', { users });
 
   });
 });
-
-
 
 // STEP 5 - server.listen instead of app.listen!
 server.listen(PORT, () => console.log('Server is listening on ', PORT));
