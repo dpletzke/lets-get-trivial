@@ -1,17 +1,20 @@
 import PanelList from './PanelList'
 import GameplayHeader from './GameplayHeader'
 
-const questionObj = {
-  "question": "Who wrote the novel &quot;Moby-Dick&quot;?",
-  "correct_answer": "Herman Melville",
-  "incorrect_answers": [
-  "William Golding",
-  "William Shakespeare",
-  "J. R. R. Tolkien"
-  ]
-  }
 
-// move this into a helper file at some point?
+//here is the structure of the data coming from the api. Added is the questionIndex which is based on how many questions the user selects
+// const questionObj = {
+//   "questionIndex": 3,
+//   "question": "Who wrote the novel &quot;Moby-Dick&quot;?",
+//   "correct_answer": "Herman Melville",
+//   "incorrect_answers": [
+//   "William Golding",
+//   "William Shakespeare",
+//   "J. R. R. Tolkien"
+//   ]
+//   }
+
+// move this into a helper file at some point? It's just changing the data structure to fit better with our component architecture
 const digestQuestionObj = (questionObject) => {
   return {
     questionIndex: questionObject.questionIndex,
@@ -34,6 +37,7 @@ function ActiveQuestion({questionObj}) {
     <div>
       <GameplayHeader questionIndex={questionIndex}/>
       <div>
+        {/* the two panels in this view can be targeted individually due to their condition css, see PanelList component */}
     <PanelList infoArray = {question} />
      <PanelList 
        infoArray = {answers}
