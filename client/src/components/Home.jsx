@@ -1,8 +1,3 @@
-<<<<<<< Updated upstream
-function Home() {
-  return (
-   <h1>Home Component</h1>
-=======
 import {useState} from 'react'
 import Button from './Button';
 // import logo from '../images/logo.jpg'
@@ -37,7 +32,6 @@ function Home(props) {
    
     
    
->>>>>>> Stashed changes
   );
 }
 
