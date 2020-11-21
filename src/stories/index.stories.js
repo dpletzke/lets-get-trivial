@@ -10,6 +10,7 @@ import Panel from "../components/GameplayView/Panel";
 import PanelList from "../components/GameplayView/PanelList";
 import GameplayHeader from "../components/GameplayView/GameplayHeader";
 import ActiveQuestion from "../components/GameplayView/Question";
+import Home from "../components/Home";
 
 storiesOf("Button", module).add("Submit", () => <Button>Submit</Button>);
 storiesOf("Loading", module).add("Dots", () => (
@@ -25,7 +26,7 @@ storiesOf("Timer", module).add("20 second Timer - Big", () => (
 .add("5 second timer - Small", () => (
   <Timer duration={5} size={50} strokeWidth={4}/>
 ))
-// ));
+
 storiesOf("Timer", module)
   .add("10 second Timer - Small", () => (
     <Timer duration={10} size={50} strokeWidth={4} />
@@ -76,3 +77,11 @@ const questionObj = {
 storiesOf("Question View", module).add("Active Question View", () => (
   <ActiveQuestion questionObj={questionObj} />
 ));
+
+
+
+storiesOf("Home View", module).add("Landing Page", () => (
+  <Home />
+));
+
+
