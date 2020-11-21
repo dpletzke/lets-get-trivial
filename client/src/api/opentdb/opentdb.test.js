@@ -13,7 +13,7 @@ describe("getCategories", () => {
 
 const completeParams = {
   numQuestions: 10,
-  categoryId: 10,
+  categoryId: 2,
   difficulty: "hard",
   type: "multiple",
 };
@@ -33,6 +33,7 @@ describe("getQuestions", () => {
   test("category should match categoryId in params", async () => {
     const data = await getQuestions(completeParams);
     const results = data.results;
+    console.log(results);
     expect(results[0].category).toBe("Entertainment: Books");
     expect(results[1].category).toBe("Entertainment: Books");
     expect(results[2].category).toBe("Entertainment: Books");
