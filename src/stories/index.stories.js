@@ -56,6 +56,7 @@ storiesOf("GameplayHeader", module).add("Gameplay Header", () => (
 ));
 
 const questionObj = {
+  questionIndex: 3,
   question: "Who wrote the novel &quot;Moby-Dick&quot;?",
   correct_answer: "Herman Melville",
   incorrect_answers: [

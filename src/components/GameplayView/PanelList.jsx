@@ -16,8 +16,11 @@ import classNames from 'classnames'
 function PanelList({infoArray}) {
   // replace answersObj with props
 
-  // const className = classNames("box", {"box__answer": answers}, {"box__question": question});
-
+  
+  const questionPanel = infoArray[0].questionString ? true : false;
+  const answerPanel = infoArray[0].answerString ? true : false;
+  
+  const className = classNames("box", {"box__answer": answerPanel}, {"box__question": questionPanel});
   
   const list = infoArray.map(info => {
     return (<Panel info={info} />)
@@ -26,7 +29,7 @@ function PanelList({infoArray}) {
   
 
   return (
-    <div className="box">
+    <div className={className}>
      {list}
     </div>
    

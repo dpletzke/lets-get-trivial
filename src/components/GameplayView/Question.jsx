@@ -14,6 +14,7 @@ const questionObj = {
 // move this into a helper file at some point?
 const digestQuestionObj = (questionObject) => {
   return {
+    questionIndex: questionObject.questionIndex,
     question: [{questionString: questionObject.question}],
     
     answers: [
@@ -27,15 +28,17 @@ const digestQuestionObj = (questionObject) => {
 
 function ActiveQuestion({questionObj}) {
   
-  const {question, answers} = digestQuestionObj(questionObj)
+  const {question, answers, questionIndex} = digestQuestionObj(questionObj)
 
   return (
     <div>
-      <GameplayHeader/>
+      <GameplayHeader questionIndex={questionIndex}/>
+      <div>
     <PanelList infoArray = {question} />
      <PanelList 
        infoArray = {answers}
        />
+      </div>
     </div>
   );
 }

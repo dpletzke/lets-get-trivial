@@ -9,6 +9,9 @@
   width: 90%;
   padding: 1rem;
   background-color: $color-primary-background;
-  &__answers {
+  margin-top: $medium-spacer;
+  &__answer {
+    height: 50vh;
+    max-height: 24rem;
   }
 }
