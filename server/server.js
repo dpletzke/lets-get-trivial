@@ -23,9 +23,9 @@ const rooms = {};
 
 io.on('connection', (socket) => {
   console.log('a user connected');
-  console.log(ikea.getName(false));
   
   let user = ikea.getName(false);
+  console.log(user);
 
   socket.emit('initial',{name: user, users:[]});
 
@@ -45,12 +45,6 @@ io.on('connection', (socket) => {
     io.in(room).emit('user_connected', { users:rooms[room] });
   });
 
- 
-
-
-
-  
-  
   // socket.broadcast.emit('user_connected', { users });
 
   // sending to all clients in 'game' room except sender
