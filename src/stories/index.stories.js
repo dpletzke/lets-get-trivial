@@ -18,7 +18,14 @@ storiesOf("Loading", module).add("Dots", () => (
 
 storiesOf("Timer", module).add("20 second Timer - Big", () => (
   <Timer duration={20} />
-));
+))
+.add("10 second Timer - Small", () => (
+  <Timer duration={10} size={50} strokeWidth={4} />
+))
+.add("5 second timer - Small", () => (
+  <Timer duration={5} size={50} strokeWidth={4}/>
+))
+// ));
 storiesOf("Timer", module)
   .add("10 second Timer - Small", () => (
     <Timer duration={10} size={50} strokeWidth={4} />
