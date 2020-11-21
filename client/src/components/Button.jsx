@@ -9,7 +9,7 @@ function Button(props) {
     "day-list__item--full": props.spots === 0,
   });
 
-  return <button className={btnClass}>{props.children}</button>;
+  return <button onClick={props.onClick} className={btnClass}>{props.children}</button>;
 }
 
 export default Button;

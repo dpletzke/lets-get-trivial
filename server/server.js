@@ -28,6 +28,7 @@ io.on('connection', (socket) => {
   console.log(user);
 
   socket.emit('initial',{name: user, users:[]});
+  console.log("On initial:", rooms);
 
   // made user name
   socket.user = user;
@@ -39,20 +40,31 @@ io.on('connection', (socket) => {
     if (!rooms[room]) rooms[room] = [];
     rooms[room].push(user);
 
+    console.log('On join room:', rooms);
+
     socket.join(room);
 
     // when anyone connects, NOTIFY EVERYONE WHO's in this room that someone else has connected, send the full list of users with new user
     io.in(room).emit('user_connected', { users:rooms[room] });
   });
 
-  // socket.broadcast.emit('user_connected', { users });
+  socket.on('change_name', (newName) => {
 
-  // sending to all clients in 'game' room except sender
-  //  socket.to('game').emit('nice game', "let's play a game");
+    const position = rooms[socket.room].findIndex(name => name === socket.user);
+    const users = rooms[socket.room].splice(position, 1, newName);
+
+    console.log('On change name:', socket.user, newName, rooms);
+
+    io.in(socket.room).emit('user_connected', { users });
+
+  });
+
 
   socket.on('disconnect', () => {
     console.log("user has disconnected!");
     console.log('DISCONNECTED USER, ', socket.user);
+
+    console.log('Before disconnect', socket.room, rooms);
 
     const position = rooms[socket.room].findIndex(name => name === socket.user);
     const users = rooms[socket.room].splice(position, 1);
