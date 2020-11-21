@@ -36,7 +36,7 @@ function Home(props) {
           <p>Join Game </p>
           <input
             data-testid="player-name-input"
-            name="Hostname"
+            name="Player Name"
             type="text"
             placeholder="Enter Player Name"
             value={playerName}
