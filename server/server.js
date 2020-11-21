@@ -26,34 +26,43 @@ app.get('/', (req, res) => {
 // });
 
 
+const rooms = {};
 
 io.on('connection', (socket) => {
   console.log('a user connected');
   console.log(ikea.getName(false));
   
-  const rooms = {};
+  let user = ikea.getName(false);
+
+  socket.emit('initial',{name: user, users:[]});
 
   // made user name
-  let user = ikea.getName(false);
-  const roomId = String(Math.floor(Math.random(2)) + 1);
-
+  socket.user = user;
+  
+  // sending to all clients in 'game' room, including sender
+  //  io.in('game').emit('big-announcement', 'the game will start soon');
+  
   socket.on('room', function(room) {
+    
+    console.log(room);
+    socket.room = room;
+
+    if (!rooms[room]) rooms[room] = [];
+    rooms[room].push(user);
+
     socket.join(room);
+    console.log({room, rooms});
+    io.in(room).emit('user_connected', { users:rooms[room] });
   });
 
-  if (!rooms[roomId]) rooms[roomId] = [];
-  rooms[roomId].push(user);
+  // io.in('game').emit('big-announcement', 'the game will start soon');
 
-  console.log({rooms, roomId});
-  
-  // send user name to our connection client
-  socket.user = user;
-  socket.join(roomId);
-  socket.emit('initial',{name: user, users:rooms[roomId]});
+
+
+    // send user name to our connection client
   
   // when anyone connects, NOTIFY EVERYONE WHO's connected that someone else has connected!
   // socket.broadcast.emit('user_connected', { users });
-  socket.to(roomId).emit('user_connected', { users:rooms[roomId] });
   socket.on('greetings', data => {
     console.log("Message received");
     console.log(data);
@@ -65,11 +74,12 @@ io.on('connection', (socket) => {
   socket.on('disconnect', () => {
     console.log("user has disconnected!");
     console.log('DISCONNECTED USER, ', socket.user);
-    // let position = users.indexOf(socket.user);
 
-    const position = rooms[roomId].findIndex(socket.user);
-    const users = rooms[roomId].splice(position, 1);
-    io.emit('user_disconnected', {users});
+    const position = rooms[socket.room].findIndex(name => name === socket.user);
+    const users = rooms[socket.room].splice(position, 1);
+    socket.to(socket.room).emit('user_disconnected', { users });
+
+    // io.emit('user_disconnected', {users});
   });
 });
 

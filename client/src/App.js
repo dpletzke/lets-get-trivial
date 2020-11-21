@@ -7,20 +7,21 @@ const ENDPOINT = 'http://localhost:8080'
 function App() {
   const [name, setName] = useState('');
   const [users, setUsers] = useState([]);
-  // 
+  const [room, setRoom] = useState(String(Math.floor(Math.random() * 2) + 1));
+  
   useEffect(() => {
     const connection = socketIOClient(ENDPOINT);
+
     connection.on('initial', (data) => {
       console.log(data);
       setName(data.name);
       setUsers(data.users);
 
-      const room = String(Math.floor(Math.random(2)) + 1)
-
-      socket.emit('room', room);
+      connection.emit('room', room);
     })
 
     connection.on('user_connected', data => {
+      console.log(data.users);
       setUsers(data.users);
     })
 
@@ -29,12 +30,12 @@ function App() {
       setUsers(data.users);
     })
 
-    socket.on('create', function (room) {
-      socket.join(room);
+    connection.on('create', function (room) {
+      connection.join(room);
     });
 
-    var socket = io.connect();
-    socket.emit('create', 'room1');
+    // var socket = io.connect();
+    // socket.emit('create', 'room1');
 
 // // server side code
 // io.sockets.on('connection', function(socket) {
@@ -49,6 +50,7 @@ function App() {
 
   return (
     <div className="App">
+        <h3>{room}</h3>
         <h3>Users App</h3>
         <p>Our Name: {name}</p>
         <h3>Users Online</h3>
