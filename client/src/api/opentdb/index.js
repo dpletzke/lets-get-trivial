@@ -1,4 +1,5 @@
 const axios = require("axios");
+const { urlConstructor } = require("../apiHelpers.js");
 
 // Using OpenTDB trivia database API
 // Information taken from https://opentdb.com/api_config.php
@@ -6,11 +7,6 @@ const axios = require("axios");
 module.exports = {
   getCategories: async () => {
     const categories = await axios.get("https://opentdb.com/api_category.php");
-    return categories.data;
-  },
-
-  getCategoryId: async (id) => {
-    const categories = await this.getCategories();
     return categories.data;
   },
 
@@ -22,18 +18,9 @@ module.exports = {
     return await axios.get(url).data;
   },
 
-  // getQuestions: async (params) => {
-  //   const { token, numQuestions, categoryId, difficulty, type } = params;
-
-  //   if(categoryId < 9 || 32 < categoryId) {
-  //     throw console.error('Invalid category! defaulting to any category')
-  //   };
-
-  //   const url = `https://opentdb.com/api.php?amount=${numQuestions}`
-  //   if(categoryId) url += `&category=${categoryId}`;
-  //   if(difficulty) &difficulty=easy&type=multiple`
-
-  //   const categories = await axios.get('https://opentdb.com/api_category.php');
-  //   return categories.data.trivia_categories
-  // }
+  getQuestions: async (params) => {
+    const url = urlConstructor(params);
+    const questions = await axios.get(url);
+    return questions.data;
+  },
 };
