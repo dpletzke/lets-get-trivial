@@ -1,34 +1,30 @@
-const axios = require('axios')
+const axios = require("axios");
+const { urlConstructor } = require("../apiHelpers.js");
 
-// Using OpenTDB trivia database API  
+// Using OpenTDB trivia database API
 // Information taken from https://opentdb.com/api_config.php
 
 module.exports = {
+  // const apiCalls = {
   getCategories: async () => {
-    const categories = await axios.get('https://opentdb.com/api_category.php');
-    return categories.data
+    const categories = await axios.get("https://opentdb.com/api_category.php");
+    return categories.data;
   },
 
   // Its possible to reach the end of the questions, in which case a response
-  // code will be sent, this token needs to be reset or just generated a new 
-  // one, it seems no benefit to reset, only going to generate new one   
-  getSessionToken: async () => {
-    const url = 'https://opentdb.com/api_token.php?command=request'
-    return await axios.get(url).data;
-  }
+  // code will be sent, this token needs to be reset or just generated a new
+  // one, it seems no benefit to reset, only going to generate new one
+  getSessionToken: async function () {
+    const url = "https://opentdb.com/api_token.php?command=request";
+    const token = await axios.get(url);
+    return token.data;
+  },
 
-  // getQuestions: async (params) => {
-  //   const { token, numQuestions, categoryId, difficulty, type } = params;
-
-  //   if(categoryId < 9 || 32 < categoryId) {
-  //     throw console.error('Invalid category! defaulting to any category')
-  //   };
-
-  //   const url = `https://opentdb.com/api.php?amount=${numQuestions}`
-  //   if(categoryId) url += `&category=${categoryId}`;
-  //   if(difficulty) &difficulty=easy&type=multiple`
-
-  //   const categories = await axios.get('https://opentdb.com/api_category.php');
-  //   return categories.data.trivia_categories
-  // }
-}
+  getQuestions: async function (params, token) {
+    // const tokenObj = await this.getSessionToken();
+    // const token = tokenObj.token;
+    const url = urlConstructor(params, token);
+    const questions = await axios.get(url);
+    return questions.data;
+  },
+};
