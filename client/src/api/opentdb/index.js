@@ -7,37 +7,38 @@ const { urlConstructor } = require("../apiHelpers.js");
 module.exports = {
   // const apiCalls = {
   getCategories: async () => {
-    const categories = await axios.get("https://opentdb.com/api_category.php");
-    return categories.data;
+    const { data } = await axios.get("https://opentdb.com/api_category.php");
+    return data;
   },
 
   // Its possible to reach the end of the questions, in which case a response
   // code will be sent, this token needs to be reset or just generated a new
   // one, it seems no benefit to reset, only going to generate new one
-  getSessionToken: async function () {
-    const url = "https://opentdb.com/api_token.php?command=request";
-    const token = await axios.get(url);
-    return token.data;
+  getSessionToken: async function (token) {
+    let url = "https://opentdb.com/api_token.php?command=";
+    if (!token) {
+      url += "request";
+    } else {
+      url += `reset&token=${token}`;
+    }
+    const { data } = await axios.get(url);
+    return data;
   },
 
   getQuestions: async function (params, token) {
     const url = urlConstructor(params, token);
-    const questions = await axios.get(url);
-    const { data } = questions;
+    const { data } = await axios.get(url);
 
-    // if the token is invalid...do it again! Would be better if it could be recursive but I can't figure out how to call functions from within this object (this.getQuestions is not working)
+    // if the token is invalid...reset that thing! Would be better if it could be recursive but I can't figure out how to call functions from within this object (this.getQuestions is not working)
+
+    // how do we communicate this new token to the state?
     if (data.response_code === 3 || data.response_code === 4) {
-      const newTokenObj = await axios.get(
-        "https://opentdb.com/api_token.php?command=request"
+      await axios.get(
+        `https://opentdb.com/api_token.php?command=reset&token=${token}`
       );
-      // return this.getQuestions(params, newTokenObj.data.token);
-      const newUrl = urlConstructor(params, newTokenObj.data.token);
-      const newQuestions = await axios.get(newUrl);
-      const newData = newQuestions.data;
-      console.log("Returning from inside the 'if'");
-      return newData;
+      const newData = await axios.get(url);
+      return newData.data;
     }
-    console.log("Returning from outside the 'if'");
     return data;
   },
 };
