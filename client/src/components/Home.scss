@@ -1,6 +1,9 @@
 @import "../styles/variables.scss";
 
 
+
+
+
 h1{
   font-size: 3em;
   font-family: $Audiowide;
@@ -17,10 +20,11 @@ h1{
   height: 100vh;
   width: 100vw;
   background: linear-gradient(180deg, $color-primary-background 0%, $color-secondary-text 35%, $color-primary-text 100%);
-  
+  padding: 3em;
 }
 
 input{
+  border-radius: 1em;
   font-family: $Audiowide;
   align-self: center;
   height: 2em;
@@ -28,7 +32,11 @@ input{
   display: block;
   text-align: center;
   border: none;
-
+  margin:0.5em;
+  border: 1.5px solid $color-primary-background;
+&:focus{
+  outline: none;
+}
   ::placeholder{
   color: $color-primary-background;
   }
@@ -36,10 +44,23 @@ input{
 }
 
 form{
+  border-radius: 1.5em;
+background-color: white;;
+margin-bottom:2em;
  
   display: flex;
   flex-direction: column;
+  
 
 
+}
+p{
+  font-family: $Audiowide;
+  text-align: center;
+  color: $color-primary-background;
+}
+
+.text-dark{
+  color: $color-primary-background;
 }
 
