@@ -21,7 +21,7 @@ app.get('/', (req, res) => {
   res.json({status: 'ok'});
 });
 
-const room = {};
+const rooms = {};
 
 // rooms object with all rooms containing users - add boolean for public/private
 
