@@ -14,7 +14,7 @@ function Timer({duration, size, strokeWidth}) {
     duration={duration}
     size={size}
     strokeWidth={strokeWidth}
-    
+    ariaLabel={"Time Remaining"}
     
     colors={[
       ['#2a9d8f', 0.33],

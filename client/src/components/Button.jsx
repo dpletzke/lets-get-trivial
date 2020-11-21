@@ -4,9 +4,9 @@ const classNames = require("classnames");
 
 function Button(props) {
   const btnClass = classNames("btn", {
-    "btn--home": props.home,
-    
-    
+    //prettier-ignore
+    "start": props.start,
+    "day-list__item--full": props.spots === 0,
   });
 
   return <button className={btnClass}>{props.children}</button>;
