@@ -1,10 +1,11 @@
-import Counter from './Counter'
+import Timer from './Timer';
+import './GameplayHeader.scss';
 
-function GameplayHeader() {
+function GameplayHeader({questionIndex}) {
   return (
-    <div>
-      <h1>GameplayHeader Component</h1>
-      <Counter/>
+    <div className="header header__gameplay">
+      <p>Question {questionIndex}</p>
+       <Timer duration={10} size={50} strokeWidth={4} />
     </div>
   );
 }
