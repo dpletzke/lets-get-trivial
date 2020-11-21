@@ -3,6 +3,7 @@ import './App.css';
 import socketIOClient from 'socket.io-client';
 
 const ENDPOINT = 'http://localhost:8080'
+const connection = socketIOClient(ENDPOINT);
 
 function App() {
   const [name, setName] = useState('');
@@ -10,7 +11,6 @@ function App() {
   const [room, setRoom] = useState(String(Math.floor(Math.random() * 2) + 1));
   
   useEffect(() => {
-    const connection = socketIOClient(ENDPOINT);
 
     connection.on('initial', (data) => {
       setName(data.name);
@@ -29,10 +29,21 @@ function App() {
 
   }, [])
 
+  const handleSwitchRoom = (event) => {
+    event.preventDefault();
+    const newRoom = event.target.value;
+    console.log('switchRoom:', newRoom);
+    setRoom(newRoom)
+    connection.emit('switch_room', newRoom)
+  }
 
   return (
     <div className="App">
         <h3>{room}</h3>
+        <form onSubmit={handleSwitchRoom}>
+          <input type='text' />
+          <input type='submit' />
+        </form>
         <h3>Users App</h3>
         <p>Our Name: {name}</p>
         <h3>Users Online</h3>

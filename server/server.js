@@ -33,6 +33,7 @@ io.on('connection', (socket) => {
   socket.user = user;
   
   socket.on('room', function(room) {
+    console.log('Enter Room:', {name: socket.user, room});
     
     socket.room = room;
 
@@ -45,12 +46,25 @@ io.on('connection', (socket) => {
     io.in(room).emit('user_connected', { users:rooms[room] });
   });
 
+  socket.on('switch_room', function(newRoom) {
+
+    console.log('Switch Room:', {name: socket.user, newRoom});
+
+  
+    socket.leave(socket.room);
+
+    socket.room = newRoom;
+
+    if (!rooms[newRoom]) rooms[newRoom] = [];
+    rooms[newRoom].push(user);
+
+    socket.join(newRoom);
+
+    // when anyone connects, NOTIFY EVERYONE WHO's in this room that someone else has connected, send the full list of users with new user
+    io.in(newRoom).emit('user_connected', { users:rooms[newRoom] });
+  });
+
  
-
-
-
-  
-  
   // socket.broadcast.emit('user_connected', { users });
 
   // sending to all clients in 'game' room except sender
@@ -60,8 +74,12 @@ io.on('connection', (socket) => {
     console.log("user has disconnected!");
     console.log('DISCONNECTED USER, ', socket.user);
 
+    console.log('Before disconnect:', {rooms, room: socket.room});
     const position = rooms[socket.room].findIndex(name => name === socket.user);
     const users = rooms[socket.room].splice(position, 1);
+
+    console.log('After disconnect:', {rooms, room: socket.room});
+
     socket.to(socket.room).emit('user_disconnected', { users });
 
   });
