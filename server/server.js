@@ -19,31 +19,56 @@ app.get('/', (req, res) => {
   res.json({status: 'ok'});
 });
 
-const users = [];
+// app.get('/:roomId', (req, res) => {
+//   roomId = req.params.roomId;
+//   console.log(req.params);
+//   res.json({status: 'ok'});
+// });
+
 
 
 io.on('connection', (socket) => {
   console.log('a user connected');
   console.log(ikea.getName(false));
+  
+  const rooms = {};
+
   // made user name
   let user = ikea.getName(false);
-  users.push(user);
+  const roomId = String(Math.floor(Math.random(2)) + 1);
+
+  socket.on('room', function(room) {
+    socket.join(room);
+  });
+
+  if (!rooms[roomId]) rooms[roomId] = [];
+  rooms[roomId].push(user);
+
+  console.log({rooms, roomId});
+  
   // send user name to our connection client
   socket.user = user;
-  socket.emit('initial',{name: user, users});
+  socket.join(roomId);
+  socket.emit('initial',{name: user, users:rooms[roomId]});
+  
   // when anyone connects, NOTIFY EVERYONE WHO's connected that someone else has connected!
-  socket.broadcast.emit('user_connected', { users });
+  // socket.broadcast.emit('user_connected', { users });
+  socket.to(roomId).emit('user_connected', { users:rooms[roomId] });
   socket.on('greetings', data => {
     console.log("Message received");
     console.log(data);
   });
 
+  // sending to all clients in 'game' room except sender
+  //  socket.to('game').emit('nice game', "let's play a game");
 
   socket.on('disconnect', () => {
     console.log("user has disconnected!");
     console.log('DISCONNECTED USER, ', socket.user);
-    let position = users.indexOf(socket.user);
-    users.splice(position,1);
+    // let position = users.indexOf(socket.user);
+
+    const position = rooms[roomId].findIndex(socket.user);
+    const users = rooms[roomId].splice(position, 1);
     io.emit('user_disconnected', {users});
   });
 });
