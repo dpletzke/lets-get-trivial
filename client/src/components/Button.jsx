@@ -7,7 +7,7 @@ function Button(props) {
     "btn--home": props.home,
   });
 
-  return <button className={btnClass}>{props.children}</button>;
+  return <button onClick={props.onClick} className={btnClass}>{props.children}</button>;
 }
 
 export default Button;
