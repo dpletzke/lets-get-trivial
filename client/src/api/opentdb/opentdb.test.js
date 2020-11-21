@@ -77,4 +77,13 @@ describe("getQuestions", () => {
     expect(results[1].type).toBe(completeParams.type);
     expect(results[2].type).toBe(completeParams.type);
   });
+
+  test("type take a token dammit", async () => {
+    const tokenObj = await getSessionToken();
+    const { token } = tokenObj;
+    const data = await getQuestions(completeParams, token);
+    const results = data.results;
+    // console.log(results);
+    expect(results[0].type).toBe(completeParams.type);
+  });
 });
