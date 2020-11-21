@@ -11,7 +11,6 @@ describe("getCategories", () => {
   });
 });
 
-// this is hardcoded
 const completeParams = {
   numQuestions: 10,
   categoryId: 2,
