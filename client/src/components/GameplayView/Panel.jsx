@@ -3,15 +3,16 @@ import classNames from 'classnames';
 
 function Panel(props) {
   // replace answerObj with props
-  const {info, setSelected, selected} = props
+  const {info, setSelected} = props
+  const {questionString, answerString, correct, selected} = info;
 
   const className = classNames("panel", {
     "panel__answer--selected": selected,
-  }, {"panel__answer": info.answerString}, {"panel__question": info.questionString});
+  }, {"panel__answer": answerString}, {"panel__question": questionString});
 
   return (
     <div className={className} onClick={setSelected}>
-      <p>{info.answerString || info.questionString}</p>
+      <p>{answerString || questionString}</p>
     </div>
   );
 }

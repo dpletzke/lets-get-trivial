@@ -1,9 +1,11 @@
 import Panel from "./Panel";
 import './PanelList.scss'
 import classNames from 'classnames'
-// pass 'answers' as an array of object formatted as below
 
-// const answersArray = [
+// pass infoArray as an array of objects as formatted below:
+// [{questionString: 'is this thing on?'}]
+// or
+//  [
 //   { answerString: "Herman Melville", selected: false, correct: false },
 //   { answerString: "William Golding", selected: false, correct: false },
 //   { answerString: "William Shakespeare", selected: false, correct: false },
@@ -12,11 +14,12 @@ import classNames from 'classnames'
 
 
 
-
+// basically just mapping an array into a list of panels and 
+// rendering them within a div
 function PanelList({infoArray}) {
   // replace answersObj with props
 
-  
+  // determines if this is a question panel or and answer panel based on the keys the object
   const questionPanel = infoArray[0].questionString ? true : false;
   const answerPanel = infoArray[0].answerString ? true : false;
   
