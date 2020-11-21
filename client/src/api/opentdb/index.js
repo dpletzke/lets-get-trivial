@@ -1,21 +1,26 @@
-const axios = require('axios')
+const axios = require("axios");
 
-// Using OpenTDB trivia database API  
+// Using OpenTDB trivia database API
 // Information taken from https://opentdb.com/api_config.php
 
 module.exports = {
   getCategories: async () => {
-    const categories = await axios.get('https://opentdb.com/api_category.php');
-    return categories.data
+    const categories = await axios.get("https://opentdb.com/api_category.php");
+    return categories.data;
+  },
+
+  getCategoryId: async (id) => {
+    const categories = await this.getCategories();
+    return categories.data;
   },
 
   // Its possible to reach the end of the questions, in which case a response
-  // code will be sent, this token needs to be reset or just generated a new 
-  // one, it seems no benefit to reset, only going to generate new one   
+  // code will be sent, this token needs to be reset or just generated a new
+  // one, it seems no benefit to reset, only going to generate new one
   getSessionToken: async () => {
-    const url = 'https://opentdb.com/api_token.php?command=request'
+    const url = "https://opentdb.com/api_token.php?command=request";
     return await axios.get(url).data;
-  }
+  },
 
   // getQuestions: async (params) => {
   //   const { token, numQuestions, categoryId, difficulty, type } = params;
@@ -31,4 +36,4 @@ module.exports = {
   //   const categories = await axios.get('https://opentdb.com/api_category.php');
   //   return categories.data.trivia_categories
   // }
-}
+};
