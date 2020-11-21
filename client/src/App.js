@@ -13,38 +13,20 @@ function App() {
     const connection = socketIOClient(ENDPOINT);
 
     connection.on('initial', (data) => {
-      console.log(data);
       setName(data.name);
-      setUsers(data.users);
 
       connection.emit('room', room);
     })
 
     connection.on('user_connected', data => {
-      console.log(data.users);
       setUsers(data.users);
     })
 
     connection.on('user_disconnected', data => {
-      // console.log(data)
       setUsers(data.users);
     })
 
-    connection.on('create', function (room) {
-      connection.join(room);
-    });
 
-    // var socket = io.connect();
-    // socket.emit('create', 'room1');
-
-// // server side code
-// io.sockets.on('connection', function(socket) {
-//   socket.on('create', function(room) {
-//     socket.join(room);
-//   });
-// });
-
-    connection.emit('greetings', {msg: 'hi'});
   }, [])
 
 

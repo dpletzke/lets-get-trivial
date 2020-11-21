@@ -19,13 +19,6 @@ app.get('/', (req, res) => {
   res.json({status: 'ok'});
 });
 
-// app.get('/:roomId', (req, res) => {
-//   roomId = req.params.roomId;
-//   console.log(req.params);
-//   res.json({status: 'ok'});
-// });
-
-
 const rooms = {};
 
 io.on('connection', (socket) => {
@@ -39,34 +32,26 @@ io.on('connection', (socket) => {
   // made user name
   socket.user = user;
   
-  // sending to all clients in 'game' room, including sender
-  //  io.in('game').emit('big-announcement', 'the game will start soon');
-  
   socket.on('room', function(room) {
     
-    console.log(room);
     socket.room = room;
 
     if (!rooms[room]) rooms[room] = [];
     rooms[room].push(user);
 
     socket.join(room);
-    console.log({room, rooms});
+
+    // when anyone connects, NOTIFY EVERYONE WHO's in this room that someone else has connected, send the full list of users with new user
     io.in(room).emit('user_connected', { users:rooms[room] });
   });
 
-  // io.in('game').emit('big-announcement', 'the game will start soon');
+ 
 
 
 
-    // send user name to our connection client
   
-  // when anyone connects, NOTIFY EVERYONE WHO's connected that someone else has connected!
+  
   // socket.broadcast.emit('user_connected', { users });
-  socket.on('greetings', data => {
-    console.log("Message received");
-    console.log(data);
-  });
 
   // sending to all clients in 'game' room except sender
   //  socket.to('game').emit('nice game', "let's play a game");
@@ -79,7 +64,6 @@ io.on('connection', (socket) => {
     const users = rooms[socket.room].splice(position, 1);
     socket.to(socket.room).emit('user_disconnected', { users });
 
-    // io.emit('user_disconnected', {users});
   });
 });
 
