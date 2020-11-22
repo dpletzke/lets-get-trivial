@@ -1,23 +1,17 @@
-import PlayerListItem from './PlayerListItem'
+import PlayerListItem from "./PlayerListItem";
+import "./PlayerList.scss";
 
-const playersObj = {
-    players: [
-    {name: 'player_1', score: 0},
-    {name: 'player_2', score: 0},
-    {name: 'player_3', score: 0}
-  ]
-} 
-
-function PlayerList() {
-
-  const {players} = playersObj
-  const list = players.map((player) => <PlayerListItem name = {player.name} />)
+function PlayerList(props) {
+  const { players } = props;
+  const playerList = players.map((player) => (
+    <PlayerListItem name={player.name} playerItem />
+  ));
   return (
-    <div>
-    <h1>PlayerList</h1>  
-    <div>{list}</div>
+    <div className="playerList-container">
+      <h2>Players</h2>
+      {playerList}
     </div>
-    ) 
+  );
 }
 
 export default PlayerList;

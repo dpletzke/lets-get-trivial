@@ -15,12 +15,22 @@
   }
 }
 
-.btn--home{
+.btn--home {
   background-color: $color-primary-background;
   color: $color-secondary-background;
-    margin:1em;
-    align-self: center;
-    &:hover{
-      background-color: $color-secondary-text;
-    }
+  margin: 1em;
+  align-self: center;
+  &:hover {
+    background-color: $color-secondary-text;
   }
+}
+
+.btn--game-room {
+  background-color: $color-primary-text;
+  color: $color-primary-background;
+  margin: 1em auto 4em auto;
+  align-self: center;
+  &:hover {
+    background-color: $color-secondary-background;
+  }
+}

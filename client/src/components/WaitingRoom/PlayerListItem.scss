@@ -1,0 +1,24 @@
+@import "../../styles/variables.scss";
+
+.player-container {
+  border: 1px solid $color-secondary-text;
+  width: 50%;
+  border-radius: 1em;
+  margin: 0.5em auto;
+  background-color: white;
+
+  .list-item-text {
+    color: $color-secondary-text;
+  }
+
+  .user-icon {
+    margin-right: 0.5em;
+  }
+  p {
+    color: $color-primary-background;
+  }
+
+  h2 {
+    text-align: center;
+  }
+}

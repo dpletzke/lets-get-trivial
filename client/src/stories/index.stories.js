@@ -11,21 +11,23 @@ import PanelList from "../components/GameplayView/PanelList";
 import GameplayHeader from "../components/GameplayView/GameplayHeader";
 import ActiveQuestion from "../components/GameplayView/Question";
 import Home from "../components/Home";
+import WaitingRoom from "../components/WaitingView/WaitingRoom";
+import PlayerListItem from "../components/WaitingRoom/PlayerListItem";
+import PlayerList from "../components/WaitingRoom/PlayerList";
 
 storiesOf("Button", module).add("Submit", () => <Button>Submit</Button>);
 storiesOf("Loading", module).add("Dots", () => (
   <Loading type="ThreeDots" color="#e9c46a" />
 ));
 
-storiesOf("Timer", module).add("20 second Timer - Big", () => (
-  <Timer duration={20} />
-))
-.add("10 second Timer - Small", () => (
-  <Timer duration={10} size={50} strokeWidth={4} />
-))
-.add("5 second timer - Small", () => (
-  <Timer duration={5} size={50} strokeWidth={4}/>
-))
+storiesOf("Timer", module)
+  .add("20 second Timer - Big", () => <Timer duration={20} />)
+  .add("10 second Timer - Small", () => (
+    <Timer duration={10} size={50} strokeWidth={4} />
+  ))
+  .add("5 second timer - Small", () => (
+    <Timer duration={5} size={50} strokeWidth={4} />
+  ));
 // ));
 storiesOf("Timer", module)
   .add("10 second Timer - Small", () => (
@@ -78,6 +80,24 @@ storiesOf("Question View", module).add("Active Question View", () => (
   <ActiveQuestion questionObj={questionObj} />
 ));
 
-storiesOf("Home View", module).add("Landing Page", () => (
-  <Home />
+storiesOf("Home View", module).add("Landing Page", () => <Home />);
+
+const playersObj = {
+  players: [
+    { name: "Player_1", score: 0 },
+    { name: "Player_2", score: 0 },
+    { name: "Player_3", score: 0 },
+  ],
+};
+
+const gameId = "FBDEGF";
+
+storiesOf("Waiting Room", module).add("Basic Waiting Room", () => (
+  <WaitingRoom players={playersObj.players} gameId={gameId} />
+));
+storiesOf("Waiting Room", module).add("Player List Item", () => (
+  <PlayerListItem name={"Sam"} />
+));
+storiesOf("Waiting Room", module).add("Player List", () => (
+  <PlayerList players={playersObj.players} />
 ));
