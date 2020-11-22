@@ -1,7 +1,8 @@
 
 
 // users
-/*{
+/*each users object has key socket.id and the following form
+socket.id :{
   socket,
   name,
   roomId,
@@ -13,19 +14,9 @@
   roomId,
   categoryId,
   numQuestions= 10,
-  difficulty= null,
+  difficulty= null
   
 } */
-
-// const makeId = (length) => {
-//   let result     = '';
-//   const characters = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ';
-//   const charactersLength = characters.length;
-//   for (let i = 0; i < length; i++) {
-//     result += characters.charAt(Math.floor(Math.random() * charactersLength));
-//   }
-//   return result;
-// };
 
 const rooms = {};
 const users = {};
@@ -54,17 +45,28 @@ module.exports = {
 
     const room = {
       roomId,
-      userId,
+      creatorId: userId,
       categoryId,
       numQuestions,
       type,
       questions: [],
-      users: [userId],
+      users: []
     };
 
     rooms[roomId] = room;
 
     return room;
 
+  },
+
+  destroyUser:(userId) => {
+    console.log('Destroy user:', users[userId].name);
+    console.log('');
+
+    delete users[userId];
+  },
+  destroyRoom:(roomId) => {
+    delete rooms[roomId];
   }
+
 };

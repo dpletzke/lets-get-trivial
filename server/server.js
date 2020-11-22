@@ -12,7 +12,7 @@ const server = http.createServer(app);
 // STEP 4 wrap socket with server above
 const io = socketio(server);
 
-const { rooms, users, createRoom, createUser } = require('./data');
+const data = require('./data');
 
 
 // const ikea = require('ikea-name-generator');
@@ -27,42 +27,25 @@ app.get('/', (req, res) => {
 
 io.on('connection', (socket) => {
   
-  createUser({ socket });
+  const user = data.createUser({ socket });
   
-  socket.on('join_room', function(name, gameId) {
-    let roomId = gameId;
-    users[socket.id].name = name;
-    socket.name = name;
+  socket.on('join_room', function(name, roomId) {
 
-    if (!rooms[roomId]) {
-      roomId = createRoom({ roomId, userId:socket.id }).roomId;
-      // socket.emit('room_created', roomId);
-    } else {
-      rooms[roomId].users.push(socket.id);
-    }
-
-    users[socket.id].roomId = roomId;
-    socket.roomId = roomId;
-
-
-
-  
-    // if (!rooms[room]) rooms[room] = [];
-    // rooms[room].push(user);
-
-    // console.log('On join room:', rooms);
+    /* set name and roomId in data */
+    user.name = name;
+    user.roomId = roomId;
+    
+    /* reference or create room and push user to users array */
+    const room = data.rooms[roomId] || data.createRoom({ roomId });
+    room.users.push(socket.id);
 
     socket.join(roomId);
 
-    console.log(rooms);
     /* gets array of user names in room */
     const payload = {
-      users: rooms[roomId].users.map(id => {
-        console.log(id, users);
-        return users[id].name;
-      })
+      users: room.users.map(id => data.users[id].name)
     };
-
+    console.log('Join user', name, 'to', roomId);
     io.in(roomId).emit('user_connected', payload);
   });
 
@@ -77,18 +60,28 @@ io.on('connection', (socket) => {
 
   socket.on('disconnect', () => {
 
-    console.log({rooms, roomId: socket.roomId});
+    const user = data.users[socket.id];
+    const room = Object.values(data.rooms).find(r => {
+      return r.users.includes(socket.id);
+    });
 
-    /* find position of user in array and remove by mutation */
-    const position = rooms[socket.roomId]
-                                 .users
-                                 .findIndex(id => id === socket.id);
-    rooms[socket.roomId].users.splice(position, 1);
+    if (user) {
+      console.log(`Disconnect ${user.name}${room && ` from ${room.roomId}` }`);
+      data.destroyUser(socket.id);
+    }
 
-    const users = rooms[socket.roomId].users.map(id => users[id].name);
+    if (room) {
 
-    socket.to(socket.roomId).emit('user_disconnected', { users });
+      /* find position of user in array and remove by mutation */
+      const position = room.users.findIndex(id => id === socket.id);
+      room.users.splice(position, 1);
 
+      const payload = {
+        users: room.users.map(id => data.users[id].name)
+      };
+      
+      socket.to(room.roomId).emit('user_disconnected', payload);
+    }
   });
 });
 
