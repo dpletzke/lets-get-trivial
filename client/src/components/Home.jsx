@@ -1,7 +1,9 @@
-import { useState } from "react";
+import { useState, useContext } from "react";
+// import from "";
 import Button from "./Button";
 import "./Button.scss";
 import "./Home.scss";
+import ConnectionContext from '../ConnectionContext'
 
 function Home(props) {
   //host name , guest name, gameRoomId
@@ -9,27 +11,32 @@ function Home(props) {
   const [playerName, setPlayerName] = useState("");
   const [gameId, setGameId] = useState(null);
   //To Do - Add new passed down functions as props in order to handle the 2 form submits
-  const { onJoin } = props;
+  const { onJoin, onCreate } = props;
+
+  const connection = useContext(ConnectionContext);
+  const connectionId = connection;
 
   return (
+    
     <main>
       <section className="box-home">
         <h1>Let's Get Trivial</h1>
         <form autoComplete="off" onSubmit={(event) => event.preventDefault()}>
           <p>Host New Game</p>
           <input
-            data-testid="player-name-input"
+            data-testid="host-name-input"
             name="Hostname"
             type="text"
             placeholder="Enter Player Name"
             value={hostName}
             onChange={(event) => setHostName(event.target.value)}
           />
-          <Button onClick={() => onJoin(hostName, gameId)} home>
+          <Button onClick={() => onCreate(hostName)} home>
             Create Game
           </Button>
         </form>
-
+        
+          <p>{connection.id}</p>
         <form autoComplete="off" onSubmit={(event) => event.preventDefault()}>
           <p>Join Game </p>
           <input
@@ -41,7 +48,7 @@ function Home(props) {
             onChange={(event) => setPlayerName(event.target.value)}
           />
           <input
-            data-testid="player-name-input"
+            data-testid="game-id-input"
             name="Hostname"
             type="text"
             placeholder="Enter Game ID"

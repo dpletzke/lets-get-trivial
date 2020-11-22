@@ -1,24 +1,23 @@
-import PlayerList from './PlayerList'
+import "./index.scss";
+import PlayerList from "./PlayerList";
+import PlayerListItem from "./PlayerListItem";
+import Button from "../Button";
+import { FaCog } from "react-icons/fa";
 
+function WaitingRoom(props) {
+  const { players, gameId } = props;
+  return (
+    <main className="box-waiting">
+      <div className="waiting-header">
+        <FaCog className="icon" />
+      </div>
+      <h2>Let's Get Trivial</h2>
 
-
-const playersObj = {
-    players: [
-    {name: 'player_1', score: 0},
-    {name: 'player_2', score: 0},
-    {name: 'player_3', score: 0}
-  ]
-} 
-
-function WaitingRoom() {
- const {players} = playersObj
- return (
-  <div>
-   <h1>WaitingRoom</h1>  
-  <PlayerList players />
-  </div>
- )
+      <PlayerListItem className="alt-text" name={gameId} gameIdItem />
+      <PlayerList players={players} />
+      <Button gameRoom>Start Game >></Button>
+    </main>
+  );
 }
-
 
 export default WaitingRoom;

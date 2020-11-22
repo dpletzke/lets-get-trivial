@@ -11,7 +11,6 @@ function WaitingRoom(props) {
       <div className="waiting-header">
         <FaCog className="icon" />
       </div>
-      {/* <h2>Get Ready to Get Trivial</h2> */}
       <h2>Let's Get Trivial</h2>
 
       <PlayerListItem className="alt-text" name={gameId} gameIdItem />
