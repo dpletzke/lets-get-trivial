@@ -11,7 +11,7 @@ import PanelList from "../components/GameplayView/PanelList";
 import GameplayHeader from "../components/GameplayView/GameplayHeader";
 import ActiveQuestion from "../components/GameplayView/Question";
 import Home from "../components/Home";
-import WaitingRoom from "../components/WaitingView/WaitingRoom";
+import WaitingRoom from "../components/WaitingRoom/index";
 import PlayerListItem from "../components/WaitingRoom/PlayerListItem";
 import PlayerList from "../components/WaitingRoom/PlayerList";
 

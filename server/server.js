@@ -38,11 +38,17 @@ io.on('connection', (socket) => {
 
     /* gets array of user names in room */
     const payload = {
-      users: room.users.map(id => data.users[id].name)
+      users: room.users.map(id => {
+        const userPayload = {...data.users[id]};
+        delete userPayload.socket;
+        return userPayload;
+      })
     };
     console.log('Join user', name, 'to', roomId);
     io.in(roomId).emit('user_connected', payload);
   });
+
+  // socket.on('get_roomIds')
 
   // socket.on('change_name', (newName) => {
 
