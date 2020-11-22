@@ -1,7 +1,5 @@
 import { useState } from "react";
 import Button from "./Button";
-// import logo from '../images/logo.jpg'
-
 import "./Button.scss";
 import "./Home.scss";
 
