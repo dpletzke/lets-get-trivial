@@ -6,9 +6,17 @@ import socketIOClient from 'socket.io-client';
 const ENDPOINT = 'http://localhost:8080'
 
 function App() {
-  const [name, setName] = useState('');
-  const [users, setUsers] = useState([]);
-  const [room, setRoom] = useState(null);
+
+  const initialState = {
+    name: '',
+    users: [],
+    room: null 
+  } 
+  const [state, setState] = useState(initialState);
+
+  // const [name, setName] = useState('');
+  // const [users, setUsers] = useState([]);
+  // const [room, setRoom] = useState(null);
   const connection = useRef(null);
   
   const makeId = (length) => {
@@ -26,11 +34,11 @@ function App() {
     connection.current = socketIOClient(ENDPOINT);
 
     connection.current.on('user_connected', data => {
-      setUsers(data.users);
+      setState(prev => ({...prev, users: data.users}));
     })
 
     connection.current.on('user_disconnected', data => {
-      setUsers(data.users);
+      setState(prev => ({...prev, users: data.users}));
     })
 
   }, [])
@@ -39,8 +47,8 @@ function App() {
   const onJoin = (name, gameId) => {
     let roomId = gameId
     if (!gameId) roomId = makeId(6)
-    setName(name);
-    setRoom(roomId);
+    setState(prev => ({...prev, name}));
+    setState(prev => ({...prev, roomId}));
     connection.current.emit('join_room', name, roomId);
   }
 
@@ -50,9 +58,9 @@ function App() {
       <div className="App">  
         <h3>{room}</h3>
         <h3>Users App</h3>
-        <p>Our Name: {name}</p>
+        <p>Our Name: {state.name}</p>
         <h3>Users Online</h3>
-        {users.map((u, key) => <li key={key}>{u}</li>)}
+        {state.users.map((u, key) => <li key={key}>{u}</li>)}
       </div>
       )
     }
@@ -61,8 +69,8 @@ function App() {
 
   return (
     <>
-      <Home onJoin={onJoin} name={name} />
-      {displayRoom(room)}
+      <Home onJoin={onJoin} name={state.name} />
+      {displayRoom(state.room)}
     </>
   );
 }
