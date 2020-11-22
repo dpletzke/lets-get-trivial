@@ -31,7 +31,8 @@ module.exports = {
 
     // if the token is invalid...reset that thing! Would be better if it could be recursive but I can't figure out how to call functions from within this object (this.getQuestions is not working)
 
-    // how do we communicate this new token to the state?
+    // no need to communicate a new token to the state here, we're
+    // just reactivating the original token
     if (data.response_code === 3 || data.response_code === 4) {
       await axios.get(
         `https://opentdb.com/api_token.php?command=reset&token=${token}`
