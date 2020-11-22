@@ -10,15 +10,11 @@ function App() {
   const initialState = {
     name: '',
     users: [],
-    room: null 
+    roomId: null 
   } 
   const [state, setState] = useState(initialState);
-
-  // const [name, setName] = useState('');
-  // const [users, setUsers] = useState([]);
-  // const [room, setRoom] = useState(null);
   const connection = useRef(null);
-  
+
   const makeId = (length) => {
     let result     = '';
     const characters = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ';
@@ -44,23 +40,23 @@ function App() {
   }, [])
 
   
-  const onJoin = (name, gameId) => {
-    let roomId = gameId
-    if (!gameId) roomId = makeId(6)
-    setState(prev => ({...prev, name}));
-    setState(prev => ({...prev, roomId}));
+  const onJoin = (name, roomId ) => {
+    roomId = roomId || makeId(6);
+    setState(prev => ({...prev, name, roomId}));
+
     connection.current.emit('join_room', name, roomId);
   }
 
-  const displayRoom = (room) => {
-    if(room) {
+  const displayRoom = ({ roomId, name, users }) => {
+    console.log('Should be displaying', state.roomId)
+    if(roomId) {
       return (      
       <div className="App">  
-        <h3>{room}</h3>
+        <h3>{roomId}</h3>
         <h3>Users App</h3>
-        <p>Our Name: {state.name}</p>
+        <p>Our Name: {name}</p>
         <h3>Users Online</h3>
-        {state.users.map((u, key) => <li key={key}>{u}</li>)}
+        {users.map((u, key) => <li key={key}>{u}</li>)}
       </div>
       )
     }
@@ -70,7 +66,7 @@ function App() {
   return (
     <>
       <Home onJoin={onJoin} name={state.name} />
-      {displayRoom(state.room)}
+      {displayRoom(state)}
     </>
   );
 }

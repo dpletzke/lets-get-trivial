@@ -12,18 +12,13 @@ const server = http.createServer(app);
 // STEP 4 wrap socket with server above
 const io = socketio(server);
 
+
+// reference to in-memory database
 const data = require('./data');
-
-
-// const ikea = require('ikea-name-generator');
 
 app.get('/', (req, res) => {
   res.json({status: 'ok'});
 });
-
-// const rooms = {};
-
-// rooms object with all rooms containing users - add boolean for public/private
 
 io.on('connection', (socket) => {
   
