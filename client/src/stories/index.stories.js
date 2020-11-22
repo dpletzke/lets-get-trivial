@@ -96,7 +96,10 @@ storiesOf("Waiting Room", module).add("Basic Waiting Room", () => (
   <WaitingRoom players={playersObj.players} gameId={gameId} />
 ));
 storiesOf("Waiting Room", module).add("Player List Item", () => (
-  <PlayerListItem name={"Sam"} />
+  <PlayerListItem name={"Sam"} playerItem />
+));
+storiesOf("Waiting Room", module).add("Game Id Item", () => (
+  <PlayerListItem name={"BEIYCD"} gameIdItem />
 ));
 storiesOf("Waiting Room", module).add("Player List", () => (
   <PlayerList players={playersObj.players} />
