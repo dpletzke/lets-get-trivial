@@ -7,11 +7,11 @@ import "./Home.scss";
 
 function Home(props) {
   //host name , guest name, gameRoomId
-  const [hostName, setHostName] = useState(props.hostName || "");
-  const [playerName, setPlayerName] = useState(props.playerName || "");
-  const [gameId, setGameId] = useState(props.gameId || "");
+  const [hostName, setHostName] = useState("");
+  const [playerName, setPlayerName] = useState("");
+  const [gameId, setGameId] = useState(null);
   //To Do - Add new passed down functions as props in order to handle the 2 form submits
-  const { onSave } = props;
+  const { onJoin } = props;
 
   return (
     <main>
@@ -27,7 +27,7 @@ function Home(props) {
             value={hostName}
             onChange={(event) => setHostName(event.target.value)}
           />
-          <Button onClick={() => onSave(hostName)} home>
+          <Button onClick={() => onJoin(hostName, gameId)} home>
             Create Game
           </Button>
         </form>
@@ -50,7 +50,7 @@ function Home(props) {
             value={gameId}
             onChange={(event) => setGameId(event.target.value)}
           />
-          <Button onClick={() => onSave(playerName, gameId)} home>
+          <Button onClick={() => onJoin(playerName, gameId)} home>
             Join Game
           </Button>
         </form>

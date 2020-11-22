@@ -3,8 +3,8 @@
 // users
 /*{
   socket,
-    socket.name
-    socket.roomId
+  name,
+  roomId,
   score,
 
 }*/
@@ -19,23 +19,26 @@
 
 } */
 
-const makeId = (length) => {
-  let result     = '';
-  const characters = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ';
-  const charactersLength = characters.length;
-  for (let i = 0; i < length; i++) {
-    result += characters.charAt(Math.floor(Math.random() * charactersLength));
-  }
-  return result;
-};
+// const makeId = (length) => {
+//   let result     = '';
+//   const characters = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ';
+//   const charactersLength = characters.length;
+//   for (let i = 0; i < length; i++) {
+//     result += characters.charAt(Math.floor(Math.random() * charactersLength));
+//   }
+//   return result;
+// };
+
+const rooms = {};
+const users = {};
 
 module.exports = {
-  rooms:{},
-  users:{},
-
+  rooms,
+  users,
+ 
   createUser:({ socket, name, score })=> {
     if (!socket) throw new Error('tried to create user without a socket');
-    if (!name) throw new Error('tried to create user without a name');
+    if (!name) name = '';
     if (!score) score = 0;
 
     const user = {
@@ -44,18 +47,34 @@ module.exports = {
       score
     };
 
-    this.users[socket.id] = user;
+    users[socket.id] = user;
 
     return user;
   },
-  createRoom:({ categoryId, numQuestions, type, }) => {
 
+  createRoom:({ roomId, userId, categoryId, numQuestions, type }) => {
 
+    // const roomId = makeId(6);
 
-    this.rooms[makeId(6)];
+    const room = {
+      roomId,
+      userId,
+      categoryId,
+      numQuestions,
+      type,
+      questions: [],
+      users: [userId],
+    };
 
-  },
-  addUserToRoom: {
+    rooms[roomId] = room;
+
+    return room;
 
   }
+  // addUserToRoom: (userId, roomId) => {
+
+  // },
+  // removeUserFromRoom: () => {
+
+  // }
 };
