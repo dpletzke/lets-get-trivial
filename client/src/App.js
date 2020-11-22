@@ -21,7 +21,6 @@ function App() {
     return result;
   };
   
-  
   useEffect(() => {
     
     connection.current = socketIOClient(ENDPOINT);
@@ -45,11 +44,6 @@ function App() {
     connection.current.emit('join_room', name, roomId);
   }
 
-  // const onCreate = (newName) => {
-  //   setName(newName);
-  //   connection.current.emit('create_game', newName);
-  // }
-console.log(room)
   const displayRoom = (room) => {
     if(room) {
       return (      

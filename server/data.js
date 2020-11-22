@@ -14,9 +14,7 @@
   categoryId,
   numQuestions= 10,
   difficulty= null,
-
-
-
+  
 } */
 
 // const makeId = (length) => {
@@ -54,8 +52,6 @@ module.exports = {
 
   createRoom:({ roomId, userId, categoryId, numQuestions, type }) => {
 
-    // const roomId = makeId(6);
-
     const room = {
       roomId,
       userId,
@@ -71,10 +67,4 @@ module.exports = {
     return room;
 
   }
-  // addUserToRoom: (userId, roomId) => {
-
-  // },
-  // removeUserFromRoom: () => {
-
-  // }
 };
