@@ -10,8 +10,9 @@ import ConnectionContext from "../../ConnectionContext";
 
 function WaitingRoom(props) {
   const { players, gameId } = props;
-  const [gameStarted, setGameStarted] = useState(false);
-  const [questions, setQuestions] = useState([]);
+
+  const initialGame = { started: false, questions: []};
+  const [game, setGame] = useState(initialGame);
   
   const connection = useContext(ConnectionContext);
 
@@ -21,9 +22,10 @@ function WaitingRoom(props) {
   }
 
   connection.current.on('game_started', data => {
+    const { questions } = data;
+
     console.log(`${gameId} started from server!`);
-    setQuestions(data.questions);
-    setGameStarted(true);
+    setGame(prev => ({...prev, questions, started: true}));
   })
 
   const controller = (gameStarted) => {
@@ -44,14 +46,14 @@ function WaitingRoom(props) {
         <>
           <p>Your game started!</p>
           <p>{connection.current.id}</p>
-          <p>{JSON.stringify(questions)}</p>
+          <p>{JSON.stringify(game.questions)}</p>
         </>
       );
     }
   }
 
   return (
-    controller(gameStarted)
+    controller(game.started)
   );
 }
 
