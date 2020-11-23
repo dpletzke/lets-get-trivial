@@ -11,14 +11,18 @@ import ConnectionContext from "../../ConnectionContext";
 function WaitingRoom(props) {
   const { players, gameId } = props;
 
-  const initialGame = { started: false, questions: []};
+  const initialGame = {
+    started: false,
+    questions: [],
+    params: {numQuestions: 2}
+  };
   const [game, setGame] = useState(initialGame);
   
   const connection = useContext(ConnectionContext);
 
   const startGame = () => {
     console.log(`Start ${gameId} request sent to server!`);
-    connection.current.emit('start_game');
+    connection.current.emit('start_game', {params: game.params});
   }
 
   connection.current.on('game_started', data => {
