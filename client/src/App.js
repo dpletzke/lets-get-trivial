@@ -1,5 +1,8 @@
 import React, { useEffect, useState, useRef } from 'react';
+import { ConnectionProvider } from './ConnectionContext';
 import Home from './components/Home';
+import WaitingRoom from './components/WaitingRoom';
+
 import './App.css';
 import socketIOClient from 'socket.io-client';
 
@@ -13,7 +16,7 @@ function App() {
     roomId: null 
   } 
   const [state, setState] = useState(initialState);
-  const connection = useRef(null);
+  const connection = useRef({id: null});
 
   const makeId = (length) => {
     let result     = '';
@@ -24,7 +27,8 @@ function App() {
     }
     return result;
   };
-  
+
+
   useEffect(() => {
     
     connection.current = socketIOClient(ENDPOINT);
@@ -41,33 +45,39 @@ function App() {
 
   
   const onJoin = (name, roomId ) => {
-    roomId = roomId || makeId(6);
+
     setState(prev => ({...prev, name, roomId}));
 
     connection.current.emit('join_room', name, roomId);
   }
 
-  const displayRoom = ({ roomId, name, users }) => {
-    console.log('Should be displaying', state.roomId)
+  const onCreate = (name) => {
+    const roomId = makeId(6);
+
+    setState(prev => ({...prev, name, roomId}));
+
+    connection.current.emit('join_room', name, roomId);
+  }
+
+  const controller = (state) => {
+    const { roomId, name, users } = state;
+    
+    console.log('Should be displaying', roomId)
+
     if(roomId) {
-      return (      
-      <div className="App">  
-        <h3>{roomId}</h3>
-        <h3>Users App</h3>
-        <p>Our Name: {name}</p>
-        <h3>Users Online</h3>
-        {users.map((u, key) => <li key={key}>{u}</li>)}
-      </div>
-      )
+      console.log(users);
+      return (<WaitingRoom players={users} gameId={roomId} />)
+    } else {
+      return (<Home onJoin={onJoin} onCreate={onCreate} name={name} />)
     }
+    
 
   }
 
   return (
-    <>
-      <Home onJoin={onJoin} name={state.name} />
-      {displayRoom(state)}
-    </>
+    <ConnectionProvider value={'name'}>
+      {controller(state)}
+    </ConnectionProvider>
   );
 }
 
