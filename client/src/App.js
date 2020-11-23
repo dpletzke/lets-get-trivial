@@ -75,7 +75,7 @@ function App() {
   }
 
   return (
-    <ConnectionProvider value={'name'}>
+    <ConnectionProvider value={connection}>
       {controller(state)}
     </ConnectionProvider>
   );

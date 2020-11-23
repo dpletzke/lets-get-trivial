@@ -8,9 +8,7 @@ const classNames = require("classnames");
 
 function Button(props) {
 
-  console.log(ConnectionContext)
-
-  const connectionId = useContext(ConnectionContext);
+  const connection = useContext(ConnectionContext);
   const btnClass = classNames("btn", {
     "btn--home": props.home,
     "btn--game-room": props.gameRoom,
@@ -18,7 +16,7 @@ function Button(props) {
 
   return (
     <>
-      <p>{connectionId}</p>
+      <p>{connection.current.id}</p>
       <button onClick={props.onClick} className={btnClass}>
         {props.children}
       </button>
