@@ -60,15 +60,9 @@ function WaitingRoom(props) {
         <PlayerListItem className="alt-text" name={gameId} gameIdItem />
         <PlayerList players={players} />
         <Button onClick={startGame} gameRoom>Start Game >></Button>
-<<<<<<< HEAD
-             <ModalComponent modalIsOpen={modalIsOpen} closeModal={closeModal}>
-           Form component goes here
-         </ModalComponent>
-=======
         <ModalComponent modalIsOpen={modalIsOpen} closeModal={closeModal}>
            Form component goes here
         </ModalComponent>
->>>>>>> fe4231b30ae06ed666a3a5c09dd5853383109f46
       </main>
       )
     } else {
