@@ -3,53 +3,48 @@ import { useState, useContext } from "react";
 import Button from "./Button";
 import "./Button.scss";
 import "./Home.scss";
-import ConnectionContext from '../ConnectionContext'
+import ConnectionContext from "../ConnectionContext";
 
 function Home(props) {
   const [hostName, setHostName] = useState("");
   const [playerName, setPlayerName] = useState("");
   const [gameId, setGameId] = useState(null);
-  const [error, setError] = useState(false)
+  const [error, setError] = useState(false);
   const { onJoin, onCreate } = props;
 
   const connection = useContext(ConnectionContext);
 
   function createGame() {
-    if(!hostName){
-      setError(1)
+    if (!hostName) {
+      setError(1);
     } else {
-     setError(false)
-      onCreate(hostName)
+      setError(false);
+      onCreate(hostName);
     }
   }
 
   function joinGame() {
-    if(!playerName){
-      setError(2)
-    } else if(!gameId){
-      setError(3)
+    if (!playerName) {
+      setError(2);
+    } else if (!gameId) {
+      setError(3);
     } else {
-      connection.current.emit('get_roomIds');
-      connection.current.on('roomIds', data => {
-
+      connection.current.emit("get_roomIds");
+      connection.current.on("roomIds", (data) => {
         if (data.roomIds.includes(gameId)) {
-          setError(false)
-          onJoin(playerName, gameId)
+          setError(false);
+          onJoin(playerName, gameId);
         } else {
-          setError(4)
+          setError(4);
         }
-
       });
-
     }
   }
 
   return (
-    
     <main>
       <section className="box-home">
         <h1>Let's Get Trivial</h1>
-        
         <form autoComplete="off" onSubmit={(event) => event.preventDefault()}>
           <p>Host New Game</p>
           {error === 1 && <p>Please Enter a Player Name</p>}
@@ -58,8 +53,8 @@ function Home(props) {
             name="Hostname"
             type="text"
             placeholder="Enter Player Name"
-            value={hostName || ''}
-            onChange={(event) => setHostName(event.target.value)}
+            value={hostName || ""}
+            onChange={(event) => setHostName(event.target.value.toUpperCase())}
           />
           <Button onClick={() => createGame()} home>
             Create Game
@@ -75,16 +70,18 @@ function Home(props) {
             name="Player Name"
             type="text"
             placeholder="Enter Player Name"
-            value={playerName || ''}
-            onChange={(event) => setPlayerName(event.target.value)}
+            value={playerName || ""}
+            onChange={(event) =>
+              setPlayerName(event.target.value.toUpperCase())
+            }
           />
           <input
             data-testid="game-id-input"
             name="Hostname"
             type="text"
             placeholder="Enter Game ID"
-            value={gameId || ''}
-            onChange={(event) => setGameId(event.target.value)}
+            value={gameId || ""}
+            onChange={(event) => setGameId(event.target.value.toUpperCase())}
           />
           <Button onClick={() => joinGame()} home>
             Join Game
