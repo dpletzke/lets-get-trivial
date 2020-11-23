@@ -29,7 +29,9 @@ function WaitingRoom(props) {
       <PlayerListItem className="alt-text" name={gameId} gameIdItem />
       <PlayerList players={players} />
       <Button gameRoom>Start Game >></Button>
-      <ModalComponent modalIsOpen={modalIsOpen} closeModal={closeModal}/>
+      <ModalComponent modalIsOpen={modalIsOpen} closeModal={closeModal}>
+           Form component goes here
+         </ModalComponent>
     </main>
   );
 }
