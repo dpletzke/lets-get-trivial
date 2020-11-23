@@ -19,7 +19,7 @@ const {
 } = require("../client/src/api/opentdb");
 
 // reference to in-memory database
-const data = require('./data');
+const ds = require('./data');
 
 app.get('/', (req, res) => {
   res.json({status: 'ok'});
@@ -27,7 +27,7 @@ app.get('/', (req, res) => {
 
 io.on('connection', (socket) => {
   
-  const user = data.createUser({ socket });
+  const user = ds.createUser({ socket });
   
   socket.on('join_room', function(name, roomId) {
 
@@ -36,7 +36,7 @@ io.on('connection', (socket) => {
     user.roomId = roomId;
     
     /* reference or create room and push user to users array */
-    const room = data.rooms[roomId] || data.createRoom({ roomId });
+    const room = ds.rooms[roomId] || ds.createRoom({ roomId });
     room.users.push(socket.id);
 
     socket.join(roomId);
@@ -44,7 +44,7 @@ io.on('connection', (socket) => {
     /* gets array of user names in room */
     const payload = {
       users: room.users.map(id => {
-        const userPayload = {...data.users[id]};
+        const userPayload = {...ds.users[id]};
         delete userPayload.socket;
         return userPayload;
       })
@@ -55,14 +55,16 @@ io.on('connection', (socket) => {
 
   socket.on('get_roomIds', () => {
 
-    socket.emit('roomIds', {roomIds: Object.keys(data.rooms)});
+    socket.emit('roomIds', {roomIds: Object.keys(ds.rooms)});
   });
 
-  socket.on('start_game', async() => {
+  socket.on('start_game', async data => {
+    const { params: { numQuestions }} = data;
+
 
     const token = await getSessionToken();
     console.log(`${token.response_message} for ${user.roomId}`);
-    const questions = await getQuestions({numQuestions: 10});
+    const questions = await getQuestions({ numQuestions });
 
     /* log rooms the socket is in to server, should just be one */
     /* the first room is it's socketId, hence the slice */
@@ -70,7 +72,7 @@ io.on('connection', (socket) => {
     const serializeRooms = Object.values(socket.rooms).slice(1).join(' ');
     console.log(`Server starting ${serializeRooms}`);
 
-    io.in(data.users[socket.id].roomId).emit('game_started', { questions });
+    io.in(ds.users[socket.id].roomId).emit('game_started', { questions });
   });
 
   // socket.on('change_name', (newName) => {
@@ -84,14 +86,14 @@ io.on('connection', (socket) => {
 
   socket.on('disconnect', () => {
 
-    const user = data.users[socket.id];
-    const room = Object.values(data.rooms).find(r => {
+    const user = ds.users[socket.id];
+    const room = Object.values(ds.rooms).find(r => {
       return r.users.includes(socket.id);
     });
 
     if (user) {
       console.log(`Disconnect ${user.name}${room && ` from ${room.roomId}` }`);
-      data.destroyUser(socket.id);
+      ds.destroyUser(socket.id);
     }
 
     if (room) {
@@ -102,7 +104,7 @@ io.on('connection', (socket) => {
 
       const payload = {
         users: room.users.map(id => {
-          const userPayload = {...data.users[id]};
+          const userPayload = {...ds.users[id]};
           delete userPayload.socket;
           return userPayload;
         })
