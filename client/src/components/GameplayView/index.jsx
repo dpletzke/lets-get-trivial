@@ -1,5 +1,5 @@
 import GameplayHeader from './GameplayHeader'
-import Question from './Question'
+import ActiveQuestion from './Question'
 import ShowScore from './ShowScore'
 
 const QUESTION = 'QUESTION';
@@ -9,16 +9,21 @@ const SCORE = 'SCORE';
 // import useVisualMode from...
 // const { mode } = useVisualMode(QUESTION)
 
-function GameplayView() {
-  return (
-  <div>
-    <h1>GameplayView Component</h1>
-    <GameplayHeader/>
-    {/* uncomment below on implemenation of visualMode */}
-    {/* {mode === QUESTION && <Question/>}
-    {mode === SCORE && <ShowScore/>} */}
+function GameplayView(props) {
+  const { questions, params } = props;
 
-  </div>
+  const questionsRunner = questions.map((q, i) => {
+    return {...q, questionIndex: i + 1}
+  });
+  
+  return (
+    <div>
+      <ActiveQuestion questionObj={questionsRunner[0]}/>
+      {/* uncomment below on implementation of visualMode */}
+      {/* {mode === QUESTION && <Question/>}
+      {mode === SCORE && <ShowScore/>} */}
+
+    </div>
   );
 }
 
