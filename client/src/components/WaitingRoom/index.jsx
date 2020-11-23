@@ -11,15 +11,15 @@ import ConnectionContext from "../../ConnectionContext";
 function WaitingRoom(props) {
   const { players, gameId } = props;
 
+  const connection = useContext(ConnectionContext);
+
   const initialGame = {
-    started: false,
+    started: false, 
     questions: [],
     params: {numQuestions: 2}
   };
   const [game, setGame] = useState(initialGame);
   
-  const connection = useContext(ConnectionContext);
-
   const startGame = () => {
     console.log(`Start ${gameId} request sent to server!`);
     connection.current.emit('start_game', {params: game.params});
@@ -32,8 +32,8 @@ function WaitingRoom(props) {
     setGame(prev => ({...prev, questions, started: true}));
   })
 
-  const controller = (gameStarted) => {
-    if (!gameStarted) {
+  const controller = (game) => {
+    if (!game.started) {
       return (
         <main className="box-waiting">
         <div className="waiting-header">
@@ -57,7 +57,7 @@ function WaitingRoom(props) {
   }
 
   return (
-    controller(game.started)
+    controller(game)
   );
 }
 
