@@ -48,7 +48,10 @@ io.on('connection', (socket) => {
     io.in(roomId).emit('user_connected', payload);
   });
 
-  // socket.on('get_roomIds')
+  socket.on('get_roomIds', () => {
+
+    socket.emit('roomIds', {roomIds: Object.keys(data.rooms)});
+  });
 
   // socket.on('change_name', (newName) => {
 
@@ -78,9 +81,13 @@ io.on('connection', (socket) => {
       room.users.splice(position, 1);
 
       const payload = {
-        users: room.users.map(id => data.users[id].name)
+        users: room.users.map(id => {
+          const userPayload = {...data.users[id]};
+          delete userPayload.socket;
+          return userPayload;
+        })
       };
-      
+
       socket.to(room.roomId).emit('user_disconnected', payload);
     }
   });

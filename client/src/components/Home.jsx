@@ -6,40 +6,41 @@ import "./Home.scss";
 import ConnectionContext from '../ConnectionContext'
 
 function Home(props) {
-  //host name , guest name, gameRoomId
   const [hostName, setHostName] = useState("");
   const [playerName, setPlayerName] = useState("");
   const [gameId, setGameId] = useState(null);
   const [error, setError] = useState(false)
-  //To Do - Add new passed down functions as props in order to handle the 2 form submits
   const { onJoin, onCreate } = props;
 
   const connection = useContext(ConnectionContext);
-  const connectionId = connection.id;
-
-  // let hostNameError = false;
-  // let playerNameError = false;
-
-  function joinGame() {
-    console.log('clicked')
-    if(!playerName){
-      console.log('clicked in conditional')
-     
-      setError(2)
-    } else {
-      setError(false)
-      
-      onJoin(playerName, gameId)
-    }
-  }
 
   function createGame() {
     if(!hostName){
       setError(1)
-     
     } else {
      setError(false)
       onCreate(hostName)
+    }
+  }
+
+  function joinGame() {
+    if(!playerName){
+      setError(2)
+    } else if(!gameId){
+      setError(3)
+    } else {
+      connection.current.emit('get_roomIds');
+      connection.current.on('roomIds', data => {
+
+        if (data.roomIds.includes(gameId)) {
+          setError(false)
+          onJoin(playerName, gameId)
+        } else {
+          setError(4)
+        }
+
+      });
+
     }
   }
 
@@ -52,7 +53,6 @@ function Home(props) {
         <form autoComplete="off" onSubmit={(event) => event.preventDefault()}>
           <p>Host New Game</p>
           {error === 1 && <p>Please Enter a Player Name</p>}
-          {error && console.log("host name error")}
           <input
             data-testid="host-name-input"
             name="Hostname"
@@ -65,11 +65,11 @@ function Home(props) {
             Create Game
           </Button>
         </form>
-        
-          <p>{connectionId}</p>
         <form autoComplete="off" onSubmit={(event) => event.preventDefault()}>
           <p>Join Game </p>
           {error === 2 && <p>Please Enter a Player Name</p>}
+          {error === 3 && <p>Please Enter a Game ID</p>}
+          {error === 4 && <p>Invalid Game ID</p>}
           <input
             data-testid="player-name-input"
             name="Player Name"

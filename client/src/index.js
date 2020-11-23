@@ -4,8 +4,6 @@ import './index.css';
 import App from './App';
 import reportWebVitals from './reportWebVitals';
 
-{/* <link rel="preconnect" href="https://fonts.gstatic.com">
-<link href="https://fonts.googleapis.com/css2?family=Audiowide&display=swap" rel="stylesheet"></link> */}
 
 ReactDOM.render(
   <React.StrictMode>

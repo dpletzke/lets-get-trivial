@@ -14,12 +14,19 @@ function Button(props) {
     "btn--game-room": props.gameRoom,
   });
 
+  const askForCategories = () => {
+    // console.log(connection.current);
+    connection.current.emit('get_roomIds');
+  }
+
   return (
     <>
-      <p>{connection.current.id}</p>
       <button onClick={props.onClick} className={btnClass}>
         {props.children}
       </button>
+      {/* <button onClick={askForCategories}>
+        Get Categories
+      </button> */}
     </>
   );
 }
