@@ -1,31 +1,26 @@
-import {useState} from 'react';
-import ReactDOM from 'react-dom';
+
 import Modal from 'react-modal';
 
 const {modalStyles} = require('./modalStyles');
 
 
-export default function DialogueBox(props) {
+export default function ModalComponent({modalIsOpen, closeModal}) {
+  
+  
   let subtitle;
   //this should eventually be set in the parent element and passed as props
-  const [modalIsOpen,setIsOpen] = useState(false);
-  function openModal() {
-    setIsOpen(true);
-  }
- 
+
+  
+  
   function afterOpenModal() {
     // references are now sync'd and can be accessed.
     subtitle.style.color = '#f00';
   }
  
-  function closeModal(){
-    setIsOpen(false);
-  }
   return (
-    <div>
-    <button onClick={openModal}>Open Modal</button>
+ 
     <Modal
-           isOpen={modalIsOpen}
+          isOpen={modalIsOpen}
           onAfterOpen={afterOpenModal}
           onRequestClose={closeModal}
           style={modalStyles}
@@ -44,6 +39,6 @@ export default function DialogueBox(props) {
           </form>
           </Modal>
 
-          </div>
+        
   )
 }

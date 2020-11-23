@@ -106,4 +106,4 @@ storiesOf("Waiting Room", module).add("Player List", () => (
   <PlayerList players={playersObj.players} />
 ));
 
-storiesOf("Modal", module).add("Testing Modal", () => <DialogueBox />);
+// storiesOf("Modal", module).add("Testing Modal", () => <DialogueBox />);
