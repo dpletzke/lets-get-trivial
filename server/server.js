@@ -62,9 +62,9 @@ io.on('connection', (socket) => {
     const { params: { numQuestions }} = data;
 
 
-    const token = await getSessionToken();
+    const { token } = await getSessionToken();
     console.log(`${token.response_message} for ${user.roomId}`);
-    const questions = await getQuestions({ numQuestions });
+    const questions = await getQuestions({ numQuestions }, token);
 
     /* log rooms the socket is in to server, should just be one */
     /* the first room is it's socketId, hence the slice */
@@ -72,7 +72,9 @@ io.on('connection', (socket) => {
     const serializeRooms = Object.values(socket.rooms).slice(1).join(' ');
     console.log(`Server starting ${serializeRooms}`);
 
-    io.in(ds.users[socket.id].roomId).emit('game_started', { questions });
+    const payload = { token, questions };
+
+    io.in(ds.users[socket.id].roomId).emit('game_started', payload);
   });
 
   // socket.on('change_name', (newName) => {

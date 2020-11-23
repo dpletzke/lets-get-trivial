@@ -33,6 +33,8 @@ const urlConstructor = (params, token) => {
   if (difficulty) url += `&difficulty=${difficulty}`;
   if (validatedType) url += `&type=${validatedType}`;
   if (token) url += `&token=${token}`;
+
+  console.log(url);
   return url;
 };
 
