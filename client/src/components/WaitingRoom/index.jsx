@@ -7,11 +7,24 @@ import Button from "../Button";
 import GameplayView from "../GameplayView";
 
 
+import ModalComponent from '../Modal'
 import { FaCog } from "react-icons/fa";
+import {useState} from 'react';
+import { action } from "@storybook/addon-actions";
 
 import ConnectionContext from "../../ConnectionContext";
 
 function WaitingRoom(props) {
+  const [modalIsOpen,setIsOpen] = useState(false);
+  function openModal() {
+    console.log('openModal');
+    setIsOpen(true);
+  }
+ 
+  function closeModal(){
+    setIsOpen(false);
+  }
+
   const { players, gameId } = props;
 
   const connection = useContext(ConnectionContext);
@@ -60,7 +73,23 @@ function WaitingRoom(props) {
   }
 
   return (
+<<<<<<< HEAD
     controller(game)
+=======
+    <main className="box-waiting">
+      <div className="waiting-header">
+        <FaCog className="icon" onClick={openModal} />
+      </div>
+      <h2>Let's Get Trivial</h2>
+
+      <PlayerListItem className="alt-text" name={gameId} gameIdItem />
+      <PlayerList players={players} />
+      <Button gameRoom>Start Game >></Button>
+      <ModalComponent modalIsOpen={modalIsOpen} closeModal={closeModal}>
+           Form component goes here
+         </ModalComponent>
+    </main>
+>>>>>>> feature/modal
   );
 }
 
