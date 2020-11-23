@@ -1,0 +1,13 @@
+@import "../../../styles/variables.scss";
+
+.option-item {
+  border: none;
+  padding: 0.2rem;
+  // background-color: lighten($color-primary-text, ammount 10%);
+  &--selected {
+    // background-color: darken($color-primary-text, ammount 10%);
+  }
+  &:hover {
+    cursor: pointer;
+  }
+}

@@ -14,6 +14,10 @@ import Home from "../components/Home";
 import WaitingRoom from "../components/WaitingRoom/index";
 import PlayerListItem from "../components/WaitingRoom/PlayerListItem";
 import PlayerList from "../components/WaitingRoom/PlayerList";
+import OptionItem from "../components/WaitingRoom/OptionsForm/OptionItem";
+import OptionItemList from "../components/WaitingRoom/OptionsForm/OptionItemList";
+import OptionsForm from "../components/WaitingRoom/OptionsForm/index";
+import Option from "../components/WaitingRoom/OptionsForm/OptionItemList";
 import DialogueBox from "../components/Modal";
 import Dropdown from "../components/Dropdown";
 
@@ -115,6 +119,8 @@ const playersObj = {
 
 const gameId = "FBDEGF";
 
+storiesOf("Dropdown", module).add("Dropdown Menu", () => <Dropdown />);
+
 storiesOf("Waiting Room", module).add("Basic Waiting Room", () => (
   <WaitingRoom players={playersObj.players} gameId={gameId} />
 ));
@@ -127,5 +133,25 @@ storiesOf("Waiting Room", module).add("Game Id Item", () => (
 storiesOf("Waiting Room", module).add("Player List", () => (
   <PlayerList players={playersObj.players} />
 ));
-
-storiesOf("Dropdown", module).add("Dropdown Menu", () => <Dropdown />);
+storiesOf("Options Menu", module).add("Option Item list 1", () => (
+  <OptionItemList
+    clickHandler={action("clicked!")}
+    optionsList={[15, 20, 35, 40]}
+    gameSetting="How many questions?"
+  />
+));
+storiesOf("Options Menu", module).add("Option Item list 2", () => (
+  <OptionItemList
+    clickHandler={action("clicked!")}
+    optionsList={[15, 20, 35, 40]}
+    gameSetting="How many questions?"
+  />
+));
+storiesOf("Options Menu", module).add("Option Item 3", () => (
+  <OptionItem gameSetting="Category" clickHandler={action("clicked!")}>
+    Horses
+  </OptionItem>
+));
+storiesOf("Options Menu", module).add("The entire option form", () => (
+  <OptionsForm />
+));
