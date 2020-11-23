@@ -14,6 +14,7 @@ import Home from "../components/Home";
 import WaitingRoom from "../components/WaitingRoom/index";
 import PlayerListItem from "../components/WaitingRoom/PlayerListItem";
 import PlayerList from "../components/WaitingRoom/PlayerList";
+import DialogueBox from "../components/Modal";
 
 storiesOf("Button", module).add("Submit", () => <Button>Submit</Button>);
 storiesOf("Loading", module).add("Dots", () => (
@@ -104,3 +105,5 @@ storiesOf("Waiting Room", module).add("Game Id Item", () => (
 storiesOf("Waiting Room", module).add("Player List", () => (
   <PlayerList players={playersObj.players} />
 ));
+
+storiesOf("Modal", module).add("Testing Modal", () => <DialogueBox />);
