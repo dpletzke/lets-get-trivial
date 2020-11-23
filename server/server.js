@@ -41,7 +41,7 @@ io.on('connection', (socket) => {
 
     socket.join(roomId);
 
-    /* gets array of user names in room */
+    /* gets array of user in room */
     const payload = {
       users: room.users.map(id => {
         const userPayload = {...ds.users[id]};
@@ -59,16 +59,23 @@ io.on('connection', (socket) => {
   });
 
   socket.on('start_game', async data => {
-    const { params: { numQuestions }} = data;
+    const { params } = data;
 
+    /* retrieve token print response */
+    const tokenRes = await getSessionToken();
+    console.log(`${tokenRes.response_message} for ${user.roomId}`);
+    const token = tokenRes.token;
 
-    const token = await getSessionToken();
-    console.log(`${token.response_message} for ${user.roomId}`);
-    const questions = await getQuestions({ numQuestions });
+    /* add token to room */
+    const roomId = ds.users[socket.id].roomId;
+    ds.rooms[roomId].token = token;
+
+    /* request questions with token and params */
+    const questionsRes = await getQuestions(params, token);
+    const questions = questionsRes.results;
 
     /* log rooms the socket is in to server, should just be one */
     /* the first room is it's socketId, hence the slice */
-    /* this is for debugging, shouldn't show more than one */
     const serializeRooms = Object.values(socket.rooms).slice(1).join(' ');
     console.log(`Server starting ${serializeRooms}`);
 

@@ -40,6 +40,7 @@ describe("getQuestions", () => {
     const results = data.results;
     expect(results).toHaveLength(completeParams.numQuestions);
   });
+
   test("query should return 25 multiple-choice questions when passed no params", async () => {
     const data = await getQuestions();
     const results = data.results;
@@ -47,6 +48,7 @@ describe("getQuestions", () => {
     expect(resultsLength).toBe(25);
     expect(results[0].type).toBe("multiple");
   });
+
   test("category should match categoryId in params", async () => {
     const data = await getQuestions(completeParams);
     const results = data.results;
