@@ -9,7 +9,6 @@ import GameplayView from "../GameplayView";
 
 import ModalComponent from '../Modal'
 import { FaCog } from "react-icons/fa";
-import {useState} from 'react';
 import { action } from "@storybook/addon-actions";
 
 import ConnectionContext from "../../ConnectionContext";
