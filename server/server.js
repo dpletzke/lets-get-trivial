@@ -12,6 +12,11 @@ const server = http.createServer(app);
 // STEP 4 wrap socket with server above
 const io = socketio(server);
 
+const {
+  getCategories,
+  getQuestions,
+  getSessionToken
+} = require("../client/src/api/opentdb");
 
 // reference to in-memory database
 const data = require('./data');
@@ -51,6 +56,21 @@ io.on('connection', (socket) => {
   socket.on('get_roomIds', () => {
 
     socket.emit('roomIds', {roomIds: Object.keys(data.rooms)});
+  });
+
+  socket.on('start_game', async() => {
+
+    const token = await getSessionToken();
+    console.log(`${token.response_message} for ${user.roomId}`);
+    const questions = await getQuestions({}, token);
+
+    /* log rooms the socket is in to server, should just be one */
+    /* the first room is it's socketId, hence the slice */
+    /* this is for debugging, shouldn't show more than one */
+    const serializeRooms = Object.values(socket.rooms).slice(1).join(' ');
+    console.log(`Server starting ${serializeRooms}`);
+
+    io.in(data.users[socket.id].roomId).emit('game_started', { questions });
   });
 
   // socket.on('change_name', (newName) => {

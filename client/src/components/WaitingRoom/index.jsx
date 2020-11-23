@@ -1,22 +1,57 @@
+import { useState, useContext } from "react";
+
 import "./index.scss";
 import PlayerList from "./PlayerList";
 import PlayerListItem from "./PlayerListItem";
 import Button from "../Button";
 import { FaCog } from "react-icons/fa";
 
+import ConnectionContext from "../../ConnectionContext";
+
 function WaitingRoom(props) {
   const { players, gameId } = props;
-  return (
-    <main className="box-waiting">
-      <div className="waiting-header">
-        <FaCog className="icon" />
-      </div>
-      <h2>Let's Get Trivial</h2>
+  const [gameStarted, setGameStarted] = useState(false);
+  const [questions, setQuestions] = useState([]);
+  
+  const connection = useContext(ConnectionContext);
 
-      <PlayerListItem className="alt-text" name={gameId} gameIdItem />
-      <PlayerList players={players} />
-      <Button gameRoom>Start Game >></Button>
-    </main>
+  const startGame = () => {
+    console.log(`Start ${gameId} request sent to server!`);
+    connection.current.emit('start_game');
+  }
+
+  connection.current.on('game_started', data => {
+    console.log(`${gameId} started from server!`);
+    setQuestions(data.questions);
+    setGameStarted(true);
+  })
+
+  const controller = (gameStarted) => {
+    if (!gameStarted) {
+      return (
+        <main className="box-waiting">
+        <div className="waiting-header">
+          <FaCog className="icon" />
+        </div>
+        <h2>Let's Get Trivial</h2>
+        <PlayerListItem className="alt-text" name={gameId} gameIdItem />
+        <PlayerList players={players} />
+        <Button onClick={startGame} gameRoom>Start Game >></Button>
+      </main>
+      )
+    } else {
+      return (
+        <>
+          <p>Your game started!</p>
+          <p>{connection.current.id}</p>
+          <p>{JSON.stringify(questions)}</p>
+        </>
+      );
+    }
+  }
+
+  return (
+    controller(gameStarted)
   );
 }
 
