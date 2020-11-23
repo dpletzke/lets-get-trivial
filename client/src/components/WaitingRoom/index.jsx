@@ -4,6 +4,9 @@ import "./index.scss";
 import PlayerList from "./PlayerList";
 import PlayerListItem from "./PlayerListItem";
 import Button from "../Button";
+import GameplayView from "../GameplayView";
+
+
 import { FaCog } from "react-icons/fa";
 
 import ConnectionContext from "../../ConnectionContext";
@@ -16,18 +19,20 @@ function WaitingRoom(props) {
   const initialGame = {
     started: false, 
     questions: [],
-    params: {numQuestions: 2}
+    params: {numQuestions: 2},
+    token: null
   };
   const [game, setGame] = useState(initialGame);
   
   const startGame = () => {
+    const { token, params } = game;
+
     console.log(`Start ${gameId} request sent to server!`);
-    connection.current.emit('start_game', {params: game.params});
+    connection.current.emit('start_game', { token, params });
   }
 
   connection.current.on('game_started', data => {
     const { questions } = data;
-
     console.log(`${gameId} started from server!`);
     setGame(prev => ({...prev, questions, started: true}));
   })
@@ -48,9 +53,7 @@ function WaitingRoom(props) {
     } else {
       return (
         <>
-          <p>Your game started!</p>
-          <p>{connection.current.id}</p>
-          <p>{JSON.stringify(game.questions)}</p>
+          <GameplayView questions={game.questions} params={game.params}/>
         </>
       );
     }
