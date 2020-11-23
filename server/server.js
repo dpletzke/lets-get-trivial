@@ -62,7 +62,7 @@ io.on('connection', (socket) => {
 
     const token = await getSessionToken();
     console.log(`${token.response_message} for ${user.roomId}`);
-    const questions = await getQuestions({}, token);
+    const questions = await getQuestions({numQuestions: 10});
 
     /* log rooms the socket is in to server, should just be one */
     /* the first room is it's socketId, hence the slice */
