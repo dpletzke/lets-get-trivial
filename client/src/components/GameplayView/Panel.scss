@@ -11,7 +11,21 @@
   &:hover {
     background-color: lighten($color-secondary-background, $amount: 5%);
   }
-  &--selected {
-    border: 1rem dashed $color-primary-button-background;
+  &--selectedFalse {
+    // border: 1rem dashed $color-primary-button-background;
+    background-color: lighten($color-primary-button-background, $amount: 5%);
+    &:hover {
+      background-color: lighten($color-primary-button-background, $amount: 5%);
+    }
+  }
+  &--selectedTrue {
+    // border: 1rem dashed $color-secondary-button-background;
+    background-color: lighten($color-secondary-button-background, $amount: 5%);
+    &:hover {
+      background-color: lighten(
+        $color-secondary-button-background,
+        $amount: 5%
+      );
+    }
   }
 }

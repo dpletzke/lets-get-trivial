@@ -1,10 +1,8 @@
-import PanelList from './PanelList'
-import GameplayHeader from './GameplayHeader'
-
+import PanelList from "./PanelList";
+import GameplayHeader from "./GameplayHeader";
 
 //here is the structure of the data coming from the api. Added is the questionIndex which is based on how many questions the user selects
 // const questionObj = {
-//   "questionIndex": 3,
 //   "question": "Who wrote the novel &quot;Moby-Dick&quot;?",
 //   "correct_answer": "Herman Melville",
 //   "incorrect_answers": [
@@ -17,31 +15,34 @@ import GameplayHeader from './GameplayHeader'
 // move this into a helper file at some point? It's just changing the data structure to fit better with our component architecture
 const digestQuestionObj = (questionObject) => {
   return {
-    questionIndex: questionObject.questionIndex,
-    question: [{questionString: questionObject.question}],
-    
-    answers: [
-    ...questionObject.incorrect_answers.map((incorrectAnswer) => ({answerString: incorrectAnswer, correct: false, selected: false})),
-    {answerString: questionObject.correct_answer, correct: true, selected: false}
-    ]
-    
-    
-  };
-}
+    // questionIndex: questionObject.questionIndex,
+    question: [{ questionString: questionObject.question }],
 
-function ActiveQuestion({questionObj}) {
-  
-  const {question, answers, questionIndex} = digestQuestionObj(questionObj)
+    answers: [
+      ...questionObject.incorrect_answers.map((incorrectAnswer) => ({
+        answerString: incorrectAnswer,
+        correct: false,
+        selected: false,
+      })),
+      {
+        answerString: questionObject.correct_answer,
+        correct: true,
+        selected: false,
+      },
+    ],
+  };
+};
+
+function ActiveQuestion({ questionObj, questionIndex }) {
+  const { question, answers } = digestQuestionObj(questionObj);
 
   return (
     <div>
-      <GameplayHeader questionIndex={questionIndex}/>
+      <GameplayHeader questionIndex={questionIndex} />
       <div>
         {/* the two panels in this view can be targeted individually due to their conditional css, see PanelList component */}
-    <PanelList infoArray = {question} />
-     <PanelList 
-       infoArray = {answers}
-       />
+        <PanelList infoArray={question} />
+        <PanelList infoArray={answers} />
       </div>
     </div>
   );

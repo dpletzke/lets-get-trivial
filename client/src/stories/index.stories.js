@@ -37,6 +37,18 @@ storiesOf("Timer", module)
     <Timer duration={5} size={50} strokeWidth={4} />
   ));
 
+storiesOf("Panel", module).add("Panel", () => (
+  <Panel
+    info={{ answerString: "Charles Dickens" }}
+    setSelected={action("selected")}
+  />
+));
+storiesOf("Panel", module).add("Panel", () => (
+  <Panel
+    info={{ answerString: "Charles Dickens" }}
+    setSelected={action("selected")}
+  />
+));
 storiesOf("Panel", module)
   .add("Panel", () => (
     <Panel
@@ -44,15 +56,24 @@ storiesOf("Panel", module)
       setSelected={action("selected")}
     />
   ))
-  .add("Selected Panel", () => (
-    <Panel info={{ answerString: "Jodie Foster" }} selected />
+  .add("Selected True Panel", () => (
+    <Panel
+      setSelected={action("selected")}
+      info={{ answerString: "Jodie Foster", selected: true, correct: true }}
+    />
+  ))
+  .add("Selected False Panel", () => (
+    <Panel
+      setSelected={action("selected")}
+      info={{ answerString: "Jodie Foster", selected: true, correct: false }}
+    />
   ));
 
 const answersArray = [
   { answerString: "Herman Melville", selected: false, correct: false },
   { answerString: "William Golding", selected: false, correct: false },
   { answerString: "William Shakespeare", selected: false, correct: false },
-  { answerString: "J.R.R. Tolkein", selected: true, correct: false },
+  { answerString: "J.R.R. Tolkein", selected: false, correct: true },
 ];
 
 const questionArray = [{ questionString: "Is this going to work?" }];
