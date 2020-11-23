@@ -50,12 +50,15 @@ function WaitingRoom(props) {
       return (
         <main className="box-waiting">
         <div className="waiting-header">
-          <FaCog className="icon" />
+          <FaCog className="icon" onClick={openModal}/>
         </div>
         <h2>Let's Get Trivial</h2>
         <PlayerListItem className="alt-text" name={gameId} gameIdItem />
         <PlayerList players={players} />
         <Button onClick={startGame} gameRoom>Start Game >></Button>
+             <ModalComponent modalIsOpen={modalIsOpen} closeModal={closeModal}>
+           Form component goes here
+         </ModalComponent>
       </main>
       )
     } else {
@@ -70,23 +73,7 @@ function WaitingRoom(props) {
   }
 
   return (
-<<<<<<< HEAD
     controller(game)
-=======
-    <main className="box-waiting">
-      <div className="waiting-header">
-        <FaCog className="icon" onClick={openModal} />
-      </div>
-      <h2>Let's Get Trivial</h2>
-
-      <PlayerListItem className="alt-text" name={gameId} gameIdItem />
-      <PlayerList players={players} />
-      <Button gameRoom>Start Game >></Button>
-      <ModalComponent modalIsOpen={modalIsOpen} closeModal={closeModal}>
-           Form component goes here
-         </ModalComponent>
-    </main>
->>>>>>> feature/modal
   );
 }
 
