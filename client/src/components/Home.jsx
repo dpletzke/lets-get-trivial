@@ -1,4 +1,4 @@
-import { useState, useContext } from "react";
+import { useState, useContext, useEffect } from "react";
 // import from "";
 import Button from "./Button";
 import "./Button.scss";
@@ -11,9 +11,8 @@ function Home(props) {
   const [gameId, setGameId] = useState(null);
   const [error, setError] = useState(false);
   const { onJoin, onCreate } = props;
-
+  
   const connection = useContext(ConnectionContext);
-
   function createGame() {
     if (!hostName) {
       setError(1);
@@ -30,7 +29,15 @@ function Home(props) {
       setError(3);
     } else {
       connection.current.emit("get_roomIds");
+      
+    }
+  }
+
+  useEffect(() => {
+    if (connection.current.id) {
+      console.log(connection.current);
       connection.current.on("roomIds", (data) => {
+        
         if (data.roomIds.includes(gameId)) {
           setError(false);
           onJoin(playerName, gameId);
@@ -38,8 +45,14 @@ function Home(props) {
           setError(4);
         }
       });
+  
+      const oldConnection = connection.current;
+  
+      return () => {
+        oldConnection.removeAllListeners('roomIds');
+      }
     }
-  }
+  }, [connection, gameId, playerName, onJoin]);
 
   return (
     <main>

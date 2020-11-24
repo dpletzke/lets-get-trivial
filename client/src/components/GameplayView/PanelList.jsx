@@ -1,4 +1,4 @@
-import { useState, useContext } from "react";
+import { useState, useContext, useEffect } from "react";
 import Panel from "./Panel";
 import "./PanelList.scss";
 import classNames from "classnames";
@@ -31,13 +31,20 @@ function PanelList({ infoArray, pickAnswer }) {
   );
 
   const connection = useContext(ConnectionContext);
-  connection.current.on('next_question', async () => {
-    const timer = await setTimeout(() => {
-      setSelected("");
-      console.log({timer});
-      clearTimeout(timer);
-    }, 2000);
-  })
+
+  useEffect(() => {
+    connection.current.on('next_question', async () => {
+      const timer = await setTimeout(() => {
+        setSelected("");
+        console.log({timer});
+        clearTimeout(timer);
+      }, 2000);
+    })
+    const oldConnection = connection.current;
+    return () => {
+      oldConnection.removeAllListeners("next_question");
+    }
+  }, [connection]);
 
   const clickHandler = (id) => {
     if (!selected) {

@@ -1,4 +1,4 @@
-import { useState, useContext } from "react";
+import { useState, useContext, useEffect } from "react";
 
 import "./index.scss";
 import PlayerList from "./PlayerList";
@@ -48,29 +48,40 @@ function WaitingRoom(props) {
     connection.current.emit("start_game", { params });
   };
 
-  connection.current.on("game_started", (data) => {
-    const { questions, params } = data;
-    
-    console.log(`${gameId} started from server!`);
-    setGame(prev => ({...prev, questions, started: true, params}));
-  });
+  useEffect(() => {
+    connection.current.on("game_started", (data) => {
+      const { questions, params } = data;
+      
+      console.log(`${gameId} started from server!`);
+      setGame(prev => ({...prev, questions, started: true, params}));
+    });
+  
+    connection.current.on("next_question", async (data) => {
+      const { namesCorrect, currentQ } = data;
+      
+      console.log('Server sent next Q, starting timeout');
+      const timer = await setTimeout(() => {
+        console.log(`${gameId} moved to question ${currentQ} from server!`);
+        setGame(prev => ({...prev, currentQ }));
+        clearTimeout(timer);
+      }, 2000);
+    });
+  
+    connection.current.on('game_ended', data => {
+  
+      console.log(`${gameId} ended from server!`);
+      setGame(prev => ({...prev, started: false, currentQ: 0}));
+    });
 
-  connection.current.on("next_question", async (data) => {
-    const { namesCorrect, currentQ } = data;
-    
-    console.log('Server sent next Q, starting timeout');
-    const timer = await setTimeout(() => {
-      console.log(`${gameId} moved to question ${currentQ} from server!`);
-      setGame(prev => ({...prev, currentQ }));
-      clearTimeout(timer);
-    }, 2000);
-  });
+    const oldConnection = connection.current;
 
-  connection.current.on('game_ended', data => {
+    return () => {
+      oldConnection.removeAllListeners("game_started");
+      oldConnection.removeAllListeners("next_question");
+      oldConnection.removeAllListeners("game_ended");
+    }
 
-    console.log(`${gameId} ended from server!`);
-    setGame(prev => ({...prev, started: false, currentQ: 0}));
-  });
+  }, [connection, gameId]);
 
   const controller = (game) => {
     if (!game.started) {
