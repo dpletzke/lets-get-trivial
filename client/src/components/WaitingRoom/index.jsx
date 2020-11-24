@@ -36,7 +36,15 @@ function WaitingRoom(props) {
   const [game, setGame] = useState(initialGame);
 
   const startGame = () => {
-    const { params } = game;
+    // const { params } = game;
+
+    const params = {
+      categoryId: 4,
+      numQuestions: 10,
+      type: null,
+      difficulty: 'easy',
+      numberCorrect: 0.5
+    }
 
     console.log(`Start ${gameId} request sent to server!`);
     connection.current.emit("start_game", { params });
@@ -52,7 +60,7 @@ function WaitingRoom(props) {
   connection.current.on('game_ended', data => {
 
     console.log(`${gameId} ended from server!`);
-    setGame(prev => ({...prev, started: false}));
+    setGame(prev => ({...prev, started: false, currentQ: 0}));
   });
 
   const controller = (game) => {
