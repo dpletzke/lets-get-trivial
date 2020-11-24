@@ -12,22 +12,31 @@ import { FaCog } from "react-icons/fa";
 import { action } from "@storybook/addon-actions";
 
 import ConnectionContext from "../../ConnectionContext";
-import useGameData from '../../hooks/useGameData'
+
+import useGameData from '../../hooks/useGameData';
+import useModal from '../../hooks/useModal';
 
 function WaitingRoom(props) {
   const { players, gameId } = props;
 
-  const [modalIsOpen, setIsOpen] = useState(false);
-  function openModal() {
-    console.log("openModal");
-    setIsOpen(true);
-  }
+  // const [modalIsOpen, setIsOpen] = useState(false);
+  // function openModal() {
+  //   console.log("openModal");
+  //   setIsOpen(true);
+  // }
 
-  function closeModal() {
-    setIsOpen(false);
-  }
+  // function closeModal() {
+  //   setIsOpen(false);
+  // }
 
   const connection = useContext(ConnectionContext);
+
+  const {
+    modalIsOpen,
+    setIsOpen,
+    closeModal,
+    openModal,
+  } = useModal();
 
   const {
    game,
