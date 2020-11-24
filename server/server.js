@@ -96,28 +96,35 @@ io.on('connection', (socket) => {
   socket.on('picked_answer', data => {
     const { correct, difficulty } = data;
 
-    
     const user = ds.users[socket.id];
     const room = ds.getRoomFromUserId(socket.id);
 
     console.log(`${user.name} picked an answer`);
 
+    const allAnswered = room.status.answered === room.users.length;
+    const enoughCorrect = room.status.correct.length > 1;
+    
     const pointsEarned = {
       'easy': 1,
       'medium': 2,
       'hard': 3
     }[difficulty];
 
-    room.status.answered += 1;
-
-    
-    const allAnswered = room.status.answered === room.users.length;
-    const enoughCorrect = room.status.correct.length > 1;
-    
     /* increase score and push to correct array if correct */
     if (correct && !enoughCorrect) {
+
       user.score += pointsEarned;
+
+      const answer = {
+        name: user.name,
+        score: user.score,
+        pointsEarned,
+        correctAnswer: correct
+      };
+
       room.status.correct.push(user.name);
+    } else {
+
     }
 
     if (enoughCorrect || allAnswered) {

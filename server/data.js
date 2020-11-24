@@ -30,8 +30,8 @@ module.exports = {
       questions: [],
       users: [],
       status:{
-        answered: 0,
-        correct: [],
+        //each player answer { name, score, pointsEarned, correctAnswer }
+        answers: [],
         currentQ: null
       },
       params: {
