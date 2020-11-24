@@ -95,6 +95,7 @@ function OptionsForm() {
         displayKey="name"
         idKey="id"
         clickHandler={setCategory}
+        selected={options.categoryId}
       />
       {optionGroups}
     </div>
