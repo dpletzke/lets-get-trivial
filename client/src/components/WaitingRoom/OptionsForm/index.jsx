@@ -13,35 +13,9 @@ import "./index.scss";
 // this should eventually be dealt with
 // as global state:
 
-function OptionsForm({ setOptions, options }) {
-  // const [options, setOptions] = useState({});
-
-  function setNumber(num) {
-    setOptions({ ...options, numQuestions: num });
-  }
-  function setCategory(catId) {
-    console.log({ catId });
-    setOptions({ ...options, categoryId: catId });
-  }
-
-  // checks if the difficulty is easy, medium, or hard
-  // and doesn't change the state if not
-  function setDifficulty(difficulty) {
-    let setDiff = difficulty.toLowerCase();
-    const validOptions = ["easy", "medium", "hard"];
-    if (validOptions.find((el) => el === setDiff)) {
-      setOptions({ ...options, difficulty: difficulty });
-    } else {
-      setOptions({ ...options, difficulty: null });
-    }
-  }
-
-  function setQuestionTimeLimit(time) {
-    setOptions({ ...options, timeLimit: time });
-  }
-  function setNumberCorrect(num) {
-    setOptions({ ...options, numCorrect: num });
-  }
+function OptionsForm({ setters, params }) {
+  // const [params, setOptions] = useState({});
+  const {setNumber, setDifficulty, setQuestionTimeLimit, setNumberCorrect, setCategory} = setters;
 
   const settings = [
     {
@@ -75,7 +49,7 @@ function OptionsForm({ setOptions, options }) {
 
     return (
       <OptionItemList
-        selected={options[paramsKey]}
+        selected={params[paramsKey]}
         label={label}
         optionsList={optionsList}
         clickHandler={clickHandler}
@@ -95,7 +69,7 @@ function OptionsForm({ setOptions, options }) {
         displayKey="name"
         idKey="id"
         clickHandler={setCategory}
-        selected={options.categoryId}
+        selected={params.categoryId}
       />
       {optionGroups}
     </div>

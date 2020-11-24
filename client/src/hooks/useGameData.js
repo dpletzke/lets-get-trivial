@@ -14,6 +14,37 @@ export default function useGameData(gameId, connection) {
     setGame({ ...game, params: { ...options } });
   };
 
+  const { params } = game;
+
+  const setters = {
+    setNumber: function (num) {
+      setOptions({ ...params, numQuestions: num });
+    },
+    setCategory: function (catId) {
+      console.log({ catId });
+      setOptions({ ...params, categoryId: catId });
+    },
+
+    // checks if the difficulty is easy, medium, or hard
+    // and doesn't change the state if not
+    setDifficulty: function (difficulty) {
+      let setDiff = difficulty.toLowerCase();
+      const validOptions = ["easy", "medium", "hard"];
+      if (validOptions.find((el) => el === setDiff)) {
+        setOptions({ ...params, difficulty: setDiff });
+      } else {
+        setOptions({ ...params, difficulty: null });
+      }
+    },
+
+    setQuestionTimeLimit: function (time) {
+      setOptions({ ...params, timeLimit: time });
+    },
+    setNumberCorrect: function (num) {
+      setOptions({ ...params, numCorrect: num });
+    },
+  };
+
   const startGame = () => {
     const { params } = game;
     console.log(`Start ${gameId} request sent to server!`);
@@ -58,5 +89,6 @@ export default function useGameData(gameId, connection) {
     game,
     setOptions,
     startGame,
+    setters,
   };
 }

@@ -19,16 +19,6 @@ import useModal from '../../hooks/useModal';
 function WaitingRoom(props) {
   const { players, gameId } = props;
 
-  // const [modalIsOpen, setIsOpen] = useState(false);
-  // function openModal() {
-  //   console.log("openModal");
-  //   setIsOpen(true);
-  // }
-
-  // function closeModal() {
-  //   setIsOpen(false);
-  // }
-
   const connection = useContext(ConnectionContext);
 
   const {
@@ -36,13 +26,19 @@ function WaitingRoom(props) {
     setIsOpen,
     closeModal,
     openModal,
+    
   } = useModal();
+
 
   const {
    game,
     setOptions,
     startGame,
+    setters,
+   
   } = useGameData(gameId, connection)
+
+
 
 
   const controller = (game) => {
@@ -61,7 +57,7 @@ function WaitingRoom(props) {
               Start Game >>
             </Button>
             <ModalComponent modalIsOpen={modalIsOpen} closeModal={closeModal}>
-              <OptionsForm options={game.params} setOptions={setOptions}/>
+              <OptionsForm setters={setters} params={game.params} />
             </ModalComponent>
           </div>
         </main>
