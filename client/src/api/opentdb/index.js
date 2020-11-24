@@ -22,6 +22,7 @@ const getSessionToken = async function (token) {
     url += `reset&token=${token}`;
   }
   const { data } = await axios.get(url);
+
   return data;
 };
 

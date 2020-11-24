@@ -41,11 +41,12 @@ module.exports = {
     return user;
   },
 
-  createRoom:({ roomId, userId, categoryId, numQuestions, type }) => {
+  createRoom:({ roomId, userId, token, categoryId, numQuestions, type }) => {
 
     const room = {
       roomId,
       creatorId: userId,
+      token,
       categoryId,
       numQuestions,
       type,

@@ -55,12 +55,9 @@ function App() {
 
   const controller = (state) => {
     const { roomId, name, users } = state;
-
-    console.log("Should be displaying", roomId);
-
-    if (roomId) {
-      console.log(users);
-      return <WaitingRoom players={users} gameId={roomId} />;
+    
+    if(roomId) {
+      return (<WaitingRoom players={users} gameId={roomId} />)
     } else {
       return <Home onJoin={onJoin} onCreate={onCreate} name={name} />;
     }
