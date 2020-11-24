@@ -36,7 +36,7 @@ io.on('connection', (socket) => {
     user.roomId = roomId;
   
     /* reference or create room and push user to users array */
-    const room = ds.rooms[roomId] || ds.createRoom({ roomId, hostId: user.id });
+    const room = ds.rooms[roomId] || ds.createRoom({ roomId, hostId: socket.id });
     room.users.push(socket.id);
 
     socket.join(roomId);
@@ -107,10 +107,29 @@ io.on('connection', (socket) => {
       'hard': 3
     }[difficulty];
 
-    user.score += correct && pointsEarned;
+    room.status.answered += 1;
 
-    console.log(room);
-    console.log(user);
+    /* increase score and push to correct array if correct */
+    if (correct) {
+      user.score += pointsEarned;
+      room.status.correct.push(user.name);
+    }
+
+    const allAnswered = room.status.answered === room.users.length;
+    const enoughCorrect = room.status.correct.length > 1;
+
+    if (enoughCorrect || allAnswered) {
+
+      const payload = {
+        namesCorrect: room.status.correct
+      };
+
+      const reason = enoughCorrect ? 'enough got it right' : allAnswered ? 'everybody answered' : 'time ran out';
+
+      console.log(`Moving on for ${room.roomId} because ${reason}`);
+
+      socket.to(room.roomId).emit('next_question', payload);
+    }
 
   });
 

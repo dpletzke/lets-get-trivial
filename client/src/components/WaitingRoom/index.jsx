@@ -31,7 +31,7 @@ function WaitingRoom(props) {
     started: false,
     questions: [],
     params: { numQuestions: 5 },
-    currentQ: 0,
+    currentQ: 0
   };
   const [game, setGame] = useState(initialGame);
 
@@ -43,7 +43,8 @@ function WaitingRoom(props) {
       numQuestions: 10,
       type: null,
       difficulty: 'easy',
-      numberCorrect: 0.5
+      numberCorrect: 0.5,
+      questionTime: 20000
     }
 
     console.log(`Start ${gameId} request sent to server!`);
@@ -55,6 +56,13 @@ function WaitingRoom(props) {
     
     console.log(`${gameId} started from server!`);
     setGame(prev => ({...prev, questions, started: true, params}));
+  });
+
+  connection.current.on("next_question", (data) => {
+    const { namesCorrect } = data;
+    
+    console.log(`${gameId} moved to next question from server!`);
+    setGame(prev => ({...prev, currentQ: prev.currentQ + 1}));
   });
 
   connection.current.on('game_ended', data => {

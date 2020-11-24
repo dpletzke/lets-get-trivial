@@ -1,23 +1,4 @@
 
-
-// users
-/*each users object has key socket.id and the following form
-socket.id :{
-  socket,
-  name,
-  roomId,
-  score,
-
-}*/
-// rooms
-/* {
-  roomId,
-  categoryId,
-  numQuestions= 10,
-  difficulty= null
-  
-} */
-
 const rooms = {};
 const users = {};
 
@@ -48,6 +29,10 @@ module.exports = {
       token: null,
       questions: [],
       users: [],
+      status:{
+        answered: 0,
+        correct: []
+      },
       params: {
         questionTime: 15000,
         categoryId: null,
