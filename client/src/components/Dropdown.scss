@@ -1,24 +1,39 @@
+@import "../styles/variables.scss";
+@import "../styles/animations.scss";
+
+.floating {
+  font-size: 1.5em;
+  margin-left: 0.3em;
+  animation: floating 3s ease-in-out infinite;
+  color: $color-secondary-text;
+}
+
 .menu-container {
   position: relative;
+
+  span {
+    font-size: 1.5em;
+  }
 }
 
 .menu {
   background: #ffffff;
   border-radius: 8px;
-  position: absolute;
-  top: 60px;
-  right: 0;
-  width: 300px;
+  top: 0;
+  left: 0;
+  width: 100%;
+  position: relative;
   box-shadow: 0 1px 8px rgba(0, 0, 0, 0.3);
   opacity: 0;
-  visibility: hidden;
+  display: none;
   transform: translateY(-20px);
-  transition: opacity 0.4s ease, transform 0.4s ease, visibility 0.4s;
+  transition: opacity 0.4s ease, transform 0.4s ease, display 3s ease;
 }
 
 .menu.active {
   opacity: 1;
-  visibility: visible;
+  display: block;
+
   transform: translateY(0);
 }
 
@@ -29,7 +44,16 @@
 }
 
 .menu li {
+  font-family: $FancyFont;
+  color: $color-primary-background;
   border-bottom: 1px solid #dddddd;
+  &:hover {
+    background-color: $color-secondary-background;
+    cursor: pointer;
+  }
+  &--selected {
+    background-color: $color-secondary-background;
+  }
 }
 
 .menu li a {

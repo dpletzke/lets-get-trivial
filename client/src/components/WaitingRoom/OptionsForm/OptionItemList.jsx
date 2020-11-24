@@ -1,7 +1,20 @@
- 
+import OptionItem from "./OptionItem";
+import "./OptionItemList.scss";
 
-function OptionsList() {
-  return <h1>OptionsList</h1>  
+// const options = [];
+
+function OptionItemList({ optionsList, clickHandler, label }) {
+  const list = optionsList.map((item) => (
+    <OptionItem label={label} clickHandler={clickHandler}>
+      {item}
+    </OptionItem>
+  ));
+  return (
+    <div className="category-heading">
+      <h3>{label}</h3>
+      <div className="settings-group">{list}</div>
+    </div>
+  );
 }
 
-export default OptionsList;
+export default OptionItemList;

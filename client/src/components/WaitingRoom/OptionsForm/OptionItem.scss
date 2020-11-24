@@ -1,0 +1,19 @@
+@import "../../../styles/variables.scss";
+
+.option-item {
+  border: none;
+  padding: 0.2rem 0.5rem;
+  background-color: lighten($color-secondary-background, $amount: 10%);
+  &--selected {
+    background-color: darken($color-secondary-background, $amount: 10%);
+  }
+  &:hover {
+    color: $color-secondary-background;
+    background-color: darken($color-secondary-text, $amount: 10%);
+    cursor: pointer;
+  }
+  &--selected {
+    color: $color-secondary-background;
+    background-color: darken($color-secondary-text, $amount: 10%);
+  }
+}
