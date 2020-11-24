@@ -90,13 +90,21 @@ io.on('connection', (socket) => {
   //   io.in(socket.room).emit('user_connected', { users:rooms[socket.room] });
   // });
 
+  socket.on('picked_answer', data => {
+    const { isCorrect, difficulty } = data;
+    
+    const user = ds.users[socket.id];
+    const room = ds.getRoomFromUserId(socket.id);
+
+    console.log(`${user.name} got a ${difficulty} question ${isCorrect ? 'right' : 'wrong'}`);
+
+  });
+
 
   socket.on('disconnect', () => {
 
     const user = ds.users[socket.id];
-    const room = Object.values(ds.rooms).find(r => {
-      return r.users.includes(socket.id);
-    });
+    const room = ds.getRoomFromUserId(socket.id);
 
     if (user) {
       console.log(`Disconnect ${user.name}${room && ` from ${room.roomId}` }`);

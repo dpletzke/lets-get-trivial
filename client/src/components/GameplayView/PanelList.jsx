@@ -15,7 +15,7 @@ import classNames from "classnames";
 
 // basically just mapping an array into a list of panels and
 // rendering them within a div
-function PanelList({ infoArray }) {
+function PanelList({ infoArray, pickAnswer }) {
   const [selected, setSelected] = useState("");
   // replace answersObj with props
   // determines if this is a question panel or an answer panel based on the keys the object
@@ -30,6 +30,7 @@ function PanelList({ infoArray }) {
 
   const clickHandler = (id) => {
     if (!selected) {
+      pickAnswer(infoArray[id - 1].correct);
       setSelected(id);
     }
   };

@@ -45,9 +45,16 @@ function WaitingRoom(props) {
 
   connection.current.on('game_started', data => {
     const { questions, params } = data;
+    
     console.log(`${gameId} started from server!`);
     setGame(prev => ({...prev, questions, started: true, params}));
-  })
+  });
+
+  connection.current.on('game_ended', data => {
+
+    console.log(`${gameId} ended from server!`);
+    setGame(prev => ({...prev, started: false}));
+  });
 
   const controller = (game) => {
     if (!game.started) {
@@ -69,7 +76,7 @@ function WaitingRoom(props) {
 
       return (
         <>
-          <GameplayView {...game}/>
+          <GameplayView {...game} />
         </>
       );
     }

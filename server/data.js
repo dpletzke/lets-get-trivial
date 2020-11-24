@@ -60,12 +60,19 @@ module.exports = {
 
   },
 
+  getRoomFromUserId:(userId) => {
+    return Object.values(rooms).find(r => {
+      return r.users.includes(userId);
+    });
+  },
+
   destroyUser:(userId) => {
     console.log('Destroy user:', users[userId].name);
     console.log('');
 
     delete users[userId];
   },
+
   destroyRoom:(roomId) => {
     delete rooms[roomId];
   }

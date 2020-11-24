@@ -1,5 +1,9 @@
+import { useContext } from 'react';
+
 import PanelList from "./PanelList";
 import GameplayHeader from "./GameplayHeader";
+
+import ConnectionContext from "../../ConnectionContext";
 
 //here is the structure of the data coming from the api. Added is the questionIndex which is based on how many questions the user selects
 // const questionObj = {
@@ -36,13 +40,21 @@ const digestQuestionObj = (questionObject) => {
 function ActiveQuestion({ questionObj, questionIndex }) {
   const { question, answers } = digestQuestionObj(questionObj);
 
+  const connection = useContext(ConnectionContext);
+
+  const pickAnswer = (questionObj) => {
+    return (correct) => {
+      connection.current.emit('picked_answer', { correct, ...questionObj });
+    }
+  }
+
   return (
     <div>
       <GameplayHeader questionIndex={questionIndex} />
       <div>
         {/* the two panels in this view can be targeted individually due to their conditional css, see PanelList component */}
         <PanelList infoArray={question} />
-        <PanelList infoArray={answers} />
+        <PanelList infoArray={answers} pickAnswer={pickAnswer(questionObj)}/>
       </div>
     </div>
   );
