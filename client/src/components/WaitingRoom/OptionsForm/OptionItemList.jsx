@@ -3,12 +3,15 @@ import "./OptionItemList.scss";
 
 // const options = [];
 
-function OptionItemList({ optionsList, clickHandler, label }) {
-  const list = optionsList.map((item) => (
-    <OptionItem label={label} clickHandler={clickHandler}>
+function OptionItemList({ optionsList, clickHandler, label, selected }) {
+  
+  const list = optionsList.map((item , index) => {
+   
+    return (<OptionItem key={index+1} selected={selected} clickHandler={clickHandler}>
       {item}
     </OptionItem>
-  ));
+  )
+});
   return (
     <div className="category-heading">
       <h3>{label}</h3>
