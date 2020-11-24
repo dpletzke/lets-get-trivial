@@ -1,0 +1,9 @@
+@import "../../styles/variables.scss";
+
+.question-container {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  background-color: $color-primary-background;
+}

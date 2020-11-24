@@ -2,6 +2,7 @@ import { useContext } from 'react';
 
 import PanelList from "./PanelList";
 import GameplayHeader from "./GameplayHeader";
+import "./Question.scss";
 
 import ConnectionContext from "../../ConnectionContext";
 
@@ -51,7 +52,7 @@ function ActiveQuestion({ questionObj, questionIndex }) {
   return (
     <div>
       <GameplayHeader questionIndex={questionIndex} />
-      <div>
+      <div className="question-container">
         {/* the two panels in this view can be targeted individually due to their conditional css, see PanelList component */}
         <PanelList infoArray={question} />
         <PanelList infoArray={answers} pickAnswer={pickAnswer(questionObj)}/>

@@ -5,6 +5,7 @@ import PlayerList from "./PlayerList";
 import PlayerListItem from "./PlayerListItem";
 import Button from "../Button";
 import GameplayView from "../GameplayView";
+import OptionsForm from "../WaitingRoom/OptionsForm/index";
 
 import ModalComponent from "../Modal";
 import { FaCog } from "react-icons/fa";
@@ -85,7 +86,7 @@ function WaitingRoom(props) {
             Start Game >>
           </Button>
           <ModalComponent modalIsOpen={modalIsOpen} closeModal={closeModal}>
-            Form component goes here
+            <OptionsForm />
           </ModalComponent>
         </main>
       );
