@@ -20,6 +20,7 @@ function OptionsForm() {
     setOptions({ ...options, numQuestions: num });
   }
   function setCategory(catId) {
+    console.log({ catId });
     setOptions({ ...options, categoryId: catId });
   }
 
@@ -28,7 +29,7 @@ function OptionsForm() {
   function setDifficulty(difficulty) {
     let setDiff = difficulty.toLowerCase();
     const validOptions = ["easy", "medium", "hard"];
-    if (validOptions.find((elm) => elm === setDiff)) {
+    if (validOptions.find((el) => el === setDiff)) {
       setOptions({ ...options, difficulty: difficulty });
     }
   }
@@ -65,6 +66,7 @@ function OptionsForm() {
 
   const optionGroups = settings.map((elm) => {
     const { label, optionsList, clickHandler } = elm;
+    console.log({ elm });
 
     return (
       <OptionItemList

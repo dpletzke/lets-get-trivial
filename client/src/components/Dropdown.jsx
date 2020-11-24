@@ -3,6 +3,8 @@ import { BsChevronDoubleDown } from "react-icons/bs";
 import Button from "./Button";
 import "./Dropdown.scss";
 
+const classNames = require("classnames");
+
 export default function Dropdown({
   clickHandler,
   optionsArray,
@@ -17,6 +19,7 @@ export default function Dropdown({
   const list = optionsArray.map((option) => {
     return (
       <li
+        catId={option.id}
         onClick={() => clickHandler(option.id)}
         id={`category-${option[idKey]}`}
       >
