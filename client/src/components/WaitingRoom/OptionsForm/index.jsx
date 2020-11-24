@@ -13,9 +13,10 @@ import "./index.scss";
 // this should eventually be dealt with
 // as global state:
 
-function OptionsForm() {
-  const [options, setOptions] = useState({});
-  
+function OptionsForm({setOptions, options}) {
+  // const [options, setOptions] = useState({});
+ 
+
 
   function setNumber(num) {
     setOptions({ ...options, numQuestions: num });
