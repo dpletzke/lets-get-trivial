@@ -12,6 +12,7 @@ import { FaCog } from "react-icons/fa";
 import { action } from "@storybook/addon-actions";
 
 import ConnectionContext from "../../ConnectionContext";
+import useGameData from '../../hooks/useGameData'
 
 function WaitingRoom(props) {
   const { players, gameId } = props;
@@ -28,62 +29,15 @@ function WaitingRoom(props) {
 
   const connection = useContext(ConnectionContext);
 
-  const initialGame = {
-    started: false,
-    questions: [],
-    params: { numQuestions: 5 },
-    currentQ: 0
-  };
-  const [game, setGame] = useState(initialGame);
-  // helper function being passed into the options form ...
-  // move it into a separate file
-  const setOptions = (options) => {
-    setGame({...game, params: {...options}});
-  }
+  const {
+   game,
+    setOptions,
+    startGame,
+  } = useGameData(gameId, connection)
 
-  const startGame = () => {
-    const { params } = game;
-
-    console.log(`Start ${gameId} request sent to server!`);
-    connection.current.emit("start_game", { params });
-  };
-
-  useEffect(() => {
-    connection.current.on("game_started", (data) => {
-      const { questions, params } = data;
-      
-      console.log(`${gameId} started from server!`);
-      setGame(prev => ({...prev, questions, started: true, params}));
-    });
-  
-    connection.current.on("next_question", async (data) => {
-      const { namesCorrect, currentQ } = data;
-      
-      console.log('Server sent next Q, starting timeout');
-      const timer = await setTimeout(() => {
-        console.log(`${gameId} moved to question ${currentQ} from server!`);
-        setGame(prev => ({...prev, currentQ }));
-        clearTimeout(timer);
-      }, 2000);
-    });
-  
-    connection.current.on('game_ended', data => {
-  
-      console.log(`${gameId} ended from server!`);
-      setGame(prev => ({...prev, started: false, currentQ: 0}));
-    });
-
-    const oldConnection = connection.current;
-
-    return () => {
-      oldConnection.removeAllListeners("game_started");
-      oldConnection.removeAllListeners("next_question");
-      oldConnection.removeAllListeners("game_ended");
-    }
-
-  }, [connection, gameId]);
 
   const controller = (game) => {
+
     if (!game.started) {
       return (
         <main className="box-waiting">

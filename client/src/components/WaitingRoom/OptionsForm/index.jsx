@@ -72,7 +72,6 @@ function OptionsForm({ setOptions, options }) {
 
   const optionGroups = settings.map((elm) => {
     const { label, optionsList, clickHandler, paramsKey } = elm;
-    console.log({ elm });
 
     return (
       <OptionItemList
