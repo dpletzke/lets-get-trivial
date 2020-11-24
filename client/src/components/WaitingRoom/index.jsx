@@ -35,6 +35,11 @@ function WaitingRoom(props) {
     currentQ: 0
   };
   const [game, setGame] = useState(initialGame);
+  // helper function being passed into the options form ...
+  // move it into a separate file
+  const setOptions = (options) => {
+    setGame({...game, params: {...options}});
+  }
 
   const startGame = () => {
     // const { params } = game;
@@ -86,7 +91,7 @@ function WaitingRoom(props) {
             Start Game >>
           </Button>
           <ModalComponent modalIsOpen={modalIsOpen} closeModal={closeModal}>
-            <OptionsForm />
+            <OptionsForm options={game.params} setOptions={setOptions}/>
           </ModalComponent>
         </main>
       );

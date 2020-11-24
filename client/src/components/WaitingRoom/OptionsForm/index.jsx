@@ -13,8 +13,10 @@ import "./index.scss";
 // this should eventually be dealt with
 // as global state:
 
-function OptionsForm() {
-  const [options, setOptions] = useState({});
+function OptionsForm({setOptions, options}) {
+  // const [options, setOptions] = useState({});
+ 
+
 
   function setNumber(num) {
     setOptions({ ...options, numQuestions: num });
@@ -46,32 +48,37 @@ function OptionsForm() {
   const settings = [
     {
       label: "Number of Questions",
+      paramsKey: 'numQuestions',
       optionsList: [5, 10, 15, 20],
       clickHandler: setNumber,
     },
     {
       label: "Difficulty",
+      paramsKey: 'difficulty',
       optionsList: ["Easy", "Medium", "Hard", "Mixed"],
       clickHandler: setDifficulty,
     },
     {
       label: "Question Time",
+      paramsKey: 'timeLimit',
       optionsList: [10, 20, 30, 40],
       clickHandler: setQuestionTimeLimit,
     },
     {
       label: "Correct Per Round",
+      paramsKey: 'numCorrect',
       optionsList: [1, 2, "50%", "100%"],
       clickHandler: setNumberCorrect,
     },
   ];
 
   const optionGroups = settings.map((elm) => {
-    const { label, optionsList, clickHandler } = elm;
+    const { label, optionsList, clickHandler, paramsKey } = elm;
     console.log({ elm });
 
     return (
       <OptionItemList
+        selected={options[paramsKey]}
         label={label}
         optionsList={optionsList}
         clickHandler={clickHandler}
@@ -91,6 +98,7 @@ function OptionsForm() {
         displayKey="name"
         idKey="id"
         clickHandler={setCategory}
+        selected={options.categoryId}
       />
       {optionGroups}
     </div>

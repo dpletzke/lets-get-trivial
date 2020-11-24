@@ -1,9 +1,17 @@
 //Params for each option
 import "./OptionItem.scss";
+import classNames from 'classnames'
 
-function OptionItem({ children, clickHandler, label }) {
+function OptionItem({ children, clickHandler, label, selected }) {
+  let isSelected = selected === children ? true : false;
+  if (children === 'Mixed' && !selected) {
+    isSelected = true;
+  }
+
+  const className = classNames('option-item', {'option-item--selected': isSelected})
+
   return (
-    <div onClick={() => clickHandler(children)} className="option-item">
+    <div id={label} onClick={() => clickHandler(children)} className={className}>
       <span>{children}</span>
     </div>
   );

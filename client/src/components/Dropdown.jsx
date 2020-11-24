@@ -1,6 +1,7 @@
 import { useRef, useState } from "react";
 import { BsChevronDoubleDown } from "react-icons/bs";
 import Button from "./Button";
+import DropdownListItem from './DropdownListItem';
 import "./Dropdown.scss";
 
 const classNames = require("classnames");
@@ -11,6 +12,7 @@ export default function Dropdown({
   displayKey,
   idKey,
   label,
+  selected,
 }) {
   const dropdownRef = useRef(null);
   const [isActive, setIsActive] = useState(false);
@@ -18,22 +20,25 @@ export default function Dropdown({
 
   const list = optionsArray.map((option) => {
     return (
-      <li
-        catId={option.id}
-        onClick={() => clickHandler(option.id)}
-        id={`category-${option[idKey]}`}
-      >
-        <span>{option[displayKey]}</span>
-      </li>
+      <DropdownListItem
+      id={option.id}
+      clickHandler={clickHandler}
+      category={option[displayKey]}
+      selected={selected}
+      />
     );
   });
+
+
+   const thisCategory = selected && optionsArray.filter((option) => option.id === selected)[0].name
+ 
 
   return (
     <div>
       <div className="menu-container">
         <p onClick={onClick} className="menu-trigger">
           <Button>
-            <span>{label}</span>
+            <span>{selected ? thisCategory : label}</span>
             <BsChevronDoubleDown className="floating" />
           </Button>
         </p>
