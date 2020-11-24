@@ -14,6 +14,8 @@ import { action } from "@storybook/addon-actions";
 import ConnectionContext from "../../ConnectionContext";
 
 function WaitingRoom(props) {
+  const { players, gameId } = props;
+
   const [modalIsOpen,setIsOpen] = useState(false);
   function openModal() {
     console.log('openModal');
@@ -24,15 +26,13 @@ function WaitingRoom(props) {
     setIsOpen(false);
   }
 
-  const { players, gameId } = props;
-
   const connection = useContext(ConnectionContext);
 
   const initialGame = {
     started: false, 
     questions: [],
     params: {numQuestions: 5},
-    currentQ: 3
+    currentQ: 0
   };
   const [game, setGame] = useState(initialGame);
   
@@ -66,9 +66,10 @@ function WaitingRoom(props) {
       </main>
       )
     } else {
+
       return (
         <>
-          <GameplayView questions={game.questions} params={game.params} currentQ={game.currentQ}/>
+          <GameplayView {...game}/>
         </>
       );
     }
