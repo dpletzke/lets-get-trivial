@@ -47,7 +47,9 @@ function Home(props) {
         <h1>Let's Get Trivial</h1>
         <form autoComplete="off" onSubmit={(event) => event.preventDefault()}>
           <p>Host New Game</p>
-          {error === 1 && <p>Please Enter a Player Name</p>}
+          <div className="error-message">
+            {error === 1 && <p>Please Enter a Player Name</p>}
+          </div>
           <input
             data-testid="host-name-input"
             name="Hostname"
@@ -62,9 +64,11 @@ function Home(props) {
         </form>
         <form autoComplete="off" onSubmit={(event) => event.preventDefault()}>
           <p>Join Game </p>
-          {error === 2 && <p>Please Enter a Player Name</p>}
-          {error === 3 && <p>Please Enter a Game ID</p>}
-          {error === 4 && <p>Invalid Game ID</p>}
+          <div className="error-message">
+            {error === 2 && <p>Please Enter a Player Name</p>}
+            {error === 3 && <p>Please Enter a Game ID</p>}
+            {error === 4 && <p>Invalid Game ID</p>}
+          </div>
           <input
             data-testid="player-name-input"
             name="Player Name"
