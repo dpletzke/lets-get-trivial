@@ -41,7 +41,7 @@ function WaitingRoom(props) {
 
     const params = {
       categoryId: 4,
-      numQuestions: 10,
+      numQuestions: 50,
       type: null,
       difficulty: 'easy',
       numberCorrect: 0.5,
@@ -60,10 +60,10 @@ function WaitingRoom(props) {
   });
 
   connection.current.on("next_question", (data) => {
-    const { namesCorrect } = data;
+    const { namesCorrect, currentQ } = data;
     
-    console.log(`${gameId} moved to next question from server!`);
-    setGame(prev => ({...prev, currentQ: prev.currentQ + 1}));
+    console.log(`${gameId} moved to question ${currentQ} from server!`);
+    setGame(prev => ({...prev, currentQ }));
   });
 
   connection.current.on('game_ended', data => {

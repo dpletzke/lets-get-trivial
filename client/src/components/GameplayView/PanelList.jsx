@@ -1,7 +1,9 @@
-import { useState } from "react";
+import { useState, useContext } from "react";
 import Panel from "./Panel";
 import "./PanelList.scss";
 import classNames from "classnames";
+
+import ConnectionContext from "../../ConnectionContext";
 
 // pass infoArray as an array of objects as formatted below:
 // [{questionString: 'is this thing on?'}]
@@ -27,6 +29,11 @@ function PanelList({ infoArray, pickAnswer }) {
     { box__answer: answerPanel },
     { box__question: questionPanel }
   );
+
+  const connection = useContext(ConnectionContext);
+  connection.current.on('next_question', () => {
+    setSelected("");
+  })
 
   const clickHandler = (id) => {
     if (!selected) {
