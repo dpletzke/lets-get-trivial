@@ -31,6 +31,8 @@ function OptionsForm() {
     const validOptions = ["easy", "medium", "hard"];
     if (validOptions.find((el) => el === setDiff)) {
       setOptions({ ...options, difficulty: difficulty });
+    } else {
+      setOptions({ ...options, difficulty: null });      
     }
   }
 
@@ -72,7 +74,7 @@ function OptionsForm() {
       <OptionItemList
         label={label}
         optionsList={optionsList}
-        clickHander={clickHandler}
+        clickHandler={clickHandler}
       />
     );
   });
