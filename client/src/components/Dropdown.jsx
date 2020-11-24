@@ -17,12 +17,16 @@ export default function Dropdown({
   const dropdownRef = useRef(null);
   const [isActive, setIsActive] = useState(false);
   const onClick = () => setIsActive(!isActive);
+  const onListElmClick = (id) => {
+    clickHandler(id);
+    onClick();
+  }
 
   const list = optionsArray.map((option) => {
     return (
       <DropdownListItem
       id={option.id}
-      clickHandler={clickHandler}
+      clickHandler={onListElmClick}
       category={option[displayKey]}
       selected={selected}
       />
