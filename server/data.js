@@ -31,7 +31,6 @@ module.exports = {
     if (!score) score = 0;
 
     const user = {
-      socket,
       name,
       score
     };
@@ -41,17 +40,22 @@ module.exports = {
     return user;
   },
 
-  createRoom:({ roomId, userId, token, categoryId, numQuestions, type }) => {
+  createRoom:({ roomId, hostId }) => {
 
     const room = {
       roomId,
-      creatorId: userId,
-      token,
-      categoryId,
-      numQuestions,
-      type,
+      hostId,
+      token: null,
       questions: [],
-      users: []
+      users: [],
+      params: {
+        questionTime: 15000,
+        categoryId: null,
+        numQuestions: null,
+        type: null,
+        difficulty: null,
+        numberCorrect: null
+      }
     };
 
     rooms[roomId] = room;
@@ -74,6 +78,9 @@ module.exports = {
   },
 
   destroyRoom:(roomId) => {
+    console.log('Destroy room:', roomId);
+    console.log('');
+
     delete rooms[roomId];
   }
 

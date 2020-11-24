@@ -34,9 +34,9 @@ io.on('connection', (socket) => {
     /* set name and roomId in data */
     user.name = name;
     user.roomId = roomId;
-    
+  
     /* reference or create room and push user to users array */
-    const room = ds.rooms[roomId] || ds.createRoom({ roomId });
+    const room = ds.rooms[roomId] || ds.createRoom({ roomId, hostId: user.id });
     room.users.push(socket.id);
 
     socket.join(roomId);
@@ -61,14 +61,17 @@ io.on('connection', (socket) => {
   socket.on('start_game', async data => {
     const { params } = data;
 
-    /* retrieve token print response */
-    const tokenRes = await getSessionToken();
+    const user = ds.users[socket.id];
+    const room = ds.getRoomFromUserId(socket.id);
+
+    /* if room has token, check stale and refresh or generate new if no token */
+    const tokenRes = await getSessionToken(room.token);
     console.log(`${tokenRes.response_message} for ${user.roomId}`);
     const token = tokenRes.token;
 
-    /* add token to room */
-    const roomId = ds.users[socket.id].roomId;
-    ds.rooms[roomId].token = token;
+    /* add token and params to room */
+    room.token = token;
+    room.params = params;
 
     /* request questions with token and params */
     const questionsRes = await getQuestions(params, token);
@@ -79,7 +82,7 @@ io.on('connection', (socket) => {
     const serializeRooms = Object.values(socket.rooms).slice(1).join(' ');
     console.log(`Server starting ${serializeRooms}`);
 
-    io.in(roomId).emit('game_started', { questions, params });
+    io.in(room.roomId).emit('game_started', { questions, params });
   });
 
   // socket.on('change_name', (newName) => {
@@ -91,12 +94,23 @@ io.on('connection', (socket) => {
   // });
 
   socket.on('picked_answer', data => {
-    const { isCorrect, difficulty } = data;
-    
+    const { correct, difficulty } = data;
+
     const user = ds.users[socket.id];
     const room = ds.getRoomFromUserId(socket.id);
 
-    console.log(`${user.name} got a ${difficulty} question ${isCorrect ? 'right' : 'wrong'}`);
+    console.log({user, room});
+
+    const pointsEarned = {
+      'easy': 1,
+      'medium': 2,
+      'hard': 3
+    }[difficulty];
+
+    user.score += correct && pointsEarned;
+
+    console.log(room);
+    console.log(user);
 
   });
 
@@ -117,6 +131,7 @@ io.on('connection', (socket) => {
       const position = room.users.findIndex(id => id === socket.id);
       room.users.splice(position, 1);
 
+      /* remove socket information from users sent to client */
       const payload = {
         users: room.users.map(id => {
           const userPayload = {...ds.users[id]};
