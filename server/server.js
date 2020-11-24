@@ -131,7 +131,7 @@ io.on('connection', (socket) => {
         namesCorrect: room.status.correct,
         currentQ: room.status.currentQ + 1
       };
-      
+      console.log(`Moving ${room.roomId} to the next question`);
       io.in(room.roomId).emit('next_question', payload);
       
       room.status.currentQ = room.status.currentQ + 1;
