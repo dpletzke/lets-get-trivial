@@ -2,12 +2,18 @@
 @import "../styles/animations.scss";
 
 .floating {
+  font-size: 1.5em;
+  margin-left: 0.3em;
   animation: floating 3s ease-in-out infinite;
-  color: black;
+  color: $color-secondary-text;
 }
 
 .menu-container {
   position: relative;
+
+  span {
+    font-size: 1.5em;
+  }
 }
 
 .menu {
@@ -41,6 +47,13 @@
   font-family: $FancyFont;
   color: $color-primary-background;
   border-bottom: 1px solid #dddddd;
+  &:hover {
+    background-color: $color-secondary-background;
+    cursor: pointer;
+  }
+  &--selected {
+    background-color: $color-secondary-background;
+  }
 }
 
 .menu li a {

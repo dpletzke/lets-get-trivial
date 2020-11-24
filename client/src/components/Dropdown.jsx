@@ -1,5 +1,6 @@
 import { useRef, useState } from "react";
 import { BsChevronDoubleDown } from "react-icons/bs";
+import Button from "./Button";
 import "./Dropdown.scss";
 
 export default function Dropdown({
@@ -28,8 +29,10 @@ export default function Dropdown({
     <div>
       <div className="menu-container">
         <p onClick={onClick} className="menu-trigger">
-          <span>{label}</span>
-          <BsChevronDoubleDown className="floating" />
+          <Button>
+            <span>{label}</span>
+            <BsChevronDoubleDown className="floating" />
+          </Button>
         </p>
       </div>
 

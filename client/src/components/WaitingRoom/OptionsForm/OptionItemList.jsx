@@ -1,9 +1,8 @@
 import OptionItem from "./OptionItem";
 import "./OptionItemList.scss";
 
-const options = [];
+// const options = [];
 
-//Category, Difficulty
 function OptionItemList({ optionsList, clickHandler, label }) {
   const list = optionsList.map((item) => (
     <OptionItem label={label} clickHandler={clickHandler}>

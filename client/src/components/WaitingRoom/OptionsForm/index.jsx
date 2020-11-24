@@ -80,7 +80,6 @@ function OptionsForm() {
       <h1>
         <FaCog className="settings-cog" />
         Game Settings
-        <FaCog className="settings-cog" />
       </h1>
       <Dropdown
         label="Categories"
