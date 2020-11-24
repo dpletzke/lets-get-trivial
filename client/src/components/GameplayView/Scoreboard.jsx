@@ -9,7 +9,7 @@ const players = [
   { name: "player_3", score: 29, pointsEarned: 1, correctAnswer: false },
 ];
 
-function ScoreBoard({ players }) {
+function ScoreBoard({}) {
   return (
     <div>
       <h2>Score Board</h2>
