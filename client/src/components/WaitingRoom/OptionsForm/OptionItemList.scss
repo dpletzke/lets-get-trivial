@@ -1,0 +1,15 @@
+@import "../../../styles/variables.scss";
+.category-heading {
+  font-family: $Audiowide;
+  text-align: center;
+  color: $color-primary-background;
+  margin: 0.5em;
+  padding: 2em;
+  border: 1px solid black;
+  border-radius: 0.5em;
+}
+
+.settings-group {
+  display: flex;
+  justify-content: space-evenly;
+}

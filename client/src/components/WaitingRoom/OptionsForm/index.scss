@@ -1,0 +1,18 @@
+@import "../../../styles/variables.scss";
+
+.settings-container {
+  h1 {
+    font-size: 2em;
+    text-align: center;
+  }
+}
+
+.settings-cog {
+  padding: 0em 0.5em 0em 0.5em;
+  color: $color-primary-background;
+}
+
+.option-group {
+  padding: 1em;
+  margin: 1em;
+}

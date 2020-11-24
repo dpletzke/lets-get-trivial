@@ -1,18 +1,19 @@
 import OptionItem from "./OptionItem";
+import "./OptionItemList.scss";
 
 const options = [];
 
 //Category, Difficulty
-function OptionItemList({ optionsList, gameSetting, clickHandler }) {
+function OptionItemList({ optionsList, clickHandler, label }) {
   const list = optionsList.map((item) => (
-    <OptionItem gameSetting={gameSetting} clickHandler={clickHandler}>
+    <OptionItem label={label} clickHandler={clickHandler}>
       {item}
     </OptionItem>
   ));
   return (
-    <div>
-      <h3>{gameSetting}</h3>
-      {list}
+    <div className="category-heading">
+      <h3>{label}</h3>
+      <div className="settings-group">{list}</div>
     </div>
   );
 }

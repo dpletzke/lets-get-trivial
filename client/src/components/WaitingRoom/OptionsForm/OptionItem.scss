@@ -2,12 +2,13 @@
 
 .option-item {
   border: none;
-  padding: 0.2rem;
-  // background-color: lighten($color-primary-text, ammount 10%);
+  padding: 0.2rem 0.5rem;
+  background-color: lighten($color-primary-text, $amount: 10%);
   &--selected {
-    // background-color: darken($color-primary-text, ammount 10%);
+    background-color: darken($color-primary-text, $amount: 10%);
   }
   &:hover {
+    background-color: darken($color-primary-text, $amount: 10%);
     cursor: pointer;
   }
 }
