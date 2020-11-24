@@ -17,9 +17,6 @@ function GameplayView(props) {
     questionIndex : currentQ + 1
   }
 
-  console.log(passProps);
-
-
   return (
     <div>
       <ActiveQuestion {...passProps} />
