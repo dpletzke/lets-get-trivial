@@ -12,8 +12,6 @@ const SCORE = 'SCORE';
 function GameplayView(props) {
   const { questions, params, currentQ } = props;
 
-  console.log({questions, currentQ});
-
   const passProps = {
     questionObj : questions[currentQ],
     questionIndex : currentQ + 1

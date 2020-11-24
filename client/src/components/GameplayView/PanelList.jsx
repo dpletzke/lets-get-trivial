@@ -31,8 +31,10 @@ function PanelList({ infoArray, pickAnswer }) {
   );
 
   const connection = useContext(ConnectionContext);
-  connection.current.on('next_question', () => {
-    setSelected("");
+  connection.current.on('next_question', async () => {
+    await setTimeout(() => {
+      setSelected("");
+    }, 2000);
   })
 
   const clickHandler = (id) => {

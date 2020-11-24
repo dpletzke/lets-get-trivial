@@ -62,8 +62,11 @@ function WaitingRoom(props) {
   connection.current.on("next_question", (data) => {
     const { namesCorrect, currentQ } = data;
     
-    console.log(`${gameId} moved to question ${currentQ} from server!`);
-    setGame(prev => ({...prev, currentQ }));
+    console.log('Server sent next Q, starting timeout');
+    setTimeout(async () => {
+      console.log(`${gameId} moved to question ${currentQ} from server!`);
+      await setGame(prev => ({...prev, currentQ }));
+    }, 2000);
   });
 
   connection.current.on('game_ended', data => {

@@ -132,7 +132,8 @@ io.on('connection', (socket) => {
       };
       
       io.in(room.roomId).emit('next_question', payload);
-
+      
+      room.status.currentQ = room.status.currentQ + 1;
       room.status.correct = [];
       room.status.answered = 0;
     }
