@@ -1,9 +1,9 @@
-import GameplayHeader from './GameplayHeader'
-import ActiveQuestion from './Question'
-import ShowScore from './ShowScore'
+import GameplayHeader from "./GameplayHeader";
+import ActiveQuestion from "./Question";
+import ScoreBoard from "./ScoreBoard";
 
-const QUESTION = 'QUESTION';
-const SCORE = 'SCORE';
+const QUESTION = "QUESTION";
+const SCORE = "SCORE";
 
 // uncomment below after implementation of custom hook
 // import useVisualMode from...
@@ -13,9 +13,9 @@ function GameplayView(props) {
   const { questions, params, currentQ } = props;
 
   const passProps = {
-    questionObj : questions[currentQ],
-    questionIndex : currentQ + 1
-  }
+    questionObj: questions[currentQ],
+    questionIndex: currentQ + 1,
+  };
 
   return (
     <div>
@@ -23,9 +23,8 @@ function GameplayView(props) {
       {/* uncomment below on implementation of visualMode */}
       {/* {mode === QUESTION && <Question/>}
       {mode === SCORE && <ShowScore/>} */}
-
     </div>
   );
 }
 
-export default GameplayView
+export default GameplayView;

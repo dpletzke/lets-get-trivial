@@ -1,18 +1,21 @@
-import Player from './Player'
+import ScoreList from "./ScoreList";
+import { generateScoreString, orderByScore } from "./scoreHelpers";
+
+import "./ScoreBoard.scss";
 
 const players = [
-  {name: 'player_1', score: 42},
-  {name: 'player_2', score: 65},
-  {name: 'player_3', score: 29}
-]
+  { name: "player_1", score: 42, pointsEarned: 3, correctAnswer: true },
+  { name: "player_2", score: 65, pointsEarned: -2, correctAnswer: true },
+  { name: "player_3", score: 29, pointsEarned: 1, correctAnswer: false },
+];
 
-function ScoreBoard(props) {
-  // {players} = props
-
+function ScoreBoard({ players }) {
   return (
     <div>
-      <h1>ScoreBoard Component</h1>
-      {players && players.map((player) => <Player name={player.name} score={player.score} />)}
+      <h2>Score Board</h2>
+      {/* Victory String */}
+      {/* Correct Player String */}
+      <ScoreList players={players} />
     </div>
   );
 }
