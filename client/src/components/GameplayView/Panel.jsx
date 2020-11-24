@@ -1,8 +1,10 @@
 import { useState } from "react";
 import "./Panel.scss";
 import classNames from "classnames";
+const Entities = require('html-entities').AllHtmlEntities;
 
 function Panel(props) {
+  const entities = new Entities();
   // replace answerObj with props
   // const [correctSelected, setCorrectSelected] = useState(false);
   // const [incorrectSelected, setIncorrectSelected] = useState(false);
@@ -33,12 +35,12 @@ function Panel(props) {
     <>
     {answerString && 
     <div className={className} onClick={() => setSelected(id)}>
-      <p>{answerString }</p>
+      <p>{entities.decode(answerString) }</p>
     </div>
     }
     {questionString && 
     <div className={className}>
-      <p>{questionString}</p>
+      <p>{entities.decode(questionString)}</p>
     </div>
     }
     </>
