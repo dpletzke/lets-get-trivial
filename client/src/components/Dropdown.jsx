@@ -29,12 +29,16 @@ export default function Dropdown({
     );
   });
 
+
+   const thisCategory = selected && optionsArray.filter((option) => option.id === selected)[0].name
+ 
+
   return (
     <div>
       <div className="menu-container">
         <p onClick={onClick} className="menu-trigger">
           <Button>
-            <span>{label}</span>
+            <span>{selected ? thisCategory : label}</span>
             <BsChevronDoubleDown className="floating" />
           </Button>
         </p>
