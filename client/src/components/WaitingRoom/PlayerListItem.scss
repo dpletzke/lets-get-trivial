@@ -2,10 +2,10 @@
 
 .player-container {
   border: 1px solid $color-secondary-text;
-  width: 50%;
   border-radius: 1em;
   margin: 0.5em auto;
   background-color: white;
+  width: 100%;
 
   .list-item-text {
     color: $color-secondary-text;

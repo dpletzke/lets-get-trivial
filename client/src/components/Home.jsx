@@ -44,49 +44,51 @@ function Home(props) {
   return (
     <main>
       <section className="box-home">
-        <h1>Let's Get Trivial</h1>
-        <form autoComplete="off" onSubmit={(event) => event.preventDefault()}>
-          <p>Host New Game</p>
-          {error === 1 && <p>Please Enter a Player Name</p>}
-          <input
-            data-testid="host-name-input"
-            name="Hostname"
-            type="text"
-            placeholder="Enter Player Name"
-            value={hostName || ""}
-            onChange={(event) => setHostName(event.target.value.toUpperCase())}
-          />
-          <Button onClick={() => createGame()} home>
-            Create Game
-          </Button>
-        </form>
-        <form autoComplete="off" onSubmit={(event) => event.preventDefault()}>
-          <p>Join Game </p>
-          {error === 2 && <p>Please Enter a Player Name</p>}
-          {error === 3 && <p>Please Enter a Game ID</p>}
-          {error === 4 && <p>Invalid Game ID</p>}
-          <input
-            data-testid="player-name-input"
-            name="Player Name"
-            type="text"
-            placeholder="Enter Player Name"
-            value={playerName || ""}
-            onChange={(event) =>
-              setPlayerName(event.target.value.toUpperCase())
-            }
-          />
-          <input
-            data-testid="game-id-input"
-            name="Hostname"
-            type="text"
-            placeholder="Enter Game ID"
-            value={gameId || ""}
-            onChange={(event) => setGameId(event.target.value.toUpperCase())}
-          />
-          <Button onClick={() => joinGame()} home>
-            Join Game
-          </Button>
-        </form>
+        <div className="box-home--content">
+          <h1 class="box-home--heading">Let's Get Trivial</h1>
+            <form autoComplete="off" onSubmit={(event) => event.preventDefault()}>
+              <p>Host New Game</p>
+              {error === 1 && <p>Please Enter a Player Name</p>}
+              <input
+                data-testid="host-name-input"
+                name="Hostname"
+                type="text"
+                placeholder="Enter Player Name"
+                value={hostName || ""}
+                onChange={(event) => setHostName(event.target.value.toUpperCase())}
+              />
+              <Button onClick={() => createGame()} home>
+                Create Game
+              </Button>
+            </form>
+            <form autoComplete="off" onSubmit={(event) => event.preventDefault()}>
+              <p>Join Game </p>
+              {error === 2 && <p>Please Enter a Player Name</p>}
+              {error === 3 && <p>Please Enter a Game ID</p>}
+              {error === 4 && <p>Invalid Game ID</p>}
+              <input
+                data-testid="player-name-input"
+                name="Player Name"
+                type="text"
+                placeholder="Enter Player Name"
+                value={playerName || ""}
+                onChange={(event) =>
+                  setPlayerName(event.target.value.toUpperCase())
+                }
+              />
+              <input
+                data-testid="game-id-input"
+                name="Hostname"
+                type="text"
+                placeholder="Enter Game ID"
+                value={gameId || ""}
+                onChange={(event) => setGameId(event.target.value.toUpperCase())}
+              />
+              <Button onClick={() => joinGame()} home>
+                Join Game
+              </Button>
+            </form>
+        </div>
       </section>
     </main>
   );

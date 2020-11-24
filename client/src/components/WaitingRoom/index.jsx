@@ -85,18 +85,20 @@ function WaitingRoom(props) {
     if (!game.started) {
       return (
         <main className="box-waiting">
-          <div className="waiting-header">
-            <FaCog className="icon" onClick={openModal} />
+          <div className="box-waiting--content">
+            <div className="waiting-header">
+              <FaCog className="icon" onClick={openModal} />
+            </div>
+            <h1 class="box-waiting--header">Let's Get Trivial</h1>
+            <PlayerListItem className="alt-text" name={gameId} gameIdItem />
+            <PlayerList players={players} />
+            <Button onClick={startGame} gameRoom>
+              Start Game >>
+            </Button>
+            <ModalComponent modalIsOpen={modalIsOpen} closeModal={closeModal}>
+              <OptionsForm options={game.params} setOptions={setOptions}/>
+            </ModalComponent>
           </div>
-          <h2>Let's Get Trivial</h2>
-          <PlayerListItem className="alt-text" name={gameId} gameIdItem />
-          <PlayerList players={players} />
-          <Button onClick={startGame} gameRoom>
-            Start Game >>
-          </Button>
-          <ModalComponent modalIsOpen={modalIsOpen} closeModal={closeModal}>
-            <OptionsForm options={game.params} setOptions={setOptions}/>
-          </ModalComponent>
         </main>
       );
     } else {
