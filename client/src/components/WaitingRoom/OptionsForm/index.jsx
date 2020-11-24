@@ -13,10 +13,8 @@ import "./index.scss";
 // this should eventually be dealt with
 // as global state:
 
-function OptionsForm({setOptions, options}) {
+function OptionsForm({ setOptions, options }) {
   // const [options, setOptions] = useState({});
- 
-
 
   function setNumber(num) {
     setOptions({ ...options, numQuestions: num });
@@ -34,7 +32,7 @@ function OptionsForm({setOptions, options}) {
     if (validOptions.find((el) => el === setDiff)) {
       setOptions({ ...options, difficulty: difficulty });
     } else {
-      setOptions({ ...options, difficulty: null });      
+      setOptions({ ...options, difficulty: null });
     }
   }
 
@@ -48,25 +46,25 @@ function OptionsForm({setOptions, options}) {
   const settings = [
     {
       label: "Number of Questions",
-      paramsKey: 'numQuestions',
+      paramsKey: "numQuestions",
       optionsList: [5, 10, 15, 20],
       clickHandler: setNumber,
     },
     {
       label: "Difficulty",
-      paramsKey: 'difficulty',
+      paramsKey: "difficulty",
       optionsList: ["Easy", "Medium", "Hard", "Mixed"],
       clickHandler: setDifficulty,
     },
     {
       label: "Question Time",
-      paramsKey: 'timeLimit',
+      paramsKey: "timeLimit",
       optionsList: [10, 20, 30, 40],
       clickHandler: setQuestionTimeLimit,
     },
     {
       label: "Correct Per Round",
-      paramsKey: 'numCorrect',
+      paramsKey: "numCorrect",
       optionsList: [1, 2, "50%", "100%"],
       clickHandler: setNumberCorrect,
     },
