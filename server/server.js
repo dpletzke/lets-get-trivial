@@ -79,7 +79,7 @@ io.on('connection', (socket) => {
     const serializeRooms = Object.values(socket.rooms).slice(1).join(' ');
     console.log(`Server starting ${serializeRooms}`);
 
-    io.in(ds.users[socket.id].roomId).emit('game_started', { questions });
+    io.in(roomId).emit('game_started', { questions, params });
   });
 
   // socket.on('change_name', (newName) => {
