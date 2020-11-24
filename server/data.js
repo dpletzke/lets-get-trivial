@@ -31,7 +31,8 @@ module.exports = {
       users: [],
       status:{
         answered: 0,
-        correct: []
+        correct: [],
+        currentQ: null
       },
       params: {
         questionTime: 15000,

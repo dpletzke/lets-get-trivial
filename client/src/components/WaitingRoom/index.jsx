@@ -46,7 +46,7 @@ function WaitingRoom(props) {
 
     const params = {
       categoryId: 4,
-      numQuestions: 10,
+      numQuestions: 50,
       type: null,
       difficulty: 'easy',
       numberCorrect: 0.5,
@@ -64,11 +64,15 @@ function WaitingRoom(props) {
     setGame(prev => ({...prev, questions, started: true, params}));
   });
 
-  connection.current.on("next_question", (data) => {
-    const { namesCorrect } = data;
+  connection.current.on("next_question", async (data) => {
+    const { namesCorrect, currentQ } = data;
     
-    console.log(`${gameId} moved to next question from server!`);
-    setGame(prev => ({...prev, currentQ: prev.currentQ + 1}));
+    console.log('Server sent next Q, starting timeout');
+    const timer = await setTimeout(() => {
+      console.log(`${gameId} moved to question ${currentQ} from server!`);
+      setGame(prev => ({...prev, currentQ }));
+      clearTimeout(timer);
+    }, 2000);
   });
 
   connection.current.on('game_ended', data => {

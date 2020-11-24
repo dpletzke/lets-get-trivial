@@ -96,10 +96,11 @@ io.on('connection', (socket) => {
   socket.on('picked_answer', data => {
     const { correct, difficulty } = data;
 
+    
     const user = ds.users[socket.id];
     const room = ds.getRoomFromUserId(socket.id);
 
-    console.log({user, room});
+    console.log(`${user.name} picked an answer`);
 
     const pointsEarned = {
       'easy': 1,
@@ -109,26 +110,33 @@ io.on('connection', (socket) => {
 
     room.status.answered += 1;
 
+    
+    const allAnswered = room.status.answered === room.users.length;
+    const enoughCorrect = room.status.correct.length > 1;
+    
     /* increase score and push to correct array if correct */
-    if (correct) {
+    if (correct && !enoughCorrect) {
       user.score += pointsEarned;
       room.status.correct.push(user.name);
     }
 
-    const allAnswered = room.status.answered === room.users.length;
-    const enoughCorrect = room.status.correct.length > 1;
-
     if (enoughCorrect || allAnswered) {
 
-      const payload = {
-        namesCorrect: room.status.correct
-      };
-
       const reason = enoughCorrect ? 'enough got it right' : allAnswered ? 'everybody answered' : 'time ran out';
-
+      
       console.log(`Moving on for ${room.roomId} because ${reason}`);
 
-      socket.to(room.roomId).emit('next_question', payload);
+      
+      const payload = {
+        namesCorrect: room.status.correct,
+        currentQ: room.status.currentQ + 1
+      };
+      
+      io.in(room.roomId).emit('next_question', payload);
+      
+      room.status.currentQ = room.status.currentQ + 1;
+      room.status.correct = [];
+      room.status.answered = 0;
     }
 
   });
@@ -159,7 +167,7 @@ io.on('connection', (socket) => {
         })
       };
 
-      socket.to(room.roomId).emit('user_disconnected', payload);
+      io.in(room.roomId).emit('user_disconnected', payload);
     }
   });
 });

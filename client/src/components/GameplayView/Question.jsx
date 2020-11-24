@@ -43,10 +43,8 @@ function ActiveQuestion({ questionObj, questionIndex }) {
 
   const connection = useContext(ConnectionContext);
 
-  const pickAnswer = (questionObj) => {
-    return (correct) => {
-      connection.current.emit('picked_answer', { correct, ...questionObj });
-    }
+  const pickAnswer = (correct) => {
+    connection.current.emit('picked_answer', { correct, ...questionObj });
   }
 
   return (
@@ -55,7 +53,7 @@ function ActiveQuestion({ questionObj, questionIndex }) {
       <div className="question-container">
         {/* the two panels in this view can be targeted individually due to their conditional css, see PanelList component */}
         <PanelList infoArray={question} />
-        <PanelList infoArray={answers} pickAnswer={pickAnswer(questionObj)}/>
+        <PanelList infoArray={answers} pickAnswer={pickAnswer}/>
       </div>
     </div>
   );
