@@ -59,13 +59,14 @@ function WaitingRoom(props) {
     setGame(prev => ({...prev, questions, started: true, params}));
   });
 
-  connection.current.on("next_question", (data) => {
+  connection.current.on("next_question", async (data) => {
     const { namesCorrect, currentQ } = data;
     
     console.log('Server sent next Q, starting timeout');
-    setTimeout(async () => {
+    const timer = await setTimeout(() => {
       console.log(`${gameId} moved to question ${currentQ} from server!`);
-      await setGame(prev => ({...prev, currentQ }));
+      setGame(prev => ({...prev, currentQ }));
+      clearTimeout(timer);
     }, 2000);
   });
 

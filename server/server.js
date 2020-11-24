@@ -96,10 +96,11 @@ io.on('connection', (socket) => {
   socket.on('picked_answer', data => {
     const { correct, difficulty } = data;
 
+    
     const user = ds.users[socket.id];
     const room = ds.getRoomFromUserId(socket.id);
 
-    console.log({user, room});
+    console.log(`${user.name} picked an answer`);
 
     const pointsEarned = {
       'easy': 1,
