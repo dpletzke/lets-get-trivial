@@ -42,16 +42,7 @@ function WaitingRoom(props) {
   }
 
   const startGame = () => {
-    // const { params } = game;
-
-    const params = {
-      categoryId: 4,
-      numQuestions: 50,
-      type: null,
-      difficulty: 'easy',
-      numberCorrect: 0.5,
-      questionTime: 20000
-    }
+    const { params } = game;
 
     console.log(`Start ${gameId} request sent to server!`);
     connection.current.emit("start_game", { params });
