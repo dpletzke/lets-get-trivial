@@ -33,6 +33,8 @@ function OptionsForm({setOptions, options}) {
     const validOptions = ["easy", "medium", "hard"];
     if (validOptions.find((el) => el === setDiff)) {
       setOptions({ ...options, difficulty: difficulty });
+    } else {
+      setOptions({ ...options, difficulty: null });      
     }
   }
 
