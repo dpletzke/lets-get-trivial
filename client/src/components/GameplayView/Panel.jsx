@@ -12,8 +12,6 @@ function Panel(props) {
   // get rid of 'selected' in the data digester in question.jsx
   const { questionString, answerString, correct } = info;
 
-  // let selectedFalse = false;
-  // let selectedTrue = false;
 
   const className = classNames(
     "panel",
@@ -30,10 +28,21 @@ function Panel(props) {
     { panel__question: questionString }
   );
 
+ 
   return (
+    <>
+    {answerString && 
     <div className={className} onClick={() => setSelected(id)}>
-      <p>{answerString || questionString}</p>
+      <p>{answerString }</p>
     </div>
+    }
+    {questionString && 
+    <div className={className}>
+      <p>{questionString}</p>
+    </div>
+    }
+    </>
+    
   );
 }
 
