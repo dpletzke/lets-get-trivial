@@ -13,7 +13,7 @@ function GameplayView(props) {
     view,
     whenToShowNextQuestion,
     whenToGoToLobby,
-    setView
+    setView,
   } = props;
 
   // const { setGameplayView } = setters;

@@ -22,7 +22,10 @@ function WaitingRoom(props) {
 
   const { modalIsOpen, closeModal, openModal } = useModal();
 
-  const { game, startGame, setters, view, setView } = useGameData(gameId, connection);
+  const { game, startGame, setters, view, setView } = useGameData(
+    gameId,
+    connection
+  );
   console.log("Waiting room re-render!");
 
   const controller = (game) => {
