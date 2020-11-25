@@ -101,31 +101,25 @@ io.on('connection', (socket) => {
 
     console.log(`${user.name} picked an answer`);
 
-    const allAnswered = room.status.answered === room.users.length;
+    const allAnswered = room.status.answers === room.users.length;
     const enoughCorrect = room.status.correct.length > 1;
     
-    const pointsEarned = {
-      'easy': 1,
-      'medium': 2,
-      'hard': 3
-    }[difficulty];
+    const points = {
+      'easy': 3,
+      'medium': 5,
+      'hard': 7
+    }[difficulty.toLowerCase()];
 
-    /* increase score and push to correct array if correct */
-    if (correct && !enoughCorrect) {
+    const pointsEarned = (correct && !enoughCorrect) ? points : -1;
+    user.score += pointsEarned;
 
-      user.score += pointsEarned;
-
-      const answer = {
-        name: user.name,
-        score: user.score,
-        pointsEarned,
-        correctAnswer: correct
-      };
-
-      room.status.correct.push(user.name);
-    } else {
-
-    }
+    const answer = {
+      name: user.name,
+      score: user.score,
+      pointsEarned,
+      correctAnswer: correct
+    };
+    room.status.answers.push(answer);
 
     if (enoughCorrect || allAnswered) {
 
@@ -135,15 +129,13 @@ io.on('connection', (socket) => {
 
       
       const payload = {
-        namesCorrect: room.status.correct,
+        players: room.status.answers,
         currentQ: room.status.currentQ + 1
       };
-      console.log(`Moving ${room.roomId} to the next question`);
       io.in(room.roomId).emit('next_question', payload);
       
       room.status.currentQ = room.status.currentQ + 1;
-      room.status.correct = [];
-      room.status.answered = 0;
+      room.status.answers = [];
     }
 
   });

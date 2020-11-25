@@ -29,8 +29,9 @@ module.exports = {
       token: null,
       questions: [],
       users: [],
+      // status resets after each question
       status:{
-        //each player answer { name, score, pointsEarned, correctAnswer }
+        //answers: each { name, score, pointsEarned, correctAnswer }
         answers: [],
         currentQ: null
       },
