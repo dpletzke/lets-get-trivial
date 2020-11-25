@@ -55,7 +55,7 @@ function Home(props) {
     <main>
       <section className="box-home">
         <div className="box-home--content">
-          <h1 class="box-home--heading">Let's Get Trivial</h1>
+          <h1 className="box-home--heading">Let's Get Trivial</h1>
           <form autoComplete="off" onSubmit={(event) => event.preventDefault()}>
             <p>Host New Game</p>
             <div className="error-message">

@@ -21,8 +21,9 @@ function ScoreList({ players }) {
   return (
     <div>
       {orderedArray &&
-        orderedArray.map((player) => (
+        orderedArray.map((player, index) => (
           <ScoreListItem
+            key={index}
             name={player.name}
             score={player.score}
             pointsEarned={player.pointsEarned}

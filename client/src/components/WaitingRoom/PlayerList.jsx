@@ -3,8 +3,10 @@ import "./PlayerList.scss";
 
 function PlayerList(props) {
   const { players } = props;
-  const playerList = players.map((player) => (
-    <PlayerListItem name={player.name} playerItem />
+  const playerList = players.map((player, index) => (
+    <div key={index}>
+      <PlayerListItem name={player.name} playerItem />
+    </div>
   ));
   return (
     <div className="playerList-container">

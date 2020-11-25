@@ -34,19 +34,27 @@ function PanelList({ infoArray, pickAnswer }) {
   const connection = useContext(ConnectionContext);
 
   useEffect(() => {
-    connection.current.on('next_question', async () => {
-      const timer = await setTimeout(() => {
-        setSelected("");
-        clearTimeout(timer);
-      }, LAG_BEFORE_SEND_ANSWER);
-    })
-    const oldConnection = connection.current;
-    return () => {
-      oldConnection.removeAllListeners("next_question");
-    }
+    connection.current.on("next_question", () => {
+      setSelected("");
+      // const timer = await setTimeout(() => {
+      //   setSelected("");
+      //   clearTimeout(timer);
+      // }, LAG_BEFORE_SEND_ANSWER);
+    });
+    // const oldConnection = connection.current;
+    // return () => {
+    //   oldConnection.removeAllListeners("next_question");
+    // };
   }, [connection]);
 
+  useEffect(() => {
+    console.log("selected changed to: ", selected);
+  }, [selected]);
+
   const clickHandler = (id) => {
+    console.log("click id: ", id);
+    console.log("selected: ", selected);
+
     if (!selected) {
       pickAnswer(infoArray[id - 1].correct);
       setSelected(id);
@@ -56,6 +64,7 @@ function PanelList({ infoArray, pickAnswer }) {
   const list = infoArray.map((info, index) => {
     return (
       <Panel
+        key={index + 1}
         id={index + 1}
         info={info}
         selected={index + 1 === selected}

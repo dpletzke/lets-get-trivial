@@ -13,6 +13,24 @@ export default function useGameData(gameId, connection) {
   };
 
   const [game, setGame] = useState(initialGame);
+  const [view, setView] = useState("SCORE");
+  // separate the fields of game into their own useStates
+
+  // add an useEffect here for just observering "view"
+  // when "view" changes, check if it's value is SCORE, if so,
+  // create a settimeout to change to the next view QUESTION
+
+  useEffect(() => {
+    if (view === "SCORE") {
+      setTimeout(() => {
+        setView("QUESTION");
+      }, 2000);
+    }
+  }, [view]);
+
+  useEffect(() => {
+    console.log("game state has changed to: ", game);
+  }, [game]);
 
   const setOptions = (options) => {
     setGame({ ...game, params: { ...options } });
@@ -48,16 +66,17 @@ export default function useGameData(gameId, connection) {
     setNumberCorrect: function (num) {
       setOptions({ ...params, numCorrect: num });
     },
+    //separate setters --> move view into different state
+    // setGameplayView: function (time) {
+    //   setGame({ ...game, view: "SCORE" });
+    //   // this just renders scoreboard
+    //   const showScoreboardThisLong = time - Date.now();
 
-    setGameplayView: function (time) {
-      setGame({ ...game, view: "SCORE" });
-
-      const showScoreboardThisLong = time - Date.now();
-
-      setTimeout(() => {
-        setGame({ ...game, view: "QUESTION" });
-      }, showScoreboardThisLong);
-    },
+    //   // setTimeout(() => {
+    //   for (let i = 0; i < 99999999999; i++) {}
+    //   setGame({ ...game, view: "QUESTION" });
+    //   // }, showScoreboardThisLong);
+    // },
   };
 
   const startGame = () => {
@@ -87,10 +106,10 @@ export default function useGameData(gameId, connection) {
     connection.current.on("next_question", async (data) => {
       console.log("Next question!");
       const { players, currentQ, whenToShowNextQuestion } = data;
+      setView("SCORE");
 
       console.log(`${gameId} moved to question ${currentQ}, starting Timeout`);
       const timer = await setTimeout(() => {
-
         setGame((prev) => {
           return { ...prev, currentQ, players, whenToShowNextQuestion };
         });
@@ -116,5 +135,7 @@ export default function useGameData(gameId, connection) {
     game,
     startGame,
     setters,
+    view,
+    setView,
   };
 }

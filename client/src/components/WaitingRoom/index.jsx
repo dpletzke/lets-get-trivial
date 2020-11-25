@@ -22,8 +22,8 @@ function WaitingRoom(props) {
 
   const { modalIsOpen, closeModal, openModal } = useModal();
 
-  const { game, startGame, setters } = useGameData(gameId, connection);
-  console.log('Waiting room re-render!');
+  const { game, startGame, setters, view, setView } = useGameData(gameId, connection);
+  console.log("Waiting room re-render!");
 
   const controller = (game) => {
     if (!game.started) {
@@ -33,7 +33,7 @@ function WaitingRoom(props) {
             <div className="waiting-header">
               <FaCog className="icon" onClick={openModal} />
             </div>
-            <h1 class="box-waiting--header">Let's Get Trivial</h1>
+            <h1 className="box-waiting--header">Let's Get Trivial</h1>
             <PlayerListItem className="alt-text" name={gameId} gameIdItem />
             <PlayerList players={players} />
             <Button onClick={startGame} gameRoom>
@@ -48,7 +48,7 @@ function WaitingRoom(props) {
     } else {
       return (
         <>
-          <GameplayView {...game} setters={setters} />
+          <GameplayView {...game} view={view} setView={setView} />
         </>
       );
     }

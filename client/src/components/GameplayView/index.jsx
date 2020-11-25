@@ -1,37 +1,29 @@
-import {useState, useEffect} from 'react';
+import { useState, useEffect } from "react";
 import { FaQuestionCircle } from "react-icons/fa";
 import GameplayHeader from "./GameplayHeader";
 import ActiveQuestion from "./Question";
 import Scoreboard from "./Scoreboard";
-import useVisualMode from '../../hooks/useVisualMode';
-
-// const QUESTION = "QUESTION";
-// const SCORE = "SCORE";
-
-// uncomment below after implementation of custom hook
-// import useVisualMode from...
-// const { mode } = useVisualMode(QUESTION)
-
-// getting some kind of message from the server when scoreview
-// timer is run out
-
-// some kind of message when question has been answered by
-// enough players || timer has run out
-
-
-
-
+import useVisualMode from "../../hooks/useVisualMode";
 
 function GameplayView(props) {
-  const { questions, currentQ, players, view, whenToShowNextQuestion, whenToGoToLobby, setters } = props;
+  const {
+    questions,
+    currentQ,
+    players,
+    view,
+    whenToShowNextQuestion,
+    whenToGoToLobby,
+    setView
+  } = props;
 
-  const {setGameplayView} = setters
+  // const { setGameplayView } = setters;
 
-  console.log('Current Q: ', currentQ);
+  console.log("Current Q: ", currentQ);
 
-  useEffect(() => {
-    setGameplayView(whenToShowNextQuestion);
-  }, [whenToShowNextQuestion]);
+  // should settimeout  in the useEffect
+  // useEffect(() => {
+  //   setGameplayView(whenToShowNextQuestion);
+  // }, [whenToShowNextQuestion]);
 
   // component shows scoreboard
   // after seTimeoutruns, component shows activequestion
@@ -39,14 +31,12 @@ function GameplayView(props) {
   // const toggler = (whenToShowNextQuestion, whenToGoToLobby) => {
   //   if (currentTime < whenToShowNextQuestion) {
   //     return (<Scoreboard players={players} />)
-  // } else 
+  // } else
 
-
-  const SCORE = 'SCORE';
-  const QUESTION = 'QUESTION';
+  const SCORE = "SCORE";
+  const QUESTION = "QUESTION";
 
   // const [mode, setMode] = useState(SCORE)
-
 
   // useEffect(() => {
   //   const timeout = whenToShowNextQuestion-Date.now();
@@ -55,26 +45,22 @@ function GameplayView(props) {
   //     setMode(QUESTION)
   //   }, timeout)
 
-
-
   // }, [whenToShowNextQuestion])
-
 
   const passProps = {
     questionObj: questions[currentQ],
     questionIndex: currentQ + 1,
   };
 
+  if (view === QUESTION) {
+    return <ActiveQuestion {...passProps} />;
+  }
 
+  if (view === SCORE) {
+    return <Scoreboard players={players} />;
+  }
 
-
-  return (
-    <div>
-      {view === QUESTION && <ActiveQuestion {...passProps} />}
-
-      {view === SCORE && <Scoreboard players={players} />}
-    </div>
-  );
+  return <h1>None of the above</h1>;
 }
 
 export default GameplayView;

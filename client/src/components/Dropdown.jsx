@@ -1,7 +1,7 @@
 import { useRef, useState } from "react";
 import { BsChevronDoubleDown } from "react-icons/bs";
 import Button from "./Button";
-import DropdownListItem from './DropdownListItem';
+import DropdownListItem from "./DropdownListItem";
 import "./Dropdown.scss";
 
 const classNames = require("classnames");
@@ -20,22 +20,22 @@ export default function Dropdown({
   const onListElmClick = (id) => {
     clickHandler(id);
     onClick();
-  }
+  };
 
-  const list = optionsArray.map((option) => {
+  const list = optionsArray.map((option, index) => {
     return (
       <DropdownListItem
-      id={option.id}
-      clickHandler={onListElmClick}
-      category={option[displayKey]}
-      selected={selected}
+        key={index}
+        id={option.id}
+        clickHandler={onListElmClick}
+        category={option[displayKey]}
+        selected={selected}
       />
     );
   });
 
-
-   const thisCategory = selected && optionsArray.filter((option) => option.id === selected)[0].name
- 
+  const thisCategory =
+    selected && optionsArray.filter((option) => option.id === selected)[0].name;
 
   return (
     <div>
