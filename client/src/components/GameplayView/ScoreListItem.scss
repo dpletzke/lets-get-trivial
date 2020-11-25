@@ -1,0 +1,36 @@
+@import "../../styles/variables.scss";
+
+.player-heading {
+  font-family: $FancyFont;
+  text-align: center;
+  color: $color-primary-background;
+  margin: 0.5em;
+  padding: 2em;
+  border: 1px solid black;
+  border-radius: 0.5em;
+
+  h3 {
+    margin: 0 auto 1.5em auto;
+  }
+
+  .player-icon {
+    margin-right: 0.4em;
+    color: darken($color-secondary-background, $amount: 10%);
+  }
+}
+
+.info-group {
+  font-size: 0.8em;
+  display: flex;
+  justify-content: space-evenly;
+  color: darken($color-secondary-background, $amount: 10%);
+
+  span {
+    display: flex;
+  }
+
+  .dark {
+    color: $color-primary-background;
+    margin-left: 0.5em;
+  }
+}
