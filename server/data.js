@@ -1,19 +1,18 @@
-
 const rooms = {};
 const users = {};
 
 module.exports = {
   rooms,
   users,
- 
-  createUser:({ socket, name, score })=> {
-    if (!socket) throw new Error('tried to create user without a socket');
-    if (!name) name = '';
+
+  createUser: ({ socket, name, score }) => {
+    if (!socket) throw new Error("tried to create user without a socket");
+    if (!name) name = "";
     if (!score) score = 0;
 
     const user = {
       name,
-      score
+      score,
     };
 
     users[socket.id] = user;
@@ -21,8 +20,7 @@ module.exports = {
     return user;
   },
 
-  createRoom:({ roomId, hostId }) => {
-
+  createRoom: ({ roomId, hostId }) => {
     const room = {
       roomId,
       hostId,
@@ -30,10 +28,10 @@ module.exports = {
       questions: [],
       users: [],
       // status resets after each question
-      status:{
+      status: {
         //answers: each { name, score, pointsEarned, correctAnswer }
         answers: [],
-        currentQ: null
+        currentQ: null,
       },
       params: {
         questionTime: 10000,
@@ -41,40 +39,38 @@ module.exports = {
         numQuestions: null,
         type: null,
         difficulty: null,
-        numberCorrect: null
-      }
+        numberCorrect: null,
+      },
     };
 
     rooms[roomId] = room;
 
     return room;
-
   },
 
   checkEnoughCorrect: (room, defaultVal) => {
-    const rightAnswers = room.status.answers.filter(a => a.correctAnswer);
+    const rightAnswers = room.status.answers.filter((a) => a.correctAnswer);
     const numberCorrectWhenMove = room.params.numberCorrect || defaultVal;
     return rightAnswers.length >= numberCorrectWhenMove;
   },
 
-  getRoomFromUserId:(userId) => {
-    return Object.values(rooms).find(r => {
+  getRoomFromUserId: (userId) => {
+    return Object.values(rooms).find((r) => {
       return r.users.includes(userId);
     });
   },
 
-  destroyUser:(userId) => {
-    console.log('Destroy user:', users[userId].name);
-    console.log('');
+  destroyUser: (userId) => {
+    console.log("Destroy user:", users[userId].name);
+    console.log("");
 
     delete users[userId];
   },
 
-  destroyRoom:(roomId) => {
-    console.log('Destroy room:', roomId);
-    console.log('');
+  destroyRoom: (roomId) => {
+    console.log("Destroy room:", roomId);
+    console.log("");
 
     delete rooms[roomId];
-  }
-
+  },
 };

@@ -19,8 +19,8 @@ const {
 } = require("../client/src/api/opentdb");
 
 // reference to in-memory database
-const ds = require('./data');
-const { stringify } = require('querystring');
+const ds = require("./data");
+const { stringify } = require("querystring");
 
 app.get("/", (req, res) => {
   res.json({ status: "ok" });
@@ -78,14 +78,13 @@ io.on("connection", (socket) => {
 
     /* log rooms the socket is in to server, should just be one */
     /* the first room is it's socketId, hence the slice */
-    const printRooms = Object.values(socket.rooms).slice(1).join(' ');
+    const printRooms = Object.values(socket.rooms).slice(1).join(" ");
     console.log(`Server starting ${printRooms} with:`);
     console.log(`${JSON.stringify(params)}`);
-    console.log('');
+    console.log("");
 
     io.in(room.roomId).emit("game_started", { questions, params });
   });
-
 
   socket.on("picked_answer", (data) => {
     const { correct, difficulty } = data;
@@ -99,41 +98,57 @@ io.on("connection", (socket) => {
 
     /* award points */
     const points = {
-      'easy': 3,
-      'medium': 5,
-      'hard': 7
+      easy: 3,
+      medium: 5,
+      hard: 7,
     }[difficulty.toLowerCase()];
-    const pointsEarned = (correct && !enoughCorrect) ? points : -1;
+    const pointsEarned = correct && !enoughCorrect ? points : -1;
     user.score += pointsEarned;
 
     /* create and save record */
     const answer = {
+      userId: socket.id,
       name: user.name,
       score: user.score,
       pointsEarned,
-      correctAnswer: correct
+      correctAnswer: correct,
     };
     room.status.answers.push(answer);
 
     /* determine if enough have answered correctly before moving on */
     const enoughCorrectNow = ds.checkEnoughCorrect(room, 2);
-    
+
     /* determine if everyone has answered and we should move on */
     const allAnswered = room.status.answers.length === room.users.length;
 
     if (enoughCorrectNow || allAnswered) {
+      const reason = enoughCorrectNow
+        ? "enough got it right"
+        : allAnswered
+        ? "everybody answered"
+        : "time ran out";
 
-      const reason = enoughCorrectNow ? 'enough got it right' : allAnswered ? 'everybody answered' : 'time ran out';
-      
       console.log(`Moving on for ${room.roomId} because ${reason}`);
-      
-      const payload = {
-        players: room.status.answers,
-        currentQ: room.status.currentQ + 1
-      };
 
-      io.in(room.roomId).emit('next_question', payload);
-      
+      const userIdsWhoDidntAnswer = room.users.filter((userId) => {
+        return !room.status.answers.find((a) => a.userId === userId);
+      });
+
+      const playersWhoDidntAnswer = userIdsWhoDidntAnswer.map((userId) => {
+        const { name, score } = ds.users[userId];
+        return { name, score, pointsEarned: 0, correct: false };
+      });
+
+      const players = [...room.status.answers, ...playersWhoDidntAnswer];
+
+      const payload = {
+        players,
+        currentQ: room.status.currentQ + 1,
+      };
+      console.log(payload.players);
+
+      io.in(room.roomId).emit("next_question", payload);
+
       room.status.currentQ = room.status.currentQ + 1;
       room.status.answers = [];
     }
