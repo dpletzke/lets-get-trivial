@@ -58,7 +58,6 @@ io.on("connection", (socket) => {
   });
 
   socket.on("start_game", async (data) => {
-    console.log("Starting game with data: ", data);
     const { params } = data;
 
     const user = ds.users[socket.id];
@@ -94,7 +93,7 @@ io.on("connection", (socket) => {
     const user = ds.users[socket.id];
     const room = ds.getRoomFromUserId(socket.id);
 
-    console.log(`${user.name} picked an answer`);
+    console.log(`${user.name} picked a ${correct} answer`);
 
     const enoughCorrect = ds.checkEnoughCorrect(room, 2);
 
@@ -133,7 +132,6 @@ io.on("connection", (socket) => {
         currentQ: room.status.currentQ + 1
       };
 
-      console.log(JSON.stringify(payload));
       io.in(room.roomId).emit('next_question', payload);
       
       room.status.currentQ = room.status.currentQ + 1;

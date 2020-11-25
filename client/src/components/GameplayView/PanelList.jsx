@@ -36,7 +36,6 @@ function PanelList({ infoArray, pickAnswer }) {
     connection.current.on('next_question', async () => {
       const timer = await setTimeout(() => {
         setSelected("");
-        console.log({timer});
         clearTimeout(timer);
       }, 2000);
     })

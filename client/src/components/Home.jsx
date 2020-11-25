@@ -35,7 +35,6 @@ function Home(props) {
 
   useEffect(() => {
     if (connection.current.id) {
-      console.log(connection.current);
       connection.current.on("roomIds", (data) => {
         
         if (data.roomIds.includes(gameId)) {
