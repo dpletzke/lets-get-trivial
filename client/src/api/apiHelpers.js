@@ -19,7 +19,11 @@ const validate = {
     return type;
   },
   difficulty: (difficulty) => {
-    return difficulty.toLowerCase();
+    if (difficulty) {
+      return difficulty.toLowerCase();
+    } else {
+      return difficulty;
+    }
   },
 };
 

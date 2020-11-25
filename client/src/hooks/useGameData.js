@@ -28,10 +28,9 @@ export default function useGameData(gameId, connection) {
     // checks if the difficulty is easy, medium, or hard
     // and doesn't change the state if not
     setDifficulty: function (difficulty) {
-      let setDiff = difficulty.toLowerCase();
-      const validOptions = ["easy", "medium", "hard"];
-      if (validOptions.find((el) => el === setDiff)) {
-        setOptions({ ...params, difficulty: setDiff });
+      const validOptions = ["Easy", "Medium", "Hard"];
+      if (validOptions.find((el) => el === difficulty)) {
+        setOptions({ ...params, difficulty: difficulty });
       } else {
         setOptions({ ...params, difficulty: null });
       }
