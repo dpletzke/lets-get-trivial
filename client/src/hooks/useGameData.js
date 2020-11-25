@@ -4,6 +4,7 @@ export default function useGameData(gameId, connection) {
   const initialGame = {
     started: false,
     questions: [],
+    players: [],
     params: { numQuestions: 5 },
     currentQ: 0,
   };
@@ -62,12 +63,12 @@ export default function useGameData(gameId, connection) {
     });
 
     connection.current.on("next_question", async (data) => {
-      const { namesCorrect, currentQ } = data;
+      const { players, currentQ } = data;
 
       console.log("Server sent next Q, starting timeout");
       const timer = await setTimeout(() => {
         console.log(`${gameId} moved to question ${currentQ} from server!`);
-        setGame((prev) => ({ ...prev, currentQ }));
+        setGame((prev) => ({ ...prev, currentQ , players}));
         clearTimeout(timer);
       }, 2000);
     });

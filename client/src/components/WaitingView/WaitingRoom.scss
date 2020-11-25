@@ -13,10 +13,11 @@
       no-repeat center center/cover;
   padding: 3em;
   p {
+    font-family: $FanctFont;
     color: $color-secondary-background;
   }
   h2 {
-    font-family: $Audiowide;
+    font-family: $FancyFont;
     color: $color-primary-text;
   }
   .icon {

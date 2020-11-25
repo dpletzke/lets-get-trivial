@@ -1,6 +1,14 @@
 @import "../../styles/variables.scss";
 
+.score-item {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
 .player-heading {
+  background: white;
+  width: 70%;
+
   font-family: $FancyFont;
   text-align: center;
   color: $color-primary-background;

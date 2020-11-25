@@ -21,11 +21,11 @@ function GameplayView(props) {
 
   return (
     <div>
-      {currentQ <= 1 && <ActiveQuestion {...passProps} />}
+      {currentQ <= 0 && <ActiveQuestion {...passProps} />}
       {/* uncomment below on implementation of visualMode */}
       {/* {mode === QUESTION && <Question/>}
       {mode === SCORE && <ShowScore/>} */}
-      {currentQ > 1 && <Scoreboard players={players} />}
+      {currentQ > 0 && <Scoreboard players={players} />}
     </div>
   );
 }
