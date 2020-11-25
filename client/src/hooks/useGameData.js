@@ -21,7 +21,7 @@ export default function useGameData(gameId, connection) {
   // create a settimeout to change to the next view QUESTION
 
   useEffect(() => {
-    if (view === "SCORE") {
+    if (view === "SCORE" || view === "STARTING") {
       setTimeout(() => {
         setView("QUESTION");
       }, 2000);
@@ -91,7 +91,7 @@ export default function useGameData(gameId, connection) {
 
       const startTime = (whenToShowNextQuestion - Date.now()) / 1000;
       console.log(`${gameId} to show first question in ${startTime} seconds`);
-
+      setView("STARTING");
       setGame((prev) => {
         return {
           ...prev,
@@ -117,9 +117,13 @@ export default function useGameData(gameId, connection) {
       }, LAG_BEFORE_SEND_ANSWER);
     });
 
-    connection.current.on("game_ended", (data) => {
+    connection.current.on("game_ended", async (data) => {
       console.log(`${gameId} ended from server!`);
-      setGame((prev) => ({ ...prev, started: false, currentQ: 0 }));
+      setView("FINISHED");
+      const timer = setTimeout(() => {
+        setGame((prev) => ({ ...prev, started: false, currentQ: 0 }));
+        clearTimeout(timer);
+      }, 2000);
     });
 
     const oldConnection = connection.current;

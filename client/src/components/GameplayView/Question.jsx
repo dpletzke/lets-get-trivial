@@ -23,7 +23,7 @@ const digestQuestionObj = (questionObject) => {
         correct: true,
         selected: false,
       },
-    ],
+    ].sort(() => Math.random() - 0.5)
   };
 };
 
