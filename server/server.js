@@ -26,6 +26,11 @@ app.get("/", (req, res) => {
   res.json({ status: "ok" });
 });
 
+const TIME_BETWEEN_QUESTIONS = 5000;
+const DEFAULT_NUM_CORRECT = 2;
+const POINTS_SYSTEM = { easy: 3, medium: 5, hard: 7 };
+const POINT_PENALTY = -1;
+
 io.on("connection", (socket) => {
   const user = ds.createUser({ socket });
 
@@ -83,7 +88,13 @@ io.on("connection", (socket) => {
     console.log(`${JSON.stringify(params)}`);
     console.log("");
 
-    io.in(room.roomId).emit("game_started", { questions, params });
+    const payload = {
+      questions,
+      params,
+      whenToShowFirstQuestion: Date.now() + TIME_BETWEEN_QUESTIONS
+    };
+
+    io.in(room.roomId).emit("game_started", payload);
   });
 
   socket.on("picked_answer", (data) => {
@@ -94,15 +105,11 @@ io.on("connection", (socket) => {
 
     console.log(`${user.name} picked a ${correct} answer`);
 
-    const enoughCorrect = ds.checkEnoughCorrect(room, 2);
+    const enoughCorrect = ds.checkEnoughCorrect(room, DEFAULT_NUM_CORRECT);
 
     /* award points */
-    const points = {
-      easy: 3,
-      medium: 5,
-      hard: 7,
-    }[difficulty.toLowerCase()];
-    const pointsEarned = correct && !enoughCorrect ? points : -1;
+    const points = POINTS_SYSTEM[difficulty.toLowerCase()];
+    const pointsEarned = correct && !enoughCorrect ? points : POINT_PENALTY;
     user.score += pointsEarned;
 
     /* create and save record */
@@ -116,7 +123,7 @@ io.on("connection", (socket) => {
     room.status.answers.push(answer);
 
     /* determine if enough have answered correctly before moving on */
-    const enoughCorrectNow = ds.checkEnoughCorrect(room, 2);
+    const enoughCorrectNow = ds.checkEnoughCorrect(room, DEFAULT_NUM_CORRECT);
 
     /* determine if everyone has answered and we should move on */
     const allAnswered = room.status.answers.length === room.users.length;
@@ -144,8 +151,8 @@ io.on("connection", (socket) => {
       const payload = {
         players,
         currentQ: room.status.currentQ + 1,
+        whenToShowNextQuestion: Date.now() + TIME_BETWEEN_QUESTIONS
       };
-      console.log(payload.players);
 
       io.in(room.roomId).emit("next_question", payload);
 

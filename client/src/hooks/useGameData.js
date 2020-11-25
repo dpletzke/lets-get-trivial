@@ -55,22 +55,31 @@ export default function useGameData(gameId, connection) {
 
   useEffect(() => {
     connection.current.on("game_started", (data) => {
-      const { questions, params } = data;
-      console.log(data);
+      const { questions, params, whenToShowFirstQuestion } = data;
 
       console.log(`${gameId} started from server!`);
-      setGame((prev) => ({ ...prev, questions, started: true, params }));
+      setGame((prev) => {
+        return ({
+          ...prev,
+          questions,
+          started: true,
+          params,
+          whenToShowFirstQuestion
+        }); 
+      });
     });
 
     connection.current.on("next_question", async (data) => {
-      const { players, currentQ } = data;
+      const { players, currentQ, whenToShowNextQuestion } = data;
 
       console.log("Server sent next Q, starting timeout");
       const timer = await setTimeout(() => {
         console.log(`${gameId} moved to question ${currentQ} from server!`);
-        setGame((prev) => ({ ...prev, currentQ , players}));
+        setGame((prev) => {
+          return ({ ...prev, currentQ , players, whenToShowNextQuestion});
+        });
         clearTimeout(timer);
-      }, 2000);
+      }, 500);
     });
 
     connection.current.on("game_ended", (data) => {
