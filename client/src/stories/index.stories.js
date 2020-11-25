@@ -22,7 +22,7 @@ import DialogueBox from "../components/Modal";
 import Dropdown from "../components/Dropdown";
 import ScoreListItem from "../components/GameplayView/ScoreListItem";
 import ScoreList from "../components/GameplayView/ScoreList";
-import ScoreBoard from "../components/GameplayView/ScoreBoard";
+import Scoreboard from "../components/GameplayView/Scoreboard";
 
 storiesOf("Button", module).add("Submit", () => <Button>Submit</Button>);
 storiesOf("Loading", module).add("Dots", () => (
@@ -161,4 +161,4 @@ storiesOf("Options Menu", module).add("The entire option form", () => (
 
 storiesOf("ScoreBoard", module).add("Score List Item", () => <ScoreListItem />);
 storiesOf("ScoreBoard", module).add("Score List", () => <ScoreList />);
-storiesOf("ScoreBoard", module).add("Score Board", () => <ScoreBoard />);
+storiesOf("ScoreBoard", module).add("Score Board", () => <Scoreboard />);
