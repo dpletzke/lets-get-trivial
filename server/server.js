@@ -20,6 +20,7 @@ const {
 
 // reference to in-memory database
 const ds = require('./data');
+const { stringify } = require('querystring');
 
 app.get('/', (req, res) => {
   res.json({status: 'ok'});
@@ -80,19 +81,13 @@ io.on('connection', (socket) => {
     /* log rooms the socket is in to server, should just be one */
     /* the first room is it's socketId, hence the slice */
     const printRooms = Object.values(socket.rooms).slice(1).join(' ');
-    const printParams = JSON.stringify(params);
-    console.log(`Server starting ${printRooms} with ${printParams}`);
+    console.log(`Server starting ${printRooms} with:`);
+    console.log(`${JSON.stringify(params)}`);
+    console.log('');
 
     io.in(room.roomId).emit('game_started', { questions, params });
   });
 
-  // socket.on('change_name', (newName) => {
-
-  //   const position = rooms[socket.room].findIndex(name => name === socket.user);
-  //   rooms[socket.room].splice(position, 1, newName);
-
-  //   io.in(socket.room).emit('user_connected', { users:rooms[socket.room] });
-  // });
 
   socket.on('picked_answer', data => {
     const { correct, difficulty } = data;
@@ -102,11 +97,8 @@ io.on('connection', (socket) => {
 
     console.log(`${user.name} picked an answer`);
 
-    /* determine if enough have answered correctly before awarding points */
-    const rightAnswers = room.status.answers.filter(a => a.correctAnswer);
-    const numberCorrectWhenMove = room.params.numberCorrect || 2;
-    const enoughCorrect = rightAnswers.length >= numberCorrectWhenMove;
-    
+    const enoughCorrect = ds.checkEnoughCorrect(room, 2);
+
     /* award points */
     const points = {
       'easy': 3,
@@ -124,13 +116,16 @@ io.on('connection', (socket) => {
       correctAnswer: correct
     };
     room.status.answers.push(answer);
+
+    /* determine if enough have answered correctly before moving on */
+    const enoughCorrectNow = ds.checkEnoughCorrect(room, 2);
     
     /* determine if everyone has answered and we should move on */
     const allAnswered = room.status.answers.length === room.users.length;
 
-    if (enoughCorrect || allAnswered) {
+    if (enoughCorrectNow || allAnswered) {
 
-      const reason = enoughCorrect ? 'enough got it right' : allAnswered ? 'everybody answered' : 'time ran out';
+      const reason = enoughCorrectNow ? 'enough got it right' : allAnswered ? 'everybody answered' : 'time ran out';
       
       console.log(`Moving on for ${room.roomId} because ${reason}`);
       
@@ -138,6 +133,8 @@ io.on('connection', (socket) => {
         players: room.status.answers,
         currentQ: room.status.currentQ + 1
       };
+
+      console.log(JSON.stringify(payload));
       io.in(room.roomId).emit('next_question', payload);
       
       room.status.currentQ = room.status.currentQ + 1;

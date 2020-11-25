@@ -51,6 +51,12 @@ module.exports = {
 
   },
 
+  checkEnoughCorrect: (room, defaultVal) => {
+    const rightAnswers = room.status.answers.filter(a => a.correctAnswer);
+    const numberCorrectWhenMove = room.params.numberCorrect || defaultVal;
+    return rightAnswers.length >= numberCorrectWhenMove;
+  },
+
   getRoomFromUserId:(userId) => {
     return Object.values(rooms).find(r => {
       return r.users.includes(userId);
