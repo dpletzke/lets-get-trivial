@@ -6,17 +6,6 @@ import "./Question.scss";
 
 import ConnectionContext from "../../ConnectionContext";
 
-//here is the structure of the data coming from the api. Added is the questionIndex which is based on how many questions the user selects
-// const questionObj = {
-//   "question": "Who wrote the novel &quot;Moby-Dick&quot;?",
-//   "correct_answer": "Herman Melville",
-//   "incorrect_answers": [
-//   "William Golding",
-//   "William Shakespeare",
-//   "J. R. R. Tolkien"
-//   ]
-//   }
-
 // move this into a helper file at some point? It's just changing the data structure to fit better with our component architecture
 const digestQuestionObj = (questionObject) => {
   return {
@@ -47,9 +36,10 @@ function ActiveQuestion({ questionObj, questionIndex }) {
     connection.current.emit("picked_answer", { correct, ...questionObj });
   };
 
+  //GameplayHeader needs to take the following props: {questionIndex, view, time (question/score)-hardCoded} - optional boolean (isPlaying -> This turns timer on or off)
   return (
     <div>
-      <GameplayHeader questionIndex={questionIndex} view="question">
+      <GameplayHeader questionIndex={questionIndex} view="question" time={5}>
         <PanelList infoArray={question} />
       </GameplayHeader>
       <div className="question-container">

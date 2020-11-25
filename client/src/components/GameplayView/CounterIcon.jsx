@@ -1,7 +1,7 @@
-function CounterIcon() {
-  return (
-   <h1>CounterIcon Component</h1>
-  );
-}
+// function CounterIcon() {
+//   return (
+//    <h1>CounterIcon Component</h1>
+//   );
+// }
 
-export default CounterIcon;
+// export default CounterIcon;

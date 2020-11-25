@@ -4,7 +4,8 @@ import { generateScoreString } from "./scoreHelpers";
 
 import "./ScoreBoard.scss";
 
-function ScoreBoard({ players }) {
+//needs to take props players and time (for timer), view (score/question),  optional isPlaying boolean which turns timer on or off
+function ScoreBoard({ players, time, view }) {
   const scoreString = generateScoreString(players);
   return (
     <div>

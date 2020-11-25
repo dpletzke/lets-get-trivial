@@ -19,13 +19,13 @@ const renderTime = ({ remainingTime }) => {
   );
 };
 
-function Timer({ duration, size, strokeWidth }) {
+function Timer({ duration }) {
   return (
     <CountdownCircleTimer
       isPlaying
       duration={duration}
       size={68}
-      strokeWidth={strokeWidth}
+      strokeWidth={3}
       ariaLabel={"Time Remaining"}
       colors={[
         ["#2a9d8f", 0.33],
