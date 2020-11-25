@@ -1,4 +1,5 @@
-import { useState, useEffect, useContext } from "react";
+import { useState, useEffect } from "react";
+import { LAG_BEFORE_SEND_ANSWER } from "../constants.js";
 
 export default function useGameData(gameId, connection) {
   const initialGame = {
@@ -78,16 +79,18 @@ export default function useGameData(gameId, connection) {
 
       console.log("Server sent next Q, starting timeout");
       const timer = await setTimeout(() => {
-        console.log(`${gameId} moved to question ${currentQ} from server!`);
+
+        // console.log(`${gameId} moved to question ${currentQ} from server!`);
+
         setGame((prev) => {
           return { ...prev, currentQ, players, whenToShowNextQuestion };
         });
         clearTimeout(timer);
-      }, 500);
+      }, LAG_BEFORE_SEND_ANSWER);
     });
 
     connection.current.on("game_ended", (data) => {
-      console.log(`${gameId} ended from server!`);
+      // console.log(`${gameId} ended from server!`);
       setGame((prev) => ({ ...prev, started: false, currentQ: 0 }));
     });
 
