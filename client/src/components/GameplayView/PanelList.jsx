@@ -37,7 +37,7 @@ function PanelList({ infoArray, pickAnswer }) {
       const timer = await setTimeout(() => {
         setSelected("");
         clearTimeout(timer);
-      }, 2000);
+      }, 500);
     })
     const oldConnection = connection.current;
     return () => {
