@@ -48,6 +48,5 @@ export function findPlacements(players) {
   });
 
   const output = [...new Set(scores)].sort((a, b) => b - a);
-  console.log({ output });
   return output;
 }

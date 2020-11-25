@@ -80,6 +80,7 @@ io.on("connection", (socket) => {
     /* request questions with token and params */
     const questionsRes = await getQuestions(params, token);
     const questions = questionsRes.results;
+    room.questions = questions;
 
     /* log rooms the socket is in to server, should just be one */
     /* the first room is it's socketId, hence the slice */
@@ -103,7 +104,7 @@ io.on("connection", (socket) => {
     const user = ds.users[socket.id];
     const room = ds.getRoomFromUserId(socket.id);
 
-    console.log(`${user.name} picked a ${correct} answer`);
+    console.log(`${user.name} picked a ${correct ? 'right' : 'wrong'} answer`);
 
     const enoughCorrect = ds.checkEnoughCorrect(room, DEFAULT_NUM_CORRECT);
 
@@ -142,7 +143,6 @@ io.on("connection", (socket) => {
 
       /* if next question exists instruct next question */
       /* otherwise, send game ended */
-      console.log('End?:', room.questions, room.status.currentQ + 1);
       if (room.questions[room.status.currentQ + 1]) {
         const payload = {
           players,
@@ -160,7 +160,7 @@ io.on("connection", (socket) => {
           whenToGoToLobby: Date.now() + TIME_BETWEEN_QUESTIONS,
         };
 
-        console.log('Game ended by server');
+        console.log(`${room.roomId} ended`);
         io.in(room.roomId).emit("game_ended", payload);
 
         room.status.currentQ = null;
