@@ -34,9 +34,9 @@ module.exports = {
         currentQ: null,
       },
       params: {
-        questionTime: 10000,
+        timeLimit: 10000,
+        numQuestions: 10,
         categoryId: null,
-        numQuestions: null,
         type: null,
         difficulty: null,
         numberCorrect: null,
@@ -58,6 +58,20 @@ module.exports = {
     return Object.values(rooms).find((r) => {
       return r.users.includes(userId);
     });
+  },
+
+  generateScoreboard: (room) => {
+
+    const userIdsWhoDidntAnswer = room.users.filter((userId) => {
+      return !room.status.answers.find((a) => a.userId === userId);
+    });
+
+    const playersWhoDidntAnswer = userIdsWhoDidntAnswer.map((userId) => {
+      const { name, score } = users[userId];
+      return { name, score, pointsEarned: 0, correct: false };
+    });
+
+    return [...room.status.answers, ...playersWhoDidntAnswer];
   },
 
   destroyUser: (userId) => {

@@ -23,6 +23,7 @@ import useVisualMode from '../../hooks/useVisualMode';
 
 
 function GameplayView(props) {
+<<<<<<< HEAD
   const { questions, currentQ, players, view, whenToShowNextQuestion } = props;
   console.log('Current Q: ', currentQ);
   const SCORE = 'SCORE';
@@ -69,6 +70,16 @@ function GameplayView(props) {
 
 
 
+=======
+  const {
+    questions,
+    params,
+    currentQ,
+    players,
+    whenToShowNextQuestion,
+    whenToGoToLobby
+  } = props;
+>>>>>>> 5adb748d13a2db66296b1142c80f8938a72d1d98
 
   const passProps = {
     questionObj: questions[currentQ],
