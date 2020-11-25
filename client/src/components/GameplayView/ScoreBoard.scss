@@ -5,3 +5,8 @@ h2 {
   text-align: center;
   color: $color-primary-background;
 }
+
+p {
+  color: darken($color-secondary-text, $amount: 10%);
+  font-size: 0.8em;
+}

@@ -11,10 +11,14 @@ function ScoreList({ players }) {
 
   return (
     <div>
-      <p>Player_1 and Player_2 answered correctly.</p>
       {players &&
         players.map((player) => (
-          <ScoreListItem name={player.name} score={player.score} />
+          <ScoreListItem
+            name={player.name}
+            score={player.score}
+            // pointsEarned={pointsEarned}
+            position={player.position}
+          />
         ))}
     </div>
   );

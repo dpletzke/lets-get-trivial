@@ -8,7 +8,7 @@ const players = [
 ];
 
 //Extract Player Names Where correctAnswer is true
-const generateScoreString = (players) => {
+export function generateScoreString(players) {
   let winners = [];
   players.filter((player) => {
     if (player.correctAnswer) {
@@ -38,14 +38,9 @@ const generateScoreString = (players) => {
     }
     return `${string} answered the question correctly!`;
   }
-};
+}
 
 //Order players array by score
-const orderByScore = (players) => {
+export function orderByScore(players) {
   return "hello";
-};
-
-console.log(orderByScore(players));
-console.log(generateScoreString(players));
-
-export default { generateScoreString, orderByScore };
+}
