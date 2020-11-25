@@ -1,6 +1,6 @@
 import GameplayHeader from "./GameplayHeader";
 import ActiveQuestion from "./Question";
-import ScoreBoard from "./ScoreBoard";
+import Scoreboard from "./Scoreboard";
 
 const QUESTION = "QUESTION";
 const SCORE = "SCORE";
@@ -25,7 +25,7 @@ function GameplayView(props) {
       {/* uncomment below on implementation of visualMode */}
       {/* {mode === QUESTION && <Question/>}
       {mode === SCORE && <ShowScore/>} */}
-      {currentQ > 1 && <ScoreBoard players={players} />}
+      {currentQ > 1 && <Scoreboard players={players} />}
     </div>
   );
 }
