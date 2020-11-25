@@ -21,6 +21,7 @@ const {
 // reference to in-memory database
 const ds = require("./data");
 const { stringify } = require("querystring");
+const { generateScoreString } = require("../client/src/components/GameplayView/scoreHelpers");
 
 app.get("/", (req, res) => {
   res.json({ status: "ok" });
@@ -91,7 +92,7 @@ io.on("connection", (socket) => {
     const payload = {
       questions,
       params,
-      whenToShowFirstQuestion: Date.now() + TIME_BETWEEN_QUESTIONS
+      whenToShowNextQuestion: Date.now() + TIME_BETWEEN_QUESTIONS
     };
 
     io.in(room.roomId).emit("game_started", payload);
@@ -134,30 +135,37 @@ io.on("connection", (socket) => {
         : allAnswered
           ? "everybody answered"
           : "time ran out";
-
       console.log(`Moving on for ${room.roomId} because ${reason}`);
 
-      const userIdsWhoDidntAnswer = room.users.filter((userId) => {
-        return !room.status.answers.find((a) => a.userId === userId);
-      });
-
-      const playersWhoDidntAnswer = userIdsWhoDidntAnswer.map((userId) => {
-        const { name, score } = ds.users[userId];
-        return { name, score, pointsEarned: 0, correct: false };
-      });
-
-      const players = [...room.status.answers, ...playersWhoDidntAnswer];
-
-      const payload = {
-        players,
-        currentQ: room.status.currentQ + 1,
-        whenToShowNextQuestion: Date.now() + TIME_BETWEEN_QUESTIONS
-      };
-
-      io.in(room.roomId).emit("next_question", payload);
-
-      room.status.currentQ = room.status.currentQ + 1;
+      /* create scores list and reset answers */
+      const players = ds.generateScoreboard(room);
       room.status.answers = [];
+
+      /* if next question exists instruct next question */
+      /* otherwise, send game ended */
+      if (room.questions[room.status.currentQ + 1]) {
+
+        const payload = {
+          players,
+          currentQ: room.status.currentQ + 1,
+          whenToShowNextQuestion: Date.now() + TIME_BETWEEN_QUESTIONS
+        };
+  
+        io.in(room.roomId).emit("next_question", payload);
+  
+        room.status.currentQ = room.status.currentQ + 1;
+      } else {
+
+        const payload = {
+          players,
+          currentQ: null,
+          whenToGoToLobby: Date.now() + TIME_BETWEEN_QUESTIONS
+        };
+  
+        io.in(room.roomId).emit("game_ended", payload);
+  
+        room.status.currentQ = null;
+      }
     }
   });
 

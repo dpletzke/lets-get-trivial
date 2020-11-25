@@ -10,13 +10,14 @@ const SCORE = "SCORE";
 // const { mode } = useVisualMode(QUESTION)
 
 function GameplayView(props) {
-  const { questions, params, currentQ, players, whenToShowNextQuestion } = props;
-
-// when date.now() > whenToShowNextQuestion// then render next question
-// else show scoreboard 
-// reset whenToShowNextQuestion 
-
-  console.log({ players });
+  const {
+    questions,
+    params,
+    currentQ,
+    players,
+    whenToShowNextQuestion,
+    whenToGoToLobby
+  } = props;
 
   const passProps = {
     questionObj: questions[currentQ],

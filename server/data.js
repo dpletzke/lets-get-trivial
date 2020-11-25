@@ -60,6 +60,20 @@ module.exports = {
     });
   },
 
+  generateScoreboard: (room) => {
+
+    const userIdsWhoDidntAnswer = room.users.filter((userId) => {
+      return !room.status.answers.find((a) => a.userId === userId);
+    });
+
+    const playersWhoDidntAnswer = userIdsWhoDidntAnswer.map((userId) => {
+      const { name, score } = users[userId];
+      return { name, score, pointsEarned: 0, correct: false };
+    });
+
+    return [...room.status.answers, ...playersWhoDidntAnswer];
+  },
+
   destroyUser: (userId) => {
     console.log("Destroy user:", users[userId].name);
     console.log("");

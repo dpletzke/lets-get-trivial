@@ -7,6 +7,8 @@ export default function useGameData(gameId, connection) {
     players: [],
     params: { numQuestions: 5 },
     currentQ: 0,
+    whenToShowNextQuestion: null,
+    whenToGoToLobby: null
   };
 
   const [game, setGame] = useState(initialGame);
@@ -55,16 +57,18 @@ export default function useGameData(gameId, connection) {
 
   useEffect(() => {
     connection.current.on("game_started", (data) => {
-      const { questions, params, whenToShowFirstQuestion } = data;
+      const { questions, params, whenToShowNextQuestion } = data;
 
-      console.log(`${gameId} started from server!`);
+      const startTime = (whenToShowNextQuestion - Date.now()) / 1000;
+      console.log(`${gameId} to show first question in ${startTime} seconds`);
+
       setGame((prev) => {
         return ({
           ...prev,
           questions,
           started: true,
           params,
-          whenToShowFirstQuestion
+          whenToShowNextQuestion
         }); 
       });
     });
