@@ -86,7 +86,6 @@ export default function useGameData(gameId, connection) {
 
   return {
     game,
-    setOptions,
     startGame,
     setters,
   };

@@ -1,20 +1,13 @@
-import { useState } from "react";
 import OptionItemList from "./OptionItemList";
 import Dropdown from "../../Dropdown";
 import categories from "./categoriesData";
 import { FaCog } from "react-icons/fa";
 import "./index.scss";
 
-//trying to return an object formatted thusly:
-// params = {
-//   numQuestions, categoryId, difficulty, type, timeLimit, numCorrect
-// }
 
-// this should eventually be dealt with
-// as global state:
 
 function OptionsForm({ setters, params }) {
-  // const [params, setOptions] = useState({});
+  //setters is coming from hooks/useGameData
   const {setNumber, setDifficulty, setQuestionTimeLimit, setNumberCorrect, setCategory} = setters;
 
   const settings = [

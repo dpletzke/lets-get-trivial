@@ -1,4 +1,4 @@
-import { useState, useContext, useEffect } from "react";
+import { useContext } from "react";
 
 import "./index.scss";
 import PlayerList from "./PlayerList";
@@ -9,7 +9,6 @@ import OptionsForm from "../WaitingRoom/OptionsForm/index";
 
 import ModalComponent from "../Modal";
 import { FaCog } from "react-icons/fa";
-import { action } from "@storybook/addon-actions";
 
 import ConnectionContext from "../../ConnectionContext";
 
@@ -23,19 +22,15 @@ function WaitingRoom(props) {
 
   const {
     modalIsOpen,
-    setIsOpen,
     closeModal,
     openModal,
-    
   } = useModal();
 
 
   const {
    game,
-    setOptions,
     startGame,
     setters,
-   
   } = useGameData(gameId, connection)
 
 
