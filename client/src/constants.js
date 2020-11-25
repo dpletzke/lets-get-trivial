@@ -1,0 +1,1 @@
+export const LAG_BEFORE_SEND_ANSWER = 500;

@@ -1,4 +1,5 @@
-import { useState, useEffect, useContext } from "react";
+import { useState, useEffect } from "react";
+import { LAG_BEFORE_SEND_ANSWER } from "../constants.js";
 
 export default function useGameData(gameId, connection) {
   const initialGame = {
@@ -7,6 +8,8 @@ export default function useGameData(gameId, connection) {
     players: [],
     params: { numQuestions: 5 },
     currentQ: 0,
+    whenToShowNextQuestion: null,
+    whenToGoToLobby: null,
   };
 
   const [game, setGame] = useState(initialGame);
@@ -55,22 +58,33 @@ export default function useGameData(gameId, connection) {
 
   useEffect(() => {
     connection.current.on("game_started", (data) => {
-      const { questions, params } = data;
-      console.log(data);
+      const { questions, params, whenToShowNextQuestion } = data;
 
-      console.log(`${gameId} started from server!`);
-      setGame((prev) => ({ ...prev, questions, started: true, params }));
+      const startTime = (whenToShowNextQuestion - Date.now()) / 1000;
+      console.log(`${gameId} to show first question in ${startTime} seconds`);
+
+      setGame((prev) => {
+        return {
+          ...prev,
+          questions,
+          started: true,
+          params,
+          whenToShowNextQuestion,
+        };
+      });
     });
 
     connection.current.on("next_question", async (data) => {
-      const { players, currentQ } = data;
+      const { players, currentQ, whenToShowNextQuestion } = data;
 
-      console.log("Server sent next Q, starting timeout");
+      console.log(`${gameId} moved to question ${currentQ}, starting Timeout`);
       const timer = await setTimeout(() => {
-        console.log(`${gameId} moved to question ${currentQ} from server!`);
-        setGame((prev) => ({ ...prev, currentQ , players}));
+
+        setGame((prev) => {
+          return { ...prev, currentQ, players, whenToShowNextQuestion };
+        });
         clearTimeout(timer);
-      }, 2000);
+      }, LAG_BEFORE_SEND_ANSWER);
     });
 
     connection.current.on("game_ended", (data) => {

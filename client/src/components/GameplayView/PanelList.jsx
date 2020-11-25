@@ -4,6 +4,7 @@ import "./PanelList.scss";
 import classNames from "classnames";
 
 import ConnectionContext from "../../ConnectionContext";
+import { LAG_BEFORE_SEND_ANSWER } from "../../constants";
 
 // pass infoArray as an array of objects as formatted below:
 // [{questionString: 'is this thing on?'}]
@@ -37,7 +38,7 @@ function PanelList({ infoArray, pickAnswer }) {
       const timer = await setTimeout(() => {
         setSelected("");
         clearTimeout(timer);
-      }, 2000);
+      }, LAG_BEFORE_SEND_ANSWER);
     })
     const oldConnection = connection.current;
     return () => {

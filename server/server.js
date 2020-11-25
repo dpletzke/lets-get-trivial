@@ -18,13 +18,21 @@ const {
   getSessionToken,
 } = require("../client/src/api/opentdb");
 
-// reference to in-memory database
+// reference to in-memory database and constants file
 const ds = require("./data");
-const { stringify } = require("querystring");
+const {
+  TIME_BETWEEN_QUESTIONS,
+  DEFAULT_NUM_CORRECT,
+  POINTS_SYSTEM,
+  POINT_PENALTY,
+} = require('./constants');
 
-app.get("/", (req, res) => {
-  res.json({ status: "ok" });
-});
+// TODO: do we need these?
+// const { stringify } = require("querystring");
+
+// app.get("/", (req, res) => {
+//   res.json({ status: "ok" });
+// });
 
 io.on("connection", (socket) => {
   const user = ds.createUser({ socket });
@@ -75,6 +83,7 @@ io.on("connection", (socket) => {
     /* request questions with token and params */
     const questionsRes = await getQuestions(params, token);
     const questions = questionsRes.results;
+    room.questions = questions;
 
     /* log rooms the socket is in to server, should just be one */
     /* the first room is it's socketId, hence the slice */
@@ -83,7 +92,13 @@ io.on("connection", (socket) => {
     console.log(`${JSON.stringify(params)}`);
     console.log("");
 
-    io.in(room.roomId).emit("game_started", { questions, params });
+    const payload = {
+      questions,
+      params,
+      whenToShowNextQuestion: Date.now() + TIME_BETWEEN_QUESTIONS,
+    };
+
+    io.in(room.roomId).emit("game_started", payload);
   });
 
   socket.on("picked_answer", (data) => {
@@ -92,17 +107,13 @@ io.on("connection", (socket) => {
     const user = ds.users[socket.id];
     const room = ds.getRoomFromUserId(socket.id);
 
-    console.log(`${user.name} picked a ${correct} answer`);
+    console.log(`${user.name} picked a ${correct ? 'right' : 'wrong'} answer`);
 
-    const enoughCorrect = ds.checkEnoughCorrect(room, 2);
+    const enoughCorrect = ds.checkEnoughCorrect(room, DEFAULT_NUM_CORRECT);
 
     /* award points */
-    const points = {
-      easy: 3,
-      medium: 5,
-      hard: 7,
-    }[difficulty.toLowerCase()];
-    const pointsEarned = correct && !enoughCorrect ? points : -1;
+    const points = POINTS_SYSTEM[difficulty.toLowerCase()];
+    const pointsEarned = correct && !enoughCorrect ? points : POINT_PENALTY;
     user.score += pointsEarned;
 
     /* create and save record */
@@ -116,7 +127,7 @@ io.on("connection", (socket) => {
     room.status.answers.push(answer);
 
     /* determine if enough have answered correctly before moving on */
-    const enoughCorrectNow = ds.checkEnoughCorrect(room, 2);
+    const enoughCorrectNow = ds.checkEnoughCorrect(room, DEFAULT_NUM_CORRECT);
 
     /* determine if everyone has answered and we should move on */
     const allAnswered = room.status.answers.length === room.users.length;
@@ -127,30 +138,36 @@ io.on("connection", (socket) => {
         : allAnswered
         ? "everybody answered"
         : "time ran out";
-
       console.log(`Moving on for ${room.roomId} because ${reason}`);
 
-      const userIdsWhoDidntAnswer = room.users.filter((userId) => {
-        return !room.status.answers.find((a) => a.userId === userId);
-      });
-
-      const playersWhoDidntAnswer = userIdsWhoDidntAnswer.map((userId) => {
-        const { name, score } = ds.users[userId];
-        return { name, score, pointsEarned: 0, correct: false };
-      });
-
-      const players = [...room.status.answers, ...playersWhoDidntAnswer];
-
-      const payload = {
-        players,
-        currentQ: room.status.currentQ + 1,
-      };
-      console.log(payload.players);
-
-      io.in(room.roomId).emit("next_question", payload);
-
-      room.status.currentQ = room.status.currentQ + 1;
+      /* create scores list and reset answers */
+      const players = ds.generateScoreboard(room);
       room.status.answers = [];
+
+      /* if next question exists instruct next question */
+      /* otherwise, send game ended */
+      if (room.questions[room.status.currentQ + 1]) {
+        const payload = {
+          players,
+          currentQ: room.status.currentQ + 1,
+          whenToShowNextQuestion: Date.now() + TIME_BETWEEN_QUESTIONS,
+        };
+
+        io.in(room.roomId).emit("next_question", payload);
+
+        room.status.currentQ = room.status.currentQ + 1;
+      } else {
+        const payload = {
+          players,
+          currentQ: null,
+          whenToGoToLobby: Date.now() + TIME_BETWEEN_QUESTIONS,
+        };
+
+        console.log(`${room.roomId} ended`);
+        io.in(room.roomId).emit("game_ended", payload);
+
+        room.status.currentQ = null;
+      }
     }
   });
 

@@ -18,8 +18,6 @@ function ScoreList({ players }) {
   const orderedArray = orderByScore(players);
   const scoresArray = findPlacements(players);
 
-  console.log(orderedArray);
-
   return (
     <div>
       {orderedArray &&
