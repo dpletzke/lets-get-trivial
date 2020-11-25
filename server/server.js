@@ -142,6 +142,7 @@ io.on("connection", (socket) => {
 
       /* if next question exists instruct next question */
       /* otherwise, send game ended */
+      console.log('End?:', room.questions, room.status.currentQ + 1);
       if (room.questions[room.status.currentQ + 1]) {
         const payload = {
           players,
@@ -159,6 +160,7 @@ io.on("connection", (socket) => {
           whenToGoToLobby: Date.now() + TIME_BETWEEN_QUESTIONS,
         };
 
+        console.log('Game ended by server');
         io.in(room.roomId).emit("game_ended", payload);
 
         room.status.currentQ = null;
