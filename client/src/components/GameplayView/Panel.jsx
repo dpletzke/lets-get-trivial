@@ -1,7 +1,7 @@
 import { useState } from "react";
 import "./Panel.scss";
 import classNames from "classnames";
-const Entities = require('html-entities').AllHtmlEntities;
+const Entities = require("html-entities").AllHtmlEntities;
 
 function Panel(props) {
   const entities = new Entities();
@@ -13,7 +13,6 @@ function Panel(props) {
   //pass down checkAnswer
   // get rid of 'selected' in the data digester in question.jsx
   const { questionString, answerString, correct } = info;
-
 
   const className = classNames(
     "panel",
@@ -30,21 +29,19 @@ function Panel(props) {
     { panel__question: questionString }
   );
 
- 
   return (
     <>
-    {answerString && 
-    <div className={className} onClick={() => setSelected(id)}>
-      <p>{entities.decode(answerString) }</p>
-    </div>
-    }
-    {questionString && 
-    <div className={className}>
-      <p>{entities.decode(questionString)}</p>
-    </div>
-    }
+      {answerString && (
+        <div className={className} onClick={() => setSelected(id)}>
+          <p>{entities.decode(answerString)}</p>
+        </div>
+      )}
+      {questionString && (
+        <div className={className}>
+          <p>{entities.decode(questionString)}</p>
+        </div>
+      )}
     </>
-    
   );
 }
 

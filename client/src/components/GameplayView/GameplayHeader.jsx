@@ -1,7 +1,7 @@
 import Timer from "./Timer";
 import "./GameplayHeader.scss";
 const time = 20;
-function GameplayHeader({ questionIndex, view }) {
+function GameplayHeader({ questionIndex, view, children }) {
   //isPlaying is a boolean that the clock uses for starting/stopping
   //pass in a prop that tells if it is in question of score mode --> this will conditionally render the text.
   return (
@@ -9,6 +9,8 @@ function GameplayHeader({ questionIndex, view }) {
       {view === "score" && <p>Next Question In.... {questionIndex}</p>}
       {view === "question" && <p>Question {questionIndex}</p>}
       <Timer duration={time} size={50} strokeWidth={4} isPlaying />
+
+      {/* {children} */}
     </div>
   );
 }

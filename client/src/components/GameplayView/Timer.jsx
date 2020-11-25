@@ -7,7 +7,7 @@ import "./Timer";
 
 const renderTime = ({ remainingTime }) => {
   if (remainingTime === 0) {
-    return <div className="timer">Too late...</div>;
+    return <div className="timer-message">Time Up</div>;
   }
 
   return (
@@ -24,7 +24,7 @@ function Timer({ duration, size, strokeWidth }) {
     <CountdownCircleTimer
       isPlaying
       duration={duration}
-      size={100}
+      size={68}
       strokeWidth={strokeWidth}
       ariaLabel={"Time Remaining"}
       colors={[
