@@ -79,8 +79,9 @@ io.on('connection', (socket) => {
 
     /* log rooms the socket is in to server, should just be one */
     /* the first room is it's socketId, hence the slice */
-    const serializeRooms = Object.values(socket.rooms).slice(1).join(' ');
-    console.log(`Server starting ${serializeRooms}`);
+    const printRooms = Object.values(socket.rooms).slice(1).join(' ');
+    const printParams = JSON.stringify(params);
+    console.log(`Server starting ${printRooms} with ${printParams}`);
 
     io.in(room.roomId).emit('game_started', { questions, params });
   });
@@ -101,18 +102,21 @@ io.on('connection', (socket) => {
 
     console.log(`${user.name} picked an answer`);
 
-    const allAnswered = room.status.answers === room.users.length;
-    const enoughCorrect = room.status.correct.length > 1;
+    /* determine if enough have answered correctly before awarding points */
+    const rightAnswers = room.status.answers.filter(a => a.correctAnswer);
+    const numberCorrectWhenMove = room.params.numberCorrect || 2;
+    const enoughCorrect = rightAnswers.length >= numberCorrectWhenMove;
     
+    /* award points */
     const points = {
       'easy': 3,
       'medium': 5,
       'hard': 7
     }[difficulty.toLowerCase()];
-
     const pointsEarned = (correct && !enoughCorrect) ? points : -1;
     user.score += pointsEarned;
 
+    /* create and save record */
     const answer = {
       name: user.name,
       score: user.score,
@@ -120,13 +124,15 @@ io.on('connection', (socket) => {
       correctAnswer: correct
     };
     room.status.answers.push(answer);
+    
+    /* determine if everyone has answered and we should move on */
+    const allAnswered = room.status.answers.length === room.users.length;
 
     if (enoughCorrect || allAnswered) {
 
       const reason = enoughCorrect ? 'enough got it right' : allAnswered ? 'everybody answered' : 'time ran out';
       
       console.log(`Moving on for ${room.roomId} because ${reason}`);
-
       
       const payload = {
         players: room.status.answers,

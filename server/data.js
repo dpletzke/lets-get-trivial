@@ -36,7 +36,7 @@ module.exports = {
         currentQ: null
       },
       params: {
-        questionTime: 15000,
+        questionTime: 10000,
         categoryId: null,
         numQuestions: null,
         type: null,
