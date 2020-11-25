@@ -7,7 +7,6 @@ const players = [
   { name: "player_5", score: 29, pointsEarned: 1, correctAnswer: true },
 ];
 
-//Extract Player Names Where correctAnswer is true
 export function generateScoreString(players) {
   let winners = [];
   players.forEach((player) => {
@@ -39,49 +38,16 @@ export function generateScoreString(players) {
   }
 }
 
-//If compareFunction(a, b) returns less than 0, sort a to an index lower than b (i.e. a comes first).
-//Above coming from MDN for ref...
-//Order players array by score
 export function orderByScore(players) {
   return players.sort((a, b) => b.score - a.score);
 }
 
-export function orderByPlace(players) {
-  const placesObj = {};
-  players.forEach((player) => {
-    const { score } = player;
-
-    if (!placesObj[score]) {
-      placesObj[score] = [player];
-    } else {
-      placesObj[score].push(player);
-    }
+export function findPlacements(players) {
+  const scores = players.map((player) => {
+    return player.score;
   });
-  return placesObj;
+
+  const output = [...new Set(scores)].sort((a, b) => b - a);
+  console.log({ output });
+  return output;
 }
-
-export function mapObjectToPlaces(placesObj) {
-  const scores = Object.keys(placesObj).reverse();
-  const places = scores.length;
-  console.log(places);
-  const placesArray = [];
-
-  for (let i = 1; i <= places; i++) {
-    placesArray.push(i);
-  }
-  const result = [];
-  for (let place of placesArray) {
-    const highestScore = scores[0];
-    const resultElm = {};
-    resultElm[place] = { ...placesObj[highestScore] };
-    result.push(resultElm);
-    scores.shift();
-  }
-  return result;
-}
-
-export function placementGenerator(players) {
-  return mapObjectToPlaces(orderByPlace(orderByScore(players)));
-}
-
-console.log(placementGenerator(players));

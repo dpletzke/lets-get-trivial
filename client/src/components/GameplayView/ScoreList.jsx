@@ -1,5 +1,5 @@
 import ScoreListItem from "./ScoreListItem";
-import { placementGenerator } from "./scoreHelpers";
+import { findPlacements, orderByScore } from "./scoreHelpers";
 import "./ScoreListItem.scss";
 
 //players obj
@@ -15,7 +15,8 @@ import "./ScoreListItem.scss";
 // Render a list of Players in numerical order. --> show score and game placement
 // helper function to calc num of players and show placement -- aka if players are tied don't increase number.
 function ScoreList({ players }) {
-  const orderedArray = placementGenerator(players);
+  const orderedArray = orderByScore(players);
+  const scoresArray = findPlacements(players);
 
   console.log(orderedArray);
 
@@ -27,7 +28,7 @@ function ScoreList({ players }) {
             name={player.name}
             score={player.score}
             pointsEarned={player.pointsEarned}
-            position={index + 1}
+            position={scoresArray.findIndex((s) => s === player.score) + 1}
           />
         ))}
     </div>
