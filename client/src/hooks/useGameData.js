@@ -16,7 +16,7 @@ export default function useGameData(gameId, connection) {
 
   const { params } = game;
 
-  // these setter are being sent down to the option items
+  // these setters are being sent down to the option items
   // so they can set the params in state
   const setters = {
     setNumber: function (num) {
