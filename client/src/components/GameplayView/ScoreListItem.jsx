@@ -6,20 +6,20 @@ function ScoreListItem({ name, score, position, pointsEarned }) {
     <div className="player-heading">
       <h3>
         <FaUser className="player-icon" />
-        Player 1
+        {name}
       </h3>
       <div className="info-group">
         <span>
           Position:
-          <div className="dark">1st</div>
+          <div className="dark">{position}</div>
         </span>
         <span>
           Score:
-          <div className="dark">70</div>
+          <div className="dark">{score}</div>
         </span>
         <span>
           Points Earned:
-          <div className="dark">2</div>
+          <div className="dark">{pointsEarned}</div>
         </span>
       </div>
     </div>

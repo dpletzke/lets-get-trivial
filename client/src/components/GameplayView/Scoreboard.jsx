@@ -12,14 +12,13 @@ const players = [
   { name: "player_5", score: 29, pointsEarned: 1, correctAnswer: true },
 ];
 
-const scoreBoardString = generateScoreString(players);
-
 function ScoreBoard() {
+  const scoreString = generateScoreString(players);
   return (
     <div>
       <h2>Score Board</h2>
-      {/* Victory String */}
-      <p>{scoreBoardString}</p>
+
+      <p>{scoreString}</p>
       <ScoreList players={players} />
     </div>
   );
