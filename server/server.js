@@ -19,7 +19,8 @@ const {
 } = require("../client/src/api/opentdb");
 
 // reference to in-memory database
-const ds = require("./data");
+const ds = require('./data');
+const { stringify } = require('querystring');
 
 app.get("/", (req, res) => {
   res.json({ status: "ok" });
@@ -78,19 +79,14 @@ io.on("connection", (socket) => {
 
     /* log rooms the socket is in to server, should just be one */
     /* the first room is it's socketId, hence the slice */
-    const serializeRooms = Object.values(socket.rooms).slice(1).join(" ");
-    console.log(`Server starting ${serializeRooms}`);
+    const printRooms = Object.values(socket.rooms).slice(1).join(' ');
+    console.log(`Server starting ${printRooms} with:`);
+    console.log(`${JSON.stringify(params)}`);
+    console.log('');
 
     io.in(room.roomId).emit("game_started", { questions, params });
   });
 
-  // socket.on('change_name', (newName) => {
-
-  //   const position = rooms[socket.room].findIndex(name => name === socket.user);
-  //   rooms[socket.room].splice(position, 1, newName);
-
-  //   io.in(socket.room).emit('user_connected', { users:rooms[socket.room] });
-  // });
 
   socket.on("picked_answer", (data) => {
     const { correct, difficulty } = data;
@@ -100,42 +96,48 @@ io.on("connection", (socket) => {
 
     console.log(`${user.name} picked an answer`);
 
-    const pointsEarned = {
-      easy: 1,
-      medium: 2,
-      hard: 3,
-    }[difficulty];
+    const enoughCorrect = ds.checkEnoughCorrect(room, 2);
 
-    room.status.answered += 1;
+    /* award points */
+    const points = {
+      'easy': 3,
+      'medium': 5,
+      'hard': 7
+    }[difficulty.toLowerCase()];
+    const pointsEarned = (correct && !enoughCorrect) ? points : -1;
+    user.score += pointsEarned;
 
-    const allAnswered = room.status.answered === room.users.length;
-    const enoughCorrect = room.status.correct.length > 1;
+    /* create and save record */
+    const answer = {
+      name: user.name,
+      score: user.score,
+      pointsEarned,
+      correctAnswer: correct
+    };
+    room.status.answers.push(answer);
 
-    /* increase score and push to correct array if correct */
-    if (correct && !enoughCorrect) {
-      user.score += pointsEarned;
-      room.status.correct.push(user.name);
-    }
+    /* determine if enough have answered correctly before moving on */
+    const enoughCorrectNow = ds.checkEnoughCorrect(room, 2);
+    
+    /* determine if everyone has answered and we should move on */
+    const allAnswered = room.status.answers.length === room.users.length;
 
-    if (enoughCorrect || allAnswered) {
-      const reason = enoughCorrect
-        ? "enough got it right"
-        : allAnswered
-        ? "everybody answered"
-        : "time ran out";
+    if (enoughCorrectNow || allAnswered) {
 
+      const reason = enoughCorrectNow ? 'enough got it right' : allAnswered ? 'everybody answered' : 'time ran out';
+      
       console.log(`Moving on for ${room.roomId} because ${reason}`);
-
+      
       const payload = {
-        namesCorrect: room.status.correct,
-        currentQ: room.status.currentQ + 1,
+        players: room.status.answers,
+        currentQ: room.status.currentQ + 1
       };
-      console.log(`Moving ${room.roomId} to the next question`);
-      io.in(room.roomId).emit("next_question", payload);
 
+      console.log(JSON.stringify(payload));
+      io.in(room.roomId).emit('next_question', payload);
+      
       room.status.currentQ = room.status.currentQ + 1;
-      room.status.correct = [];
-      room.status.answered = 0;
+      room.status.answers = [];
     }
   });
 

@@ -29,13 +29,14 @@ module.exports = {
       token: null,
       questions: [],
       users: [],
+      // status resets after each question
       status:{
-        answered: 0,
-        correct: [],
+        //answers: each { name, score, pointsEarned, correctAnswer }
+        answers: [],
         currentQ: null
       },
       params: {
-        questionTime: 15000,
+        questionTime: 10000,
         categoryId: null,
         numQuestions: null,
         type: null,
@@ -48,6 +49,12 @@ module.exports = {
 
     return room;
 
+  },
+
+  checkEnoughCorrect: (room, defaultVal) => {
+    const rightAnswers = room.status.answers.filter(a => a.correctAnswer);
+    const numberCorrectWhenMove = room.params.numberCorrect || defaultVal;
+    return rightAnswers.length >= numberCorrectWhenMove;
   },
 
   getRoomFromUserId:(userId) => {
