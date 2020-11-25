@@ -12,7 +12,7 @@ const players = [
   { name: "player_5", score: 29, pointsEarned: 1, correctAnswer: true },
 ];
 
-function ScoreBoard() {
+function ScoreBoard({ players }) {
   const scoreString = generateScoreString(players);
   return (
     <div>

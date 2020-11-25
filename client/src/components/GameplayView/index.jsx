@@ -10,7 +10,9 @@ const SCORE = "SCORE";
 // const { mode } = useVisualMode(QUESTION)
 
 function GameplayView(props) {
-  const { questions, params, currentQ } = props;
+  const { questions, params, currentQ, players } = props;
+
+  console.log({ players });
 
   const passProps = {
     questionObj: questions[currentQ],
@@ -19,10 +21,11 @@ function GameplayView(props) {
 
   return (
     <div>
-      <ActiveQuestion {...passProps} />
+      {currentQ <= 1 && <ActiveQuestion {...passProps} />}
       {/* uncomment below on implementation of visualMode */}
       {/* {mode === QUESTION && <Question/>}
       {mode === SCORE && <ShowScore/>} */}
+      {currentQ > 1 && <ScoreBoard players={players} />}
     </div>
   );
 }
