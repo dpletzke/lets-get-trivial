@@ -1,13 +1,17 @@
-import Timer from './Timer';
-import './GameplayHeader.scss';
+import Timer from "./Timer";
+import "./GameplayHeader.scss";
+const time = 20;
+function GameplayHeader({ questionIndex, view, time }) {
+  //isPlaying is a boolean that the clock uses for starting/stopping
+  //time is currently hard coded in question and scoreboard jsx. replace this with prop from backend.
 
-function GameplayHeader({questionIndex}) {
   return (
     <div className="header header__gameplay">
-      <p>Question {questionIndex}</p>
-       <Timer duration={10} size={50} strokeWidth={4} />
+      {view === "score" && <p>Next Question In....</p>}
+      {view === "question" && <p>Question {questionIndex}</p>}
+      <Timer duration={time} isPlaying />
     </div>
   );
 }
 
-export default GameplayHeader
+export default GameplayHeader;

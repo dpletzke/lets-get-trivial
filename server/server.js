@@ -18,18 +18,21 @@ const {
   getSessionToken,
 } = require("../client/src/api/opentdb");
 
-// reference to in-memory database
+// reference to in-memory database and constants file
 const ds = require("./data");
-const { stringify } = require("querystring");
+const {
+  TIME_BETWEEN_QUESTIONS,
+  DEFAULT_NUM_CORRECT,
+  POINTS_SYSTEM,
+  POINT_PENALTY,
+} = require('./constants');
 
-app.get("/", (req, res) => {
-  res.json({ status: "ok" });
-});
+// TODO: do we need these?
+// const { stringify } = require("querystring");
 
-const TIME_BETWEEN_QUESTIONS = 5000;
-const DEFAULT_NUM_CORRECT = 2;
-const POINTS_SYSTEM = { easy: 3, medium: 5, hard: 7 };
-const POINT_PENALTY = -1;
+// app.get("/", (req, res) => {
+//   res.json({ status: "ok" });
+// });
 
 io.on("connection", (socket) => {
   const user = ds.createUser({ socket });

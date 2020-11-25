@@ -7,10 +7,11 @@
   text-align: center;
   border-radius: 10px;
   font-family: $RegularFont;
+  font-size: 1.2em;
 }
 .panel__answer {
   &:hover {
-    background-color: lighten($color-secondary-background, $amount: 5%);
+    background-color: lighten($color-secondary-background, $amount: 10%);
   }
   &--selectedFalse {
     background-color: lighten($color-primary-button-background, $amount: 5%);
@@ -28,5 +29,14 @@
         $amount: 5%
       );
     }
+  }
+}
+
+.panel__question {
+  width: 90%;
+  font-size: 1.2em;
+  background-color: white;
+  p {
+    padding: 0 0.2em;
   }
 }

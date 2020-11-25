@@ -1,21 +1,10 @@
-import { useContext } from 'react';
+import { useContext } from "react";
 
 import PanelList from "./PanelList";
 import GameplayHeader from "./GameplayHeader";
 import "./Question.scss";
 
 import ConnectionContext from "../../ConnectionContext";
-
-//here is the structure of the data coming from the api. Added is the questionIndex which is based on how many questions the user selects
-// const questionObj = {
-//   "question": "Who wrote the novel &quot;Moby-Dick&quot;?",
-//   "correct_answer": "Herman Melville",
-//   "incorrect_answers": [
-//   "William Golding",
-//   "William Shakespeare",
-//   "J. R. R. Tolkien"
-//   ]
-//   }
 
 // move this into a helper file at some point? It's just changing the data structure to fit better with our component architecture
 const digestQuestionObj = (questionObject) => {
@@ -44,16 +33,19 @@ function ActiveQuestion({ questionObj, questionIndex }) {
   const connection = useContext(ConnectionContext);
 
   const pickAnswer = (correct) => {
-    connection.current.emit('picked_answer', { correct, ...questionObj });
-  }
+    connection.current.emit("picked_answer", { correct, ...questionObj });
+  };
 
+  //GameplayHeader needs to take the following props: {questionIndex, view, time (question/score)-hardCoded} - optional boolean (isPlaying -> This turns timer on or off)
   return (
     <div>
-      <GameplayHeader questionIndex={questionIndex} />
+      <GameplayHeader questionIndex={questionIndex} view="question" time={5}>
+        <PanelList infoArray={question} />
+      </GameplayHeader>
       <div className="question-container">
         {/* the two panels in this view can be targeted individually due to their conditional css, see PanelList component */}
         <PanelList infoArray={question} />
-        <PanelList infoArray={answers} pickAnswer={pickAnswer}/>
+        <PanelList infoArray={answers} pickAnswer={pickAnswer} />
       </div>
     </div>
   );

@@ -4,7 +4,13 @@
   &__gameplay {
     display: flex;
     padding: 0 $medium-spacer;
+    margin: 0.3em 0 0.3em 0;
     justify-content: space-between;
+    align-items: center;
     font-family: $FancyFont;
+  }
+
+  p {
+    font-size: 1em;
   }
 }
