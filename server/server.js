@@ -104,9 +104,10 @@ io.on("connection", (socket) => {
     const user = ds.users[socket.id];
     const room = ds.getRoomFromUserId(socket.id);
 
-    console.log(`${user.name} picked a ${correct ? 'right' : 'wrong'} answer`);
+    console.log(`${user.name} picked a ${correct ? "right" : "wrong"} answer`);
 
     const enoughCorrect = ds.checkEnoughCorrect(room, DEFAULT_NUM_CORRECT);
+    console.log("Enought correct? ", enoughCorrect);
 
     /* award points */
     const points = POINTS_SYSTEM[difficulty.toLowerCase()];
@@ -121,11 +122,13 @@ io.on("connection", (socket) => {
       pointsEarned,
       correctAnswer: correct,
     };
+
+    console.log("Answer :", answer);
     room.status.answers.push(answer);
 
     /* determine if enough have answered correctly before moving on */
     const enoughCorrectNow = ds.checkEnoughCorrect(room, DEFAULT_NUM_CORRECT);
-
+    console.log("Enough correct now:", enoughCorrectNow);
     /* determine if everyone has answered and we should move on */
     const allAnswered = room.status.answers.length === room.users.length;
 
@@ -149,6 +152,8 @@ io.on("connection", (socket) => {
           currentQ: room.status.currentQ + 1,
           whenToShowNextQuestion: Date.now() + TIME_BETWEEN_QUESTIONS,
         };
+
+        console.log("Payload:", payload);
 
         io.in(room.roomId).emit("next_question", payload);
 

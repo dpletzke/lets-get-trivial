@@ -23,54 +23,41 @@ import useVisualMode from '../../hooks/useVisualMode';
 
 
 function GameplayView(props) {
-  const { questions, currentQ, players, view, whenToShowNextQuestion, whenToGoToLobby } = props;
+  const { questions, currentQ, players, view, whenToShowNextQuestion, whenToGoToLobby, setters } = props;
+
+  const {setGameplayView} = setters
 
   console.log('Current Q: ', currentQ);
+
+  useEffect(() => {
+    setGameplayView(whenToShowNextQuestion);
+  }, [whenToShowNextQuestion]);
+
+  // component shows scoreboard
+  // after seTimeoutruns, component shows activequestion
+
+  // const toggler = (whenToShowNextQuestion, whenToGoToLobby) => {
+  //   if (currentTime < whenToShowNextQuestion) {
+  //     return (<Scoreboard players={players} />)
+  // } else 
+
+
   const SCORE = 'SCORE';
   const QUESTION = 'QUESTION';
 
-  const [mode, setMode] = useState(SCORE)
+  // const [mode, setMode] = useState(SCORE)
 
 
-  useEffect(() => {
-    const timeout = whenToShowNextQuestion-Date.now();
-    setMode(SCORE);
-    setTimeout(() => {
-      setMode(QUESTION)
-    }, timeout)
-
-
-
-  }, [whenToShowNextQuestion])
-
-  // if(view === 'SCORE'){
-
-  // } else if (view === 'QUESTION'){
-
-
-  // }
-  // }
-
-  // if (Date.now() < whenToShowNextQuestion) {
-  //   setMode('SCORE')
-  // }
-//   if (mode === QUESTION) {
-//     const whenToShowNextQuestion = Date.now() + 5000;
-//     const timeOut = whenToShowNextQuestion - Date.now();
-//     setTimeout(setMode, timeOut, SCORE);
-// }
-
-//   // next question! give it five seconds
-
-//   if (mode === SCORE) {
-//     const whenToShowNextQuestion = Date.now() + 5000;
-//     const timeOut = whenToShowNextQuestion - Date.now();
-//     setTimeout(setMode, timeOut, QUESTION);
-// }
+  // useEffect(() => {
+  //   const timeout = whenToShowNextQuestion-Date.now();
+  //   setMode(SCORE);
+  //   setTimeout(() => {
+  //     setMode(QUESTION)
+  //   }, timeout)
 
 
 
-
+  // }, [whenToShowNextQuestion])
 
 
   const passProps = {
@@ -83,10 +70,9 @@ function GameplayView(props) {
 
   return (
     <div>
-      {mode === QUESTION && <ActiveQuestion {...passProps} />}
+      {view === QUESTION && <ActiveQuestion {...passProps} />}
 
-      {mode === SCORE && <Scoreboard players={players} />}
-      {/* <ActiveQuestion {...passProps} /> */}
+      {view === SCORE && <Scoreboard players={players} />}
     </div>
   );
 }

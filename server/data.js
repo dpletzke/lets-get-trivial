@@ -61,7 +61,6 @@ module.exports = {
   },
 
   generateScoreboard: (room) => {
-
     const userIdsWhoDidntAnswer = room.users.filter((userId) => {
       return !room.status.answers.find((a) => a.userId === userId);
     });

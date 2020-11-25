@@ -47,6 +47,16 @@ export default function useGameData(gameId, connection) {
     setNumberCorrect: function (num) {
       setOptions({ ...params, numCorrect: num });
     },
+
+    setGameplayView: function (time) {
+      setGame({ ...game, view: "SCORE" });
+
+      const showScoreboardThisLong = time - Date.now();
+
+      setTimeout(() => {
+        setGame({ ...game, view: "QUESTION" });
+      }, showScoreboardThisLong);
+    },
   };
 
   const startGame = () => {
@@ -74,6 +84,7 @@ export default function useGameData(gameId, connection) {
     });
 
     connection.current.on("next_question", async (data) => {
+      console.log("Next question!");
       const { players, currentQ, whenToShowNextQuestion } = data;
 
       console.log("Server sent next Q, starting timeout");
