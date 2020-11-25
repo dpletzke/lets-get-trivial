@@ -3,7 +3,8 @@ import "./GameplayHeader.scss";
 const time = 20;
 function GameplayHeader({ questionIndex, view, time }) {
   //isPlaying is a boolean that the clock uses for starting/stopping
-  //pass in a prop that tells if it is in question of score mode --> this will conditionally render the text.
+  //time is currently hard coded in question and scoreboard jsx. replace this with prop from backend.
+
   return (
     <div className="header header__gameplay">
       {view === "score" && <p>Next Question In....</p>}
