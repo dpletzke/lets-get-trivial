@@ -29,7 +29,7 @@ app.get("/", (req, res) => {
 io.on("connection", (socket) => {
   const user = ds.createUser({ socket });
 
-  socket.on("join_room", function (name, roomId) {
+  socket.on("join_room", function(name, roomId) {
     /* set name and roomId in data */
     user.name = name;
     user.roomId = roomId;
@@ -57,7 +57,7 @@ io.on("connection", (socket) => {
     socket.emit("roomIds", { roomIds: Object.keys(ds.rooms) });
   });
 
-  socket.on("start_game", async (data) => {
+  socket.on("start_game", async(data) => {
     const { params } = data;
 
     const user = ds.users[socket.id];
@@ -125,8 +125,8 @@ io.on("connection", (socket) => {
       const reason = enoughCorrectNow
         ? "enough got it right"
         : allAnswered
-        ? "everybody answered"
-        : "time ran out";
+          ? "everybody answered"
+          : "time ran out";
 
       console.log(`Moving on for ${room.roomId} because ${reason}`);
 
