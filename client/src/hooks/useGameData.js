@@ -77,10 +77,8 @@ export default function useGameData(gameId, connection) {
     connection.current.on("next_question", async (data) => {
       const { players, currentQ, whenToShowNextQuestion } = data;
 
-      console.log("Server sent next Q, starting timeout");
+      console.log(`${gameId} moved to question ${currentQ}, starting Timeout`);
       const timer = await setTimeout(() => {
-
-        // console.log(`${gameId} moved to question ${currentQ} from server!`);
 
         setGame((prev) => {
           return { ...prev, currentQ, players, whenToShowNextQuestion };
@@ -90,7 +88,7 @@ export default function useGameData(gameId, connection) {
     });
 
     connection.current.on("game_ended", (data) => {
-      // console.log(`${gameId} ended from server!`);
+      console.log(`${gameId} ended from server!`);
       setGame((prev) => ({ ...prev, started: false, currentQ: 0 }));
     });
 
