@@ -21,24 +21,20 @@ const {
 // reference to in-memory database
 const ds = require("./data");
 const { stringify } = require("querystring");
-const { generateScoreString } = require("../client/src/components/GameplayView/scoreHelpers");
 
 app.get("/", (req, res) => {
   res.json({ status: "ok" });
 });
 
 const TIME_BETWEEN_QUESTIONS = 5000;
-<<<<<<< HEAD
-=======
 const DEFAULT_NUM_CORRECT = 2;
 const POINTS_SYSTEM = { easy: 3, medium: 5, hard: 7 };
 const POINT_PENALTY = -1;
->>>>>>> 5adb748d13a2db66296b1142c80f8938a72d1d98
 
 io.on("connection", (socket) => {
   const user = ds.createUser({ socket });
 
-  socket.on("join_room", function(name, roomId) {
+  socket.on("join_room", function (name, roomId) {
     /* set name and roomId in data */
     user.name = name;
     user.roomId = roomId;
@@ -66,7 +62,7 @@ io.on("connection", (socket) => {
     socket.emit("roomIds", { roomIds: Object.keys(ds.rooms) });
   });
 
-  socket.on("start_game", async(data) => {
+  socket.on("start_game", async (data) => {
     const { params } = data;
 
     const user = ds.users[socket.id];
@@ -95,11 +91,7 @@ io.on("connection", (socket) => {
     const payload = {
       questions,
       params,
-<<<<<<< HEAD
       whenToShowNextQuestion: Date.now() + TIME_BETWEEN_QUESTIONS,
-=======
-      whenToShowNextQuestion: Date.now() + TIME_BETWEEN_QUESTIONS
->>>>>>> 5adb748d13a2db66296b1142c80f8938a72d1d98
     };
 
     io.in(room.roomId).emit("game_started", payload);
@@ -140,61 +132,35 @@ io.on("connection", (socket) => {
       const reason = enoughCorrectNow
         ? "enough got it right"
         : allAnswered
-          ? "everybody answered"
-          : "time ran out";
+        ? "everybody answered"
+        : "time ran out";
       console.log(`Moving on for ${room.roomId} because ${reason}`);
 
-<<<<<<< HEAD
-      const userIdsWhoDidntAnswer = room.users.filter((userId) => {
-        return !room.status.answers.find((a) => a.userId === userId);
-      });
-
-      const playersWhoDidntAnswer = userIdsWhoDidntAnswer.map((userId) => {
-        const { name, score } = ds.users[userId];
-        return { name, score, pointsEarned: 0, correct: false };
-      });
-
-      const players = [...room.status.answers, ...playersWhoDidntAnswer];
-
-      const payload = {
-        players,
-        currentQ: room.status.currentQ + 1,
-        whenToShowNextQuestion: Date.now() + TIME_BETWEEN_QUESTIONS,
-      };
-      console.log(payload.players);
-
-      io.in(room.roomId).emit("next_question", payload);
-
-      room.status.currentQ = room.status.currentQ + 1;
-=======
       /* create scores list and reset answers */
       const players = ds.generateScoreboard(room);
->>>>>>> 5adb748d13a2db66296b1142c80f8938a72d1d98
       room.status.answers = [];
 
       /* if next question exists instruct next question */
       /* otherwise, send game ended */
       if (room.questions[room.status.currentQ + 1]) {
-
         const payload = {
           players,
           currentQ: room.status.currentQ + 1,
-          whenToShowNextQuestion: Date.now() + TIME_BETWEEN_QUESTIONS
+          whenToShowNextQuestion: Date.now() + TIME_BETWEEN_QUESTIONS,
         };
-  
+
         io.in(room.roomId).emit("next_question", payload);
-  
+
         room.status.currentQ = room.status.currentQ + 1;
       } else {
-
         const payload = {
           players,
           currentQ: null,
-          whenToGoToLobby: Date.now() + TIME_BETWEEN_QUESTIONS
+          whenToGoToLobby: Date.now() + TIME_BETWEEN_QUESTIONS,
         };
-  
+
         io.in(room.roomId).emit("game_ended", payload);
-  
+
         room.status.currentQ = null;
       }
     }
