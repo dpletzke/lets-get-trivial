@@ -18,6 +18,9 @@ const validate = {
     }
     return type;
   },
+  difficulty: (difficulty) => {
+    return difficulty && difficulty.toLowerCase();
+  },
 };
 
 const urlConstructor = (params, token) => {
@@ -27,10 +30,11 @@ const urlConstructor = (params, token) => {
   let validatedCategoryId = validate.categoryId(categoryId);
   let validatedNumQuestions = validate.numQuestions(numQuestions);
   let validatedType = validate.type(type);
+  let validatedDifficulty = validate.difficulty(difficulty);
   let url = `https://opentdb.com/api.php?amount=${validatedNumQuestions}`;
 
   if (validatedCategoryId) url += `&category=${validatedCategoryId}`;
-  if (difficulty) url += `&difficulty=${difficulty}`;
+  if (validatedDifficulty) url += `&difficulty=${validatedDifficulty}`;
   if (validatedType) url += `&type=${validatedType}`;
   if (token) url += `&token=${token}`;
 
