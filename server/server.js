@@ -26,6 +26,8 @@ app.get("/", (req, res) => {
   res.json({ status: "ok" });
 });
 
+const TIME_BETWEEN_QUESTIONS = 5000;
+
 io.on("connection", (socket) => {
   const user = ds.createUser({ socket });
 
@@ -83,7 +85,13 @@ io.on("connection", (socket) => {
     console.log(`${JSON.stringify(params)}`);
     console.log("");
 
-    io.in(room.roomId).emit("game_started", { questions, params });
+    const payload = {
+      questions,
+      params,
+      whenToShowNextQuestion: Date.now() + TIME_BETWEEN_QUESTIONS,
+    };
+
+    io.in(room.roomId).emit("game_started", payload);
   });
 
   socket.on("picked_answer", (data) => {
@@ -144,6 +152,7 @@ io.on("connection", (socket) => {
       const payload = {
         players,
         currentQ: room.status.currentQ + 1,
+        whenToShowNextQuestion: Date.now() + TIME_BETWEEN_QUESTIONS,
       };
       console.log(payload.players);
 
