@@ -35,18 +35,13 @@ function PanelList({ infoArray, pickAnswer }) {
 
   useEffect(() => {
     connection.current.on("next_question", () => {
-      // setSelected("");
+    
   
       const timer = setTimeout(() => {
       setSelected("");
        clearTimeout(timer);
       }, LAG_BEFORE_SEND_ANSWER);
     });
-
-    // const oldConnection = connection.current;
-    // return () => {
-    // oldConnection.removeAllListeners("next_question");
-    // };
   }, [connection]);
 
   useEffect(() => {

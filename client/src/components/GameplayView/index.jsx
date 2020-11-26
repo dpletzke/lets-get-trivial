@@ -39,23 +39,14 @@ function GameplayView(props) {
   const FINISHED = "FINISHED";
 
 
-  // const [mode, setMode] = useState(SCORE)
 
-  // useEffect(() => {
-  //   const timeout = whenToShowNextQuestion-Date.now();
-  //   setMode(SCORE);
-  //   setTimeout(() => {
-  //     setMode(QUESTION)
-  //   }, timeout)
-
-  // }, [whenToShowNextQuestion])
 
   const passProps = {
     questionObj: questions[currentQ],
     questionIndex: currentQ + 1,
   };
 
-  if (view === 'STARTING') {
+  if (view === STARTING) {
     return <h1>WE ARE STARTING THE GAME NOWWWWWWW!</h1>;
   }
 
@@ -66,7 +57,7 @@ function GameplayView(props) {
   if (view === SCORE) {
     return <Scoreboard players={players} />;
   }
-  if (view === 'FINISHED'){
+  if (view === FINISHED){
   return <h1>GAME DONE Y'ALL! HOPE YOU HAD SOME FUN! EVERYONE IS A WINNER IN MY HEART!</h1>
   } 
   return <h1>None of the above</h1>;
