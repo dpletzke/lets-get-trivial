@@ -26,7 +26,6 @@ function WaitingRoom(props) {
     gameId,
     connection
   );
-  console.log("Waiting room re-render!");
 
   const controller = (game) => {
     if (!game.started) {

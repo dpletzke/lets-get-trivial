@@ -28,14 +28,16 @@ function Home(props) {
     } else if (!gameId) {
       setError(3);
     } else {
-      connection.current.emit("get_roomIds");
+      connection.current.emit("get_room_info");
     }
   }
 
   useEffect(() => {
     if (connection.current.id) {
-      connection.current.on("roomIds", (data) => {
-        if (data.roomIds.includes(gameId)) {
+      connection.current.on("room_info", (data) => {
+
+        const openRooms = data.roomInfo.filter(r => !r.started);
+        if (openRooms.find(r => r.roomId === gameId)) {
           setError(false);
           onJoin(playerName, gameId);
         } else {
