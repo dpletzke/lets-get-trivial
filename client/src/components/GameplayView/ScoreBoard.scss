@@ -3,10 +3,16 @@
 h2 {
   font-family: $FancyFont;
   text-align: center;
-  color: $color-primary-background;
+  color: $color-secondary-text;
 }
 
-p {
-  color: darken($color-secondary-text, $amount: 10%);
-  font-size: 0.8em;
+.page-container {
+  background-color: $primary-dark;
+  height: 100vh;
+
+  p {
+    font-family: $FancyFont;
+    color: $color-secondary-background;
+    font-weight: 300;
+  }
 }

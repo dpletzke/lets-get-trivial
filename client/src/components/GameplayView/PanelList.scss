@@ -10,8 +10,8 @@
   background-color: lighten($color-primary-background, $amount: 70%);
   margin-top: $medium-spacer;
   &__answer {
-    // background-color: lighten($color-primary-background, $amount: 10%);
-    background-color: $space-gray;
+    background-color: lighten($color-primary-background, $amount: 10%);
+    // background-color: $space-gray;
     height: 50vh;
     max-height: 24rem;
     max-width: $max-width;
@@ -23,6 +23,7 @@
     border-bottom: 0.1em $color-primary-background solid;
     width: 100%;
     margin: 0;
+    border: 1.7px $text-primary solid;
     background-color: $primary-light;
     padding: 0 16px 0 16px;
   }

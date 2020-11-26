@@ -30,11 +30,12 @@
 }
 
 .btn--game-room {
-  background-color: $color-primary-text;
+  font-size: 1.5rem;
+  background-color: $color-secondary-background;
   color: $color-primary-background;
   margin: 1em auto 4em auto;
   align-self: center;
   &:hover {
-    background-color: $color-secondary-background;
+    background-color: $color-primary-text;
   }
 }

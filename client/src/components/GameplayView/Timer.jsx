@@ -24,7 +24,7 @@ function Timer({ duration }) {
     <CountdownCircleTimer
       isPlaying
       duration={duration}
-      size={68}
+      size={75}
       strokeWidth={3}
       ariaLabel={"Time Remaining"}
       colors={[

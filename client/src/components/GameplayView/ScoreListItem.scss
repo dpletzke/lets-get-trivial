@@ -8,37 +8,37 @@
 .player-heading {
   background: white;
   width: 70%;
-
+  background-color: $primary-light;
   font-family: $FancyFont;
   text-align: center;
-  color: $color-primary-background;
+  color: $primary-dark;
   margin: 0.5em;
   padding: 2em;
-  border: 1px solid black;
+  border: 1.7px $text-primary solid;
   border-radius: 0.5em;
 
   h3 {
-    margin: 0 auto 1.5em auto;
+    margin: 0 auto 1em auto;
   }
 
   .player-icon {
     margin-right: 0.4em;
-    color: darken($color-secondary-background, $amount: 10%);
+    color: $text-primary;
   }
 }
 
 .info-group {
-  font-size: 0.8em;
+  font-size: 0.8rem;
   display: flex;
   justify-content: space-evenly;
-  color: darken($color-secondary-background, $amount: 10%);
+  color: $color-secondary-text;
 
   span {
     display: flex;
   }
 
   .dark {
-    color: $color-primary-background;
+    color: $primary-dark;
     margin-left: 0.5em;
   }
 }
