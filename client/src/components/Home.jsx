@@ -48,7 +48,7 @@ function Home(props) {
       const oldConnection = connection.current;
 
       return () => {
-        oldConnection.removeAllListeners("roomIds");
+        oldConnection.removeAllListeners("room_info");
       };
     }
   }, [connection, gameId, playerName, onJoin]);

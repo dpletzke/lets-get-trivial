@@ -11,6 +11,14 @@ const getCategories =  async () => {
   return data;
 };
 
+// const apiCalls = {
+  const getNumQuestionsForCategory =  async (categoryId) => {
+    const url = `https://opentdb.com/api_count.php?category=${categoryId}`;
+    const { data } = await axios.get(url);
+    // console.log({categoryId, data})
+    return data;
+  };
+
 // Its possible to reach the end of the questions, in which case a response
 // code will be sent, this token needs to be reset or just generated a new
 // one, it seems no benefit to reset, only going to generate new one
@@ -21,14 +29,17 @@ const getSessionToken = async function (token) {
   } else {
     url += `reset&token=${token}`;
   }
+  console.log(url);
   const { data } = await axios.get(url);
-
+  console.log(data);
   return data;
 };
 
 const getQuestions = async (params, token) => {
   const url = urlConstructor(params, token);
+  console.log(url);
   const { data } = await axios.get(url);
+  console.log("q res code:", data.response_code);
 
   // if the token is invalid...reset that thing! Would be better if it could be recursive but I can't figure out how to call functions from within this object (this.getQuestions is not working)
 
@@ -43,4 +54,4 @@ const getQuestions = async (params, token) => {
 };
 
 
-module.exports = { getCategories, getSessionToken, getQuestions };
+module.exports = { getCategories, getSessionToken, getQuestions, getNumQuestionsForCategory };
