@@ -50,7 +50,9 @@ module.exports = {
 
   checkEnoughCorrect: (room, defaultVal) => {
     const rightAnswers = room.status.answers.filter((a) => a.correctAnswer);
-    const numberCorrectWhenMove = room.params.numberCorrect || defaultVal;
+    const numberCorrectWhenMove = room.params.numberCorrect *  || defaultVal;
+
+
     return rightAnswers.length >= numberCorrectWhenMove;
   },
 

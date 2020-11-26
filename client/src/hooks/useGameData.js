@@ -33,7 +33,16 @@ export default function useGameData(gameId, connection) {
   }, [game]);
 
   const setOptions = (options) => {
-    setGame({ ...game, params: { ...options } });
+    
+
+
+    const params = {
+      ...options,
+      timeLimit: options.timeLimit * 1000,
+      numCorrect
+    }
+
+    setGame({ ...game, params });
   };
 
   const { params } = game;
@@ -61,10 +70,14 @@ export default function useGameData(gameId, connection) {
     },
 
     setQuestionTimeLimit: function (time) {
-      setOptions({ ...params, timeLimit: time });
+      setOptions({ ...params, timeLimit: time * 1000 });
     },
     setNumberCorrect: function (num) {
-      setOptions({ ...params, numCorrect: num });
+
+      /* checks if option is number or percentage string and converts */
+      const isNumber = typeof(num) === 'number';
+      const numCorrect = isNumber ? num : Number(num.slice(0, -1)) / 100;
+      setOptions({ ...params, numCorrect });
     },
     //separate setters --> move view into different state
     // setGameplayView: function (time) {
