@@ -1,12 +1,12 @@
 import { useState, useEffect } from "react";
 import { LAG_BEFORE_SEND_ANSWER, SCOREBOARD_LAG } from "../constants.js";
 
-export default function useGameData(gameId, connection) {
+export default function useGameData(gameId, connection, defaults) {
   const initialGame = {
     started: false,
     questions: [],
     players: [],
-    params: { numQuestions: 5, timeLimit: 10 },
+    params: { ...defaults },
     currentQ: 0,
     whenToShowNextQuestion: null,
     whenToGoToLobby: null,
@@ -59,7 +59,7 @@ export default function useGameData(gameId, connection) {
     // checks if the difficulty is easy, medium, or hard
     // and doesn't change the state if not
     setDifficulty: function (difficulty) {
-      const validOptions = ["Easy", "Medium", "Hard"];
+      const validOptions = ["Easy", "Medium", "Hard", "Mixed"];
       if (
         validOptions.find((el) => el === difficulty) &&
         params.difficulty !== difficulty
@@ -85,17 +85,6 @@ export default function useGameData(gameId, connection) {
         setOptions({ ...params, numCorrect: null });
       }
     },
-    //separate setters --> move view into different state
-    // setGameplayView: function (time) {
-    //   setGame({ ...game, view: "SCORE" });
-    //   // this just renders scoreboard
-    //   const showScoreboardThisLong = time - Date.now();
-
-    //   // setTimeout(() => {
-    //   for (let i = 0; i < 99999999999; i++) {}
-    //   setGame({ ...game, view: "QUESTION" });
-    //   // }, showScoreboardThisLong);
-    // },
   };
 
   const startGame = () => {

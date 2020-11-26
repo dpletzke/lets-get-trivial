@@ -15,6 +15,8 @@ import ConnectionContext from "../../ConnectionContext";
 import useGameData from "../../hooks/useGameData";
 import useModal from "../../hooks/useModal";
 
+const { settings, defaults } = require("../../config/settings");
+
 function WaitingRoom(props) {
   const { players, gameId } = props;
 
@@ -24,8 +26,11 @@ function WaitingRoom(props) {
 
   const { game, startGame, setters, view, setView } = useGameData(
     gameId,
-    connection
+    connection,
+    defaults,
   );
+
+
 
   const controller = (game) => {
     if (!game.started) {
@@ -43,7 +48,7 @@ function WaitingRoom(props) {
               Start Game >>
             </Button>
             <ModalComponent modalIsOpen={configModalIsOpen} closeModal={()=> closeModal("config")}>
-              <OptionsForm setters={setters} params={game.params} />
+              <OptionsForm setters={setters} params={game.params} settings={settings} />
             </ModalComponent>
             <ModalComponent modalIsOpen={rulesModalIsOpen} closeModal={()=> closeModal("rules")}>
               <p>Here are the rules!</p>

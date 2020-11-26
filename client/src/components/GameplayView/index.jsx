@@ -5,6 +5,8 @@ import ActiveQuestion from "./Question";
 import Scoreboard from "./Scoreboard";
 import useVisualMode from "../../hooks/useVisualMode";
 
+const {timeLimit} = require('../../config/settings').defaults
+
 function GameplayView(props) {
   const {
     questions,
@@ -17,7 +19,7 @@ function GameplayView(props) {
     setView,
   } = props;
 
-  const { timeLimit } = params;
+  // const { timeLimit } = params;
   // console.log("Params", params)
 
   // const { setGameplayView } = setters;
