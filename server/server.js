@@ -65,7 +65,7 @@ io.on("connection", (socket) => {
     socket.emit("roomIds", { roomIds: Object.keys(ds.rooms) });
   });
 
-  socket.on("start_game", async (data) => {
+  socket.on("start_game", async(data) => {
     const { params } = data;
 
     const user = ds.users[socket.id];
@@ -119,6 +119,7 @@ io.on("connection", (socket) => {
     /* create and save record */
     const answer = {
       userId: socket.id,
+      qIndex: room.status.currentQ,
       name: user.name,
       score: user.score,
       pointsEarned,
@@ -132,6 +133,9 @@ io.on("connection", (socket) => {
 
     /* determine if everyone has answered and we should move on */
     const allAnswered = room.status.answers.length === room.users.length;
+
+    console.log({enoughCorrectNow, allAnswered});
+    console.log(ds.checkEnoughCorrect(room, DEFAULT_NUM_CORRECT), room.status.answers.length === room.users.length);
 
     if (enoughCorrectNow || allAnswered) {
       const reason = enoughCorrectNow
@@ -167,7 +171,6 @@ io.on("connection", (socket) => {
         console.log(`${room.roomId} ended`);
         io.in(room.roomId).emit("game_ended", payload);
 
-        room.status.answers = [];
         room.status.currentQ = null;
       }
     }

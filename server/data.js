@@ -49,7 +49,11 @@ module.exports = {
   },
 
   checkEnoughCorrect: (room, defaultVal) => {
-    const rightAnswers = room.status.answers.filter((a) => a.correctAnswer);
+
+    /* be sure that the right answers being counted are for this question */
+    const rightAnswers = room.status.answers.filter((a) => {
+      return a.correctAnswer &&  a.qIndex === room.status.currentQ;
+    });
     const param = room.params.numCorrect || defaultVal;
 
     const isNumber = typeof(param) === 'number';
