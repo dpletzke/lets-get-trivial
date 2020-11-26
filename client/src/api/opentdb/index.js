@@ -15,7 +15,6 @@ const getCategories =  async () => {
   const getNumQuestionsForCategory =  async (categoryId) => {
     const url = `https://opentdb.com/api_count.php?category=${categoryId}`;
     const { data } = await axios.get(url);
-    // console.log({categoryId, data})
     return data;
   };
 
@@ -25,21 +24,19 @@ const getCategories =  async () => {
 const getSessionToken = async function (token) {
   let url = "https://opentdb.com/api_token.php?command=";
   if (!token) {
+    console.log(`Requesting a new token!`);
     url += "request";
   } else {
+    console.log('Out of questions, resetting token!');
     url += `reset&token=${token}`;
   }
-  console.log(url);
   const { data } = await axios.get(url);
-  console.log(data);
   return data;
 };
 
 const getQuestions = async (params, token) => {
   const url = urlConstructor(params, token);
-  console.log(url);
   const { data } = await axios.get(url);
-  console.log("q res code:", data.response_code);
 
   // if the token is invalid...reset that thing! Would be better if it could be recursive but I can't figure out how to call functions from within this object (this.getQuestions is not working)
 
