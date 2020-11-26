@@ -1,5 +1,5 @@
 import { useState, useEffect } from "react";
-import { LAG_BEFORE_SEND_ANSWER } from "../constants.js";
+import { LAG_BEFORE_SEND_ANSWER, SCOREBOARD_LAG } from "../constants.js";
 
 export default function useGameData(gameId, connection) {
   const initialGame = {
@@ -24,7 +24,7 @@ export default function useGameData(gameId, connection) {
     if (view === "SCORE" || view === "STARTING") {
       setTimeout(() => {
         setView("QUESTION");
-      }, 2000);
+      }, SCOREBOARD_LAG);
     }
   }, [view]);
 
@@ -106,10 +106,10 @@ export default function useGameData(gameId, connection) {
     connection.current.on("next_question", async (data) => {
       console.log("Next question!");
       const { players, currentQ, whenToShowNextQuestion } = data;
-      setView("SCORE");
 
       console.log(`${gameId} moved to question ${currentQ}, starting Timeout`);
       const timer = await setTimeout(() => {
+        setView("SCORE");
         setGame((prev) => {
           return { ...prev, currentQ, players, whenToShowNextQuestion };
         });
@@ -123,7 +123,7 @@ export default function useGameData(gameId, connection) {
       const timer = setTimeout(() => {
         setGame((prev) => ({ ...prev, started: false, currentQ: 0 }));
         clearTimeout(timer);
-      }, 2000);
+      }, SCOREBOARD_LAG);
     });
 
     const oldConnection = connection.current;
