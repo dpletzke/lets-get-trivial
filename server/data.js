@@ -39,7 +39,7 @@ module.exports = {
         categoryId: null,
         type: null,
         difficulty: null,
-        numberCorrect: null,
+        numCorrect: null,
       },
     };
 
@@ -50,16 +50,20 @@ module.exports = {
 
   checkEnoughCorrect: (room, defaultVal) => {
     const rightAnswers = room.status.answers.filter((a) => a.correctAnswer);
-    const param = room.params.numberCorrect || defaultVal;
+    const param = room.params.numCorrect || defaultVal;
 
     const isNumber = typeof(param) === 'number';
     const numCorrect = isNumber ? param : Number(param.slice(0, -1)) / 100;
+
+    console.log({param, numCorrect});
 
     if (numCorrect >= 1) {
       return rightAnswers.length >= numCorrect;
     } else {
       const maxNumCorrect = Math.ceil(numCorrect * room.users.length);
-      return rightAnswers >= maxNumCorrect;
+      console.log({maxNumCorrect});
+      console.log({rightAnswers, maxNumCorrect}, rightAnswers >= maxNumCorrect);
+      return rightAnswers.length >= maxNumCorrect;
     }
   },
 
