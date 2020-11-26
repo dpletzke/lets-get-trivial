@@ -33,13 +33,7 @@ export default function useGameData(gameId, connection) {
   }, [game]);
 
   const setOptions = (options) => {
-
-    /* checks if option is number or percentage string and converts */
-    const isNumber = typeof(options.numCorrect) === 'number';
-    const numCorrect = isNumber ? options.numCorrect : Number(options.numCorrect.slice(0, -1)) / 100;
-
-    options.numCorrect = numCorrect; 
-    setGame({ ...game, params: options });
+    setGame({ ...game, params: {...options} });
   };
 
   const { params } = game;
