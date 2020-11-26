@@ -1,15 +1,24 @@
 import { useState } from "react";
 
 export default function useModal() {
-  const [modalIsOpen, setIsOpen] = useState(false);
+  const [configModalIsOpen, setConfigIsOpen] = useState(false);
+  const [rulesModalIsOpen, setRulesIsOpen] = useState(false);
 
-  function openModal() {
-    setIsOpen(true);
+  function openModal(name) {
+    if (name === "config") {
+      setConfigIsOpen(true);
+    } else if (name === "rules") {
+      setRulesIsOpen(true);
+    }
   }
 
-  function closeModal() {
-    setIsOpen(false);
+  function closeModal(name) {
+    if (name === "config") {
+      setConfigIsOpen(false);
+    } else if (name === "rules") {
+      setRulesIsOpen(false);
+    }
   }
 
-  return { modalIsOpen, closeModal, openModal };
+  return { configModalIsOpen, rulesModalIsOpen, closeModal, openModal };
 }

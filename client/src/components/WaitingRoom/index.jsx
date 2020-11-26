@@ -8,7 +8,7 @@ import GameplayView from "../GameplayView";
 import OptionsForm from "../WaitingRoom/OptionsForm/index";
 
 import ModalComponent from "../Modal";
-import { FaCog } from "react-icons/fa";
+import { FaCog, FaQuestion } from "react-icons/fa";
 
 import ConnectionContext from "../../ConnectionContext";
 
@@ -20,7 +20,7 @@ function WaitingRoom(props) {
 
   const connection = useContext(ConnectionContext);
 
-  const { modalIsOpen, closeModal, openModal } = useModal();
+  const { configModalIsOpen, rulesModalIsOpen, closeModal, openModal } = useModal();
 
   const { game, startGame, setters, view, setView } = useGameData(
     gameId,
@@ -33,7 +33,8 @@ function WaitingRoom(props) {
         <main className="box-waiting">
           <div className="box-waiting--content">
             <div className="waiting-header">
-              <FaCog className="icon" onClick={openModal} />
+              <FaCog className="icon" onClick={()=> openModal('config')} />
+              <FaQuestion className="icon" onClick={()=> openModal('rules')} />
             </div>
             <h1 className="box-waiting--header">Let's Get Trivial</h1>
             <PlayerListItem className="alt-text" name={gameId} gameIdItem />
@@ -41,9 +42,12 @@ function WaitingRoom(props) {
             <Button onClick={startGame} gameRoom>
               Start Game >>
             </Button>
-            <ModalComponent modalIsOpen={modalIsOpen} closeModal={closeModal}>
+            <ModalComponent modalIsOpen={configModalIsOpen} closeModal={()=> closeModal("config")}>
               <OptionsForm setters={setters} params={game.params} />
             </ModalComponent>
+            <ModalComponent modalIsOpen={rulesModalIsOpen} closeModal={()=> closeModal("rules")}>
+              <p>Here are the rules!</p>
+              </ModalComponent>
           </div>
         </main>
       );
