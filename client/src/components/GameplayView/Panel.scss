@@ -10,28 +10,32 @@
   font-size: 0.8rem;
   font-weight: 600;
 }
+
 .panel__answer {
-  border: 1.7px $text-primary solid;
+  border: 1.5px $primary-dark solid;
   background-color: $primary-light;
 
   &:hover {
     cursor: pointer;
-    background-color: lighten($color-secondary-background, $amount: 20%);
+    background-color: lighten($color-secondary-background, $amount: 10%);
   }
   &--selectedFalse {
-    background-color: lighten($bg-wrong, $amount: 10%);
+    background-color: #f26e5f;
+    color: $primary-light;
     transition: background-color 0.5s ease-in;
 
     &:hover {
-      background-color: lighten($bg-wrong, $amount: 10%);
+      color: $primary-light;
+      background-color: #f26e5f;
     }
   }
   &--selectedTrue {
-    background-color: lighten($bg-correct, $amount: 10%);
+    background-color: #5fd781;
+    color: $primary-light;
     transition: background-color 0.5s ease-in;
     &:hover {
       color: $primary-light;
-      background-color: lighten($bg-correct, $amount: 10%);
+      background-color: #5fd781;
     }
   }
   p {
@@ -44,7 +48,6 @@
   font-size: 0.9rem;
   background-color: $primary-light;
   p {
-    // color: darken($color-secondary-text, $amount: 20%);
     color: $primary-dark;
     padding: 0 0.2em;
   }

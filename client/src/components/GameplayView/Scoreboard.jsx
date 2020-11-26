@@ -11,9 +11,10 @@ function ScoreBoard({ players, time, view }) {
     <div className="page-container">
       <br />
       <GameplayHeader time={5} view="score" />
-      {/* <h2>Score Board</h2> */}
+      <h2>Scores</h2>
 
       <p>{scoreString}</p>
+
       <ScoreList players={players} />
     </div>
   );

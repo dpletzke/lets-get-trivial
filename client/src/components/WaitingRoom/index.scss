@@ -24,7 +24,7 @@
     text-align: center;
   }
   .icon {
-    color: lighten($color-secondary-background, $amount: 5%);
+    color: $color-secondary-background;
     transition: color 0.2s ease-in;
     margin: $small-spacer $small-spacer auto auto;
     &:hover {
