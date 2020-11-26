@@ -70,7 +70,7 @@ export default function useGameData(gameId, connection) {
     },
 
     setQuestionTimeLimit: function (time) {
-      setOptions({ ...params, timeLimit: time * 1000 });
+      setOptions({ ...params, timeLimit: time });
     },
     setNumberCorrect: function (num) {
 
