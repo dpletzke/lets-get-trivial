@@ -1,6 +1,7 @@
 import { useState, useContext, useEffect } from "react";
 import Button from "./Button";
 import ModalComponent from "./Modal";
+import Dropdown from "./Dropdown";
 import "./Button.scss";
 import "./Home.scss";
 import ConnectionContext from "../ConnectionContext";
@@ -89,7 +90,19 @@ function Home(props) {
         modalIsOpen={rulesModalIsOpen}
         closeModal={() => closeModal("rules")}
       >
-        <p>Here are the rules!</p>
+        <div className="info-modal">
+          <div className="rules-heading">
+            <h3>About</h3>
+          </div>
+          <div className="content">
+            <p>
+              Let's Get Trivial brings the fun back to trivia! • Challenge your
+              friends online
+              <br /> • Join a public game and challenge opponents from around
+              the globe. -
+            </p>
+          </div>
+        </div>
       </ModalComponent>
     </main>
   );

@@ -89,3 +89,34 @@ p {
     cursor: pointer;
   }
 }
+
+.info-modal {
+  font-family: $FancyFont;
+  width: $max-width;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  color: $primary-dark;
+
+  .rules-heading {
+    width: 80%;
+    background-color: $primary-dark;
+    border-radius: $border-radius;
+    border: 1.7px $text-primary solid;
+    h3 {
+      text-align: center;
+      color: $text-primary;
+    }
+  }
+
+  .content {
+    width: 60%;
+    margin-top: $small-spacer;
+    padding: $small-spacer;
+    border-radius: $border-radius;
+    line-height: 2rem;
+
+    border: 1.5px $primary-dark solid;
+  }
+}
