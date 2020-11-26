@@ -1,58 +1,39 @@
 import { useState, useContext, useEffect } from "react";
 import Button from "./Button";
+import ModalComponent from "./Modal";
 import "./Button.scss";
 import "./Home.scss";
 import ConnectionContext from "../ConnectionContext";
+import { FaQuestion, faQuestion } from "react-icons/fa";
+
+import useHomeData from "../hooks/useHomeData";
+import useModal from "../hooks/useModal";
 
 function Home(props) {
-  const [hostName, setHostName] = useState("");
-  const [playerName, setPlayerName] = useState("");
-  const [gameId, setGameId] = useState(null);
-  const [error, setError] = useState(false);
   const { onJoin, onCreate } = props;
-
   const connection = useContext(ConnectionContext);
-  function createGame() {
-    if (!hostName) {
-      setError(1);
-    } else {
-      setError(false);
-      onCreate(hostName);
-    }
-  }
 
-  function joinGame() {
-    if (!playerName) {
-      setError(2);
-    } else if (!gameId) {
-      setError(3);
-    } else {
-      connection.current.emit("get_room_info");
-    }
-  }
+  const {
+    hostName,
+    setHostName,
+    playerName,
+    setPlayerName,
+    gameId,
+    setGameId,
+    error,
+    createGame,
+    joinGame,
+  } = useHomeData(connection, onJoin, onCreate);
 
-  useEffect(() => {
-    if (connection.current.id) {
-      connection.current.on("room_info", (data) => {
-        const openRooms = data.roomInfo.filter((r) => !r.started);
-        if (openRooms.find((r) => r.roomId === gameId)) {
-          setError(false);
-          onJoin(playerName, gameId);
-        } else {
-          setError(4);
-        }
-      });
-      const oldConnection = connection.current;
-      return () => {
-        oldConnection.removeAllListeners("room_info");
-      };
-    }
-  }, [connection, gameId, playerName, onJoin]);
+  const { rulesModalIsOpen, closeModal, openModal } = useModal();
 
   return (
     <main>
       <section className="box-home">
         <div className="box-home--content">
+          <div className="home-header">
+            <FaQuestion className="icon" onClick={() => openModal("rules")} />
+          </div>
           <h1 className="box-home--heading">Let's Get Trivial</h1>
           <form autoComplete="off" onSubmit={(event) => event.preventDefault()}>
             <p>Host New Game</p>
@@ -104,6 +85,12 @@ function Home(props) {
           </form>
         </div>
       </section>
+      <ModalComponent
+        modalIsOpen={rulesModalIsOpen}
+        closeModal={() => closeModal("rules")}
+      >
+        <p>Here are the rules!</p>
+      </ModalComponent>
     </main>
   );
 }

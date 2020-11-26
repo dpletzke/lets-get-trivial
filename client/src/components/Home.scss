@@ -70,3 +70,22 @@ p {
   color: $color-secondary-text;
   font-size: 0.7rem;
 }
+
+.home-header {
+  position: absolute;
+  top: 0;
+  right: 0;
+  font-size: 3rem;
+  text-align: right;
+}
+
+.icon {
+  color: lighten($color-secondary-background, $amount: 5%);
+  transition: color 0.2s ease-in;
+  margin: $small-spacer $small-spacer auto auto;
+
+  &:hover {
+    color: $color-primary-text;
+    cursor: pointer;
+  }
+}
