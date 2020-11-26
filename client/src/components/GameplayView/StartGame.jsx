@@ -24,7 +24,7 @@ function StartGame() {
 
         <CountdownCircleTimer
           isPlaying
-          duration={3}
+          duration={5}
           size={400}
           colors={[
             ["#f4a261", 0.33],

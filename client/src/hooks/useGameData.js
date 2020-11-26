@@ -1,5 +1,9 @@
 import { useState, useEffect } from "react";
-import { LAG_BEFORE_SEND_ANSWER, SCOREBOARD_LAG } from "../constants.js";
+import {
+  LAG_BEFORE_SEND_ANSWER,
+  SCOREBOARD_LAG,
+  STARTPAGE_LAG,
+} from "../constants.js";
 
 export default function useGameData(gameId, connection) {
   const initialGame = {
@@ -21,10 +25,15 @@ export default function useGameData(gameId, connection) {
   // create a setTimeout to change to the next view QUESTION
 
   useEffect(() => {
-    if (view === "SCORE" || view === "STARTING") {
+    if (view === "SCORE") {
       setTimeout(() => {
         setView("QUESTION");
       }, SCOREBOARD_LAG);
+    }
+    if (view === "STARTING") {
+      setTimeout(() => {
+        setView("QUESTION");
+      }, STARTPAGE_LAG);
     }
   }, [view]);
 
@@ -33,7 +42,7 @@ export default function useGameData(gameId, connection) {
   }, [game]);
 
   const setOptions = (options) => {
-    setGame({ ...game, params: {...options} });
+    setGame({ ...game, params: { ...options } });
   };
 
   const { params } = game;
