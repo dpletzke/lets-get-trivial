@@ -13,6 +13,8 @@
   &__answer {
     height: 50vh;
     max-height: 24rem;
+    max-width: $max-width;
+    border-radius: $border-radius;
   }
   &__question {
     border-top: 0.1em $color-primary-background solid;

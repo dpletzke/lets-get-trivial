@@ -29,7 +29,7 @@ h1 {
 }
 
 input {
-  border-radius: 1em;
+  border-radius: 1rem;
   font-family: $FancyFont;
   align-self: center;
   height: 2em;
@@ -48,16 +48,15 @@ input {
 }
 
 form {
+  max-width: $max-width;
   font-family: $FancyFont;
   border-radius: 1.5em;
   background-color: white;
   margin-bottom: 2em;
-
   display: flex;
   flex-direction: column;
 }
 p {
-  // font-family: $Audiowide;
   text-align: center;
   color: $color-primary-background;
 }

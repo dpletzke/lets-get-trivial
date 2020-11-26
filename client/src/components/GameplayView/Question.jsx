@@ -39,7 +39,7 @@ function ActiveQuestion({ questionObj, questionIndex, timeLimit }) {
 
   //GameplayHeader needs to take the following props: {questionIndex, view, time (question/score)-hardCoded} - optional boolean (isPlaying -> This turns timer on or off)
   return (
-    <div>
+    <div className="box-question">
       <GameplayHeader questionIndex={questionIndex} view="question" time={timeLimit}>
         <PanelList infoArray={question} />
       </GameplayHeader>
