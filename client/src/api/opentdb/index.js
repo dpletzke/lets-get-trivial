@@ -11,18 +11,26 @@ const getCategories =  async () => {
   return data;
 };
 
+// const apiCalls = {
+  const getNumQuestionsForCategory =  async (categoryId) => {
+    const url = `https://opentdb.com/api_count.php?category=${categoryId}`;
+    const { data } = await axios.get(url);
+    return data;
+  };
+
 // Its possible to reach the end of the questions, in which case a response
 // code will be sent, this token needs to be reset or just generated a new
 // one, it seems no benefit to reset, only going to generate new one
 const getSessionToken = async function (token) {
   let url = "https://opentdb.com/api_token.php?command=";
   if (!token) {
+    console.log(`Requesting a new token!`);
     url += "request";
   } else {
+    console.log('Out of questions, resetting token!');
     url += `reset&token=${token}`;
   }
   const { data } = await axios.get(url);
-
   return data;
 };
 
@@ -43,4 +51,4 @@ const getQuestions = async (params, token) => {
 };
 
 
-module.exports = { getCategories, getSessionToken, getQuestions };
+module.exports = { getCategories, getSessionToken, getQuestions, getNumQuestionsForCategory };

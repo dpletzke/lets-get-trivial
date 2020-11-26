@@ -71,20 +71,20 @@ io.on("connection", (socket) => {
   socket.on("start_game", async(data) => {
     const { params } = data;
 
-    const user = ds.users[socket.id];
     const room = ds.getRoomFromUserId(socket.id);
 
-    /* if room has token, check stale and refresh or generate new if no token */
-    const tokenRes = await getSessionToken(room.token);
-    console.log(`${tokenRes.response_message} for ${user.roomId}`);
-    const token = tokenRes.token;
-
+    /* if room doesn't have token, generate new */
     /* add token and params to room */
-    room.token = token;
+
+    if (!room.token) {
+      const tokenRes = await getSessionToken();
+      const token = tokenRes.token;
+      room.token = token;
+    }
     room.params = params;
 
     /* request questions with token and params and add to room */
-    const questionsRes = await getQuestions(params, token);
+    const questionsRes = await getQuestions(params, room.token);
     const questions = questionsRes.results;
     room.questions = questions;
 

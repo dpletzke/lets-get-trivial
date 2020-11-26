@@ -1,4 +1,4 @@
-const { getCategories, getQuestions, getSessionToken } = require(".");
+const { getCategories, getQuestions, getSessionToken, getNumQuestionsForCategory } = require(".");
 
 describe("getCategories", () => {
   test("should return categories", async () => {
@@ -87,5 +87,16 @@ describe("getQuestions", () => {
     const results = data.results;
     // console.log(results);
     expect(results[0].type).toBe(completeParams.type);
+  });
+});
+
+describe("getNumQuestionsForCategory", () => {
+  test("should return categories", async () => {
+    await expect(getNumQuestionsForCategory(12)).resolves.toHaveProperty("category_question_count");
+  });
+
+  test("should return a number", async () => {
+    const data = await getNumQuestionsForCategory(12);
+    expect(typeof(data.category_question_count.total_question_count)).toBe('number');
   });
 });
