@@ -55,14 +55,10 @@ module.exports = {
     const isNumber = typeof(param) === 'number';
     const numCorrect = isNumber ? param : Number(param.slice(0, -1)) / 100;
 
-    console.log({param, numCorrect});
-
     if (numCorrect >= 1) {
       return rightAnswers.length >= numCorrect;
     } else {
       const maxNumCorrect = Math.ceil(numCorrect * room.users.length);
-      console.log({maxNumCorrect});
-      console.log({rightAnswers, maxNumCorrect}, rightAnswers >= maxNumCorrect);
       return rightAnswers.length >= maxNumCorrect;
     }
   },
