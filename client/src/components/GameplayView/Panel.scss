@@ -3,40 +3,45 @@
 .panel {
   margin: 0 auto;
   width: 90%;
-  background-color: $color-secondary-background;
+  background-color: $primary-light;
   text-align: center;
   border-radius: 10px;
   font-family: $RegularFont;
   font-size: 1.2em;
 }
 .panel__answer {
+  border: 1px $primary-dark solid;
+
   &:hover {
-    background-color: lighten($color-secondary-background, $amount: 10%);
+    background-color: lighten($color-secondary-background, $amount: 15%);
   }
   &--selectedFalse {
-    background-color: lighten($color-primary-button-background, $amount: 5%);
+    background-color: lighten($bg-wrong, $amount: 10%);
     transition: background-color 0.5s ease-in;
+
     &:hover {
-      background-color: lighten($color-primary-button-background, $amount: 5%);
+      background-color: lighten($bg-wrong, $amount: 10%);
     }
   }
   &--selectedTrue {
-    background-color: lighten($color-secondary-button-background, $amount: 5%);
+    background-color: lighten($bg-correct, $amount: 10%);
     transition: background-color 0.5s ease-in;
     &:hover {
-      background-color: lighten(
-        $color-secondary-button-background,
-        $amount: 5%
-      );
+      color: $primary-light;
+      background-color: lighten($bg-correct, $amount: 10%);
     }
+  }
+  p {
+    color: $primary-dark;
   }
 }
 
 .panel__question {
   width: 90%;
   font-size: 1.2em;
-  background-color: white;
+  background-color: $primary-light;
   p {
+    color: darken($color-secondary-text, $amount: 20%);
     padding: 0 0.2em;
   }
 }
