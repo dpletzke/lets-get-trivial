@@ -1,3 +1,5 @@
+const { defaults } = require("../config/settings");
+
 const validate = {
   // this is hardcoded. Stretch: pull the length of the categories array and use that to validate the categoryId
   categoryId: (id) => {
@@ -8,7 +10,7 @@ const validate = {
   },
   numQuestions: (num) => {
     if (!num) {
-      return 25;
+      return defaults.numQuestions;
     }
     return num;
   },
@@ -19,10 +21,10 @@ const validate = {
     return type;
   },
   difficulty: (difficulty) => {
-    if (difficulty) {
+    if (difficulty && difficulty !== "Mixed") {
       return difficulty.toLowerCase();
     } else {
-      return difficulty;
+      return null;
     }
   },
 };

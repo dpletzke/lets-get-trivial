@@ -5,12 +5,12 @@ import {
   STARTPAGE_LAG,
 } from "../constants.js";
 
-export default function useGameData(gameId, connection) {
+export default function useGameData(gameId, connection, defaults) {
   const initialGame = {
     started: false,
     questions: [],
     players: [],
-    params: { numQuestions: 5, timeLimit: 10 },
+    params: { ...defaults },
     currentQ: 0,
     whenToShowNextQuestion: null,
     whenToGoToLobby: null,
@@ -51,18 +51,28 @@ export default function useGameData(gameId, connection) {
   // so they can set the params in state
   const setters = {
     setNumber: function (num) {
-      setOptions({ ...params, numQuestions: num });
+      if (params.numQuestions !== num) {
+        setOptions({ ...params, numQuestions: num });
+      } else {
+        setOptions({ ...params, numQuestions: null });
+      }
     },
     setCategory: function (catId) {
-      console.log({ catId });
-      setOptions({ ...params, categoryId: catId });
+      if (params.categoryId !== catId) {
+        setOptions({ ...params, categoryId: catId });
+      } else {
+        setOptions({ ...params, categoryId: null });
+      }
     },
 
     // checks if the difficulty is easy, medium, or hard
     // and doesn't change the state if not
     setDifficulty: function (difficulty) {
-      const validOptions = ["Easy", "Medium", "Hard"];
-      if (validOptions.find((el) => el === difficulty)) {
+      const validOptions = ["Easy", "Medium", "Hard", "Mixed"];
+      if (
+        validOptions.find((el) => el === difficulty) &&
+        params.difficulty !== difficulty
+      ) {
         setOptions({ ...params, difficulty: difficulty });
       } else {
         setOptions({ ...params, difficulty: null });
@@ -70,22 +80,20 @@ export default function useGameData(gameId, connection) {
     },
 
     setQuestionTimeLimit: function (time) {
-      setOptions({ ...params, timeLimit: time });
+      if (params.timeLimit !== time) {
+        setOptions({ ...params, timeLimit: time });
+      } else {
+        setOptions({ ...params, timeLimit: null });
+      }
     },
-    setNumberCorrect: function (num) {
-      setOptions({ ...params, numCorrect: num });
-    },
-    //separate setters --> move view into different state
-    // setGameplayView: function (time) {
-    //   setGame({ ...game, view: "SCORE" });
-    //   // this just renders scoreboard
-    //   const showScoreboardThisLong = time - Date.now();
 
-    //   // setTimeout(() => {
-    //   for (let i = 0; i < 99999999999; i++) {}
-    //   setGame({ ...game, view: "QUESTION" });
-    //   // }, showScoreboardThisLong);
-    // },
+    setNumberCorrect: function (num) {
+      if (params.numCorrect !== num) {
+        setOptions({ ...params, numCorrect: num });
+      } else {
+        setOptions({ ...params, numCorrect: null });
+      }
+    },
   };
 
   const startGame = () => {

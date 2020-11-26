@@ -33,9 +33,11 @@ module.exports = {
         answers: [],
         currentQ: null,
       },
+
+      //what's going on here?? We turned timeLimit and numQuestions from 10 to null ...
       params: {
-        timeLimit: 10,
-        numQuestions: 10,
+        timeLimit: null,
+        numQuestions: null,
         categoryId: null,
         type: null,
         difficulty: null,
@@ -49,14 +51,13 @@ module.exports = {
   },
 
   checkEnoughCorrect: (room, defaultVal) => {
-
     /* be sure that the right answers being counted are for this question */
     const rightAnswers = room.status.answers.filter((a) => {
-      return a.correctAnswer &&  a.qIndex === room.status.currentQ;
+      return a.correctAnswer && a.qIndex === room.status.currentQ;
     });
     const param = room.params.numCorrect || defaultVal;
 
-    const isNumber = typeof(param) === 'number';
+    const isNumber = typeof param === "number";
     const numCorrect = isNumber ? param : Number(param.slice(0, -1)) / 100;
 
     if (numCorrect >= 1) {
