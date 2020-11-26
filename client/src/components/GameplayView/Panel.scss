@@ -10,10 +10,12 @@
   font-size: 1.2em;
 }
 .panel__answer {
-  border: 1px $primary-dark solid;
+  border: 1.5px $text-primary solid;
+  background-color: $primary-light;
 
   &:hover {
-    background-color: lighten($color-secondary-background, $amount: 15%);
+    cursor: pointer;
+    background-color: lighten($text-primary, $amount: 20%);
   }
   &--selectedFalse {
     background-color: lighten($bg-wrong, $amount: 10%);
@@ -41,7 +43,8 @@
   font-size: 1.2em;
   background-color: $primary-light;
   p {
-    color: darken($color-secondary-text, $amount: 20%);
+    // color: darken($color-secondary-text, $amount: 20%);
+    color: $primary-dark;
     padding: 0 0.2em;
   }
 }
