@@ -1,11 +1,19 @@
 import { useState, useContext, useEffect } from "react";
 // import from "";
 import Button from "./Button";
+import ModalComponent from './Modal';
 import "./Button.scss";
 import "./Home.scss";
 import ConnectionContext from "../ConnectionContext";
+import {FaQuestion, faQuestion} from 'react-icons/fa';
+
+import useModal from "../hooks/useModal";
+
 
 function Home(props) {
+
+    const {  rulesModalIsOpen, closeModal, openModal } = useModal(); 
+
   const [hostName, setHostName] = useState("");
   const [playerName, setPlayerName] = useState("");
   const [gameId, setGameId] = useState(null);
@@ -57,6 +65,9 @@ function Home(props) {
     <main>
       <section className="box-home">
         <div className="box-home--content">
+          <div className="home-header">
+            <FaQuestion className="icon" onClick={()=> openModal('rules')}/>
+          </div>
           <h1 className="box-home--heading">Let's Get Trivial</h1>
           <form autoComplete="off" onSubmit={(event) => event.preventDefault()}>
             <p>Host New Game</p>
@@ -108,6 +119,9 @@ function Home(props) {
           </form>
         </div>
       </section>
+         <ModalComponent modalIsOpen={rulesModalIsOpen} closeModal={()=> closeModal("rules")}>
+           <p>Here are the rules!</p>
+        </ModalComponent>
     </main>
   );
 }

@@ -69,3 +69,22 @@ p {
   color: darken($color-primary-text, $amount: 10%);
   font-size: 0.6em;
 }
+
+.home-header {
+  position: absolute;
+  top: 0;
+  right: 0;
+  font-size: 3rem;
+  text-align: right;
+}
+
+.icon {
+  color: lighten($color-secondary-background, $amount: 5%);
+  transition: color 0.2s ease-in;
+  margin: $small-spacer $small-spacer auto auto;
+
+  &:hover {
+    color: $color-primary-text;
+    cursor: pointer;
+  }
+}
