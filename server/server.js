@@ -65,7 +65,6 @@ io.on("connection", (socket) => {
     const roomInfo = Object.values(ds.rooms).map(r => {
       return ({roomId: r.roomId, started: r.status.started});
     });
-    console.log(roomInfo);
     socket.emit("room_info", { roomInfo });
   });
 
@@ -140,9 +139,6 @@ io.on("connection", (socket) => {
 
     /* determine if everyone has answered and we should move on */
     const allAnswered = room.status.answers.length === room.users.length;
-
-    console.log({enoughCorrectNow, allAnswered});
-    console.log(ds.checkEnoughCorrect(room, DEFAULT_NUM_CORRECT), room.status.answers.length === room.users.length);
 
     if (enoughCorrectNow || allAnswered) {
       const reason = enoughCorrectNow
