@@ -61,8 +61,12 @@ io.on("connection", (socket) => {
     io.in(roomId).emit("user_connected", payload);
   });
 
-  socket.on("get_roomIds", () => {
-    socket.emit("roomIds", { roomIds: Object.keys(ds.rooms) });
+  socket.on("get_room_info", () => {
+    const roomInfo = Object.values(ds.rooms).map(r => {
+      return ({roomId: r.roomId, started: r.status.started});
+    });
+    console.log(roomInfo);
+    socket.emit("room_info", { roomInfo });
   });
 
   socket.on("start_game", async(data) => {
@@ -84,6 +88,9 @@ io.on("connection", (socket) => {
     const questionsRes = await getQuestions(params, token);
     const questions = questionsRes.results;
     room.questions = questions;
+
+    /* start the game status */
+    room.status.started = true;
 
     /* log rooms the socket is in to server, should just be one */
     /* the first room is it's socketId, hence the slice */
