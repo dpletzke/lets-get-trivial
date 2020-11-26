@@ -16,9 +16,9 @@ export default function useGameData(gameId, connection) {
   const [view, setView] = useState("SCORE");
   // separate the fields of game into their own useStates
 
-  // add an useEffect here for just observering "view"
+  // add an useEffect here for just observing "view"
   // when "view" changes, check if it's value is SCORE, if so,
-  // create a settimeout to change to the next view QUESTION
+  // create a setTimeout to change to the next view QUESTION
 
   useEffect(() => {
     if (view === "SCORE" || view === "STARTING") {
@@ -33,16 +33,13 @@ export default function useGameData(gameId, connection) {
   }, [game]);
 
   const setOptions = (options) => {
-    
 
+    /* checks if option is number or percentage string and converts */
+    const isNumber = typeof(options.numCorrect) === 'number';
+    const numCorrect = isNumber ? options.numCorrect : Number(options.numCorrect.slice(0, -1)) / 100;
 
-    const params = {
-      ...options,
-      timeLimit: options.timeLimit * 1000,
-      numCorrect
-    }
-
-    setGame({ ...game, params });
+    options.numCorrect = numCorrect; 
+    setGame({ ...game, params: options });
   };
 
   const { params } = game;
@@ -73,11 +70,7 @@ export default function useGameData(gameId, connection) {
       setOptions({ ...params, timeLimit: time });
     },
     setNumberCorrect: function (num) {
-
-      /* checks if option is number or percentage string and converts */
-      const isNumber = typeof(num) === 'number';
-      const numCorrect = isNumber ? num : Number(num.slice(0, -1)) / 100;
-      setOptions({ ...params, numCorrect });
+      setOptions({ ...params, numCorrect: num });
     },
     //separate setters --> move view into different state
     // setGameplayView: function (time) {
