@@ -8,6 +8,7 @@ import useVisualMode from "../../hooks/useVisualMode";
 function GameplayView(props) {
   const {
     questions,
+    params,
     currentQ,
     players,
     view,
@@ -15,6 +16,9 @@ function GameplayView(props) {
     whenToGoToLobby,
     setView,
   } = props;
+
+  const {timeLimit } = params;
+  // console.log("Params", params)
 
   // const { setGameplayView } = setters;
 
@@ -44,6 +48,7 @@ function GameplayView(props) {
   const passProps = {
     questionObj: questions[currentQ],
     questionIndex: currentQ + 1,
+    timeLimit,
   };
 
   if (view === STARTING) {

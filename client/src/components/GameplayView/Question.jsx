@@ -27,8 +27,9 @@ const digestQuestionObj = (questionObject) => {
   };
 };
 
-function ActiveQuestion({ questionObj, questionIndex }) {
+function ActiveQuestion({ questionObj, questionIndex, timeLimit }) {
   const { question, answers } = digestQuestionObj(questionObj);
+  console.log(questionObj)
 
   const connection = useContext(ConnectionContext);
 
@@ -39,7 +40,7 @@ function ActiveQuestion({ questionObj, questionIndex }) {
   //GameplayHeader needs to take the following props: {questionIndex, view, time (question/score)-hardCoded} - optional boolean (isPlaying -> This turns timer on or off)
   return (
     <div>
-      <GameplayHeader questionIndex={questionIndex} view="question" time={5}>
+      <GameplayHeader questionIndex={questionIndex} view="question" time={timeLimit}>
         <PanelList infoArray={question} />
       </GameplayHeader>
       <div className="question-container">

@@ -6,7 +6,7 @@ export default function useGameData(gameId, connection) {
     started: false,
     questions: [],
     players: [],
-    params: { numQuestions: 5 },
+    params: { numQuestions: 5, timeLimit: 10 },
     currentQ: 0,
     whenToShowNextQuestion: null,
     whenToGoToLobby: null,
@@ -118,6 +118,8 @@ export default function useGameData(gameId, connection) {
     });
 
     connection.current.on("game_ended", async (data) => {
+      const { whenToGoToLobby } = data;
+
       console.log(`${gameId} ended from server!`);
       setView("FINISHED");
       const timer = setTimeout(() => {
