@@ -20,12 +20,15 @@
 }
 
 .btn--home {
-  background-color: $primary-dark;
-  color: $text-primary;
+  border: 1px $primary-dark solid;
+  background-color: $color-secondary-background;
+  color: $primary-dark;
   margin: 1em;
   align-self: center;
   &:hover {
-    background-color: $color-primary-background;
+    cursor: pointer;
+
+    background-color: $text-primary;
   }
 }
 

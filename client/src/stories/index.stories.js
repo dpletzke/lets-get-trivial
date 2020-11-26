@@ -23,6 +23,7 @@ import Dropdown from "../components/Dropdown";
 import ScoreListItem from "../components/GameplayView/ScoreListItem";
 import ScoreList from "../components/GameplayView/ScoreList";
 import Scoreboard from "../components/GameplayView/Scoreboard";
+import StartGame from "../components/GameplayView/StartGame";
 
 storiesOf("Button", module).add("Submit", () => <Button>Submit</Button>);
 storiesOf("Loading", module).add("Dots", () => (
@@ -162,3 +163,5 @@ storiesOf("Options Menu", module).add("The entire option form", () => (
 storiesOf("ScoreBoard", module).add("Score List Item", () => <ScoreListItem />);
 storiesOf("ScoreBoard", module).add("Score List", () => <ScoreList />);
 storiesOf("ScoreBoard", module).add("Score Board", () => <Scoreboard />);
+
+storiesOf("Start Game View", module).add("StartGame", () => <StartGame />);

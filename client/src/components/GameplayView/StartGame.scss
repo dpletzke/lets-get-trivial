@@ -1,0 +1,44 @@
+@import "../../styles/variables.scss";
+
+.start-page-container {
+  display: flex;
+  justify-content: center;
+  background-color: $primary-dark;
+  color: $text-primary;
+  height: 100vh;
+
+  .flex-box {
+    display: flex;
+    flex-direction: column;
+    align-content: center;
+    justify-content: space-around;
+    max-width: $max-width;
+
+    .timer {
+      $font-family: $FancyFont;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-around;
+      align-items: center;
+      text-align: center;
+
+      .value {
+        font-family: $FancyFont;
+        color: $color-secondary-text;
+        font-size: 3rem;
+        align-self: center;
+      }
+
+      .timer-text {
+        font-family: $FancyFont;
+        font-size: 2rem;
+      }
+    }
+
+    .timer-message {
+      font-family: $FancyFont;
+      color: $color-secondary-background;
+      font-size: 3rem;
+    }
+  }
+}

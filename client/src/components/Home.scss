@@ -66,6 +66,7 @@ p {
 }
 
 .error-message p {
-  color: darken($color-primary-text, $amount: 10%);
-  font-size: 0.6em;
+  // color: darken($color-primary-text, $amount: 10%);
+  color: $color-secondary-text;
+  font-size: 0.7rem;
 }

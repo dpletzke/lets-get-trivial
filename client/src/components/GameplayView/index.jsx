@@ -3,6 +3,7 @@ import { FaQuestionCircle } from "react-icons/fa";
 import GameplayHeader from "./GameplayHeader";
 import ActiveQuestion from "./Question";
 import Scoreboard from "./Scoreboard";
+import StartGame from "./StartGame";
 import useVisualMode from "../../hooks/useVisualMode";
 
 function GameplayView(props) {
@@ -49,7 +50,7 @@ function GameplayView(props) {
   };
 
   if (view === STARTING) {
-    return <h1>WE ARE STARTING THE GAME NOWWWWWWW!</h1>;
+    return <StartGame />;
   }
 
   if (view === QUESTION) {

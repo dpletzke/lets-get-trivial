@@ -17,25 +17,26 @@
 
   &:hover {
     cursor: pointer;
-    background-color: lighten($color-secondary-background, $amount: 10%);
+    background-color: lighten($color-secondary-background, $amount: 13%);
+    // background-color: lighten($primary-dark, $amount: 70%);
   }
   &--selectedFalse {
-    background-color: #f26e5f;
+    background-color: lighten(#f26e5f, $amount: 5%);
     color: $primary-light;
-    transition: background-color 0.5s ease-in;
+    transition: background-color 1s ease-in;
 
     &:hover {
       color: $primary-light;
-      background-color: #f26e5f;
+      background-color: lighten(#f26e5f, $amount: 5%);
     }
   }
   &--selectedTrue {
-    background-color: #5fd781;
+    background-color: lighten(#35ce8d, $amount: 10%);
     color: $primary-light;
-    transition: background-color 0.5s ease-in;
+    transition: background-color 1s ease-in;
     &:hover {
       color: $primary-light;
-      background-color: #5fd781;
+      background-color: lighten(#35ce8d, $amount: 10%);
     }
   }
   p {

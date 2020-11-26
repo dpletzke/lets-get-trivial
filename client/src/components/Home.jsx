@@ -1,5 +1,4 @@
 import { useState, useContext, useEffect } from "react";
-// import from "";
 import Button from "./Button";
 import "./Button.scss";
 import "./Home.scss";
@@ -35,20 +34,17 @@ function Home(props) {
   useEffect(() => {
     if (connection.current.id) {
       connection.current.on("room_info", (data) => {
-
-        const openRooms = data.roomInfo.filter(r => !r.started);
-        if (openRooms.find(r => r.roomId === gameId)) {
+        const openRooms = data.roomInfo.filter((r) => !r.started);
+        if (openRooms.find((r) => r.roomId === gameId)) {
           setError(false);
           onJoin(playerName, gameId);
         } else {
           setError(4);
         }
       });
-
       const oldConnection = connection.current;
-
       return () => {
-        oldConnection.removeAllListeners("roomIds");
+        oldConnection.removeAllListeners("room_info");
       };
     }
   }, [connection, gameId, playerName, onJoin]);
