@@ -96,8 +96,8 @@ function Home(props) {
           </div>
           <div className="content">
             <p>
-              Let's Get Trivial brings the fun back to trivia! • Challenge your
-              friends online
+              <span>Let's Get Trivial brings the fun back to trivia!</span> •
+              Challenge your friends online
               <br /> • Join a public game and challenge opponents from around
               the globe. -
             </p>
