@@ -80,7 +80,7 @@ io.on("connection", (socket) => {
     room.token = token;
     room.params = params;
 
-    /* request questions with token and params */
+    /* request questions with token and params and add to room */
     const questionsRes = await getQuestions(params, token);
     const questions = questionsRes.results;
     room.questions = questions;
