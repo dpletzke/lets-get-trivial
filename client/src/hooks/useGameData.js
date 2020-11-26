@@ -16,9 +16,9 @@ export default function useGameData(gameId, connection) {
   const [view, setView] = useState("SCORE");
   // separate the fields of game into their own useStates
 
-  // add an useEffect here for just observering "view"
+  // add an useEffect here for just observing "view"
   // when "view" changes, check if it's value is SCORE, if so,
-  // create a settimeout to change to the next view QUESTION
+  // create a setTimeout to change to the next view QUESTION
 
   useEffect(() => {
     if (view === "SCORE" || view === "STARTING") {
@@ -33,7 +33,7 @@ export default function useGameData(gameId, connection) {
   }, [game]);
 
   const setOptions = (options) => {
-    setGame({ ...game, params: { ...options } });
+    setGame({ ...game, params: {...options} });
   };
 
   const { params } = game;

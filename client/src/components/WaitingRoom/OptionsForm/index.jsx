@@ -32,7 +32,7 @@ function OptionsForm({ setters, params }) {
     {
       label: "Correct Per Round",
       paramsKey: "numCorrect",
-      optionsList: [1, 2, "50%", "100%"],
+      optionsList: [1, 2, "25%", "50%"],
       clickHandler: setNumberCorrect,
     },
   ];
