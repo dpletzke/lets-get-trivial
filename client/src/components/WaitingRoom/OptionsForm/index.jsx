@@ -3,41 +3,18 @@ import Dropdown from "../../Dropdown";
 import categories from "./categoriesData";
 import { FaCog } from "react-icons/fa";
 import "./index.scss";
+import digestSettings from './optionsHelpers';
 
-
-
+const {settings} = require('../../../config/settings');
+ 
 function OptionsForm({ setters, params }) {
   //setters is coming from hooks/useGameData
-  const {setNumber, setDifficulty, setQuestionTimeLimit, setNumberCorrect, setCategory} = setters;
+  const {setCategory} = setters;
+  
 
-  const settings = [
-    {
-      label: "Number of Questions",
-      paramsKey: "numQuestions",
-      optionsList: [5, 10, 15, 20],
-      clickHandler: setNumber,
-    },
-    {
-      label: "Difficulty",
-      paramsKey: "difficulty",
-      optionsList: ["Easy", "Medium", "Hard", "Mixed"],
-      clickHandler: setDifficulty,
-    },
-    {
-      label: "Question Time",
-      paramsKey: "timeLimit",
-      optionsList: [10, 20, 30, 40],
-      clickHandler: setQuestionTimeLimit,
-    },
-    {
-      label: "Correct Per Round",
-      paramsKey: "numCorrect",
-      optionsList: [1, 2, "25%", "50%"],
-      clickHandler: setNumberCorrect,
-    },
-  ];
 
-  const optionGroups = settings.map((elm) => {
+
+  const optionGroups = digestSettings(settings, setters).map((elm) => {
     const { label, optionsList, clickHandler, paramsKey } = elm;
 
     return (

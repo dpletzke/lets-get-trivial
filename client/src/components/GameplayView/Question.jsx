@@ -6,6 +6,8 @@ import "./Question.scss";
 
 import ConnectionContext from "../../ConnectionContext";
 
+
+
 // move this into a helper file at some point? It's just changing the data structure to fit better with our component architecture
 const digestQuestionObj = (questionObject) => {
   return {
