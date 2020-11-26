@@ -7,59 +7,26 @@ import "./Home.scss";
 import ConnectionContext from "../ConnectionContext";
 import {FaQuestion, faQuestion} from 'react-icons/fa';
 
+import useHomeData from '../hooks/useHomeData'
 import useModal from "../hooks/useModal";
 
 
 function Home(props) {
-
-    const {  rulesModalIsOpen, closeModal, openModal } = useModal(); 
-
-  const [hostName, setHostName] = useState("");
-  const [playerName, setPlayerName] = useState("");
-  const [gameId, setGameId] = useState(null);
-  const [error, setError] = useState(false);
   const { onJoin, onCreate } = props;
-
   const connection = useContext(ConnectionContext);
-  function createGame() {
-    if (!hostName) {
-      setError(1);
-    } else {
-      setError(false);
-      onCreate(hostName);
-    }
-  }
 
-  function joinGame() {
-    if (!playerName) {
-      setError(2);
-    } else if (!gameId) {
-      setError(3);
-    } else {
-      connection.current.emit("get_room_info");
-    }
-  }
+  const {hostName,
+    setHostName,
+    playerName,
+    setPlayerName,
+    gameId,
+    setGameId,
+    error,
+    createGame,
+    joinGame,
+} = useHomeData(connection, onJoin, onCreate)
 
-  useEffect(() => {
-    if (connection.current.id) {
-      connection.current.on("room_info", (data) => {
-
-        const openRooms = data.roomInfo.filter(r => !r.started);
-        if (openRooms.find(r => r.roomId === gameId)) {
-          setError(false);
-          onJoin(playerName, gameId);
-        } else {
-          setError(4);
-        }
-      });
-
-      const oldConnection = connection.current;
-
-      return () => {
-        oldConnection.removeAllListeners("roomIds");
-      };
-    }
-  }, [connection, gameId, playerName, onJoin]);
+  const {  rulesModalIsOpen, closeModal, openModal } = useModal(); 
 
   return (
     <main>
