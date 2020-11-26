@@ -33,7 +33,7 @@ export default function useGameData(gameId, connection) {
   }, [game]);
 
   const setOptions = (options) => {
-    setGame({ ...game, params: {...options} });
+    setGame({ ...game, params: { ...options } });
   };
 
   const { params } = game;
@@ -42,18 +42,28 @@ export default function useGameData(gameId, connection) {
   // so they can set the params in state
   const setters = {
     setNumber: function (num) {
-      setOptions({ ...params, numQuestions: num });
+      if (params.numQuestions !== num) {
+        setOptions({ ...params, numQuestions: num });
+      } else {
+        setOptions({ ...params, numQuestions: null });
+      }
     },
     setCategory: function (catId) {
-      console.log({ catId });
-      setOptions({ ...params, categoryId: catId });
+      if (params.categoryId !== catId) {
+        setOptions({ ...params, categoryId: catId });
+      } else {
+        setOptions({ ...params, categoryId: null });
+      }
     },
 
     // checks if the difficulty is easy, medium, or hard
     // and doesn't change the state if not
     setDifficulty: function (difficulty) {
       const validOptions = ["Easy", "Medium", "Hard"];
-      if (validOptions.find((el) => el === difficulty)) {
+      if (
+        validOptions.find((el) => el === difficulty) &&
+        params.difficulty !== difficulty
+      ) {
         setOptions({ ...params, difficulty: difficulty });
       } else {
         setOptions({ ...params, difficulty: null });
@@ -61,10 +71,19 @@ export default function useGameData(gameId, connection) {
     },
 
     setQuestionTimeLimit: function (time) {
-      setOptions({ ...params, timeLimit: time });
+      if (params.timeLimit !== time) {
+        setOptions({ ...params, timeLimit: time });
+      } else {
+        setOptions({ ...params, timeLimit: null });
+      }
     },
+
     setNumberCorrect: function (num) {
-      setOptions({ ...params, numCorrect: num });
+      if (params.numCorrect !== num) {
+        setOptions({ ...params, numCorrect: num });
+      } else {
+        setOptions({ ...params, numCorrect: null });
+      }
     },
     //separate setters --> move view into different state
     // setGameplayView: function (time) {
