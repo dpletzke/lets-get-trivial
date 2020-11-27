@@ -12,7 +12,6 @@ h1 {
   align-items: center;
   justify-content: space-around;
   height: 100vh;
-
   // background: linear-gradient(180deg, $color-primary-background 0%, $color-secondary-text 35%, $color-primary-text 100%);
   // background-color: $color-primary-background;
   background: linear-gradient(rgba(37, 37, 37, 0.45), rgba(0, 0, 0, 0.45)),
@@ -24,6 +23,7 @@ h1 {
     margin-bottom: $large-spacer;
   }
   &--heading {
+    margin-bottom: 1rem;
     text-align: center;
   }
 }
@@ -38,6 +38,7 @@ input {
   text-align: center;
   border: none;
   margin: 0.5em;
+  margin-bottom: 0;
   border: 1.5px solid $color-primary-background;
   &:focus {
     outline: none;
@@ -57,6 +58,7 @@ form {
   flex-direction: column;
 }
 p {
+  margin-bottom: 0.4rem;
   text-align: center;
   color: $color-primary-background;
 }
@@ -66,7 +68,6 @@ p {
 }
 
 .error-message p {
-  // color: darken($color-primary-text, $amount: 10%);
   color: $color-secondary-text;
   font-size: 0.7rem;
 }
@@ -74,13 +75,15 @@ p {
 .home-header {
   position: absolute;
   top: 0;
-  right: 0;
+  left: 0;
   font-size: 3rem;
   text-align: right;
+  margin-left: $small-spacer;
 }
 
 .icon {
-  color: lighten($color-secondary-background, $amount: 5%);
+  font-size: 2.5rem;
+  color: $color-secondary-background;
   transition: color 0.2s ease-in;
   margin: $small-spacer $small-spacer auto auto;
 

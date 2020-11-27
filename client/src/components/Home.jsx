@@ -5,7 +5,7 @@ import Dropdown from "./Dropdown";
 import "./Button.scss";
 import "./Home.scss";
 import ConnectionContext from "../ConnectionContext";
-import { FaQuestion, faQuestion } from "react-icons/fa";
+import { FaQuestion } from "react-icons/fa";
 
 import useHomeData from "../hooks/useHomeData";
 import useModal from "../hooks/useModal";
