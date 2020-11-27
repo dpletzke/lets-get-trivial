@@ -15,7 +15,7 @@ const settings = [
     label: "Question Time",
     paramsKey: "timeLimit",
     optionsList: [15, 20, 30, 40],
-    defaultTo: 3,
+    defaultTo: 5,
   },
   {
     label: "Correct Per Round",
