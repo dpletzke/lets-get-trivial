@@ -3,7 +3,7 @@ const settings = [
     label: "Number of Questions",
     paramsKey: "numQuestions",
     optionsList: [5, 10, 15, 20],
-    defaultTo: 10,
+    defaultTo: 5,
   },
   {
     label: "Difficulty",
@@ -15,7 +15,7 @@ const settings = [
     label: "Question Time",
     paramsKey: "timeLimit",
     optionsList: [15, 20, 30, 40],
-    defaultTo: 20,
+    defaultTo: 5,
   },
   // {
   //   label: "Correct Per Round",

@@ -14,13 +14,9 @@ const io = socketio(server);
 
 // reference to in-memory database, helpers and constants file
 const ds = require("./data");
-<<<<<<< HEAD
-const gh = require("./gameHelpers");
-const { TIME_BETWEEN_QUESTIONS } = require("./constants");
-=======
 const gh = require('./gameHelpers');
 const { SCOREBOARD_LAG, STARTPAGE_LAG } = require('./constants');
->>>>>>> feature/question-timer
+const { Console } = require("console");
 
 app.get("/", (req, res) => {
   res.json({ status: "ok" });
@@ -108,18 +104,21 @@ io.on("connection", (socket) => {
       payload.currentQ = room.status.currentQ;
 
       console.log('Next question at:', new Date().getSeconds());
-      io.in(room.roomId).emit("next_question", payload);
 
+      io.in(room.roomId).emit("next_question", payload);
+      
       room.timer = setTimeout(() => {
         console.log('moving on because time ran out');
         handleMoveOn(room);
-        clearTimeout(room.timer);
+        // clearTimeout(room.timer);
       }, room.params.timeLimit * 1000 + SCOREBOARD_LAG);
       
+
     } else {
       room.status.currentQ = null;
 
-      payload.currentQ = null;
+      //TODO: do we need this? set on front end as 0 as default
+      // payload.currentQ = null;
 
       clearTimeout(room.timer);
       room.timer = null;
