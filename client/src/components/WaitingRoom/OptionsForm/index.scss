@@ -2,6 +2,8 @@
 
 .settings-container {
   height: 80%;
+  width: 400px;
+  max-width: $max-width;
   h1 {
     color: $color-secondary-text;
     font-size: 2em;

@@ -90,6 +90,10 @@ p {
   &__public {
     margin: $small-spacer 0 0 0;
   }
+  &__box {
+    display: flex;
+    justify-content: center;
+  }
 }
 
 .icon,
