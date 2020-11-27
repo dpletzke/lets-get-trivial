@@ -22,14 +22,12 @@ export default function useGameData(gameId, connection, defaults) {
   // when "view" changes, check if it's value is SCORE, if so,
   // create a setTimeout to change to the next view QUESTION
 
-  //lines 28-32 commented out for styling purposes
-
   useEffect(() => {
-    // if (view === "SCORE") {
-    //   setTimeout(() => {
-    //     setView("QUESTION");
-    //   }, SCOREBOARD_LAG);
-    // }
+    if (view === "SCORE") {
+      setTimeout(() => {
+        setView("QUESTION");
+      }, SCOREBOARD_LAG);
+    }
     if (view === "STARTING") {
       setTimeout(() => {
         setView("QUESTION");
