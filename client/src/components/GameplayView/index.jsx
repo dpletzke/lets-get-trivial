@@ -15,8 +15,6 @@ function GameplayView(props) {
     currentQ,
     players,
     view,
-    whenToShowNextQuestion,
-    whenToGoToLobby,
     setView,
   } = props;
 
@@ -26,19 +24,6 @@ function GameplayView(props) {
   // const { setGameplayView } = setters;
 
   console.log("Current Q: ", currentQ);
-
-  // should settimeout  in the useEffect
-  // useEffect(() => {
-  //   setGameplayView(whenToShowNextQuestion);
-  // }, [whenToShowNextQuestion]);
-
-  // component shows scoreboard
-  // after seTimeoutruns, component shows activequestion
-
-  // const toggler = (whenToShowNextQuestion, whenToGoToLobby) => {
-  //   if (currentTime < whenToShowNextQuestion) {
-  //     return (<Scoreboard players={players} />)
-  // } else
 
   const SCORE = "SCORE";
   const QUESTION = "QUESTION";

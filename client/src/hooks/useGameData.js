@@ -12,8 +12,6 @@ export default function useGameData(gameId, connection, defaults) {
     players: [],
     params: { ...defaults },
     currentQ: 0,
-    whenToShowNextQuestion: null,
-    whenToGoToLobby: null,
   };
 
   const [game, setGame] = useState(initialGame);
@@ -104,43 +102,39 @@ export default function useGameData(gameId, connection, defaults) {
 
   useEffect(() => {
     connection.current.on("game_started", (data) => {
-      const { questions, params, whenToShowNextQuestion } = data;
+      const { questions, params } = data;
 
-      const startTime = (whenToShowNextQuestion - Date.now()) / 1000;
-      console.log(`${gameId} to show first question in ${startTime} seconds`);
       setView("STARTING");
       setGame((prev) => {
         return {
           ...prev,
           questions,
           started: true,
-          params,
-          whenToShowNextQuestion,
+          params
         };
       });
     });
 
     connection.current.on("next_question", async (data) => {
       console.log("Next question!");
-      const { players, currentQ, whenToShowNextQuestion } = data;
+      const { players, currentQ } = data;
 
       console.log(`${gameId} moved to question ${currentQ}, starting Timeout`);
       const timer = await setTimeout(() => {
         setView("SCORE");
         setGame((prev) => {
-          return { ...prev, currentQ, players, whenToShowNextQuestion };
+          return { ...prev, currentQ, players };
         });
         clearTimeout(timer);
       }, LAG_BEFORE_SEND_ANSWER);
     });
 
     connection.current.on("game_ended", async (data) => {
-      const { whenToGoToLobby } = data;
 
       console.log(`${gameId} ended from server!`);
       setView("FINISHED");
       const timer = setTimeout(() => {
-        setGame((prev) => ({ ...prev, started: false, currentQ: 0 }));
+        setGame((prev) => ({ ...prev, started: false, currentQ: null }));
         clearTimeout(timer);
       }, SCOREBOARD_LAG);
     });
