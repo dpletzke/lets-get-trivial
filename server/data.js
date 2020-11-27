@@ -63,7 +63,7 @@ function generateScoreboard(room) {
     const { name, score } = users[userId];
     return { name, score, pointsEarned: 0, correct: false };
   });
-
+  console.log(room.status.answers, {playersWhoDidntAnswer});
   return [...room.status.answers, ...playersWhoDidntAnswer];
 }
 

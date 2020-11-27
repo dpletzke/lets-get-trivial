@@ -68,7 +68,6 @@ function recordAndAward(user, room, {correct, difficulty}) {
     correctAnswer: correct,
   };
   room.status.answers.push(answer);
-  console.log(room.status.answers);
 }
 
 function weShouldMoveOn(room) {

@@ -82,7 +82,7 @@ io.on("connection", (socket) => {
         room.status.currentQ = room.status.currentQ + 1;
 
         payload.currentQ = room.status.currentQ;
-
+        
         io.in(room.roomId).emit("next_question", payload);
       } else {
         room.status.currentQ = null;
