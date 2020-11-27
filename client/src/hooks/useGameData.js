@@ -23,6 +23,7 @@ export default function useGameData(gameId, connection, defaults) {
   // create a setTimeout to change to the next view QUESTION
 
   useEffect(() => {
+    console.log(view, new Date().getSeconds());
     if (view === "SCORE") {
       setTimeout(() => {
         setView("QUESTION");
@@ -142,7 +143,7 @@ export default function useGameData(gameId, connection, defaults) {
       console.log(`${gameId} ended from server!`);
       setView("SCORE");
       const timer = setTimeout(() => {
-        setGame((prev) => ({ ...prev, started: true, players, currentQ: 0 }));
+        setGame((prev) => ({ ...prev, started: false, players, currentQ: 0 }));
         clearTimeout(timer);
       }, SCOREBOARD_LAG);
     });
