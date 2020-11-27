@@ -94,66 +94,66 @@ p {
   }
 }
 
-//Site Information and Rules Modal Styling
+// //Site Information and Rules Modal Styling
 
-.info-modal {
-  font-family: $FancyFont;
-  width: $max-width;
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;
-  color: $primary-dark;
-  font-size: 0.9rem;
+// .info-modal {
+//   font-family: $FancyFont;
+//   width: $max-width;
+//   display: flex;
+//   flex-direction: column;
+//   justify-content: center;
+//   align-items: center;
+//   color: $primary-dark;
+//   font-size: 0.9rem;
 
-  .rules-heading {
-    width: 90%;
-    // background-color: $text-primary;
-    border-radius: $border-radius;
-    border: 1.7px $text-primary solid;
+//   .rules-heading {
+//     width: 90%;
+//     // background-color: $text-primary;
+//     border-radius: $border-radius;
+//     border: 1.7px $text-primary solid;
 
-    h3 {
-      font-size: 1rem;
-      text-align: center;
-      color: $primary-dark;
-    }
-  }
+//     h3 {
+//       font-size: 1rem;
+//       text-align: center;
+//       color: $primary-dark;
+//     }
+//   }
 
-  .content {
-    width: 70%;
-    margin-top: $small-spacer;
-    padding: $small-spacer;
-    border-radius: 1em 1em 0 0;
+//   .content {
+//     width: 70%;
+//     margin-top: $small-spacer;
+//     padding: $small-spacer;
+//     border-radius: 1em 1em 0 0;
 
-    line-height: 3rem;
-    border: 1.5px $primary-dark solid;
-    border-bottom: none;
-    z-index: 9;
-    &--rules {
-      margin-top: 0;
-      border: 1.5px $primary-dark solid;
-      border-top: none;
-      border-radius: 0 0 1em 1em;
-    }
+//     line-height: 3rem;
+//     border: 1.5px $primary-dark solid;
+//     border-bottom: none;
+//     z-index: 9;
+//     &--rules {
+//       margin-top: 0;
+//       border: 1.5px $primary-dark solid;
+//       border-top: none;
+//       border-radius: 0 0 1em 1em;
+//     }
 
-    p {
-      line-height: 1.5rem;
-    }
-  }
+//     p {
+//       line-height: 1.5rem;
+//     }
+//   }
 
-  .text-heading {
-    color: $primary-dark;
-  }
-  .text-bright {
-    font-size: 0.9rem;
-    color: $color-secondary-text;
-  }
-  .inner-text {
-    font-size: 0.7rem;
-  }
+//   .text-heading {
+//     color: $primary-dark;
+//   }
+//   .text-bright {
+//     font-size: 0.9rem;
+//     color: $color-secondary-text;
+//   }
+//   .inner-text {
+//     font-size: 0.7rem;
+//   }
 
-  .category-text {
-    font-size: 1.2em;
-    color: darken($text-primary, $amount: 10%);
-  }
-}
+//   .category-text {
+//     font-size: 1.2em;
+//     color: darken($text-primary, $amount: 10%);
+//   }
+// }

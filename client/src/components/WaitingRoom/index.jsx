@@ -6,6 +6,7 @@ import PlayerListItem from "./PlayerListItem";
 import Button from "../Button";
 import GameplayView from "../GameplayView";
 import OptionsForm from "../WaitingRoom/OptionsForm/index";
+import GameRules from "../GameRules";
 
 import ModalComponent from "../Modal";
 import { FaCog, FaQuestion } from "react-icons/fa";
@@ -65,8 +66,7 @@ function WaitingRoom(props) {
               modalIsOpen={rulesModalIsOpen}
               closeModal={() => closeModal("rules")}
             >
-            
-              <p>Here are the rules!</p>
+              <GameRules />
             </ModalComponent>
           </div>
         </main>
