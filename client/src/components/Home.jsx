@@ -28,7 +28,7 @@ function Home(props) {
     joinGame,
   } = useHomeData(connection, onJoin, onCreate);
 
-  const { rulesModalIsOpen, closeModal, openModal } = useModal();
+  const { rulesModalIsOpen, publicModalIsOpen, closeModal, openModal } = useModal();
 
   return (
     <main>
@@ -58,7 +58,9 @@ function Home(props) {
             </Button>
           </form>
           <form autoComplete="off" onSubmit={(event) => event.preventDefault()}>
-            <p><MdPublic/></p>
+            <div className="icon__box">
+            <MdPublic className="icon icon__public" onClick={() => openModal("public")}/>
+            </div>
             <p>Join Game </p>
             <div className="error-message">
               {error === 2 && <p>Please Enter a Player Name</p>}
@@ -95,6 +97,7 @@ function Home(props) {
       >
         <GameRules />
       </ModalComponent>
+      <ModalComponent modalIsOpen={publicModalIsOpen} closeModal={()=> closeModal('public')} />
     </main>
   );
 }
