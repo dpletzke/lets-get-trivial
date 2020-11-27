@@ -2,6 +2,8 @@ import "./ScoreListItem.scss";
 import { FaArrowUp, FaArrowDown } from "react-icons/fa";
 import classNames from 'classnames';
 
+const converter = require('number-to-words');
+
 
 function ScoreListItem({ name, score, position, pointsEarned }) {
 
@@ -12,8 +14,8 @@ function ScoreListItem({ name, score, position, pointsEarned }) {
   return (
     <div className="score-item">
       <div className={playerHeading}>
-        <p className="position"> {position} </p>
-        <p>
+        <p className="position"> {converter.toOrdinal(position)} </p>
+        <p className="name">
           {/* <FaUser className="player-icon" /> */}
         {name}
         </p>
@@ -21,9 +23,8 @@ function ScoreListItem({ name, score, position, pointsEarned }) {
           
             <p className="dark">{score}</p>
             <div className="points-group">
-            <p className="dark">{pointsEarned}</p>
-            <p className={upArrow}><FaArrowUp/></p>
-            <p className={downArrow}><FaArrowDown/></p>
+            <p className={upArrow}><FaArrowUp/>{pointsEarned}</p>
+            <p className={downArrow}><FaArrowDown/>{pointsEarned}</p>
             </div>
         </div>
       </div>

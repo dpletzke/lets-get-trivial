@@ -4,7 +4,7 @@
 .floating {
   font-size: 1.5em;
   margin-left: 0.3em;
-  animation: floating 3s ease-in-out infinite;
+  animation: 3s ease-in infinite floating;
   color: $color-secondary-text;
 }
 
