@@ -16,6 +16,7 @@ const io = socketio(server);
 const ds = require("./data");
 const gh = require('./gameHelpers');
 const { SCOREBOARD_LAG, STARTPAGE_LAG } = require('./constants');
+const { Console } = require("console");
 
 app.get("/", (req, res) => {
   res.json({ status: "ok" });
@@ -108,7 +109,7 @@ io.on("connection", (socket) => {
       room.timer = setTimeout(() => {
         console.log('moving on because time ran out');
         handleMoveOn(room);
-        clearTimeout(room.timer);
+        // clearTimeout(room.timer);
       }, room.params.timeLimit * 1000 + SCOREBOARD_LAG);
       
     } else {

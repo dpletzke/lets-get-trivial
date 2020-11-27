@@ -18,7 +18,7 @@ function GameplayView(props) {
     setView,
   } = props;
 
-  // const { timeLimit } = params;
+  const { timeLimit } = params;
   // console.log("Params", params)
 
   // const { setGameplayView } = setters;
