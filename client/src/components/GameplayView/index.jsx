@@ -52,12 +52,9 @@ function GameplayView(props) {
   //   return <Scoreboard players={players} />;
   // }
   if (view === FINISHED) {
-    return (
-      <h1>
-        GAME DONE Y'ALL! HOPE YOU HAD SOME FUN! EVERYONE IS A WINNER IN MY
-        HEART!
-      </h1>
-    );
+    
+      return <Scoreboard players={players} />;
+    
   }
   return <h1>None of the above</h1>;
 }

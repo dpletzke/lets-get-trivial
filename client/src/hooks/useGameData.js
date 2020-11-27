@@ -104,7 +104,7 @@ export default function useGameData(gameId, connection, defaults) {
     connection.current.on("game_started", (data) => {
       const { questions, params } = data;
       console.log('Hey its the data:', data);
-      if (!questions || questions.length === 0) {
+      if (questions.length === 0 || !questions) {
         alert(
           "We were unable to generate enough questions with your specified settings. Please try changing the settings."
         );
@@ -136,11 +136,13 @@ export default function useGameData(gameId, connection, defaults) {
       }, LAG_BEFORE_SEND_ANSWER);
     });
 
-    connection.current.on("game_ended", (data) => {
+    connection.current.on("game_ended",  (data) => {
+      const { players } = data;
+
       console.log(`${gameId} ended from server!`);
-      setView("FINISHED");
+      setView("SCORE");
       const timer = setTimeout(() => {
-        setGame((prev) => ({ ...prev, started: false, currentQ: 0 }));
+        setGame((prev) => ({ ...prev, started: true, players, currentQ: 0 }));
         clearTimeout(timer);
       }, SCOREBOARD_LAG);
     });
