@@ -3,16 +3,21 @@
 .start-page-container {
   display: flex;
   justify-content: center;
+  align-items: center;
   background-color: $primary-dark;
   color: $text-primary;
   height: 100vh;
+  width: 100vw;
+
+  h1 {
+    text-align: center;
+  }
 
   .flex-box {
     display: flex;
     flex-direction: column;
-    align-content: center;
-    justify-content: space-around;
-    max-width: $max-width;
+    align-items: center;
+    justify-content: space;
 
     .timer {
       $font-family: $FancyFont;
