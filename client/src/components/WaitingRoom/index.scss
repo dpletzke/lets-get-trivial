@@ -10,6 +10,7 @@
   background: linear-gradient(rgba(37, 37, 37, 0.45), rgba(0, 0, 0, 0.45)),
     url("https://i.pinimg.com/originals/56/58/6c/56586c83d06a53b3c25ce54bb4278f62.jpg")
       no-repeat center center/cover;
+  background-attachment: fixed;
   padding: 3em;
   p {
     color: $color-secondary-background;
@@ -24,9 +25,10 @@
     text-align: center;
   }
   .icon {
+    font-size: 2.5rem;
     color: $color-secondary-background;
     transition: color 0.2s ease-in;
-    margin: $small-spacer $small-spacer auto auto;
+    margin: $small-spacer $small-spacer;
     &:hover {
       color: $color-primary-text;
       cursor: pointer;
@@ -34,11 +36,17 @@
   }
 
   .waiting-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: space-between;
     font-size: $font-large;
-    width: 70%;
-    position: absolute;
+    width: 100%;
+    position: fixed;
     top: 0;
     right: 0;
     text-align: right;
   }
+}
+
+@media only screen and (min-width: 500px) {
 }

@@ -18,12 +18,13 @@ h1 {
   background: linear-gradient(rgba(37, 37, 37, 0.45), rgba(0, 0, 0, 0.45)),
     url("https://i.pinimg.com/originals/56/58/6c/56586c83d06a53b3c25ce54bb4278f62.jpg")
       no-repeat center center/cover;
-
+  background-attachment: fixed;
   padding: 3em;
   &--content {
     margin-bottom: $large-spacer;
   }
   &--heading {
+    margin-bottom: 1rem;
     text-align: center;
   }
 }
@@ -38,6 +39,7 @@ input {
   text-align: center;
   border: none;
   margin: 0.5em;
+  margin-bottom: 0;
   border: 1.5px solid $color-primary-background;
   &:focus {
     outline: none;
@@ -57,6 +59,7 @@ form {
   flex-direction: column;
 }
 p {
+  margin-bottom: 0.4rem;
   text-align: center;
   color: $color-primary-background;
 }
@@ -66,21 +69,22 @@ p {
 }
 
 .error-message p {
-  // color: darken($color-primary-text, $amount: 10%);
   color: $color-secondary-text;
   font-size: 0.7rem;
 }
 
 .home-header {
-  position: absolute;
+  position: fixed;
   top: 0;
-  right: 0;
+  left: 0;
   font-size: 3rem;
   text-align: right;
+  margin-left: $small-spacer;
 }
 
 .icon {
-  color: lighten($color-secondary-background, $amount: 5%);
+  font-size: 2.5rem;
+  color: $color-secondary-background;
   transition: color 0.2s ease-in;
   margin: $small-spacer $small-spacer auto auto;
 

@@ -22,15 +22,18 @@ function WaitingRoom(props) {
 
   const connection = useContext(ConnectionContext);
 
-  const { configModalIsOpen, rulesModalIsOpen, closeModal, openModal } = useModal();
+  const {
+    configModalIsOpen,
+    rulesModalIsOpen,
+    closeModal,
+    openModal,
+  } = useModal();
 
   const { game, startGame, setters, view, setView } = useGameData(
     gameId,
     connection,
-    defaults,
+    defaults
   );
-
-
 
   const controller = (game) => {
     if (!game.started) {
@@ -38,21 +41,32 @@ function WaitingRoom(props) {
         <main className="box-waiting">
           <div className="box-waiting--content">
             <div className="waiting-header">
-              <FaCog className="icon" onClick={()=> openModal('config')} />
-              <FaQuestion className="icon" onClick={()=> openModal('rules')} />
+              <FaQuestion className="icon" onClick={() => openModal("rules")} />
+              <FaCog className="icon" onClick={() => openModal("config")} />
             </div>
             <h1 className="box-waiting--header">Let's Get Trivial</h1>
             <PlayerListItem className="alt-text" name={gameId} gameIdItem />
-            <PlayerList players={players} />
             <Button onClick={startGame} gameRoom>
               Start Game >>
             </Button>
-            <ModalComponent modalIsOpen={configModalIsOpen} closeModal={()=> closeModal("config")}>
-              <OptionsForm setters={setters} params={game.params} settings={settings} />
+            <PlayerList players={players} />
+
+            <ModalComponent
+              modalIsOpen={configModalIsOpen}
+              closeModal={() => closeModal("config")}
+            >
+              <OptionsForm
+                setters={setters}
+                params={game.params}
+                settings={settings}
+              />
             </ModalComponent>
-            <ModalComponent modalIsOpen={rulesModalIsOpen} closeModal={()=> closeModal("rules")}>
+            <ModalComponent
+              modalIsOpen={rulesModalIsOpen}
+              closeModal={() => closeModal("rules")}
+            >
               <p>Here are the rules!</p>
-              </ModalComponent>
+            </ModalComponent>
           </div>
         </main>
       );

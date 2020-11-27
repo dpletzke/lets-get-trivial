@@ -57,11 +57,11 @@
     // color: $primary-light;
     // transition: background-color 1s ease-in;
     transform: translateY(-$xtra-small-spacer);
-    border: 0.5rem $color-primary-text solid;
+    border: 0.5rem #35ce8d solid;
     box-shadow: 10px 10px 10px black;
     transition: all 1s ease-in;
     .icon__correct {
-      color: $color-black;
+      color: #35ce8d;
       font-size: 2rem;
       transition: all 1s ease-in;
     }
