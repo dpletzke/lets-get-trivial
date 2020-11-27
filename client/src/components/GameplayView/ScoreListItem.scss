@@ -15,9 +15,11 @@
   text-align: center;
   color: $primary-dark;
   margin: 0.5em;
-  padding: 2em;
   border: 1.7px $text-primary solid;
   border-radius: 0.5em;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
 
   h3 {
     margin: 0 auto 1em auto;

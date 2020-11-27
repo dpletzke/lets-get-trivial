@@ -5,23 +5,17 @@ function ScoreListItem({ name, score, position, pointsEarned }) {
   return (
     <div className="score-item">
       <div className="player-heading">
-        <h3>
-          <FaUser className="player-icon" />
-          {name}
-        </h3>
+        <p>
+          {/* <FaUser className="player-icon" /> */}
+         {position} {name}
+        </p>
         <div className="info-group">
-          <span>
-            Position:
-            <div className="dark">{position}</div>
-          </span>
-          <span>
+          <p>
             Score:
-            <div className="dark">{score}</div>
-          </span>
-          <span>
-            Points Earned:
-            <div className="dark">{pointsEarned}</div>
-          </span>
+          </p>
+            <p className="dark">{score}</p>
+            <p className="dark">{pointsEarned}</p>
+       
         </div>
       </div>
     </div>

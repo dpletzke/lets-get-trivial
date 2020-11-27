@@ -22,12 +22,14 @@ export default function useGameData(gameId, connection, defaults) {
   // when "view" changes, check if it's value is SCORE, if so,
   // create a setTimeout to change to the next view QUESTION
 
+  //lines 28-32 commented out for styling purposes
+
   useEffect(() => {
-    if (view === "SCORE") {
-      setTimeout(() => {
-        setView("QUESTION");
-      }, SCOREBOARD_LAG);
-    }
+    // if (view === "SCORE") {
+    //   setTimeout(() => {
+    //     setView("QUESTION");
+    //   }, SCOREBOARD_LAG);
+    // }
     if (view === "STARTING") {
       setTimeout(() => {
         setView("QUESTION");
@@ -110,7 +112,7 @@ export default function useGameData(gameId, connection, defaults) {
           ...prev,
           questions,
           started: true,
-          params
+          params,
         };
       });
     });
@@ -130,7 +132,6 @@ export default function useGameData(gameId, connection, defaults) {
     });
 
     connection.current.on("game_ended", async (data) => {
-
       console.log(`${gameId} ended from server!`);
       setView("FINISHED");
       const timer = setTimeout(() => {
