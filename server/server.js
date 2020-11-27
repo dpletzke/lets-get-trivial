@@ -62,12 +62,10 @@ io.on("connection", (socket) => {
   });
 
   socket.on("picked_answer", (answer) => {
-    const user = ds.users[socket.id];
+    // user defined above
     const room = ds.getRoomFromUserId(socket.id);
 
-    console.log(`
-    ${user.name} picked a ${answer.correct ? "right" : "wrong"} answer
-    `);
+    console.log(`  ${user.name} picked ${answer.correct ? "right" : "wrong"}`);
 
     gh.recordAndAward(user, room, answer);
 
@@ -102,7 +100,6 @@ io.on("connection", (socket) => {
     ds.destroyUser(socket.id);
     const room = ds.getRoomFromUserId(socket.id);
     
-
     if (room) {
       ds.removeUserFromRoom(socket.id, room);
       const payload = ds.getUsersInRoom(room);

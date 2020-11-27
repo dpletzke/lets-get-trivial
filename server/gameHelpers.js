@@ -24,6 +24,7 @@ async function gatherAndSetGameInfo(room, params) {
 
   /* start the game status */
   room.status.started = true;
+  room.status.currentQ = 0;
 
   return { questions: room.questions, params };
 
@@ -66,8 +67,8 @@ function recordAndAward(user, room, {correct, difficulty}) {
     pointsEarned,
     correctAnswer: correct,
   };
-
   room.status.answers.push(answer);
+  console.log(room.status.answers);
 }
 
 function weShouldMoveOn(room) {
