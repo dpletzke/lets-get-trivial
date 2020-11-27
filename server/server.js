@@ -70,11 +70,11 @@ io.on("connection", (socket) => {
     gh.recordAndAward(user, room, answer);
 
     if (gh.weShouldMoveOn(room)) {
-      /* reset answers */
-      room.status.answers = [];
-
       /* create scores list */
       const payload = { players: ds.generateScoreboard(room) };
+      
+      /* reset answers */
+      room.status.answers = [];
 
       const nextQuestion = room.questions[room.status.currentQ + 1];
 
