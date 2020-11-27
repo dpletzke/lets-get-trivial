@@ -85,13 +85,13 @@ export default function useGameData(gameId, connection, defaults) {
       }
     },
 
-    setNumberCorrect: function (num) {
-      if (params.numCorrect !== num) {
-        setOptions({ ...params, numCorrect: num });
-      } else {
-        setOptions({ ...params, numCorrect: null });
-      }
-    },
+    // setNumberCorrect: function (num) {
+    //   if (params.numCorrect !== num) {
+    //     setOptions({ ...params, numCorrect: num });
+    //   } else {
+    //     setOptions({ ...params, numCorrect: null });
+    //   }
+    // },
   };
 
   const startGame = () => {
