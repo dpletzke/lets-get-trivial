@@ -1,4 +1,5 @@
 @import "../../styles/variables.scss";
+@import "../../styles/animations.scss";
 
 .panel {
   margin: 0 auto;
@@ -29,16 +30,20 @@
   }
 
   &--selectedFalse {
-    // background-color: lighten(#f26e5f, $amount: 5%);
+    // background-color: lighten(#ee8478, $amount: 5%);
+    border: 3px dashed red;
     // color: $primary-light;
     // transition: background-color 1s ease-in;
 
     // transform: translateY(-$xtra-small-spacer);
     // box-shadow: 10px 10px 10px black;
-    // transition: all 1s ease-in;
+
+    transition: all 0.5s ease;
+    // animation: 1s ease-in infinite flashRed;
     .icon__incorrect {
-      color: $color-black;
+      color: red;
       transition: all 1s ease-in;
+      // animation: 2.5s ease-in infinite wiggle;
     }
 
     &:hover {
@@ -48,7 +53,7 @@
   }
 
   &--selectedTrue {
-    // background-color: lighten(#35ce8d, $amount: 10%);
+    // background-color: lighten(#80e7bc, $amount: 10%);
     // color: $primary-light;
     // transition: background-color 1s ease-in;
     transform: translateY(-$xtra-small-spacer);
@@ -56,6 +61,7 @@
     transition: all 1s ease-in;
     .icon__correct {
       color: $color-black;
+      font-size: 2rem;
       transition: all 1s ease-in;
     }
     // &:hover {
