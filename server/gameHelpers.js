@@ -85,13 +85,8 @@ function weShouldMoveOn(room) {
   // console.log(room.status.answers.length, room.users.length);
 
   if (allAnswered) {
-    const reason =
-    allAnswered
-    ? "everybody answered"
-    : "time ran out";
-    console.log(`Moving on for ${room.roomId} because ${reason}`);
+    console.log(`Moving on for ${room.roomId} because everybody answered`);
   }
-
   // return allAnswered || enoughCorrectNow;
   return allAnswered;
 }

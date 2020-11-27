@@ -31,6 +31,7 @@ function createRoom({ roomId, hostId }) {
       //answers: each { name, score, pointsEarned, correctAnswer }
       answers: [],
       currentQ: null,
+      timer: null,
     },
 
     params: {

@@ -15,7 +15,7 @@ const io = socketio(server);
 // reference to in-memory database, helpers and constants file
 const ds = require("./data");
 const gh = require('./gameHelpers');
-const { TIME_BETWEEN_QUESTIONS } = require('./constants');
+const { SCOREBOARD_LAG, STARTPAGE_LAG } = require('./constants');
 
 app.get("/", (req, res) => {
   res.json({ status: "ok" });
@@ -49,17 +49,21 @@ io.on("connection", (socket) => {
   socket.on("start_game", async(data) => {
     const { params } = data;
     const room = ds.getRoomFromUserId(socket.id);
-    // console.log(room.status);
 
-    console.log('starting info gathering');
     const gameParamsAndQuestions = await gh.gatherAndSetGameInfo(room, params);
-    
+
     /* log rooms the socket is in to server, should just be one */
     console.log(`Server starting ${Object.values(socket.rooms)[1]} with:`);
     console.log(`${JSON.stringify(params)}`);
+    console.log('Start game at:', new Date().getSeconds());
     console.log("");
-
+    
     io.in(room.roomId).emit("game_started", gameParamsAndQuestions);
+
+    room.timer = setTimeout(() => {
+      console.log('moving on because time ran out');
+      handleMoveOn(room);
+    }, room.params.timeLimit * 1000 + STARTPAGE_LAG);
   });
 
   socket.on("picked_answer", (answer) => {
@@ -74,31 +78,50 @@ io.on("connection", (socket) => {
 
     if (gh.weShouldMoveOn(room)) {
 
-      /* create scores list */
-      const payload = { players: ds.generateScoreboard(room) };
-      
-      /* reset answers */
-      room.status.answers = [];
-
-      const nextQuestion = room.questions[room.status.currentQ + 1];
-
-      if (nextQuestion) {
-        room.status.currentQ = room.status.currentQ + 1;
-
-        payload.currentQ = room.status.currentQ;
-        
-        io.in(room.roomId).emit("next_question", payload);
-      } else {
-        room.status.currentQ = null;
-
-        payload.currentQ = null;
-
-        console.log(`${room.roomId} ended`);
-        io.in(room.roomId).emit("game_ended", payload);
-
-      }
+      handleMoveOn(room);
     }
   });
+
+  const handleMoveOn = (room) => {
+
+    clearTimeout(room.timer);
+
+    /* create scores list */
+    const payload = { players: ds.generateScoreboard(room) };
+      
+    /* reset answers */
+    room.status.answers = [];
+
+    const nextQuestion = room.questions[room.status.currentQ + 1];
+
+    if (nextQuestion) {
+      room.status.currentQ = room.status.currentQ + 1;
+
+      payload.currentQ = room.status.currentQ;
+
+      console.log('Next question at:', new Date().getSeconds());
+      io.in(room.roomId).emit("next_question", payload);
+
+      room.timer = setTimeout(() => {
+        console.log('moving on because time ran out');
+        handleMoveOn(room);
+        clearTimeout(room.timer);
+      }, room.params.timeLimit * 1000 + SCOREBOARD_LAG);
+      
+    } else {
+      room.status.currentQ = null;
+
+      payload.currentQ = null;
+
+      clearTimeout(room.timer);
+      room.timer = null;
+
+      console.log('End game at:', new Date().getSeconds());
+      console.log(`${room.roomId} ended`);
+      io.in(room.roomId).emit("game_ended", payload);
+
+    }
+  };
 
   socket.on("disconnect", () => {
     ds.destroyUser(socket.id);
