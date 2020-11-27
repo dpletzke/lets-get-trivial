@@ -14,13 +14,8 @@ const io = socketio(server);
 
 // reference to in-memory database, helpers and constants file
 const ds = require("./data");
-<<<<<<< HEAD
-const gh = require("./gameHelpers");
-const { TIME_BETWEEN_QUESTIONS } = require("./constants");
-=======
 const gh = require('./gameHelpers');
 const { SCOREBOARD_LAG, STARTPAGE_LAG } = require('./constants');
->>>>>>> feature/question-timer
 
 app.get("/", (req, res) => {
   res.json({ status: "ok" });

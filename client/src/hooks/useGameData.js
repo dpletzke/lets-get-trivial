@@ -23,11 +23,11 @@ export default function useGameData(gameId, connection, defaults) {
   // create a setTimeout to change to the next view QUESTION
 
   useEffect(() => {
-    // if (view === "SCORE") {
-    //   setTimeout(() => {
-    //     setView("QUESTION");
-    //   }, SCOREBOARD_LAG);
-    // }
+    if (view === "SCORE") {
+      setTimeout(() => {
+        setView("QUESTION");
+      }, SCOREBOARD_LAG);
+    }
     if (view === "STARTING") {
       setTimeout(() => {
         setView("QUESTION");
