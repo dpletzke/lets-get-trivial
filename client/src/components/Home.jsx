@@ -7,6 +7,7 @@ import "./Button.scss";
 import "./Home.scss";
 import ConnectionContext from "../ConnectionContext";
 import { FaQuestion } from "react-icons/fa";
+import { MdPublic } from "react-icons/md";
 
 import useHomeData from "../hooks/useHomeData";
 import useModal from "../hooks/useModal";
@@ -27,7 +28,7 @@ function Home(props) {
     joinGame,
   } = useHomeData(connection, onJoin, onCreate);
 
-  const { rulesModalIsOpen, closeModal, openModal } = useModal();
+  const { rulesModalIsOpen, publicModalIsOpen, closeModal, openModal } = useModal();
 
   return (
     <main>
@@ -57,6 +58,9 @@ function Home(props) {
             </Button>
           </form>
           <form autoComplete="off" onSubmit={(event) => event.preventDefault()}>
+            <div className="icon__box">
+            <MdPublic className="icon icon__public" onClick={() => openModal("public")}/>
+            </div>
             <p>Join Game </p>
             <div className="error-message">
               {error === 2 && <p>Please Enter a Player Name</p>}
@@ -93,6 +97,7 @@ function Home(props) {
       >
         <GameRules />
       </ModalComponent>
+      <ModalComponent modalIsOpen={publicModalIsOpen} closeModal={()=> closeModal('public')} />
     </main>
   );
 }

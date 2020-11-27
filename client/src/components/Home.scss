@@ -87,7 +87,13 @@ p {
   color: $color-secondary-background;
   transition: color 0.2s ease-in;
   margin: $small-spacer $small-spacer auto auto;
+  &__public {
+    margin: $small-spacer 0 0 0;
+  }
+}
 
+.icon,
+.icon__public {
   &:hover {
     color: $color-primary-text;
     cursor: pointer;

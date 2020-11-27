@@ -1,24 +1,17 @@
 /* eslint-disable func-style */
 
-const {
-  getQuestions,
-  getSessionToken,
-} = require("../client/src/api/opentdb");
+const { getQuestions, getSessionToken } = require("../client/src/api/opentdb");
 
-const {
-  POINTS_SYSTEM,
-  POINT_PENALTY
-} = require('./constants');
+const { POINTS_SYSTEM, POINT_PENALTY } = require("./constants");
 
 async function gatherAndSetGameInfo(room, params) {
-
   if (!room.token) {
-    console.log('starting getting session Token');
+    console.log("starting getting session Token");
     const tokenRes = await getSessionToken();
     room.token = tokenRes.token;
   }
   room.params = params;
-  console.log('starting getting questions');
+  console.log("starting getting questions");
   /* request questions with token and params and add to room */
   const questionsRes = await getQuestions(params, room.token);
   room.questions = questionsRes.results;
@@ -28,7 +21,6 @@ async function gatherAndSetGameInfo(room, params) {
   room.status.currentQ = 0;
 
   return { questions: room.questions, params };
-
 }
 
 // function checkEnoughCorrect(room) {
@@ -50,8 +42,7 @@ async function gatherAndSetGameInfo(room, params) {
 //   }
 // }
 
-function recordAndAward(user, room, {correct, difficulty, questionIndex}) {
-
+function recordAndAward(user, room, { correct, difficulty, questionIndex }) {
   // const enoughCorrect = room.params.numCorrect && checkEnoughCorrect(room);
 
   // console.log('enoughCorrect in recordAndAward', enoughCorrect);
@@ -90,7 +81,5 @@ function weShouldMoveOn(room) {
   // return allAnswered || enoughCorrectNow;
   return allAnswered;
 }
-
-
 
 module.exports = { gatherAndSetGameInfo, recordAndAward, weShouldMoveOn };
