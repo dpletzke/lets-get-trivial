@@ -7,6 +7,7 @@ import "./Button.scss";
 import "./Home.scss";
 import ConnectionContext from "../ConnectionContext";
 import { FaQuestion } from "react-icons/fa";
+import { MdPublic } from "react-icons/md";
 
 import useHomeData from "../hooks/useHomeData";
 import useModal from "../hooks/useModal";
@@ -57,6 +58,7 @@ function Home(props) {
             </Button>
           </form>
           <form autoComplete="off" onSubmit={(event) => event.preventDefault()}>
+            <p><MdPublic/></p>
             <p>Join Game </p>
             <div className="error-message">
               {error === 2 && <p>Please Enter a Player Name</p>}
