@@ -115,6 +115,7 @@ io.on("connection", (socket) => {
     } else {
       room.status.currentQ = null;
 
+      //TODO: do we need this? set on front end as default
       payload.currentQ = null;
 
       clearTimeout(room.timer);

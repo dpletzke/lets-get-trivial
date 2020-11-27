@@ -44,6 +44,7 @@ const urlConstructor = (params, token) => {
   if (validatedType) url += `&type=${validatedType}`;
   if (token) url += `&token=${token}`;
 
+  console.log(url);
   return url;
 };
 

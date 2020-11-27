@@ -103,7 +103,8 @@ export default function useGameData(gameId, connection, defaults) {
   useEffect(() => {
     connection.current.on("game_started", (data) => {
       const { questions, params } = data;
-      if (questions.length === 0) {
+      console.log('Hey its the data:', data);
+      if (!questions || questions.length === 0) {
         alert(
           "We were unable to generate enough questions with your specified settings. Please try changing the settings."
         );
@@ -135,11 +136,11 @@ export default function useGameData(gameId, connection, defaults) {
       }, LAG_BEFORE_SEND_ANSWER);
     });
 
-    connection.current.on("game_ended", async (data) => {
+    connection.current.on("game_ended", (data) => {
       console.log(`${gameId} ended from server!`);
       setView("FINISHED");
       const timer = setTimeout(() => {
-        setGame((prev) => ({ ...prev, started: false, currentQ: null }));
+        setGame((prev) => ({ ...prev, started: false, currentQ: 0 }));
         clearTimeout(timer);
       }, SCOREBOARD_LAG);
     });
