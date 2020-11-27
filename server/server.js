@@ -85,13 +85,6 @@ io.on("connection", (socket) => {
     gh.recordAndAward(user, room, answer);
 
     if (gh.weShouldMoveOn(room)) {
-<<<<<<< HEAD
-      /* create scores list */
-      const payload = { players: ds.generateScoreboard(room) };
-
-      /* reset answers */
-      room.status.answers = [];
-=======
 
       handleMoveOn(room);
     }
@@ -106,22 +99,13 @@ io.on("connection", (socket) => {
       
     /* reset answers */
     room.status.answers = [];
->>>>>>> feature/question-timer
 
     const nextQuestion = room.questions[room.status.currentQ + 1];
 
     if (nextQuestion) {
       room.status.currentQ = room.status.currentQ + 1;
 
-<<<<<<< HEAD
-        payload.currentQ = room.status.currentQ;
-
-        io.in(room.roomId).emit("next_question", payload);
-      } else {
-        room.status.currentQ = null;
-=======
       payload.currentQ = room.status.currentQ;
->>>>>>> feature/question-timer
 
       console.log('Next question at:', new Date().getSeconds());
       io.in(room.roomId).emit("next_question", payload);
@@ -135,11 +119,6 @@ io.on("connection", (socket) => {
     } else {
       room.status.currentQ = null;
 
-<<<<<<< HEAD
-        console.log(`${room.roomId} ended`);
-        io.in(room.roomId).emit("game_ended", payload);
-      }
-=======
       payload.currentQ = null;
 
       clearTimeout(room.timer);
@@ -149,7 +128,6 @@ io.on("connection", (socket) => {
       console.log(`${room.roomId} ended`);
       io.in(room.roomId).emit("game_ended", payload);
 
->>>>>>> feature/question-timer
     }
   };
 
