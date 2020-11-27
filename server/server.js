@@ -14,8 +14,8 @@ const io = socketio(server);
 
 // reference to in-memory database, helpers and constants file
 const ds = require("./data");
-const gh = require('./gameHelpers');
-const { TIME_BETWEEN_QUESTIONS } = require('./constants');
+const gh = require("./gameHelpers");
+const { TIME_BETWEEN_QUESTIONS } = require("./constants");
 
 app.get("/", (req, res) => {
   res.json({ status: "ok" });
@@ -24,7 +24,7 @@ app.get("/", (req, res) => {
 io.on("connection", (socket) => {
   const user = ds.createUser({ socket });
 
-  socket.on("join_room", function(name, roomId) {
+  socket.on("join_room", function (name, roomId) {
     user.name = name;
     user.roomId = roomId;
 
@@ -40,20 +40,19 @@ io.on("connection", (socket) => {
   });
 
   socket.on("get_room_info", () => {
-    const roomInfo = Object.values(ds.rooms).map(r => {
-      return ({roomId: r.roomId, started: r.status.started});
+    const roomInfo = Object.values(ds.rooms).map((r) => {
+      return { roomId: r.roomId, started: r.status.started };
     });
     socket.emit("room_info", { roomInfo });
   });
 
-  socket.on("start_game", async(data) => {
+  socket.on("start_game", async (data) => {
     const { params } = data;
     const room = ds.getRoomFromUserId(socket.id);
     // console.log(room.status);
 
-    console.log('starting info gathering');
+    console.log("starting info gathering");
     const gameParamsAndQuestions = await gh.gatherAndSetGameInfo(room, params);
-    
     /* log rooms the socket is in to server, should just be one */
     console.log(`Server starting ${Object.values(socket.rooms)[1]} with:`);
     console.log(`${JSON.stringify(params)}`);
@@ -66,17 +65,19 @@ io.on("connection", (socket) => {
     // user defined above
     const room = ds.getRoomFromUserId(socket.id);
 
-    
-    console.log(` ${user.name} picked ${answer.correct ? "right" : "wrong"} for ${room.status.currentQ} / ${answer.questionIndex - 1}`);
+    console.log(
+      ` ${user.name} picked ${answer.correct ? "right" : "wrong"} for ${
+        room.status.currentQ
+      } / ${answer.questionIndex - 1}`
+    );
     console.log(answer);
 
     gh.recordAndAward(user, room, answer);
 
     if (gh.weShouldMoveOn(room)) {
-
       /* create scores list */
       const payload = { players: ds.generateScoreboard(room) };
-      
+
       /* reset answers */
       room.status.answers = [];
 
@@ -86,7 +87,7 @@ io.on("connection", (socket) => {
         room.status.currentQ = room.status.currentQ + 1;
 
         payload.currentQ = room.status.currentQ;
-        
+
         io.in(room.roomId).emit("next_question", payload);
       } else {
         room.status.currentQ = null;
@@ -95,7 +96,6 @@ io.on("connection", (socket) => {
 
         console.log(`${room.roomId} ended`);
         io.in(room.roomId).emit("game_ended", payload);
-
       }
     }
   });
@@ -103,7 +103,7 @@ io.on("connection", (socket) => {
   socket.on("disconnect", () => {
     ds.destroyUser(socket.id);
     const room = ds.getRoomFromUserId(socket.id);
-    
+
     if (room) {
       ds.removeUserFromRoom(socket.id, room);
       const payload = ds.getUsersInRoom(room);
