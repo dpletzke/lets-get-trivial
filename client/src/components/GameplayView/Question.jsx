@@ -25,7 +25,7 @@ const digestQuestionObj = (questionObject) => {
         correct: true,
         selected: false,
       },
-    ].sort(() => Math.random() - 0.5)
+    ]/* .sort(() => Math.random() - 0.5) */
   };
 };
 
@@ -36,7 +36,7 @@ function ActiveQuestion({ questionObj, questionIndex, timeLimit }) {
   const connection = useContext(ConnectionContext);
 
   const pickAnswer = (correct) => {
-    connection.current.emit("picked_answer", { correct, ...questionObj });
+    connection.current.emit("picked_answer", { correct, ...questionObj, questionIndex });
   };
 
   //GameplayHeader needs to take the following props: {questionIndex, view, time (question/score)-hardCoded} - optional boolean (isPlaying -> This turns timer on or off)

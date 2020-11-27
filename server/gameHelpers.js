@@ -13,11 +13,12 @@ const {
 async function gatherAndSetGameInfo(room, params) {
 
   if (!room.token) {
+    console.log('starting getting session Token');
     const tokenRes = await getSessionToken();
     room.token = tokenRes.token;
   }
   room.params = params;
-
+  console.log('starting getting questions');
   /* request questions with token and params and add to room */
   const questionsRes = await getQuestions(params, room.token);
   room.questions = questionsRes.results;
@@ -28,7 +29,7 @@ async function gatherAndSetGameInfo(room, params) {
 
   return { questions: room.questions, params };
 
-};
+}
 
 function checkEnoughCorrect(room) {
   /* be sure that the right answers being counted are for this question */
@@ -49,10 +50,11 @@ function checkEnoughCorrect(room) {
   }
 }
 
-function recordAndAward(user, room, {correct, difficulty}) {
+function recordAndAward(user, room, {correct, difficulty, questionIndex}) {
 
   const enoughCorrect = room.params.numCorrect && checkEnoughCorrect(room);
 
+  console.log(enoughCorrect);
   /* award points */
   const points = POINTS_SYSTEM[difficulty.toLowerCase()];
   const pointsEarned = correct && !enoughCorrect ? points : POINT_PENALTY;
@@ -61,7 +63,7 @@ function recordAndAward(user, room, {correct, difficulty}) {
   /* create and save record */
   const answer = {
     userId: user.id,
-    qIndex: room.status.currentQ,
+    qIndex: questionIndex - 1,
     name: user.name,
     score: user.score,
     pointsEarned,
@@ -77,12 +79,17 @@ function weShouldMoveOn(room) {
   /* determine if everyone has answered and we should move on */
   const allAnswered = room.status.answers.length === room.users.length;
 
-  const reason = enoughCorrectNow
-  ? "enough got it right"
-  : allAnswered
-  ? "everybody answered"
-  : "time ran out";
-  console.log(`Moving on for ${room.roomId} because ${reason}`);
+  // console.log(room.params, checkEnoughCorrect(room));
+  // console.log(room.status.answers.length, room.users.length);
+
+  if (allAnswered || enoughCorrectNow) {
+    const reason = enoughCorrectNow
+    ? "enough got it right"
+    : allAnswered
+    ? "everybody answered"
+    : "time ran out";
+    console.log(`Moving on for ${room.roomId} because ${reason}`);
+  }
 
   return allAnswered || enoughCorrectNow;
 }

@@ -48,9 +48,10 @@ io.on("connection", (socket) => {
 
   socket.on("start_game", async(data) => {
     const { params } = data;
-
     const room = ds.getRoomFromUserId(socket.id);
+    // console.log(room.status);
 
+    console.log('starting info gathering');
     const gameParamsAndQuestions = await gh.gatherAndSetGameInfo(room, params);
     
     /* log rooms the socket is in to server, should just be one */
@@ -65,11 +66,14 @@ io.on("connection", (socket) => {
     // user defined above
     const room = ds.getRoomFromUserId(socket.id);
 
-    console.log(`  ${user.name} picked ${answer.correct ? "right" : "wrong"}`);
+    
+    console.log(` ${user.name} picked ${answer.correct ? "right" : "wrong"} for ${room.status.currentQ} / ${answer.questionIndex - 1}`);
+    console.log(answer);
 
     gh.recordAndAward(user, room, answer);
 
     if (gh.weShouldMoveOn(room)) {
+
       /* create scores list */
       const payload = { players: ds.generateScoreboard(room) };
       
