@@ -44,3 +44,19 @@ $border-radius: 1rem;
 //container width
 $max-width: 75vw;
 $question-header-width: 400px;
+
+//Media Query Breakpoints
+
+//phones
+$mobile-portrait-max: 420px;
+$mobile-landscape-min: 421px;
+$mobile-landscape-max: 767px;
+
+//tablets
+$tablet-portrait-min: 768px;
+$tablet-portrait-max: 1023px;
+$tablet-landscape-min: 1024px;
+$tablet-portrait-max: 1365px;
+
+//min width for large screens
+$desktop-min: 1366px;
