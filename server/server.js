@@ -12,53 +12,31 @@ const server = http.createServer(app);
 // STEP 4 wrap socket with server above
 const io = socketio(server);
 
-const {
-  getCategories,
-  getQuestions,
-  getSessionToken,
-} = require("../client/src/api/opentdb");
-
-// reference to in-memory database and constants file
+// reference to in-memory database, helpers and constants file
 const ds = require("./data");
-const {
-  TIME_BETWEEN_QUESTIONS,
-  DEFAULT_NUM_CORRECT,
-  POINTS_SYSTEM,
-  POINT_PENALTY,
-} = require('./constants');
+const gh = require('./gameHelpers');
+const { TIME_BETWEEN_QUESTIONS } = require('./constants');
 
-// TODO: do we need these?
-// const { stringify } = require("querystring");
-
-// app.get("/", (req, res) => {
-//   res.json({ status: "ok" });
-// });
+app.get("/", (req, res) => {
+  res.json({ status: "ok" });
+});
 
 io.on("connection", (socket) => {
   const user = ds.createUser({ socket });
 
-  socket.on("join_room", function (name, roomId) {
-    /* set name and roomId in data */
+  socket.on("join_room", function(name, roomId) {
     user.name = name;
     user.roomId = roomId;
 
-    /* reference or create room and push user to users array */
-    const room =
-      ds.rooms[roomId] || ds.createRoom({ roomId, hostId: socket.id });
-    room.users.push(socket.id);
+    const room = ds.createOrRefRoom(user.id, roomId);
+    room.users.push(user.id);
 
     socket.join(roomId);
-
-    /* gets array of user in room */
-    const payload = {
-      users: room.users.map((id) => {
-        const userPayload = { ...ds.users[id] };
-        delete userPayload.socket;
-        return userPayload;
-      }),
-    };
     console.log("Join user", name, "to", roomId);
-    io.in(roomId).emit("user_connected", payload);
+
+    const users = ds.getUsersInRoom(room);
+
+    io.in(roomId).emit("user_connected", { users });
   });
 
   socket.on("get_room_info", () => {
@@ -73,134 +51,61 @@ io.on("connection", (socket) => {
 
     const room = ds.getRoomFromUserId(socket.id);
 
-    /* if room doesn't have token, generate new */
-    /* add token and params to room */
-
-    if (!room.token) {
-      const tokenRes = await getSessionToken();
-      const token = tokenRes.token;
-      room.token = token;
-    }
-    room.params = params;
-
-    /* request questions with token and params and add to room */
-    const questionsRes = await getQuestions(params, room.token);
-    const questions = questionsRes.results;
-    room.questions = questions;
-
-    /* start the game status */
-    room.status.started = true;
-
+    const gameParamsAndQuestions = await gh.gatherAndSetGameInfo(room, params);
+    
     /* log rooms the socket is in to server, should just be one */
-    /* the first room is it's socketId, hence the slice */
-    const printRooms = Object.values(socket.rooms).slice(1).join(" ");
-    console.log(`Server starting ${printRooms} with:`);
+    console.log(`Server starting ${Object.values(socket.rooms)[1]} with:`);
     console.log(`${JSON.stringify(params)}`);
     console.log("");
 
-    const payload = {
-      questions,
-      params,
-      whenToShowNextQuestion: Date.now() + TIME_BETWEEN_QUESTIONS,
-    };
-
-    io.in(room.roomId).emit("game_started", payload);
+    io.in(room.roomId).emit("game_started", gameParamsAndQuestions);
   });
 
-  socket.on("picked_answer", (data) => {
-    const { correct, difficulty } = data;
-
+  socket.on("picked_answer", (answer) => {
     const user = ds.users[socket.id];
     const room = ds.getRoomFromUserId(socket.id);
 
-    console.log(`${user.name} picked a ${correct ? "right" : "wrong"} answer`);
+    console.log(`
+    ${user.name} picked a ${answer.correct ? "right" : "wrong"} answer
+    `);
 
-    const enoughCorrect = ds.checkEnoughCorrect(room, DEFAULT_NUM_CORRECT);
+    gh.recordAndAward(user, room, answer);
 
-    /* award points */
-    const points = POINTS_SYSTEM[difficulty.toLowerCase()];
-    const pointsEarned = correct && !enoughCorrect ? points : POINT_PENALTY;
-    user.score += pointsEarned;
-
-    /* create and save record */
-    const answer = {
-      userId: socket.id,
-      qIndex: room.status.currentQ,
-      name: user.name,
-      score: user.score,
-      pointsEarned,
-      correctAnswer: correct,
-    };
-
-    room.status.answers.push(answer);
-
-    /* determine if enough have answered correctly before moving on */
-    const enoughCorrectNow = ds.checkEnoughCorrect(room, DEFAULT_NUM_CORRECT);
-
-    /* determine if everyone has answered and we should move on */
-    const allAnswered = room.status.answers.length === room.users.length;
-
-    if (enoughCorrectNow || allAnswered) {
-      const reason = enoughCorrectNow
-        ? "enough got it right"
-        : allAnswered
-        ? "everybody answered"
-        : "time ran out";
-      console.log(`Moving on for ${room.roomId} because ${reason}`);
-
-      /* create scores list and reset answers */
-      const players = ds.generateScoreboard(room);
+    if (gh.weShouldMoveOn(room)) {
+      /* reset answers */
       room.status.answers = [];
 
-      /* if next question exists instruct next question */
-      /* otherwise, send game ended */
-      if (room.questions[room.status.currentQ + 1]) {
-        const payload = {
-          players,
-          currentQ: room.status.currentQ + 1,
-          whenToShowNextQuestion: Date.now() + TIME_BETWEEN_QUESTIONS,
-        };
+      /* create scores list */
+      const payload = { players: ds.generateScoreboard(room) };
+
+      const nextQuestion = room.questions[room.status.currentQ + 1];
+
+      if (nextQuestion) {
+        room.status.currentQ = room.status.currentQ + 1;
+
+        payload.currentQ = room.status.currentQ;
 
         io.in(room.roomId).emit("next_question", payload);
-
-        room.status.currentQ = room.status.currentQ + 1;
       } else {
-        const payload = {
-          players,
-          currentQ: null,
-          whenToGoToLobby: Date.now() + TIME_BETWEEN_QUESTIONS,
-        };
+        room.status.currentQ = null;
+
+        payload.currentQ = null;
 
         console.log(`${room.roomId} ended`);
         io.in(room.roomId).emit("game_ended", payload);
 
-        room.status.currentQ = null;
       }
     }
   });
 
   socket.on("disconnect", () => {
-    const user = ds.users[socket.id];
+    ds.destroyUser(socket.id);
     const room = ds.getRoomFromUserId(socket.id);
-
-    if (user) {
-      console.log(`Disconnect ${user.name}${room && ` from ${room.roomId}`}`);
-      ds.destroyUser(socket.id);
-    }
+    
 
     if (room) {
-      /* find position of user in array and remove by mutation */
-      const position = room.users.findIndex((id) => id === socket.id);
-      room.users.splice(position, 1);
-
-      /* remove socket information from users sent to client */
-      const payload = {
-        users: room.users.map((id) => {
-          const userPayload = { ...ds.users[id] };
-          delete userPayload.socket;
-          return userPayload;
-        }),
-      };
+      ds.removeUserFromRoom(socket.id, room);
+      const payload = ds.getUsersInRoom(room);
 
       io.in(room.roomId).emit("user_disconnected", payload);
     }
