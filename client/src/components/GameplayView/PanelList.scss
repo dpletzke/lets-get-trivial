@@ -20,7 +20,8 @@
   }
   &__question {
     border-radius: $border-radius;
-    width: 100%;
+    width: 400px;
+    max-width: 75vw;
     margin: 0;
     background-color: white;
     padding: 0 16px 0 16px;

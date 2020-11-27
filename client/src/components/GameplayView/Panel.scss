@@ -8,7 +8,7 @@
   text-align: center;
   border-radius: $border-radius;
   font-family: $RegularFont;
-  font-size: $font-regular;
+  font-size: $font-mobile;
   font-weight: 600;
   .icon__correct,
   .icon__incorrect {
@@ -77,11 +77,20 @@
 }
 
 .panel__question {
-  width: 90%;
   font-size: 0.9rem;
   background-color: $primary-light;
   p {
+    font-size: $font-mobile;
     color: $primary-dark;
     padding: 0 0.2em;
+  }
+}
+
+@media only screen and (min-width: 500px) {
+  .panel__answer,
+  .panel__question {
+    p {
+      font-size: $font-regular;
+    }
   }
 }
