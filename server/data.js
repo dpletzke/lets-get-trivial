@@ -56,8 +56,6 @@ function getRoomFromUserId(userId) {
 
 function generateScoreboard(room) {
 
-  // We want to only show answers of people of this current question
-
   const userIdsWhoDidntAnswer = room.users.filter((userId) => {
     return !room.status.answers.find((a) => a.userId === userId);
   });
