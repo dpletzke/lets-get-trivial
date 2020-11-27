@@ -2,8 +2,15 @@
 
 .playerList-container {
   h2 {
+    margin: 1rem;
     font-family: $Audiowide;
     color: $color-primary-text;
     text-align: center;
   }
+  // .players-scroll-container {
+  //   max-width: 100%;
+  //   max-height: 50vh;
+  //   overflow-y: auto;
+  // }
+  margin-bottom: 10rem;
 }

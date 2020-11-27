@@ -12,12 +12,13 @@ h1 {
   align-items: center;
   justify-content: space-around;
   height: 100vh;
+
   // background: linear-gradient(180deg, $color-primary-background 0%, $color-secondary-text 35%, $color-primary-text 100%);
   // background-color: $color-primary-background;
   background: linear-gradient(rgba(37, 37, 37, 0.45), rgba(0, 0, 0, 0.45)),
     url("https://i.pinimg.com/originals/56/58/6c/56586c83d06a53b3c25ce54bb4278f62.jpg")
       no-repeat center center/cover;
-
+  background-attachment: fixed;
   padding: 3em;
   &--content {
     margin-bottom: $large-spacer;
@@ -73,7 +74,7 @@ p {
 }
 
 .home-header {
-  position: absolute;
+  position: fixed;
   top: 0;
   left: 0;
   font-size: 3rem;

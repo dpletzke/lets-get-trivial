@@ -3,23 +3,47 @@
 .player-container {
   border: 1px solid $color-secondary-text;
   border-radius: 1em;
-  margin: 0.5em auto;
+  margin: 0.2rem auto;
   background-color: white;
-  width: 100%;
+  width: 99%;
 
   .list-item-text {
+    margin: 0;
+
+    font-size: 0.8em;
     color: $color-secondary-text;
   }
 
+  .game-id {
+    font-size: 1rem;
+    margin: 0.1em;
+  }
+
   .user-icon {
-    margin-right: 0.5em;
+    padding-top: 0.2rem;
+    margin-right: 0.3em;
   }
   p {
     font-family: $FancyFont;
+    font-size: 2rem;
     color: $color-primary-background;
   }
-
+  .id-text {
+    font-size: 1rem;
+  }
   h2 {
+    font-size: 2rem;
     text-align: center;
+  }
+}
+
+@media only screen and (min-width: 500px) {
+  .player-container {
+    .list-item-text {
+      font-size: 1.2rem;
+    }
+    .id-text {
+      font-size: 1.5rem;
+    }
   }
 }

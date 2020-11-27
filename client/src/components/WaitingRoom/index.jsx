@@ -46,10 +46,11 @@ function WaitingRoom(props) {
             </div>
             <h1 className="box-waiting--header">Let's Get Trivial</h1>
             <PlayerListItem className="alt-text" name={gameId} gameIdItem />
-            <PlayerList players={players} />
             <Button onClick={startGame} gameRoom>
               Start Game >>
             </Button>
+            <PlayerList players={players} />
+
             <ModalComponent
               modalIsOpen={configModalIsOpen}
               closeModal={() => closeModal("config")}

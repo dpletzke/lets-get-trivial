@@ -11,7 +11,7 @@ function PlayerList(props) {
   return (
     <div className="playerList-container">
       <h2>Players</h2>
-      {playerList}
+      <div className="players-scroll-container">{playerList}</div>
     </div>
   );
 }
