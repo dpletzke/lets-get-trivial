@@ -29,7 +29,7 @@ function createRoom({ roomId, hostId }) {
     status: {
       started: false,
       //answers: each { name, score, pointsEarned, correctAnswer }
-      answers: [],
+      answers: {},
       currentQ: null,
     },
 
@@ -59,14 +59,14 @@ function generateScoreboard(room) {
   // We want to only show answers of people of this current question
 
   const userIdsWhoDidntAnswer = room.users.filter((userId) => {
-    return !room.status.answers.find((a) => a.userId === userId);
+    return !room.status.answers[room.status.currentQ].find((a) => a.userId === userId);
   });
 
   const playersWhoDidntAnswer = userIdsWhoDidntAnswer.map((userId) => {
     const { name, score } = users[userId];
     return { name, score, pointsEarned: 0, correct: false };
   });
-  return [...room.status.answers, ...playersWhoDidntAnswer];
+  return [...room.status.answers[room.status.currentQ], ...playersWhoDidntAnswer];
 }
 
 

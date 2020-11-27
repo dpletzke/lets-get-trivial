@@ -68,18 +68,16 @@ io.on("connection", (socket) => {
 
     
     console.log(` ${user.name} picked ${answer.correct ? "right" : "wrong"} for ${room.status.currentQ} / ${answer.questionIndex - 1}`);
-    console.log(answer);
+    // console.log(answer);
 
+    console.log(user.name,'before record', room.status.answers);
     gh.recordAndAward(user, room, answer);
-
-    if (gh.weShouldMoveOn(room)) {
-
+    console.log(user.name,'before check', room.status.answers);
+    if (gh.weShouldMoveOn(room, answer.questionIndex)) {
+      console.log(user.name,'after check pass', room.status.answers);
       /* create scores list */
       const payload = { players: ds.generateScoreboard(room) };
       
-      /* reset answers */
-      room.status.answers = [];
-
       const nextQuestion = room.questions[room.status.currentQ + 1];
 
       if (nextQuestion) {

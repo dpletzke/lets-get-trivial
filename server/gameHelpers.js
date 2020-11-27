@@ -31,10 +31,10 @@ async function gatherAndSetGameInfo(room, params) {
 
 }
 
-function checkEnoughCorrect(room) {
+function checkEnoughCorrect(room, questionIndex) {
   /* be sure that the right answers being counted are for this question */
-  const rightAnswers = room.status.answers.filter((a) => {
-    return a.correctAnswer && a.qIndex === room.status.currentQ;
+  const rightAnswers = room.status.answers[questionIndex - 1].filter((a) => {
+    return a.correctAnswer;
   });
   const param = room.params.numCorrect;
 
@@ -52,9 +52,10 @@ function checkEnoughCorrect(room) {
 
 function recordAndAward(user, room, {correct, difficulty, questionIndex}) {
 
-  const enoughCorrect = room.params.numCorrect && checkEnoughCorrect(room);
+  room.status.answers[questionIndex - 1] = [];
+  const enoughCorrect = room.params.numCorrect && checkEnoughCorrect(room, questionIndex);
 
-  console.log(enoughCorrect);
+  // console.log(enoughCorrect);
   /* award points */
   const points = POINTS_SYSTEM[difficulty.toLowerCase()];
   const pointsEarned = correct && !enoughCorrect ? points : POINT_PENALTY;
@@ -69,15 +70,15 @@ function recordAndAward(user, room, {correct, difficulty, questionIndex}) {
     pointsEarned,
     correctAnswer: correct,
   };
-  room.status.answers.push(answer);
+  room.status.answers[questionIndex - 1].push(answer);
 }
 
-function weShouldMoveOn(room) {
+function weShouldMoveOn(room, questionIndex) {
   /* if the numCorrect param has been set, do the check */
-  const enoughCorrectNow = room.params.numCorrect && checkEnoughCorrect(room);
+  const enoughCorrectNow = room.params.numCorrect && checkEnoughCorrect(room, questionIndex);
 
   /* determine if everyone has answered and we should move on */
-  const allAnswered = room.status.answers.length === room.users.length;
+  const allAnswered = room.status.answers[room.status.currentQ].length === room.users.length;
 
   // console.log(room.params, checkEnoughCorrect(room));
   // console.log(room.status.answers.length, room.users.length);
