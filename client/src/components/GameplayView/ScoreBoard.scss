@@ -7,12 +7,22 @@ h2 {
 }
 
 .page-container {
-  background-color: $primary-dark;
+  background: $gradient-background;
   height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
 
   p {
     font-family: $FancyFont;
     color: $color-secondary-background;
     font-weight: 300;
   }
+}
+
+.box-scoreboard {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
 }

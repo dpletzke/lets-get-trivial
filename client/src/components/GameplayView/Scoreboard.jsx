@@ -9,13 +9,15 @@ function ScoreBoard({ players, time, view }) {
   const scoreString = generateScoreString(players);
   return (
     <div className="page-container">
-      <br />
+      <div className="box-scoreboard">
+
       <GameplayHeader time={8} view="score" />
       <h2>Scores</h2>
 
       <p>{scoreString}</p>
 
       <ScoreList players={players} />
+      </div>
     </div>
   );
 }
