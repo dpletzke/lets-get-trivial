@@ -31,33 +31,35 @@ async function gatherAndSetGameInfo(room, params) {
 
 }
 
-function checkEnoughCorrect(room) {
-  /* be sure that the right answers being counted are for this question */
-  const rightAnswers = room.status.answers.filter((a) => {
-    return a.correctAnswer && a.qIndex === room.status.currentQ;
-  });
-  const param = room.params.numCorrect;
+// function checkEnoughCorrect(room) {
+//   /* be sure that the right answers being counted are for this question */
+//   const rightAnswers = room.status.answers.filter((a) => {
+//     return a.correctAnswer && a.qIndex === room.status.currentQ;
+//   });
+//   const param = room.params.numCorrect;
 
-  /* handle percentage string */
-  const isNumber = typeof param === "number";
-  const numCorrect = isNumber ? param : Number(param.slice(0, -1)) / 100;
+//   /* handle percentage string */
+//   const isNumber = typeof param === "number";
+//   const numCorrect = isNumber ? param : Number(param.slice(0, -1)) / 100;
 
-  if (numCorrect >= 1) {
-    return rightAnswers.length >= numCorrect;
-  } else {
-    const maxNumCorrect = Math.ceil(numCorrect * room.users.length);
-    return rightAnswers.length >= maxNumCorrect;
-  }
-}
+//   if (numCorrect >= 1) {
+//     return rightAnswers.length >= numCorrect;
+//   } else {
+//     const maxNumCorrect = Math.ceil(numCorrect * room.users.length);
+//     return rightAnswers.length >= maxNumCorrect;
+//   }
+// }
 
 function recordAndAward(user, room, {correct, difficulty, questionIndex}) {
 
-  const enoughCorrect = room.params.numCorrect && checkEnoughCorrect(room);
+  // const enoughCorrect = room.params.numCorrect && checkEnoughCorrect(room);
 
-  console.log(enoughCorrect);
+  // console.log('enoughCorrect in recordAndAward', enoughCorrect);
   /* award points */
   const points = POINTS_SYSTEM[difficulty.toLowerCase()];
-  const pointsEarned = correct && !enoughCorrect ? points : POINT_PENALTY;
+  // TODO: should not be penalising late correct
+  // const pointsEarned = correct && !enoughCorrect ? points : POINT_PENALTY;
+  const pointsEarned = correct ? points : POINT_PENALTY;
   user.score += pointsEarned;
 
   /* create and save record */
@@ -74,7 +76,7 @@ function recordAndAward(user, room, {correct, difficulty, questionIndex}) {
 
 function weShouldMoveOn(room) {
   /* if the numCorrect param has been set, do the check */
-  const enoughCorrectNow = room.params.numCorrect && checkEnoughCorrect(room);
+  // const enoughCorrectNow = room.params.numCorrect && checkEnoughCorrect(room);
 
   /* determine if everyone has answered and we should move on */
   const allAnswered = room.status.answers.length === room.users.length;
@@ -82,18 +84,18 @@ function weShouldMoveOn(room) {
   // console.log(room.params, checkEnoughCorrect(room));
   // console.log(room.status.answers.length, room.users.length);
 
-  if (allAnswered || enoughCorrectNow) {
-    const reason = enoughCorrectNow
-    ? "enough got it right"
-    : allAnswered
+  if (allAnswered) {
+    const reason =
+    allAnswered
     ? "everybody answered"
     : "time ran out";
     console.log(`Moving on for ${room.roomId} because ${reason}`);
   }
 
-  return allAnswered || enoughCorrectNow;
+  // return allAnswered || enoughCorrectNow;
+  return allAnswered;
 }
 
 
 
-module.exports = { gatherAndSetGameInfo, checkEnoughCorrect, recordAndAward, weShouldMoveOn };
+module.exports = { gatherAndSetGameInfo, recordAndAward, weShouldMoveOn };
