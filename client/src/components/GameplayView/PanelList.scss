@@ -7,15 +7,16 @@
   align-items: center;
   justify-content: space-around;
   width: 90%;
-  padding: 1rem;
+  padding: 0 1rem;
 
   margin-top: $medium-spacer;
   &__answer {
-    background-color: $text-primary;
+    background-color: $color-secondary-text;
     height: 50vh;
     max-height: 24rem;
     max-width: $max-width;
     border-radius: $border-radius;
+    box-shadow: 10px 15px 5px rgba(0, 0, 0, 0.3);
   }
   &__question {
     border-radius: $border-radius;

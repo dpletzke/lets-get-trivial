@@ -5,41 +5,66 @@
   width: 90%;
   background-color: $primary-light;
   text-align: center;
-  border-radius: 10px;
+  border-radius: $border-radius;
   font-family: $RegularFont;
-  font-size: 0.8rem;
+  font-size: $font-regular;
   font-weight: 600;
+  .icon__correct,
+  .icon__incorrect {
+    color: $color-transparent;
+  }
 }
 
 .panel__answer {
-  border: 1.5px $primary-dark solid;
+  border: 1.5px $color-primary-text solid;
   background-color: $primary-light;
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
 
   &:hover {
     cursor: pointer;
     background-color: lighten($color-secondary-background, $amount: 13%);
     // background-color: lighten($primary-dark, $amount: 70%);
   }
+
   &--selectedFalse {
-    background-color: lighten(#f26e5f, $amount: 5%);
-    color: $primary-light;
-    transition: background-color 1s ease-in;
+    // background-color: lighten(#f26e5f, $amount: 5%);
+    // color: $primary-light;
+    // transition: background-color 1s ease-in;
+
+    // transform: translateY(-$xtra-small-spacer);
+    // box-shadow: 10px 10px 10px black;
+    // transition: all 1s ease-in;
+    .icon__incorrect {
+      color: $color-black;
+      transition: all 1s ease-in;
+    }
 
     &:hover {
       color: $primary-light;
-      background-color: lighten(#f26e5f, $amount: 5%);
+      // background-color: lighten(#f26e5f, $amount: 5%);
     }
   }
+
   &--selectedTrue {
-    background-color: lighten(#35ce8d, $amount: 10%);
-    color: $primary-light;
-    transition: background-color 1s ease-in;
-    &:hover {
-      color: $primary-light;
-      background-color: lighten(#35ce8d, $amount: 10%);
+    // background-color: lighten(#35ce8d, $amount: 10%);
+    // color: $primary-light;
+    // transition: background-color 1s ease-in;
+    transform: translateY(-$xtra-small-spacer);
+    box-shadow: 10px 10px 10px black;
+    transition: all 1s ease-in;
+    .icon__correct {
+      color: $color-black;
+      transition: all 1s ease-in;
     }
+    // &:hover {
+    //   color: $primary-light;
+    //   // background-color: lighten(#35ce8d, $amount: 10%);
+    // }
   }
   p {
+    margin: 0;
     color: $primary-dark;
   }
 }

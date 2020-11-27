@@ -1,6 +1,9 @@
 import { useState } from "react";
 import "./Panel.scss";
 import classNames from "classnames";
+
+import { FaCog, FaQuestion}  from 'react-icons/fa';
+
 const Entities = require("html-entities").AllHtmlEntities;
 
 function Panel(props) {
@@ -33,7 +36,9 @@ function Panel(props) {
     <>
       {answerString && (
         <div className={className} onClick={() => setSelected(id)}>
+          <FaQuestion className="icon__incorrect"/>
           <p>{entities.decode(answerString)}</p>
+          <FaCog className="icon__correct"/>
         </div>
       )}
       {questionString && (

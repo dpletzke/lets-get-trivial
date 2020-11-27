@@ -6,6 +6,7 @@ $Audiowide: "Audiowide", sans-serif;
 $FancyFont: "Audiowide", sans-serif;
 $RegularFont: "Palanquin", sans-serif;
 $font-large: 3rem;
+$font-regular: 1.3rem;
 
 //Site Colors
 $color-primary-background: #264653;
@@ -14,7 +15,13 @@ $color-primary-text: #f4a261;
 $color-secondary-text: #2a9d8f;
 $color-primary-button-background: #e76f51;
 $color-secondary-button-background: #2a9d8f;
-
+$color-black: rgba(5, 6, 52, 1);
+$color-transparent: rgba(0, 0, 0, 0);
+$gradient-background: radial-gradient(
+  circle,
+  rgba(5, 6, 52, 1) 0%,
+  rgba(22, 1, 93, 1) 100%
+);
 //Trial Colors - Match home page
 $text-primary: #f4a261;
 $primary-dark: #1f203e;
@@ -24,6 +31,7 @@ $primary-light: #fbf9fb;
 $space-gray: #cbced4;
 
 //Spacers
+$xtra-small-spacer: 0.5rem;
 $small-spacer: 1rem;
 $medium-spacer: 2rem;
 $medium-large-spacer: 4rem;
@@ -34,3 +42,4 @@ $border-radius: 1rem;
 
 //container width
 $max-width: 75vw;
+$question-header-width: 400px;
