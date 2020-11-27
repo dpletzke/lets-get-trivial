@@ -65,6 +65,7 @@ function WaitingRoom(props) {
               modalIsOpen={rulesModalIsOpen}
               closeModal={() => closeModal("rules")}
             >
+            
               <p>Here are the rules!</p>
             </ModalComponent>
           </div>
