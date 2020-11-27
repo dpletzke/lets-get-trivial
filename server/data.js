@@ -38,8 +38,7 @@ function createRoom({ roomId, hostId }) {
       numQuestions: null,
       categoryId: null,
       type: null,
-      difficulty: null,
-      numCorrect: null,
+      difficulty: null
     },
   };
 
