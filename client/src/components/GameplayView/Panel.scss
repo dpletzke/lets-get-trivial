@@ -57,6 +57,7 @@
     // color: $primary-light;
     // transition: background-color 1s ease-in;
     transform: translateY(-$xtra-small-spacer);
+    border: 0.5rem $color-primary-text solid;
     box-shadow: 10px 10px 10px black;
     transition: all 1s ease-in;
     .icon__correct {
@@ -64,10 +65,10 @@
       font-size: 2rem;
       transition: all 1s ease-in;
     }
-    // &:hover {
-    //   color: $primary-light;
-    //   // background-color: lighten(#35ce8d, $amount: 10%);
-    // }
+    &:hover {
+      color: $primary-light;
+      //   // background-color: lighten(#35ce8d, $amount: 10%);
+    }
   }
   p {
     margin: 0;
