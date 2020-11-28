@@ -6,15 +6,17 @@
   margin: 0.2rem auto;
   background-color: white;
   width: 99%;
+  padding: 0.2rem;
 
   .list-item-text {
     margin: 0;
-
     font-size: 0.8em;
     color: $color-secondary-text;
   }
 
   .game-id {
+    padding: 0.4rem;
+    padding-bottom: 0.5rem;
     font-size: 1rem;
     margin: 0.1em;
   }

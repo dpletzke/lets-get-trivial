@@ -3,20 +3,31 @@
 .game-id-container {
   display: flex;
   flex-direction: column;
-  margin:0.2rem auto;
+  margin: 0.2rem auto;
   h2 {
+    font-size: 1.2rem;
     color: $primary-dark;
     margin: 1rem;
     font-family: $Audiowide;
     text-align: center;
   }
+  .user-icon {
+    margin-right: 0.2rem;
+  }
   h3 {
-    margin: 0.7rem;
+    margin: 0.8rem;
+    font-size: 0.8rem;
     font-family: $Audiowide;
+    font-weight: 300;
     color: $color-primary-text;
     text-align: center;
   }
- 
 
-
+  .category-heading {
+    display: flex;
+    justify-content: space-evenly;
+    border: none;
+    padding: 0;
+    margin: 0;
+  }
 }

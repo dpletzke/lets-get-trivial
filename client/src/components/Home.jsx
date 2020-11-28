@@ -29,7 +29,12 @@ function Home(props) {
     joinGame,
   } = useHomeData(connection, onJoin, onCreate);
 
-  const { rulesModalIsOpen, publicModalIsOpen, closeModal, openModal } = useModal();
+  const {
+    rulesModalIsOpen,
+    publicModalIsOpen,
+    closeModal,
+    openModal,
+  } = useModal();
 
   return (
     <main>
@@ -55,16 +60,21 @@ function Home(props) {
                 setHostName(event.target.value.toUpperCase())
               }
             />
-            <Button onClick={() => createGame(false)} home>
-              Private
-            </Button>
-            <Button onClick={() => createGame(true)} home>
-              Public
-            </Button>
+            <div className="btn-flex">
+              <Button onClick={() => createGame(false)} home>
+                Private
+              </Button>
+              <Button onClick={() => createGame(true)} home>
+                Public
+              </Button>
+            </div>
           </form>
           <form autoComplete="off" onSubmit={(event) => event.preventDefault()}>
             <div className="icon__box">
-            <MdPublic className="icon icon__public" onClick={() => openModal("public")}/>
+              <MdPublic
+                className="icon icon__public"
+                onClick={() => openModal("public")}
+              />
             </div>
             <p>Join Game </p>
             <div className="error-message">
@@ -104,9 +114,12 @@ function Home(props) {
       >
         <GameRules />
       </ModalComponent>
-      <ModalComponent modalIsOpen={publicModalIsOpen} closeModal={()=> closeModal('public')} >
+      <ModalComponent
+        modalIsOpen={publicModalIsOpen}
+        closeModal={() => closeModal("public")}
+      >
         <PublicGames />
-      </ ModalComponent>
+      </ModalComponent>
     </main>
   );
 }
