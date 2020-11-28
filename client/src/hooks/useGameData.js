@@ -26,7 +26,7 @@ export default function useGameData(gameId, connection, defaults) {
     console.log(view, new Date().getSeconds());
     if (view === "SCORE") {
       setTimeout(() => {
-        setView("FINISHED");
+        setView("QUESTION");
       }, SCOREBOARD_LAG);
     }
     if (view === "STARTING") {
@@ -141,7 +141,7 @@ export default function useGameData(gameId, connection, defaults) {
       const { players } = data;
 
       console.log(`${gameId} ended from server!`);
-      setView("FINISHED");
+      setView("SCORE");
       const timer = setTimeout(() => {
         setGame((prev) => ({ ...prev, started: false, players, currentQ: 0 }));
         clearTimeout(timer);
