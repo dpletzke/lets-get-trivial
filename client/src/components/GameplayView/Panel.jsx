@@ -11,12 +11,18 @@ function Panel(props) {
   // replace answerObj with props
   // const [correctSelected, setCorrectSelected] = useState(false);
   // const [incorrectSelected, setIncorrectSelected] = useState(false);
-  const { id, info, selected, setSelected, somethingSelected } = props;
+  const { id, info, selected, setSelected, somethingSelected, audioOn } = props;
 
-  let meow = new Audio("/cat.mp3");
+  let successSound = new Audio("/sounds/success.mp3");
+  let failureSound = new Audio("/sounds/failure.mp3");
+  failureSound.volume = 0.5;
+  successSound.volume = 0.3;
 
-  const start = () => {
-    meow.play();
+  const success = () => {
+    if (audioOn) successSound.play();
+  };
+  const failure = () => {
+    if (audioOn) failureSound.play();
   };
 
   //pass down checkAnswer
@@ -44,7 +50,7 @@ function Panel(props) {
         <div
           className={className}
           onClick={() => setSelected(id)}
-          onMouseDown={start}
+          onMouseDown={correct ? success : failure}
         >
           <FaRegSadTear className="icon__incorrect" />
           <p>{entities.decode(answerString)}</p>

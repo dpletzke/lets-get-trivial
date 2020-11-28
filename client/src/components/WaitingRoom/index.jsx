@@ -1,4 +1,4 @@
-import { useContext } from "react";
+import { useContext, useState } from "react";
 
 import "./index.scss";
 import PlayerList from "./PlayerList";
@@ -20,7 +20,7 @@ const { settings, defaults } = require("../../config/settings");
 
 function WaitingRoom(props) {
   const { players, gameId } = props;
-
+  const [audioOn, setAudioOn] = useState(false);
   const connection = useContext(ConnectionContext);
 
   const {
@@ -35,6 +35,10 @@ function WaitingRoom(props) {
     connection,
     defaults
   );
+
+  const toggleAudio = () => {
+    audioOn ? setAudioOn(false) : setAudioOn(true);
+  };
 
   const controller = (game) => {
     if (!game.started) {
@@ -57,9 +61,11 @@ function WaitingRoom(props) {
               closeModal={() => closeModal("config")}
             >
               <OptionsForm
+                setVolume={() => toggleAudio()}
                 setters={setters}
                 params={game.params}
                 settings={settings}
+                audioOn={audioOn}
               />
             </ModalComponent>
             <ModalComponent
@@ -74,7 +80,12 @@ function WaitingRoom(props) {
     } else {
       return (
         <>
-          <GameplayView {...game} view={view} setView={setView} />
+          <GameplayView
+            {...game}
+            view={view}
+            setView={setView}
+            audioOn={audioOn}
+          />
         </>
       );
     }

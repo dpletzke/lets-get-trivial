@@ -1,18 +1,15 @@
 import OptionItemList from "./OptionItemList";
 import Dropdown from "../../Dropdown";
 import categories from "./categoriesData";
-import { FaCog } from "react-icons/fa";
+import { FaCog, FaVolumeMute, FaVolumeUp } from "react-icons/fa";
 import "./index.scss";
-import digestSettings from './optionsHelpers';
+import digestSettings from "./optionsHelpers";
 
-const {settings} = require('../../../config/settings');
- 
-function OptionsForm({ setters, params }) {
+const { settings } = require("../../../config/settings");
+
+function OptionsForm({ setters, params, setVolume, audioOn }) {
   //setters is coming from hooks/useGameData
-  const {setCategory} = setters;
-  
-
-
+  const { setCategory } = setters;
 
   const optionGroups = digestSettings(settings, setters).map((elm) => {
     const { label, optionsList, clickHandler, paramsKey } = elm;
@@ -41,6 +38,8 @@ function OptionsForm({ setters, params }) {
         clickHandler={setCategory}
         selected={params.categoryId}
       />
+      {!audioOn && <FaVolumeMute onClick={setVolume} />}
+      {audioOn && <FaVolumeUp onClick={setVolume} />}
       {optionGroups}
     </div>
   );
