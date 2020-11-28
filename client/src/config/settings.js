@@ -36,4 +36,4 @@ function generateDefaults(settings) {
 
 const defaults = generateDefaults(settings);
 
-module.exports = { settings, defaults, SHOW_SCOREBOARD };
+module.exports = { settings, defaults };
