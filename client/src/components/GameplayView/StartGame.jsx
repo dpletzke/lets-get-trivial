@@ -6,7 +6,7 @@ import "./StartGame.scss";
 
 function StartGame({ audioOn }) {
   let gameThemeSong = new Audio("/sounds/gameTheme.mp3");
-  gameThemeSong.volume = 0.1;
+  gameThemeSong.volume = 0.08;
 
   const themeSong = () => {
     gameThemeSong.play();

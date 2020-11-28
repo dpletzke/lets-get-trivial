@@ -13,11 +13,11 @@ function ScoreBoard({ players, time, view, audioOn }) {
   const [orderedPlayersArray, setPlayersArray] = useState([]);
   const [scoresArray, setScoresArray] = useState([]);
 
-  let gameThemeSong = new Audio("/sounds/scoreSong.mp3");
-  gameThemeSong.volume = 0.08;
+  let scoreSong = new Audio("/sounds/level-up.mp3");
+  scoreSong.volume = 0.6;
 
   const themeSong = () => {
-    gameThemeSong.play({ volume: 0.2 });
+    scoreSong.play();
   };
 
   useEffect(() => {

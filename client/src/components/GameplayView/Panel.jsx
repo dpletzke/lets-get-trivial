@@ -14,9 +14,9 @@ function Panel(props) {
   const { id, info, selected, setSelected, somethingSelected, audioOn } = props;
 
   let successSound = new Audio("/sounds/success.mp3");
-  let failureSound = new Audio("/sounds/failure.mp3");
-  failureSound.volume = 0.5;
-  successSound.volume = 0.3;
+  let failureSound = new Audio("/sounds/wrong-8bit.mp3");
+  failureSound.volume = 0.3;
+  successSound.volume = 0.2;
 
   const success = () => {
     if (audioOn) successSound.play();
