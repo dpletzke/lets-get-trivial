@@ -30,6 +30,10 @@ function OptionsForm({ setters, params, setVolume, audioOn }) {
         <FaCog className="settings-cog" />
         Game Settings
       </h1>
+      <div className="audio-toggle">
+        {!audioOn && <FaVolumeMute onClick={setVolume} />}
+        {audioOn && <FaVolumeUp onClick={setVolume} />}
+      </div>
       <Dropdown
         label="Categories"
         optionsArray={categories}
@@ -38,8 +42,7 @@ function OptionsForm({ setters, params, setVolume, audioOn }) {
         clickHandler={setCategory}
         selected={params.categoryId}
       />
-      {!audioOn && <FaVolumeMute onClick={setVolume} />}
-      {audioOn && <FaVolumeUp onClick={setVolume} />}
+
       {optionGroups}
     </div>
   );
