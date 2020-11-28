@@ -6,31 +6,28 @@
   margin: 0.2rem auto;
   background-color: white;
   width: 90%;
- 
 
-  div{
-    display:flex;
+  div {
+    display: flex;
     justify-content: space-between;
     align-items: space-between;
 
-    .user-icon{
+    .user-icon {
+      margin-top: 0.2rem;
       margin-right: 0.2rem;
     }
-  p {
-    padding: 0.4rem;
-    font-family: $FancyFont;
-    font-size: 0.6rem;
-    color: $color-primary-background;
+    p {
+      padding: 0.4rem;
+      font-family: $FancyFont;
+      font-size: 0.6rem;
+      color: $color-primary-background;
+    }
 
-   
+    .game-id {
+      margin: auto 0.2rem;
+      font-size: 0.8rem;
+    }
   }
-
-  .game-id{
-    margin: auto 0.2rem;
-    font-size: 0.8rem;
-  }
-}
-
 }
 
 // @media only screen and (min-width: 500px) {

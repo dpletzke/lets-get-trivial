@@ -57,6 +57,11 @@ form {
   margin-bottom: 2em;
   display: flex;
   flex-direction: column;
+
+  .btn-flex {
+    display: flex;
+    justify-content: center;
+  }
 }
 p {
   margin-bottom: 0.4rem;
@@ -103,4 +108,3 @@ p {
     cursor: pointer;
   }
 }
-
