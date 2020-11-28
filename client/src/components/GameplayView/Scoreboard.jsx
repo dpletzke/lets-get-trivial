@@ -12,20 +12,19 @@ import { MdPublic } from "react-icons/md";
 function ScoreBoard({ players, time, view}) {
   const orderedArray = orderByScore(players);
   const scoresArray = findPlacements(players);
-
+  const scoreString = generateScoreString(players);
   const highScore = scoresArray[0];
+
 
   const winnersArray = orderedArray.filter((playerObj) => 
     playerObj.score === highScore
-  )
-  .map((playerObj) => playerObj.name);
+  ).map((playerObj) => playerObj.name);
 
 
   const gameplayClass = classNames('gamePlay', {'gamePlay--visible': view === 'SCORE'})
 
   const victoryClass = classNames('victory', {'victory--visible' : view === 'FINISHED'})
 
-  const scoreString = generateScoreString(players);
   return (
     <div className="page-container">
       <div className="box-scoreboard">
@@ -37,7 +36,7 @@ function ScoreBoard({ players, time, view}) {
     </div>
 
 <div className={victoryClass}>
-  <VictoryString  />
+  <VictoryString  winners={winnersArray} highScore={highScore}/>
 </div>
       <ScoreList orderedArray={orderedArray} scoresArray={scoresArray} view={view} />
       </div>
