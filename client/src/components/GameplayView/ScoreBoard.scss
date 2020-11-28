@@ -26,3 +26,11 @@ h2 {
   flex-direction: column;
   justify-content: center;
 }
+
+.gamePlay,
+.victory {
+  display: none;
+  &--visible {
+    display: block;
+  }
+}
