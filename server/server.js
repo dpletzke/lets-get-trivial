@@ -131,6 +131,7 @@ io.on("connection", (socket) => {
     } else { //if no next question end game
       
       room.status.currentQ = null;
+      room.status.started = false;
 
       clearTimeout(room.timer);
       room.timer = null;
@@ -157,13 +158,14 @@ io.on("connection", (socket) => {
 
     if (room) {
       ds.removeUserFromRoom(socket.id, room);
-      const payload = ds.getUsersInRoom(room);
+      const users = ds.getUsersInRoom(room);
+
+      io.in(room.roomId).emit("user_disconnected", { users });
 
       if (!room.users.length) {
         destroyRoom(room.roomId);
       }
 
-      io.in(room.roomId).emit("user_disconnected", payload);
       handlePublicRoomInfoUpdate(room.isPublic);
     }
   });
