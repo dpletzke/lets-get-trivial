@@ -17,6 +17,7 @@ const ds = require("./data");
 const gh = require('./gameHelpers');
 const { SCOREBOARD_LAG, STARTPAGE_LAG } = require('./constants');
 const { Console } = require("console");
+const { destroyRoom } = require("./data");
 
 app.get("/", (req, res) => {
   res.json({ status: "ok" });
@@ -25,11 +26,11 @@ app.get("/", (req, res) => {
 io.on("connection", (socket) => {
   const user = ds.createUser({ socket });
 
-  socket.on("join_room", function (name, roomId) {
+  socket.on("join_room", function(name, roomId, isPublic) {
     user.name = name;
     user.roomId = roomId;
 
-    const room = ds.createOrRefRoom(user.id, roomId);
+    const room = ds.createOrRefRoom(user.id, roomId, isPublic);
     room.users.push(user.id);
 
     socket.join(roomId);
@@ -38,13 +39,24 @@ io.on("connection", (socket) => {
     const users = ds.getUsersInRoom(room);
 
     io.in(roomId).emit("user_connected", { users });
+    
+    handlePublicRoomInfoUpdate(room.isPublic);
   });
 
+  //for validating roomId at join game
   socket.on("get_room_info", () => {
     const roomInfo = Object.values(ds.rooms).map((r) => {
       return { roomId: r.roomId, started: r.status.started };
     });
     socket.emit("room_info", { roomInfo });
+  });
+
+  socket.on("get_public_games", () => {
+
+    const publicGames = ds.getAllPublicNonStartedGames();
+
+    console.log('Requesting public games', publicGames);
+    socket.emit("public_games", { publicGames });
   });
 
   socket.on("start_game", async (data) => {
@@ -58,6 +70,8 @@ io.on("connection", (socket) => {
     console.log(`${JSON.stringify(params)}`);
     console.log('Start game at:', new Date().getSeconds());
     console.log("");
+
+    handlePublicRoomInfoUpdate(room.isPublic);
     
     io.in(room.roomId).emit("game_started", gameParamsAndQuestions);
 
@@ -98,7 +112,8 @@ io.on("connection", (socket) => {
 
     const nextQuestion = room.questions[room.status.currentQ + 1];
 
-    if (nextQuestion) {
+    if (nextQuestion) { //if next question exists move to next question
+
       room.status.currentQ = room.status.currentQ + 1;
 
       payload.currentQ = room.status.currentQ;
@@ -113,12 +128,9 @@ io.on("connection", (socket) => {
         // clearTimeout(room.timer);
       }, room.params.timeLimit * 1000 + SCOREBOARD_LAG);
       
-
-    } else {
+    } else { //if no next question end game
+      
       room.status.currentQ = null;
-
-      //TODO: do we need this? set on front end as 0 as default
-      // payload.currentQ = null;
 
       clearTimeout(room.timer);
       room.timer = null;
@@ -127,6 +139,15 @@ io.on("connection", (socket) => {
       console.log(`${room.roomId} ended`);
       io.in(room.roomId).emit("game_ended", payload);
 
+      handlePublicRoomInfoUpdate(room.isPublic);
+
+    }
+  };
+
+  const handlePublicRoomInfoUpdate = (isPublic) => {
+    if (isPublic) {
+      const publicGames = ds.getAllPublicNonStartedGames();
+      io.emit("public_games", { publicGames });
     }
   };
 
@@ -138,7 +159,12 @@ io.on("connection", (socket) => {
       ds.removeUserFromRoom(socket.id, room);
       const payload = ds.getUsersInRoom(room);
 
+      if (!room.users.length) {
+        destroyRoom(room.roomId);
+      }
+
       io.in(room.roomId).emit("user_disconnected", payload);
+      handlePublicRoomInfoUpdate(room.isPublic);
     }
   });
 });

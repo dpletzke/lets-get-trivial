@@ -19,10 +19,11 @@ function createUser({ socket, name, score }) {
   return user;
 }
 
-function createRoom({ roomId, hostId }) {
+function createRoom({ roomId, hostId, isPublic }) {
   const room = {
     roomId,
     hostId,
+    isPublic,
     token: null,
     questions: [],
     users: [],
@@ -54,6 +55,16 @@ function getRoomFromUserId(userId) {
   });
 }
 
+function getAllPublicNonStartedGames() {
+  return Object.values(rooms).filter(r => {
+    return r.isPublic && !r.started;
+  }).map((r) => {
+    let hostName = 'No host name found';
+    if (users[r.hostId]) hostName = users[r.hostId].name; 
+    return { roomId: r.roomId, hostName, numUsers: r.users.length };
+  });
+}
+
 function generateScoreboard(room) {
 
   const userIdsWhoDidntAnswer = room.users.filter((userId) => {
@@ -69,8 +80,8 @@ function generateScoreboard(room) {
 
 
 
-function createOrRefRoom(userId, roomId) {
-  return rooms[roomId] || createRoom({ roomId, hostId: userId });
+function createOrRefRoom(userId, roomId, isPublic) {
+  return rooms[roomId] || createRoom({ roomId, hostId: userId, isPublic });
 }
 
 function getUsersInRoom(room) {
@@ -114,5 +125,6 @@ module.exports = {
   removeUserFromRoom,
   destroyUser,
   destroyRoom,
+  getAllPublicNonStartedGames
 
 };
