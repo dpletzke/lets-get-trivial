@@ -2,7 +2,7 @@ import { useState, useContext, useEffect } from "react";
 import Panel from "./Panel";
 import "./PanelList.scss";
 import classNames from "classnames";
-
+import useSound from "use-sound";
 import ConnectionContext from "../../ConnectionContext";
 import { LAG_BEFORE_SEND_ANSWER } from "../../constants";
 
@@ -24,6 +24,9 @@ function PanelList({ infoArray, pickAnswer }) {
   // determines if this is a question panel or an answer panel based on the keys the object
   const questionPanel = infoArray[0].questionString ? true : false;
   const answerPanel = infoArray[0].answerString ? true : false;
+  const [playClick] = useSound("../sounds/cat.mp3", {
+    volume: 0.25,
+  });
 
   const className = classNames(
     "box",
@@ -35,11 +38,9 @@ function PanelList({ infoArray, pickAnswer }) {
 
   useEffect(() => {
     connection.current.on("next_question", () => {
-    
-  
       const timer = setTimeout(() => {
-      setSelected("");
-       clearTimeout(timer);
+        setSelected("");
+        clearTimeout(timer);
       }, LAG_BEFORE_SEND_ANSWER);
     });
   }, [connection]);
@@ -51,7 +52,7 @@ function PanelList({ infoArray, pickAnswer }) {
   const clickHandler = (id) => {
     console.log("click id: ", id);
     console.log("selected: ", selected);
-
+    playClick();
     if (!selected) {
       pickAnswer(infoArray[id - 1].correct);
       setSelected(id);
