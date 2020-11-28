@@ -1,0 +1,22 @@
+@import "../styles/variables.scss";
+
+.game-id-container {
+  display: flex;
+  flex-direction: column;
+  margin:0.2rem auto;
+  h2 {
+    color: $primary-dark;
+    margin: 1rem;
+    font-family: $Audiowide;
+    text-align: center;
+  }
+  h3 {
+    margin: 0.7rem;
+    font-family: $Audiowide;
+    color: $color-primary-text;
+    text-align: center;
+  }
+ 
+
+
+}

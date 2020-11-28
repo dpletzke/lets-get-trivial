@@ -1,0 +1,45 @@
+@import "../styles/variables.scss";
+
+.game-id-container {
+  border: 1px solid $color-secondary-text;
+  border-radius: 1em;
+  margin: 0.2rem auto;
+  background-color: white;
+  width: 90%;
+ 
+
+  div{
+    display:flex;
+    justify-content: space-between;
+    align-items: space-between;
+
+    .user-icon{
+      margin-right: 0.2rem;
+    }
+  p {
+    padding: 0.4rem;
+    font-family: $FancyFont;
+    font-size: 0.6rem;
+    color: $color-primary-background;
+
+   
+  }
+
+  .game-id{
+    margin: auto 0.2rem;
+    font-size: 0.8rem;
+  }
+}
+
+}
+
+// @media only screen and (min-width: 500px) {
+//   .player-container {
+//     .list-item-text {
+//       font-size: 1.2rem;
+//     }
+//     .id-text {
+//       font-size: 1.5rem;
+//     }
+//   }
+// }
