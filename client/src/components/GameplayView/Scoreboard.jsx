@@ -11,14 +11,21 @@ import { MdPublic } from "react-icons/md";
 //needs to take props players and time (for timer), view (score/question),  optional isPlaying boolean which turns timer on or off
 function ScoreBoard({ players, time, view}) {
   const orderedArray = orderByScore(players);
+  console.log(orderedArray);
   const scoresArray = findPlacements(players);
+  console.log(scoresArray);
   const scoreString = generateScoreString(players);
+  
   const highScore = scoresArray[0];
 
 
   const winnersArray = orderedArray.filter((playerObj) => 
     playerObj.score === highScore
   ).map((playerObj) => playerObj.name);
+
+  console.log(winnersArray)
+
+  
 
 
   const gameplayClass = classNames('gamePlay', {'gamePlay--visible': view === 'SCORE'})
