@@ -1,5 +1,3 @@
-const SHOW_SCOREBOARD = 8;
-
 const settings = [
   {
     label: "Number of Questions",
@@ -38,4 +36,4 @@ function generateDefaults(settings) {
 
 const defaults = generateDefaults(settings);
 
-module.exports = { settings, defaults, SHOW_SCOREBOARD };
+module.exports = { settings, defaults };

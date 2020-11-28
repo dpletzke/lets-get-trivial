@@ -165,3 +165,16 @@ storiesOf("ScoreBoard", module).add("Score List", () => <ScoreList />);
 storiesOf("ScoreBoard", module).add("Score Board", () => <Scoreboard />);
 
 storiesOf("Start Game View", module).add("StartGame", () => <StartGame />);
+
+const victoryPlayers = [
+  { name: "player_1", score: 65, pointsEarned: 3, correctAnswer: true },
+  { name: "player_6", score: 65, pointsEarned: 3, correctAnswer: false },
+  { name: "player_2", score: 65, pointsEarned: -2, correctAnswer: true },
+  { name: "player_3", score: 29, pointsEarned: 1, correctAnswer: false },
+  // { name: "player_4", score: 29, pointsEarned: 1, correctAnswer: false },
+  // { name: "player_5", score: 29, pointsEarned: 1, correctAnswer: true },
+];
+
+storiesOf("Victory Score Board", module).add("Victory", () => (
+  <Scoreboard players={victoryPlayers} time={5} view={"FINISHED"} />
+));

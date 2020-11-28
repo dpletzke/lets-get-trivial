@@ -4,6 +4,7 @@ import Loading from "../Loading";
 
 import "./StartGame.scss";
 
+<<<<<<< HEAD
 function StartGame({ audioOn }) {
   let gameThemeSong = new Audio("/sounds/gameTheme.mp3");
   gameThemeSong.volume = 0.08;
@@ -18,6 +19,9 @@ function StartGame({ audioOn }) {
     }
   }, []);
 
+=======
+function StartGame({time}) {
+>>>>>>> master
   const renderTime = ({ remainingTime }) => {
     if (remainingTime === 0) {
       return <div className="timer-message">Go</div>;
@@ -38,7 +42,7 @@ function StartGame({ audioOn }) {
 
         <CountdownCircleTimer
           isPlaying
-          duration={5}
+          duration={time}
           size={250}
           colors={[
             ["#f4a261", 0.33],
