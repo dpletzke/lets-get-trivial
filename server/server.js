@@ -3,7 +3,7 @@ const express = require("express");
 const socketio = require("socket.io");
 // STEP 2 require HTTP into our server.
 const http = require("http");
-const PORT = 8080;
+const PORT = process.env.PORT || 8080;
 
 const app = express();
 // STEP 3 wrap http with app
