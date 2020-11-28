@@ -1,3 +1,5 @@
+import {useEffect} from 'react';
+
 import ScoreListItem from "./ScoreListItem";
 import { findPlacements, orderByScore } from "./scoreHelpers";
 import "./ScoreListItem.scss";
@@ -14,9 +16,17 @@ import "./ScoreListItem.scss";
 
 // Render a list of Players in numerical order. --> show score and game placement
 // helper function to calc num of players and show placement -- aka if players are tied don't increase number.
-function ScoreList({ players }) {
+function ScoreList({ players, setPlayersArray, setScoresArray }) {
   const orderedArray = orderByScore(players);
   const scoresArray = findPlacements(players);
+
+  
+  useEffect(() => {
+    setPlayersArray(orderedArray);
+    setScoresArray(scoresArray);
+  }, [orderedArray, scoresArray, setPlayersArray, setScoresArray])
+
+ 
 
   return (
     <div>

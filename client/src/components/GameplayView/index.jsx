@@ -6,7 +6,7 @@ import Scoreboard from "./Scoreboard";
 import StartGame from "./StartGame";
 import useVisualMode from "../../hooks/useVisualMode";
 
-const {timeLimit} = require('../../config/settings').defaults
+const {SHOW_SCOREBOARD} = require('../../config/settings')
 
 function GameplayView(props) {
   const {
@@ -45,7 +45,7 @@ function GameplayView(props) {
   }
 
   if (view === SCORE) {
-    return <Scoreboard players={players} />;
+    return <Scoreboard time={SHOW_SCOREBOARD} view={view} players={players} />;
   }
   //For Testing CSS on Score Page --> comment this in and above two views out
   // if (view === QUESTION) {
@@ -53,7 +53,7 @@ function GameplayView(props) {
   // }
   if (view === FINISHED) {
     
-      return <Scoreboard players={players} />;
+      return <Scoreboard time={SHOW_SCOREBOARD} view={view} players={players} />;
     
   }
   return <h1>None of the above</h1>;

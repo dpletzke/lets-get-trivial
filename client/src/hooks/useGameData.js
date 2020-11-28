@@ -15,7 +15,7 @@ export default function useGameData(gameId, connection, defaults) {
   };
 
   const [game, setGame] = useState(initialGame);
-  const [view, setView] = useState("SCORE");
+  const [view, setView] = useState("");
   // separate the fields of game into their own useStates
 
   // add an useEffect here for just observing "view"
@@ -104,7 +104,7 @@ export default function useGameData(gameId, connection, defaults) {
   useEffect(() => {
     connection.current.on("game_started", (data) => {
       const { questions, params } = data;
-      console.log('Hey its the data:', data);
+      console.log("Hey its the data:", data);
       if (questions.length === 0 || !questions) {
         alert(
           "We were unable to generate enough questions with your specified settings. Please try changing the settings."
@@ -137,7 +137,7 @@ export default function useGameData(gameId, connection, defaults) {
       }, LAG_BEFORE_SEND_ANSWER);
     });
 
-    connection.current.on("game_ended",  (data) => {
+    connection.current.on("game_ended", (data) => {
       const { players } = data;
 
       console.log(`${gameId} ended from server!`);

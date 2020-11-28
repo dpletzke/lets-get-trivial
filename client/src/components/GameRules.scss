@@ -2,46 +2,36 @@
 
 .info-modal {
   font-family: $FancyFont;
-  width: $max-width;
+  width: $modal-width;
   display: flex;
   flex-direction: column;
   justify-content: center;
-  align-items: center;
   color: $primary-dark;
   font-size: 0.9rem;
+  max-width: $max-width;
 
   .rules-heading {
-    width: 90%;
-    // background-color: $text-primary;
     border-radius: $border-radius;
     border: 1.7px $text-primary solid;
 
     h3 {
       font-size: 1rem;
-      text-align: center;
       color: $primary-dark;
     }
   }
 
   .content {
-    width: 70%;
     margin-top: $small-spacer;
     padding: $small-spacer;
     border-radius: 1em 1em 0 0;
 
-    line-height: 3rem;
-    border: 1.5px $primary-dark solid;
-    border-bottom: none;
     z-index: 9;
     &--rules {
       margin-top: 0;
-      border: 1.5px $primary-dark solid;
-      border-top: none;
-      border-radius: 0 0 1em 1em;
     }
 
     p {
-      line-height: 1.5rem;
+      line-height: 1rem;
     }
   }
 
@@ -49,8 +39,9 @@
     color: $primary-dark;
   }
   .text-bright {
-    font-size: 0.9rem;
+    font-size: 1.2rem;
     color: $color-secondary-text;
+    text-align: center;
   }
   .inner-text {
     font-size: 0.7rem;
@@ -59,5 +50,44 @@
   .category-text {
     font-size: 1.2em;
     color: darken($text-primary, $amount: 10%);
+  }
+}
+
+.info-heading,
+.game_type--type,
+.scoring,
+.customizeable_game_settings {
+  border-radius: $border-radius;
+  margin-bottom: 2rem;
+  border: 1px solid $color-black;
+  padding: 0 $xtra-small-spacer;
+  ul {
+    list-style-type: none;
+    font-family: $RegularFont;
+    line-height: 1rem;
+    padding-left: none;
+  }
+}
+
+.centered {
+  text-align: center;
+}
+
+.indent {
+  margin-left: $small-spacer;
+}
+
+li {
+  font-family: $RegularFont;
+  margin-bottom: $xtra-small-spacer;
+  margin-left: -$small-spacer;
+}
+
+@media only screen and (min-width: 500px) {
+  h2 {
+    font-size: $font-large;
+  }
+  .text-bright {
+    font-size: $font-regular;
   }
 }

@@ -15,5 +15,14 @@
 
 .settings-group {
   display: flex;
+  flex-direction: column;
   justify-content: space-evenly;
+}
+
+@media only screen and (min-width: 500px) {
+  .settings-group {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-evenly;
+  }
 }
