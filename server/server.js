@@ -15,7 +15,7 @@ const io = socketio(server);
 // reference to in-memory database, helpers and constants file
 const ds = require("./data");
 const gh = require('./gameHelpers');
-const { SCOREBOARD_LAG, STARTPAGE_LAG } = require('./constants');
+const { SCOREBOARD_LAG, STARTPAGE_LAG, LAG_BEFORE_SCORE_VIEW } = require('./constants');
 
 app.get("/", (req, res) => {
   res.json({ status: "ok" });
@@ -124,7 +124,7 @@ io.on("connection", (socket) => {
         console.log('moving on because time ran out');
         handleMoveOn(room);
         // clearTimeout(room.timer);
-      }, room.params.timeLimit * 1000 + SCOREBOARD_LAG);
+      }, room.params.timeLimit * 1000 + SCOREBOARD_LAG +  + LAG_BEFORE_SCORE_VIEW);
       
     } else { //if no next question end game
       
