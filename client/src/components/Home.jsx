@@ -49,6 +49,7 @@ function Home(props) {
               name="Hostname"
               type="text"
               placeholder="Enter Player Name"
+              maxlength="8"
               value={hostName || ""}
               onChange={(event) =>
                 setHostName(event.target.value.toUpperCase())
@@ -75,6 +76,7 @@ function Home(props) {
               data-testid="player-name-input"
               name="Player Name"
               type="text"
+              maxlength="8"
               placeholder="Enter Player Name"
               value={playerName || ""}
               onChange={(event) =>
@@ -85,6 +87,7 @@ function Home(props) {
               data-testid="game-id-input"
               name="Hostname"
               type="text"
+              maxlength="6"
               placeholder="Enter Game ID"
               value={gameId || ""}
               onChange={(event) => setGameId(event.target.value.toUpperCase())}
