@@ -47,7 +47,7 @@
   font-family: $FancyFont;
   color: $color-primary-background;
   border-bottom: 1px solid #dddddd;
-  padding-left: $medium-spacer;
+  margin-left: $xtra-small-spacer;
   &:hover {
     background-color: $color-secondary-background;
     cursor: pointer;
