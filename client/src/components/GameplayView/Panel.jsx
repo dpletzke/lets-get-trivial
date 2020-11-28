@@ -1,8 +1,9 @@
 import { useState } from "react";
+import useSound from "use-sound";
 import "./Panel.scss";
 import classNames from "classnames";
 
-import { FaCheck, FaRegSadTear}  from 'react-icons/fa';
+import { FaCheck, FaRegSadTear } from "react-icons/fa";
 
 const Entities = require("html-entities").AllHtmlEntities;
 
@@ -12,6 +13,12 @@ function Panel(props) {
   // const [correctSelected, setCorrectSelected] = useState(false);
   // const [incorrectSelected, setIncorrectSelected] = useState(false);
   const { id, info, selected, setSelected, somethingSelected } = props;
+
+  let meow = new Audio("/cat.mp3");
+
+  const start = () => {
+    meow.play();
+  };
 
   //pass down checkAnswer
   // get rid of 'selected' in the data digester in question.jsx
@@ -35,10 +42,14 @@ function Panel(props) {
   return (
     <>
       {answerString && (
-        <div className={className} onClick={() => setSelected(id)}>
-          <FaRegSadTear className="icon__incorrect"/>
+        <div
+          className={className}
+          onClick={() => setSelected(id)}
+          onMouseDown={start}
+        >
+          <FaRegSadTear className="icon__incorrect" />
           <p>{entities.decode(answerString)}</p>
-          <FaCheck className="icon__correct"/>
+          <FaCheck className="icon__correct" />
         </div>
       )}
       {questionString && (

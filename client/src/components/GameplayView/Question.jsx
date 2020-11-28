@@ -1,12 +1,10 @@
 import { useContext } from "react";
-
+import useSound from "use-sound";
 import PanelList from "./PanelList";
 import GameplayHeader from "./GameplayHeader";
 import "./Question.scss";
 
 import ConnectionContext from "../../ConnectionContext";
-
-
 
 // move this into a helper file at some point? It's just changing the data structure to fit better with our component architecture
 const digestQuestionObj = (questionObject) => {
@@ -25,24 +23,32 @@ const digestQuestionObj = (questionObject) => {
         correct: true,
         selected: false,
       },
-    ]/* .sort(() => Math.random() - 0.5) */
+    ] /* .sort(() => Math.random() - 0.5) */,
   };
 };
 
 function ActiveQuestion({ questionObj, questionIndex, timeLimit }) {
   const { question, answers } = digestQuestionObj(questionObj);
-  console.log(questionObj)
+  console.log(questionObj);
 
   const connection = useContext(ConnectionContext);
 
   const pickAnswer = (correct) => {
-    connection.current.emit("picked_answer", { correct, ...questionObj, questionIndex });
+    connection.current.emit("picked_answer", {
+      correct,
+      ...questionObj,
+      questionIndex,
+    });
   };
 
   //GameplayHeader needs to take the following props: {questionIndex, view, time (question/score)-hardCoded} - optional boolean (isPlaying -> This turns timer on or off)
   return (
     <div className="box-question">
-      <GameplayHeader questionIndex={questionIndex} view="question" time={timeLimit}>
+      <GameplayHeader
+        questionIndex={questionIndex}
+        view="question"
+        time={timeLimit}
+      >
         <PanelList infoArray={question} />
       </GameplayHeader>
       <div className="question-container">
