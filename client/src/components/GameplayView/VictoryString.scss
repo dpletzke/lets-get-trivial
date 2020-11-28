@@ -1,0 +1,30 @@
+@import "../../styles/variables.scss";
+
+h1 {
+  text-align: center;
+}
+.small {
+  font-size: $font-regular;
+}
+
+.medium {
+  font-size: $font-regular;
+}
+
+.large {
+  font-size: $font-large;
+}
+
+@media only screen and (min-width: $tablet-portrait-min) {
+  .small {
+    font-size: $font-regular;
+  }
+
+  .medium {
+    font-size: $font-large;
+  }
+
+  .large {
+    font-size: 5rem;
+  }
+}

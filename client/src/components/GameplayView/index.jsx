@@ -6,7 +6,8 @@ import Scoreboard from "./Scoreboard";
 import StartGame from "./StartGame";
 import useVisualMode from "../../hooks/useVisualMode";
 
-const {SHOW_SCOREBOARD} = require('../../config/settings')
+import {SCOREBOARD_LAG, STARTPAGE_LAG} from '../../constants';
+// import { STARTPAGE_LAG } from "../../../../server/constants";
 
 function GameplayView(props) {
   const {
@@ -15,7 +16,8 @@ function GameplayView(props) {
     currentQ,
     players,
     view,
-    setView,
+  
+
   } = props;
 
   const { timeLimit } = params;
@@ -37,7 +39,7 @@ function GameplayView(props) {
   };
 
   if (view === STARTING) {
-    return <StartGame />;
+    return <StartGame time={STARTPAGE_LAG * .001 } />;
   }
 
   if (view === QUESTION) {
@@ -45,7 +47,7 @@ function GameplayView(props) {
   }
 
   if (view === SCORE) {
-    return <Scoreboard time={SHOW_SCOREBOARD} view={view} players={players} />;
+    return <Scoreboard time={SCOREBOARD_LAG * .001 } view={view} players={players} />;
   }
   //For Testing CSS on Score Page --> comment this in and above two views out
   // if (view === QUESTION) {
@@ -53,7 +55,7 @@ function GameplayView(props) {
   // }
   if (view === FINISHED) {
     
-      return <Scoreboard time={SHOW_SCOREBOARD} view={view} players={players} />;
+      return <Scoreboard time={SCOREBOARD_LAG * .001 } view={view} players={players} />;
     
   }
   return <h1>None of the above</h1>;

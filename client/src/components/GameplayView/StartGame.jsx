@@ -3,7 +3,7 @@ import Loading from "../Loading";
 
 import "./StartGame.scss";
 
-function StartGame() {
+function StartGame({time}) {
   const renderTime = ({ remainingTime }) => {
     if (remainingTime === 0) {
       return <div className="timer-message">Go</div>;
@@ -24,7 +24,7 @@ function StartGame() {
 
         <CountdownCircleTimer
           isPlaying
-          duration={5}
+          duration={time}
           size={250}
           colors={[
             ["#f4a261", 0.33],

@@ -1,5 +1,3 @@
-const SHOW_SCOREBOARD = 8;
-
 const settings = [
   {
     label: "Number of Questions",

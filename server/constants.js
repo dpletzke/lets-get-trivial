@@ -3,5 +3,7 @@ module.exports = {
   POINT_PENALTY: -1,
   SCOREBOARD_LAG: 2000,
   STARTPAGE_LAG: 2000,
-  LAG_BEFORE_SCORE_VIEW: 2000
+  LAG_BEFORE_SCORE_VIEW: 2000,
 };
+
+// compare to the client constants!!
