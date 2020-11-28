@@ -16,8 +16,6 @@ const io = socketio(server);
 const ds = require("./data");
 const gh = require('./gameHelpers');
 const { SCOREBOARD_LAG, STARTPAGE_LAG } = require('./constants');
-const { Console } = require("console");
-const { destroyRoom } = require("./data");
 
 app.get("/", (req, res) => {
   res.json({ status: "ok" });
