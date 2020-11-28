@@ -1,5 +1,4 @@
 import { useState } from "react";
-import useSound from "use-sound";
 import "./Panel.scss";
 import classNames from "classnames";
 
