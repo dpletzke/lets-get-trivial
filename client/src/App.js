@@ -45,12 +45,12 @@ function App() {
     connection.current.emit("join_room", name, roomId);
   };
 
-  const onCreate = (name) => {
+  const onCreate = (name, isPublic) => {
     const roomId = makeId(6);
 
     setState((prev) => ({ ...prev, name, roomId }));
 
-    connection.current.emit("join_room", name, roomId);
+    connection.current.emit("join_room", name, roomId, isPublic);
   };
 
   const controller = (state) => {

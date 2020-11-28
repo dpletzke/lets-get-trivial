@@ -3,6 +3,7 @@ import Button from "./Button";
 import ModalComponent from "./Modal";
 import GameRules from "./GameRules";
 import Dropdown from "./Dropdown";
+import PublicGames from "./PublicGames";
 import "./Button.scss";
 import "./Home.scss";
 import ConnectionContext from "../ConnectionContext";
@@ -39,7 +40,7 @@ function Home(props) {
           </div>
           <h1 className="box-home--heading">Let's Get Trivial</h1>
           <form autoComplete="off" onSubmit={(event) => event.preventDefault()}>
-            <p>Host New Game</p>
+            <p>Create New Game</p>
             <div className="error-message">
               {error === 1 && <p>Please Enter a Player Name</p>}
             </div>
@@ -53,8 +54,11 @@ function Home(props) {
                 setHostName(event.target.value.toUpperCase())
               }
             />
-            <Button onClick={() => createGame()} home>
-              Create Game
+            <Button onClick={() => createGame(false)} home>
+              Private
+            </Button>
+            <Button onClick={() => createGame(true)} home>
+              Public
             </Button>
           </form>
           <form autoComplete="off" onSubmit={(event) => event.preventDefault()}>
@@ -97,7 +101,9 @@ function Home(props) {
       >
         <GameRules />
       </ModalComponent>
-      <ModalComponent modalIsOpen={publicModalIsOpen} closeModal={()=> closeModal('public')} />
+      <ModalComponent modalIsOpen={publicModalIsOpen} closeModal={()=> closeModal('public')} >
+        <PublicGames />
+      </ ModalComponent>
     </main>
   );
 }

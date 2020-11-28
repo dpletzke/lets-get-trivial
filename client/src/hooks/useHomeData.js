@@ -6,12 +6,12 @@ export default function useHomeData(connection, onJoin, onCreate) {
   const [gameId, setGameId] = useState(null);
   const [error, setError] = useState(false);
 
-  function createGame() {
+  function createGame(isPublic) {
     if (!hostName) {
       setError(1);
     } else {
       setError(false);
-      onCreate(hostName);
+      onCreate(hostName, isPublic);
     }
   }
 
