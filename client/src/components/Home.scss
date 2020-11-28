@@ -1,7 +1,7 @@
 @import "../styles/variables.scss";
 
 h1 {
-  font-size: 3em;
+  font-size: $font-regular;
   font-family: $FancyFont;
   color: $color-primary-text;
 }
@@ -16,9 +16,11 @@ h1 {
   // background: linear-gradient(180deg, $color-primary-background 0%, $color-secondary-text 35%, $color-primary-text 100%);
   // background-color: $color-primary-background;
   background: linear-gradient(rgba(37, 37, 37, 0.45), rgba(0, 0, 0, 0.45)),
-    url("https://i.pinimg.com/originals/56/58/6c/56586c83d06a53b3c25ce54bb4278f62.jpg")
-      no-repeat center center/cover;
+    // url("https://i.pinimg.com/originals/56/58/6c/56586c83d06a53b3c25ce54bb4278f62.jpg")
+      url("https://wallpapercave.com/wp/wp3719599.jpg");
   background-attachment: fixed;
+  background-size: cover;
+  background-repeat: no-repeat;
   padding: 3em;
   &--content {
     margin-bottom: $large-spacer;
@@ -88,7 +90,7 @@ p {
 }
 
 .icon {
-  font-size: 2.5rem;
+  font-size: $font-regular;
   color: $color-secondary-background;
   transition: color 0.2s ease-in;
   margin: $small-spacer $small-spacer auto auto;
@@ -106,5 +108,14 @@ p {
   &:hover {
     color: $color-primary-text;
     cursor: pointer;
+  }
+}
+
+@media only screen and (min-width: 520px) {
+  h1 {
+    font-size: $font-large;
+  }
+  .icon {
+    font-size: 2.5rem;
   }
 }
