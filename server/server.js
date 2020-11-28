@@ -163,7 +163,7 @@ io.on("connection", (socket) => {
       io.in(room.roomId).emit("user_disconnected", { users });
 
       if (!room.users.length) {
-        destroyRoom(room.roomId);
+        ds.destroyRoom(room.roomId);
       }
 
       handlePublicRoomInfoUpdate(room.isPublic);
