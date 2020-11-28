@@ -3,7 +3,7 @@ const express = require("express");
 const socketio = require("socket.io");
 // STEP 2 require HTTP into our server.
 const http = require("http");
-const PORT = 8080;
+const PORT = process.env.PORT || 8080;
 
 const app = express();
 // STEP 3 wrap http with app
@@ -15,9 +15,7 @@ const io = socketio(server);
 // reference to in-memory database, helpers and constants file
 const ds = require("./data");
 const gh = require('./gameHelpers');
-const { SCOREBOARD_LAG, STARTPAGE_LAG } = require('./constants');
-const { Console } = require("console");
-const { destroyRoom } = require("./data");
+const { SCOREBOARD_LAG, STARTPAGE_LAG, LAG_BEFORE_SCORE_VIEW } = require('./constants');
 
 app.get("/", (req, res) => {
   res.json({ status: "ok" });
@@ -126,7 +124,7 @@ io.on("connection", (socket) => {
         console.log('moving on because time ran out');
         handleMoveOn(room);
         // clearTimeout(room.timer);
-      }, room.params.timeLimit * 1000 + SCOREBOARD_LAG);
+      }, room.params.timeLimit * 1000 + SCOREBOARD_LAG +  + LAG_BEFORE_SCORE_VIEW);
       
     } else { //if no next question end game
       
@@ -163,7 +161,7 @@ io.on("connection", (socket) => {
       io.in(room.roomId).emit("user_disconnected", { users });
 
       if (!room.users.length) {
-        destroyRoom(room.roomId);
+        ds.destroyRoom(room.roomId);
       }
 
       handlePublicRoomInfoUpdate(room.isPublic);

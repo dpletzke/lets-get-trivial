@@ -2,11 +2,15 @@
   "name": "lets-get-trivial",
   "version": "0.1.0",
   "private": true,
+  "engines": {
+    "node": "10.16.1"
+  },
   "dependencies": {
     "@testing-library/jest-dom": "^5.11.6",
     "@testing-library/react": "^11.2.1",
     "@testing-library/user-event": "^12.2.2",
     "axios": "^0.21.0",
+    "classnames": "^2.2.6",
     "html-entities": "^1.3.1",
     "node-sass": "^4.14.1",
     "number-to-words": "^1.2.4",

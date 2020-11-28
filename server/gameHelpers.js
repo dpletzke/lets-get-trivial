@@ -1,6 +1,6 @@
 /* eslint-disable func-style */
 
-const { getQuestions, getSessionToken } = require("../client/src/api/opentdb");
+const { getQuestions, getSessionToken } = require("./api/opentdb");
 
 const { POINTS_SYSTEM, POINT_PENALTY } = require("./constants");
 

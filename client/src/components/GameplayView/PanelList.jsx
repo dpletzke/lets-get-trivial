@@ -3,7 +3,7 @@ import Panel from "./Panel";
 import "./PanelList.scss";
 import classNames from "classnames";
 import ConnectionContext from "../../ConnectionContext";
-import { LAG_BEFORE_SEND_ANSWER } from "../../constants";
+import { LAG_BEFORE_SCORE_VIEW } from "../../constants";
 
 // pass infoArray as an array of objects as formatted below:
 // [{questionString: 'is this thing on?'}]
@@ -37,7 +37,7 @@ function PanelList({ infoArray, pickAnswer, audioOn }) {
       const timer = setTimeout(() => {
         setSelected("");
         clearTimeout(timer);
-      }, LAG_BEFORE_SEND_ANSWER);
+      }, LAG_BEFORE_SCORE_VIEW);
     });
   }, [connection]);
 

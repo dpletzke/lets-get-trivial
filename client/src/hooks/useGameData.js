@@ -1,6 +1,6 @@
 import { useState, useEffect } from "react";
 import {
-  LAG_BEFORE_SEND_ANSWER,
+  LAG_BEFORE_SCORE_VIEW,
   SCOREBOARD_LAG,
   STARTPAGE_LAG,
 } from "../constants.js";
@@ -33,6 +33,11 @@ export default function useGameData(gameId, connection, defaults) {
       setTimeout(() => {
         setView("QUESTION");
       }, STARTPAGE_LAG);
+    }
+    if (view === "FINISHED") {
+      setTimeout(() => {
+        setGame((prev) => ({...prev,  started: false }));
+      }, SCOREBOARD_LAG);
     }
   }, [view]);
 
@@ -126,18 +131,20 @@ export default function useGameData(gameId, connection, defaults) {
           return { ...prev, currentQ, players };
         });
         clearTimeout(timer);
-      }, LAG_BEFORE_SEND_ANSWER);
+      }, LAG_BEFORE_SCORE_VIEW);
     });
 
     connection.current.on("game_ended", (data) => {
       const { players } = data;
 
       console.log(`${gameId} ended from server!`);
-      setView("SCORE");
       const timer = setTimeout(() => {
-        setGame((prev) => ({ ...prev, started: false, players, currentQ: 0 }));
+        setView("FINISHED");
+        setGame((prev) => {
+          return { ...prev, currentQ: 0, players };
+        });
         clearTimeout(timer);
-      }, SCOREBOARD_LAG);
+      }, LAG_BEFORE_SCORE_VIEW);
     });
 
     const oldConnection = connection.current;

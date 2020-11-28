@@ -6,7 +6,8 @@ import WaitingRoom from "./components/WaitingRoom";
 import "./App.css";
 import socketIOClient from "socket.io-client";
 
-const ENDPOINT = "http://localhost:8080";
+const PORT = process.env.PORT || 8080;
+const ENDPOINT = `http://localhost:${PORT}`;
 
 function App() {
   const initialState = {
