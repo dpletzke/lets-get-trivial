@@ -157,13 +157,14 @@ io.on("connection", (socket) => {
 
     if (room) {
       ds.removeUserFromRoom(socket.id, room);
-      const payload = ds.getUsersInRoom(room);
+      const users = ds.getUsersInRoom(room);
+
+      io.in(room.roomId).emit("user_disconnected", { users });
 
       if (!room.users.length) {
         destroyRoom(room.roomId);
       }
 
-      io.in(room.roomId).emit("user_disconnected", payload);
       handlePublicRoomInfoUpdate(room.isPublic);
     }
   });
