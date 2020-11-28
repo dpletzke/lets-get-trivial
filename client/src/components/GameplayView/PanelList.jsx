@@ -2,7 +2,7 @@ import { useState, useContext, useEffect } from "react";
 import Panel from "./Panel";
 import "./PanelList.scss";
 import classNames from "classnames";
-import useSound from "use-sound";
+
 import ConnectionContext from "../../ConnectionContext";
 import { LAG_BEFORE_SEND_ANSWER } from "../../constants";
 
