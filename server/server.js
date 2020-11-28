@@ -131,6 +131,7 @@ io.on("connection", (socket) => {
     } else { //if no next question end game
       
       room.status.currentQ = null;
+      room.status.started = false;
 
       clearTimeout(room.timer);
       room.timer = null;
