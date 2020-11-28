@@ -1,4 +1,4 @@
-const SHOW_SCOREBOARD = 8;
+const SHOW_SCOREBOARD = 4;
 
 const settings = [
   {

@@ -14,8 +14,8 @@ const io = socketio(server);
 
 // reference to in-memory database, helpers and constants file
 const ds = require("./data");
-const gh = require('./gameHelpers');
-const { SCOREBOARD_LAG, STARTPAGE_LAG } = require('./constants');
+const gh = require("./gameHelpers");
+const { SCOREBOARD_LAG, STARTPAGE_LAG } = require("./constants");
 const { Console } = require("console");
 const { destroyRoom } = require("./data");
 
@@ -26,7 +26,7 @@ app.get("/", (req, res) => {
 io.on("connection", (socket) => {
   const user = ds.createUser({ socket });
 
-  socket.on("join_room", function(name, roomId, isPublic) {
+  socket.on("join_room", function (name, roomId, isPublic) {
     user.name = name;
     user.roomId = roomId;
 
@@ -39,7 +39,7 @@ io.on("connection", (socket) => {
     const users = ds.getUsersInRoom(room);
 
     io.in(roomId).emit("user_connected", { users });
-    
+
     handlePublicRoomInfoUpdate(room.isPublic);
   });
 
@@ -52,10 +52,9 @@ io.on("connection", (socket) => {
   });
 
   socket.on("get_public_games", () => {
-
     const publicGames = ds.getAllPublicNonStartedGames();
 
-    console.log('Requesting public games', publicGames);
+    console.log("Requesting public games", publicGames);
     socket.emit("public_games", { publicGames });
   });
 
@@ -68,15 +67,15 @@ io.on("connection", (socket) => {
     /* log rooms the socket is in to server, should just be one */
     console.log(`Server starting ${Object.values(socket.rooms)[1]} with:`);
     console.log(`${JSON.stringify(params)}`);
-    console.log('Start game at:', new Date().getSeconds());
+    console.log("Start game at:", new Date().getSeconds());
     console.log("");
 
     handlePublicRoomInfoUpdate(room.isPublic);
-    
+
     io.in(room.roomId).emit("game_started", gameParamsAndQuestions);
 
     room.timer = setTimeout(() => {
-      console.log('moving on because time ran out');
+      console.log("moving on because time ran out");
       handleMoveOn(room);
     }, room.params.timeLimit * 1000 + STARTPAGE_LAG);
   });
@@ -95,53 +94,51 @@ io.on("connection", (socket) => {
     gh.recordAndAward(user, room, answer);
 
     if (gh.weShouldMoveOn(room)) {
-
       handleMoveOn(room);
     }
   });
 
   const handleMoveOn = (room) => {
-
     clearTimeout(room.timer);
 
     /* create scores list */
     const payload = { players: ds.generateScoreboard(room) };
-      
+
     /* reset answers */
     room.status.answers = [];
 
     const nextQuestion = room.questions[room.status.currentQ + 1];
 
-    if (nextQuestion) { //if next question exists move to next question
+    if (nextQuestion) {
+      //if next question exists move to next question
 
       room.status.currentQ = room.status.currentQ + 1;
 
       payload.currentQ = room.status.currentQ;
 
-      console.log('Next question at:', new Date().getSeconds());
+      console.log("Next question at:", new Date().getSeconds());
 
       io.in(room.roomId).emit("next_question", payload);
-      
+
       room.timer = setTimeout(() => {
-        console.log('moving on because time ran out');
+        console.log("moving on because time ran out");
         handleMoveOn(room);
         // clearTimeout(room.timer);
       }, room.params.timeLimit * 1000 + SCOREBOARD_LAG);
-      
-    } else { //if no next question end game
-      
+    } else {
+      //if no next question end game
+
       room.status.currentQ = null;
       room.status.started = false;
 
       clearTimeout(room.timer);
       room.timer = null;
 
-      console.log('End game at:', new Date().getSeconds());
+      console.log("End game at:", new Date().getSeconds());
       console.log(`${room.roomId} ended`);
       io.in(room.roomId).emit("game_ended", payload);
 
       handlePublicRoomInfoUpdate(room.isPublic);
-
     }
   };
 

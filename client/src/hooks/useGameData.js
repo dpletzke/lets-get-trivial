@@ -16,6 +16,7 @@ export default function useGameData(gameId, connection, defaults) {
 
   const [game, setGame] = useState(initialGame);
   const [view, setView] = useState("");
+
   // separate the fields of game into their own useStates
 
   // add an useEffect here for just observing "view"
@@ -85,14 +86,6 @@ export default function useGameData(gameId, connection, defaults) {
         setOptions({ ...params, timeLimit: null });
       }
     },
-
-    // setNumberCorrect: function (num) {
-    //   if (params.numCorrect !== num) {
-    //     setOptions({ ...params, numCorrect: num });
-    //   } else {
-    //     setOptions({ ...params, numCorrect: null });
-    //   }
-    // },
   };
 
   const startGame = () => {
@@ -123,13 +116,19 @@ export default function useGameData(gameId, connection, defaults) {
       });
     });
 
+    const handleSetView = (string) => {
+      console.log("The view is being reset!");
+      setView(string);
+    };
+
     connection.current.on("next_question", async (data) => {
       console.log("Next question!");
       const { players, currentQ } = data;
 
       console.log(`${gameId} moved to question ${currentQ}, starting Timeout`);
       const timer = await setTimeout(() => {
-        setView("SCORE");
+        // setView("SCORE");
+        handleSetView("SCORE");
         setGame((prev) => {
           return { ...prev, currentQ, players };
         });

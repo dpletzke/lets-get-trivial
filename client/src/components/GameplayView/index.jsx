@@ -15,7 +15,8 @@ function GameplayView(props) {
     currentQ,
     players,
     view,
-    setView,
+  
+
   } = props;
 
   const { timeLimit } = params;
