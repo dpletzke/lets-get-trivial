@@ -1,49 +1,38 @@
 import ScoreList from "./ScoreList";
 import { useState, useEffect } from "react";
 import GameplayHeader from "./GameplayHeader";
-<<<<<<< HEAD
 import VictoryString from "./VictoryString";
-import { generateScoreString } from "./scoreHelpers";
+import {
+  generateScoreString,
+  findPlacements,
+  orderByScore,
+} from "./scoreHelpers";
 import classNames from "classnames";
-=======
-import VictoryString from './VictoryString';
-import { generateScoreString, findPlacements, orderByScore } from "./scoreHelpers";
-import classNames from 'classnames';
->>>>>>> master
-
 import "./ScoreBoard.scss";
-import { MdPublic } from "react-icons/md";
+// import { MdPublic } from "react-icons/md";
 
 //needs to take props players and time (for timer), view (score/question),  optional isPlaying boolean which turns timer on or off
-<<<<<<< HEAD
 function ScoreBoard({ players, time, view, audioOn }) {
-  const [orderedPlayersArray, setPlayersArray] = useState([]);
-  const [scoresArray, setScoresArray] = useState([]);
-
-  let scoreSong = new Audio("/sounds/level-up.mp3");
-  scoreSong.volume = 0.6;
-=======
-function ScoreBoard({ players, time, view}) {
   const orderedArray = orderByScore(players);
   console.log(orderedArray);
   const scoresArray = findPlacements(players);
   console.log(scoresArray);
   const scoreString = generateScoreString(players);
-  
+
   const highScore = scoresArray[0];
 
+  const winnersArray = orderedArray
+    .filter((playerObj) => playerObj.score === highScore)
+    .map((playerObj) => playerObj.name);
 
-  const winnersArray = orderedArray.filter((playerObj) => 
-    playerObj.score === highScore
-  ).map((playerObj) => playerObj.name);
+  console.log(winnersArray);
 
-  console.log(winnersArray)
+  let scoreSong = new Audio("/sounds/level-up.mp3");
+  scoreSong.volume = 0.6;
 
-  
-
-
-  const gameplayClass = classNames('gamePlay', {'gamePlay--visible': view === 'SCORE'})
->>>>>>> master
+  const gameplayClass = classNames("gamePlay", {
+    "gamePlay--visible": view === "SCORE",
+  });
 
   const themeSong = () => {
     scoreSong.play();
@@ -57,9 +46,6 @@ function ScoreBoard({ players, time, view}) {
 
   console.log("View: ", view);
   console.log("Time", time);
-  const gameplayClass = classNames("gamePlay", {
-    "gamePlay--visible": view === "SCORE",
-  });
 
   const victoryClass = classNames("victory", {
     "victory--visible": view === "FINISHED",
@@ -75,24 +61,14 @@ function ScoreBoard({ players, time, view}) {
           <p>{scoreString}</p>
         </div>
 
-<<<<<<< HEAD
         <div className={victoryClass}>
-          <VictoryString
-            scoresArray={scoresArray}
-            orderedPlayersArray={orderedPlayersArray}
-          />
+          <VictoryString winners={winnersArray} highScore={highScore} />
         </div>
         <ScoreList
-          setPlayersArray={setPlayersArray}
-          setScoresArray={setScoresArray}
-          players={players}
+          orderedArray={orderedArray}
+          scoresArray={scoresArray}
+          view={view}
         />
-=======
-<div className={victoryClass}>
-  <VictoryString  winners={winnersArray} highScore={highScore}/>
-</div>
-      <ScoreList orderedArray={orderedArray} scoresArray={scoresArray} view={view} />
->>>>>>> master
       </div>
     </div>
   );

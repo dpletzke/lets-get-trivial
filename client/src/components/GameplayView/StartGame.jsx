@@ -4,8 +4,7 @@ import Loading from "../Loading";
 
 import "./StartGame.scss";
 
-<<<<<<< HEAD
-function StartGame({ audioOn }) {
+function StartGame({ time, audioOn }) {
   let gameThemeSong = new Audio("/sounds/gameTheme.mp3");
   gameThemeSong.volume = 0.08;
 
@@ -19,9 +18,6 @@ function StartGame({ audioOn }) {
     }
   }, []);
 
-=======
-function StartGame({time}) {
->>>>>>> master
   const renderTime = ({ remainingTime }) => {
     if (remainingTime === 0) {
       return <div className="timer-message">Go</div>;
