@@ -80,13 +80,14 @@
   font-size: 0.9rem;
   background-color: $primary-light;
   p {
+    background-color: $primary-light;
     font-size: $font-mobile;
     color: $primary-dark;
     padding: 0 0.2em;
   }
 }
 
-@media only screen and (min-width: 500px) {
+@media only screen and (min-width: 520px) {
   .panel__answer,
   .panel__question {
     p {

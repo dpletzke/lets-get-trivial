@@ -1,9 +1,23 @@
+import { useEffect } from "react";
 import { CountdownCircleTimer } from "react-countdown-circle-timer";
 import Loading from "../Loading";
 
 import "./StartGame.scss";
 
-function StartGame() {
+function StartGame({ time, audioOn }) {
+  let gameThemeSong = new Audio("/sounds/gameTheme.mp3");
+  gameThemeSong.volume = 0.08;
+
+  const themeSong = () => {
+    gameThemeSong.play();
+  };
+
+  useEffect(() => {
+    if (audioOn) {
+      themeSong();
+    }
+  }, []);
+
   const renderTime = ({ remainingTime }) => {
     if (remainingTime === 0) {
       return <div className="timer-message">Go</div>;
@@ -24,7 +38,7 @@ function StartGame() {
 
         <CountdownCircleTimer
           isPlaying
-          duration={5}
+          duration={time}
           size={250}
           colors={[
             ["#f4a261", 0.33],

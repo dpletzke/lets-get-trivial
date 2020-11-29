@@ -5,3 +5,5 @@ module.exports = {
   STARTPAGE_LAG: 7000,
   LAG_BEFORE_SCORE_VIEW: 2000,
 };
+
+// compare to the client constants!!

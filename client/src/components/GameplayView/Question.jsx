@@ -39,7 +39,7 @@ const digestQuestionObj = (questionObject) => {
   return question
 };
 
-function ActiveQuestion({ questionObj, questionIndex, timeLimit }) {
+function ActiveQuestion({ questionObj, questionIndex, timeLimit, audioOn }) {
   const { question, answers } = digestQuestionObj(questionObj);
   console.log(questionObj);
 
@@ -66,7 +66,11 @@ function ActiveQuestion({ questionObj, questionIndex, timeLimit }) {
       <div className="question-container">
         {/* the two panels in this view can be targeted individually due to their conditional css, see PanelList component */}
         <PanelList infoArray={question} />
-        <PanelList infoArray={answers} pickAnswer={pickAnswer} />
+        <PanelList
+          infoArray={answers}
+          pickAnswer={pickAnswer}
+          audioOn={audioOn}
+        />
       </div>
     </div>
   );
