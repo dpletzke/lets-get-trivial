@@ -7,7 +7,15 @@ import "./App.css";
 import socketIOClient from "socket.io-client";
 
 const PORT = process.env.PORT || 8080;
-const ENDPOINT = `http://localhost:${PORT}`;
+
+let ENDPOINT;
+const hostname = window && window.location && window.location.hostname;
+if(hostname === 'lets-get-trivial-game.herokuapp.com') {
+  ENDPOINT = 'https://lets-get-trivial-server.herokuapp.com/';
+} else {
+  ENDPOINT = `http://localhost:${PORT}`;
+}
+
 
 function App() {
   const initialState = {
