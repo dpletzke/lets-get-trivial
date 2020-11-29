@@ -43,8 +43,14 @@
 
 @media only screen and (min-width: 520px) {
   .publicGame__box {
-    .category-heading {
-      display: flex;
+    h2 {
+      font-size: $font-large;
+    }
+    h3 {
+      font-size: 2rem;
+    }
+    h4 {
+      font-size: $font-regular;
     }
   }
 }
