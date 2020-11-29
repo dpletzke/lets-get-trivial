@@ -92,13 +92,6 @@ io.on("connection", (socket) => {
     // user defined above
     const room = ds.getRoomFromUserId(socket.id);
 
-    console.log(
-      ` ${user.name} picked ${answer.correct ? "right" : "wrong"} for ${
-        room.status.currentQ
-      } / ${answer.questionIndex - 1}`
-    );
-    console.log(answer);
-
     gh.recordAndAward(user, room, answer);
 
     if (gh.weShouldMoveOn(room)) {
@@ -124,17 +117,13 @@ io.on("connection", (socket) => {
 
       payload.currentQ = room.status.currentQ;
 
-      console.log("Next question at:", new Date().getSeconds());
-
       io.in(room.roomId).emit("next_question", payload);
 
       room.timer = setTimeout(() => {
-        console.log("moving on because time ran out");
+        console.log("Moving on because time ran out");
         handleMoveOn(room);
-        // clearTimeout(room.timer);
-      }, room.params.timeLimit * 1000 + SCOREBOARD_LAG + +LAG_BEFORE_SCORE_VIEW);
-    } else {
-      //if no next question end game
+      }, room.params.timeLimit * 1000 + SCOREBOARD_LAG + LAG_BEFORE_SCORE_VIEW);
+    } else { //if no next question end game
 
       room.status.currentQ = null;
       room.status.started = false;
@@ -143,7 +132,6 @@ io.on("connection", (socket) => {
       clearTimeout(room.timer);
       room.timer = null;
 
-      console.log("End game at:", new Date().getSeconds());
       console.log(`${room.roomId} ended`);
       io.in(room.roomId).emit("game_ended", payload);
 

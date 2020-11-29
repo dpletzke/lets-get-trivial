@@ -65,6 +65,7 @@ function getAllPublicNonStartedGames() {
   });
 }
 
+/* filters list of answers for  */
 function generateScoreboard(room) {
 
   const userIdsWhoDidntAnswer = room.users.filter((userId) => {
@@ -75,7 +76,10 @@ function generateScoreboard(room) {
     const { name, score } = users[userId];
     return { name, score, pointsEarned: 0, correct: false };
   });
-  return [...room.status.answers, ...playersWhoDidntAnswer];
+
+  const scoreboard = [...room.status.answers, ...playersWhoDidntAnswer];
+  console.log(scoreboard);
+  return scoreboard;
 }
 
 

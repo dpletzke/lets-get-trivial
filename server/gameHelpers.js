@@ -21,62 +21,47 @@ async function gatherAndSetGameInfo(room, params) {
   return { questions: room.questions, params };
 }
 
-// function checkEnoughCorrect(room) {
-//   /* be sure that the right answers being counted are for this question */
-//   const rightAnswers = room.status.answers.filter((a) => {
-//     return a.correctAnswer && a.qIndex === room.status.currentQ;
-//   });
-//   const param = room.params.numCorrect;
-
-//   /* handle percentage string */
-//   const isNumber = typeof param === "number";
-//   const numCorrect = isNumber ? param : Number(param.slice(0, -1)) / 100;
-
-//   if (numCorrect >= 1) {
-//     return rightAnswers.length >= numCorrect;
-//   } else {
-//     const maxNumCorrect = Math.ceil(numCorrect * room.users.length);
-//     return rightAnswers.length >= maxNumCorrect;
-//   }
-// }
-
 function recordAndAward(user, room, { correct, difficulty, questionIndex }) {
-  // const enoughCorrect = room.params.numCorrect && checkEnoughCorrect(room);
 
-  // console.log('enoughCorrect in recordAndAward', enoughCorrect);
-  /* award points */
-  const points = POINTS_SYSTEM[difficulty.toLowerCase()];
-  // TODO: should not be penalising late correct
-  // const pointsEarned = correct && !enoughCorrect ? points : POINT_PENALTY;
-  const pointsEarned = correct ? points : POINT_PENALTY;
-  user.score += pointsEarned;
+  /* if question answered is for the current question */
+  if (questionIndex - 1 === room.status.currentQ) {
 
-  /* create and save record */
-  const answer = {
-    userId: user.id,
-    qIndex: questionIndex - 1,
-    name: user.name,
-    score: user.score,
-    pointsEarned,
-    correctAnswer: correct,
-  };
-  room.status.answers.push(answer);
+    const points = POINTS_SYSTEM[difficulty.toLowerCase()];
+    // TODO: should not be penalizing late correct
+    // const pointsEarned = correct && !enoughCorrect ? points : POINT_PENALTY;
+    const pointsEarned = correct ? points : POINT_PENALTY;
+    user.score += pointsEarned;
+
+    /* create and save record */
+    const answer = {
+      userId: user.id,
+      qIndex: questionIndex - 1,
+      name: user.name,
+      score: user.score,
+      pointsEarned,
+      correctAnswer: correct,
+    };
+    
+    room.status.answers.push(answer);
+
+    console.log(
+      ` ${user.name} picked ${correct ? "right" : "wrong"} for ${
+        room.status.currentQ
+      } / ${answer.questionIndex - 1}`
+    );
+  } else {
+    console.log(`${user.name} was too late, they would've been ${correct ? "right" : "wrong"}.`);
+  }
 }
 
 function weShouldMoveOn(room) {
-  /* if the numCorrect param has been set, do the check */
-  // const enoughCorrectNow = room.params.numCorrect && checkEnoughCorrect(room);
 
   /* determine if everyone has answered and we should move on */
   const allAnswered = room.status.answers.length === room.users.length;
 
-  // console.log(room.params, checkEnoughCorrect(room));
-  // console.log(room.status.answers.length, room.users.length);
-
   if (allAnswered) {
     console.log(`Moving on for ${room.roomId} because everybody answered`);
   }
-  // return allAnswered || enoughCorrectNow;
   return allAnswered;
 }
 
