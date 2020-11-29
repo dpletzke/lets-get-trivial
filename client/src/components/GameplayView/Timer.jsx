@@ -12,9 +12,9 @@ const renderTime = ({ remainingTime }) => {
 
   return (
     <div className="timer">
-      <div className="timer-text">Remaining</div>
+      {/* <div className="timer-text">Remaining</div> */}
       <div className="value">{remainingTime}</div>
-      <div className="timer-text">seconds</div>
+      {/* <div className="timer-text">seconds</div> */}
     </div>
   );
 };
