@@ -28,16 +28,16 @@ function PublicGames({setGameId, closeModal}) {
   });
 
   return (
-    <div className="game-id-container">
+    <div className="publicGame__box">
       <h2>
         <FaUsers className="user-icon" /> Public Games
       </h2>
       <h3>Copy a game code and join a room!</h3>
-      <div className="category-heading">
+      {/* <div className="category-heading">
         <p>Host Name</p>
         <p># of Players </p>
         <p>Game ID</p>
-      </div>
+      </div> */}
       {output}
     </div>
   );

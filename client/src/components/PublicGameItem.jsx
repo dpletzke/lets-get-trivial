@@ -1,4 +1,6 @@
 import "./PublicGameItem.scss";
+import Button from '../components/Button';
+import {FaUser} from 'react-icons/fa';
 
 function PublicGameItem(props) {
   console.log(props);
@@ -10,11 +12,12 @@ function PublicGameItem(props) {
   }
   return (
     <div className="game-id-container">
-      <div>
         <p>{hostName}</p>
+  <Button onClick={() => clickHandler(roomId)} home>{roomId}</Button>
+        <div className="box__users">
+        <FaUser className="icon__small"/>
         <p> {numUsers}</p>
-        <p className="game-id" onClick={() => clickHandler(roomId)}> {roomId}</p>
-      </div>
+        </div>
     </div>
   );
 }

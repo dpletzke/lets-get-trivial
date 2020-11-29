@@ -1,6 +1,6 @@
 @import "../styles/variables.scss";
 
-.game-id-container {
+.publicGame__box {
   display: flex;
   flex-direction: column;
   margin: 0.2rem auto;
@@ -33,7 +33,7 @@
 }
 
 @media only screen and (min-width: 520px) {
-  .game-id-container {
+  .publicGame__box {
     .category-heading {
       display: flex;
     }
