@@ -1,4 +1,6 @@
+import Button from './Button';
 import "./GameRules.scss";
+
 
 function GameRules() {
   return (
@@ -72,6 +74,7 @@ function GameRules() {
             </li>
           </ul>
         </div>
+ 
 
         <div className="customizeable_game_settings">
           <h3 className="text-bright">Customizable Game Settings</h3>
@@ -116,15 +119,26 @@ function GameRules() {
             </li>
           </ul>
         </div>
-        <div className="scoring">
+               <div className="contribute">
+          <h3 className="text-bright">Contribute Questions</h3>
+          <ul className="dev">
+            <li className="centered">
+             This app draws questions from the Open Trivia Database.
+            </li>
+            <li className="centered">
+              <a href="https://opentdb.com/login.php">
+              <Button home>Contribute a Question</Button>
+
+              </a>
+              </li>
+          </ul>
+        </div>
+        <div className="credits">
           <h3 className="text-bright">Developer Credits</h3>
           <ul className="dev">
             <li className="centered">
               Game designed and built by <strong>Daniel Pletzke</strong>,{" "}
               <strong>Soren Nissen</strong>, and <strong>Sebastian Kann</strong>
-            </li>
-            <li className="centered">
-              Trivia questions from 'Opentdb' Trivia Api.
             </li>
             <li className="centered">All Rights Reserved &copy;2020 </li>
           </ul>

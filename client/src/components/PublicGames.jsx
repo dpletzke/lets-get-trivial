@@ -29,10 +29,11 @@ function PublicGames({setGameId, closeModal}) {
 
   return (
     <div className="publicGame__box">
-      <h2>
+      <h2 className="heading__primary">
         <FaUsers className="user-icon" /> Public Games
       </h2>
-      <h3>Copy a game code and join a room!</h3>
+      <h3 className="heading__seconday">Click to access the game ID!</h3>
+      <h4 className="heading__tertiary">Then enter your name and join the game room</h4>
       {/* <div className="category-heading">
         <p>Host Name</p>
         <p># of Players </p>

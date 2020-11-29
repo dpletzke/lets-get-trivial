@@ -43,4 +43,15 @@
     cursor: pointer;
     background-color: $color-primary-text;
   }
+
+  .btn--publicGames {
+    border: 1px $primary-dark solid;
+    background-color: $color-secondary-background;
+    color: $primary-dark;
+    &:hover {
+      cursor: pointer;
+
+      background-color: $text-primary;
+    }
+  }
 }

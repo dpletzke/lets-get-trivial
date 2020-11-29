@@ -6,28 +6,31 @@
   margin: 0.2rem auto;
   background-color: white;
   // width: $modal-width;
-  width: 98%;
+  width: 100%;
   max-width: $max-width;
   display: flex;
-  flex-direction: column-reverse;
-  justify-content: flex-start;
-  align-items: space-between;
+  justify-content: space-around;
+  align-items: center;
   .box__users {
     display: flex;
     flex-direction: row;
     justify-content: center;
     align-items: center;
-    width: 100%;
+    p {
+      margin: 0;
+    }
+  }
+  button.btn.btn--publicGames {
+    width: $btn-width;
+    max-width: 50%;
+    align-self: center;
+    border: 1px solid $primary-dark;
+    margin: 1em 0.5em;
   }
 }
 
 @media only screen and (min-width: 520px) {
-  .game-id-container div {
-    flex-direction: row;
-    justify-content: space-between;
-    align-items: center;
-    p:first-child {
-      margin-left: $small-spacer;
-    }
+  .game-id-container .box__users {
+    font-size: $font-regular;
   }
 }

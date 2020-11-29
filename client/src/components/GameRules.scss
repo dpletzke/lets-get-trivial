@@ -56,7 +56,9 @@
 .info-heading,
 .game_type--type,
 .scoring,
-.customizeable_game_settings {
+.customizeable_game_settings,
+.contribute,
+.credits {
   border-radius: $border-radius;
   margin-bottom: 2rem;
   border: 1px solid $color-black;
@@ -65,11 +67,7 @@
     list-style-type: none;
     font-family: $RegularFont;
     line-height: 1rem;
-    padding-left: none;
   }
-}
-.dev {
-  padding: 1rem;
 }
 
 .centered {
@@ -86,7 +84,17 @@ li {
   margin-left: -$small-spacer;
 }
 
-@media only screen and (min-width: 500px) {
+.credits,
+.contribute {
+  ul.dev {
+    padding-left: 0;
+    li {
+      margin-left: 0;
+    }
+  }
+}
+
+@media only screen and (min-width: 520px) {
   h2 {
     font-size: $font-large;
   }

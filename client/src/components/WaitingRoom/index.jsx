@@ -10,6 +10,7 @@ import GameRules from "../GameRules";
 
 import ModalComponent from "../Modal";
 import { FaCog, FaQuestion } from "react-icons/fa";
+import { ImExit } from "react-icons/im";
 
 import ConnectionContext from "../../ConnectionContext";
 
@@ -19,7 +20,7 @@ import useModal from "../../hooks/useModal";
 const { settings, defaults } = require("../../config/settings");
 
 function WaitingRoom(props) {
-  const { players, gameId } = props;
+  const { players, gameId, onLeave } = props;
   const [audioOn, setAudioOn] = useState(false);
   const connection = useContext(ConnectionContext);
 
@@ -45,10 +46,13 @@ function WaitingRoom(props) {
       return (
         <main className="box-waiting">
           <div className="box-waiting--content">
-            <div className="waiting-header">
-              <FaQuestion className="icon" onClick={() => openModal("rules")} />
-              <FaCog className="icon" onClick={() => openModal("config")} />
-            </div>
+            <header className="waiting-header">
+              <ImExit className="icon" onClick={() => onLeave()} />
+              <div>
+                <FaQuestion className="icon" onClick={() => openModal("rules")} />
+                <FaCog className="icon" onClick={() => openModal("config")} />
+              </div>
+            </header>
             <h1 className="box-waiting--header">Let's Get Trivial</h1>
             <PlayerListItem className="alt-text" name={gameId} gameIdItem />
             <Button onClick={startGame} gameRoom>
