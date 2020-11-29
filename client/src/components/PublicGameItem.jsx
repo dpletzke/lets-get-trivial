@@ -12,8 +12,7 @@ function PublicGameItem(props) {
   }
   return (
     <div className="game-id-container">
-        <p>{hostName}</p>
-  <Button onClick={() => clickHandler(roomId)} home>{roomId}</Button>
+  <Button onClick={() => clickHandler(roomId)} publicGames>{hostName}</Button>
         <div className="box__users">
         <FaUser className="icon__small"/>
         <p> {numUsers}</p>
