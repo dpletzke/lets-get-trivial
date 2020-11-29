@@ -16,6 +16,15 @@
     .small-text {
       color: $text-primary;
       font-size: 1rem;
+      font-weight: 300;
+    }
+    p {
+      p {
+        padding-left: 1rem;
+        font-family: $FancyFont;
+        color: $text-primary;
+        font-weight: 300;
+      }
     }
   }
 

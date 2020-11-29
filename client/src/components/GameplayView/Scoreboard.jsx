@@ -34,13 +34,13 @@ function ScoreBoard({ players, time, view, audioOn }) {
     "gamePlay--visible": view === "SCORE",
   });
 
-  const themeSong = () => {
+  const scoreAlert = () => {
     scoreSong.play();
   };
 
   useEffect(() => {
     if (audioOn) {
-      themeSong();
+      scoreAlert();
     }
   }, []);
 
