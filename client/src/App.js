@@ -64,20 +64,14 @@ function App() {
   const onLeave = () => {
     setState((prev) => ({ ...prev, roomId: null }));
 
-    connection.current.emit('leave_room');
+    connection.current.emit("leave_room");
   };
 
   const controller = (state) => {
     const { roomId, name, users } = state;
-<<<<<<< HEAD
 
     if (roomId) {
-      return <WaitingRoom players={users} gameId={roomId} />;
-=======
-    
-    if(roomId) {
-      return (<WaitingRoom players={users} gameId={roomId} onLeave={onLeave} />)
->>>>>>> master
+      return <WaitingRoom players={users} gameId={roomId} onLeave={onLeave} />;
     } else {
       return <Home onJoin={onJoin} onCreate={onCreate} name={name} />;
     }
