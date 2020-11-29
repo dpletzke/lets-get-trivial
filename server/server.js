@@ -147,21 +147,38 @@ io.on("connection", (socket) => {
     }
   };
 
-  socket.on("disconnect", () => {
-    ds.destroyUser(socket.id);
+  const handleLeaveRoom = (userId, room) => {
+
+    ds.removeUserFromRoom(userId, room);
+    const users = ds.getUsersInRoom(room);
+
+    io.in(room.roomId).emit("user_disconnected", { users });
+
+    if (!room.users.length) {
+      ds.destroyRoom(room.roomId);
+    }
+
+    handlePublicRoomInfoUpdate(room.isPublic);
+  };
+
+  socket.on("leave_room", () => {
     const room = ds.getRoomFromUserId(socket.id);
 
     if (room) {
-      ds.removeUserFromRoom(socket.id, room);
-      const users = ds.getUsersInRoom(room);
+      handleLeaveRoom(socket.id, room);
+    } else {
+      console.log('User somehow left room when they werent in one');
+    }
+    
+  });
 
-      io.in(room.roomId).emit("user_disconnected", { users });
+  socket.on("disconnect", () => {
+    const room = ds.getRoomFromUserId(socket.id);
 
-      if (!room.users.length) {
-        ds.destroyRoom(room.roomId);
-      }
+    ds.destroyUser(socket.id);
 
-      handlePublicRoomInfoUpdate(room.isPublic);
+    if (room) {
+      handleLeaveRoom(socket.id, room);
     }
   });
 });
