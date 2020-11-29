@@ -4,7 +4,7 @@ import PublicGameItem from "./PublicGameItem";
 import { FaUsers } from "react-icons/fa";
 import "./PublicGames.scss";
 
-function PublicGames() {
+function PublicGames({setGameId, closeModal}) {
   const [publicGames, setPublicGames] = useState([]);
 
   const connection = useContext(ConnectionContext);
@@ -24,7 +24,7 @@ function PublicGames() {
   }, [connection]);
 
   const output = publicGames.map((publicGame) => {
-    return <PublicGameItem {...publicGame} />;
+    return <PublicGameItem {...publicGame} setGameId={setGameId} closeModal={closeModal}/>;
   });
 
   return (
