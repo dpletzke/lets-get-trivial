@@ -118,7 +118,7 @@ function Home(props) {
         modalIsOpen={publicModalIsOpen}
         closeModal={() => closeModal("public")}
       >
-        <PublicGames />
+        <PublicGames setGameId={setGameId} closeModal={()=>closeModal("public")}/>
       </ModalComponent>
     </main>
   );

@@ -32,11 +32,12 @@
   .icon {
     font-size: $font-regular;
     color: $color-secondary-background;
-    transition: color 0.2s ease-in;
+    transition: all 0.2s ease-in;
     margin: $small-spacer $small-spacer;
     &:hover {
       color: $color-primary-text;
       cursor: pointer;
+      transform: scale(1.2);
     }
   }
 

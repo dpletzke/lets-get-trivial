@@ -8,27 +8,16 @@
   // width: $modal-width;
   width: 98%;
   max-width: $max-width;
-
-  div {
+  display: flex;
+  flex-direction: column-reverse;
+  justify-content: flex-start;
+  align-items: space-between;
+  .box__users {
     display: flex;
-    flex-direction: column;
-    justify-content: flex-start;
-    align-items: space-between;
-    width: 90%;
-
-    p {
-      margin-top: 0;
-      font-family: $FancyFont;
-      font-size: $font-mobile;
-      color: $color-primary-background;
-    }
-    p:first-child {
-      margin-left: 0;
-    }
-    p:last-child {
-      font-size: $font-regular;
-      margin-top: 0;
-    }
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
   }
 }
 
