@@ -9,7 +9,7 @@
   border-radius: $border-radius;
   font-family: $RegularFont;
   font-size: $font-mobile;
-  font-weight: 600;
+  font-weight: 500;
   .icon__correct,
   .icon__incorrect {
     color: $color-transparent;
@@ -84,6 +84,8 @@
     font-size: $font-mobile;
     color: $primary-dark;
     padding: 0 0.2em;
+    // margin: auto;
+    margin: 1rem;
   }
 }
 
@@ -93,5 +95,18 @@
     p {
       font-size: $font-regular;
     }
+  }
+}
+@media only screen and (min-width: 768px) {
+  .panel__answer {
+    width: 400px;
+    max-width: 90%;
+    p {
+      font-size: $font-regular;
+    }
+  }
+  .panel_question {
+    width: 600px;
+    max-width: 90%;
   }
 }
