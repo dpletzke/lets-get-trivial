@@ -21,3 +21,15 @@
   padding: 1em;
   margin: 1em;
 }
+
+.audio-toggle {
+  padding: 0.5rem;
+  font-size: 2rem;
+  text-align: center;
+  color: $color-primary-background;
+
+  &:hover {
+    color: $text-primary;
+    cursor: pointer;
+  }
+}

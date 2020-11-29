@@ -47,6 +47,7 @@
   font-family: $FancyFont;
   color: $color-primary-background;
   border-bottom: 1px solid #dddddd;
+  margin-left: $xtra-small-spacer;
   &:hover {
     background-color: $color-secondary-background;
     cursor: pointer;
@@ -56,9 +57,9 @@
   }
 }
 
-.menu li a {
-  text-decoration: none;
-  color: #333333;
-  padding: 15px 20px;
-  display: block;
-}
+// .menu li a {
+//   text-decoration: none;
+//   color: #333333;
+//   padding: 15px 20px;
+//   display: block;
+// }

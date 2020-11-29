@@ -1,14 +1,27 @@
-function VictoryString({scoresArray, orderedPlayersArray}) {
-  const highScore = scoresArray[0];
+import './VictoryString.scss';
 
-  const winnersArray = orderedPlayersArray.filter((playerObj) => 
-    playerObj.score === highScore
-  )
-  .map((playerObj) => playerObj.name);
+function VictoryString({winners, highScore}) {
 
+  console.log(winners.length);
+  const digestWinners = (winners) => {
+    if (winners.length === 2) {
+      return winners.join(' and ')
+    } else if (winners.length > 2 ) {
+      const lastWinner = winners[winners.length -1]
+      const otherWinners = winners.slice(0, winners.length-1)
+      return `${otherWinners.join(', ')}, and ${lastWinner}`
+    }
+  }
+
+  const winnersString = digestWinners(winners);
+  console.log(winners);
 
   return (
-  <h1>{winnersArray}</h1>
+    <>
+      {winners.length === 1 && <h1 className="large">{winners[0]} wins!!</h1>}
+    {winners.length === 2 && <h1 className="medium">{winnersString} win!!</h1>}
+    {winners.length > 2 && <h1 className="small">{winnersString} win!!</h1>}
+    </>
   );
 }
 

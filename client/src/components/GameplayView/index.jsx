@@ -6,17 +6,12 @@ import Scoreboard from "./Scoreboard";
 import StartGame from "./StartGame";
 import useVisualMode from "../../hooks/useVisualMode";
 
-const {SHOW_SCOREBOARD} = require('../../config/settings')
+// const { SHOW_SCOREBOARD } = require("../../config/settings");
+import { SCOREBOARD_LAG, STARTPAGE_LAG } from "../../constants";
+// import { STARTPAGE_LAG } from "../../../../server/constants";
 
 function GameplayView(props) {
-  const {
-    questions,
-    params,
-    currentQ,
-    players,
-    view,
-    setView,
-  } = props;
+  const { questions, params, currentQ, players, view, audioOn } = props;
 
   const { timeLimit } = params;
   // console.log("Params", params)
@@ -37,24 +32,33 @@ function GameplayView(props) {
   };
 
   if (view === STARTING) {
-    return <StartGame />;
+    return <StartGame time={STARTPAGE_LAG * 0.001} audioOn={audioOn} />;
   }
 
   if (view === QUESTION) {
-    return <ActiveQuestion {...passProps} />;
+    return <ActiveQuestion {...passProps} audioOn={audioOn} />;
   }
 
   if (view === SCORE) {
-    return <Scoreboard time={SHOW_SCOREBOARD} view={view} players={players} />;
+    return (
+      <Scoreboard
+        time={SCOREBOARD_LAG * 0.001}
+        view={view}
+        players={players}
+        audioOn={audioOn}
+      />
+    );
   }
-  //For Testing CSS on Score Page --> comment this in and above two views out
-  // if (view === QUESTION) {
-  //   return <Scoreboard players={players} />;
-  // }
+
   if (view === FINISHED) {
-    
-      return <Scoreboard time={SHOW_SCOREBOARD} view={view} players={players} />;
-    
+    return (
+      <Scoreboard
+        time={SCOREBOARD_LAG * 0.001}
+        view={view}
+        players={players}
+        audioOn={audioOn}
+      />
+    );
   }
   return <h1>None of the above</h1>;
 }
