@@ -72,6 +72,10 @@
 
 .centered {
   text-align: center;
+  &_small {
+    text-align: center;
+    font-size: 0.8rem;
+  }
 }
 
 .indent {
