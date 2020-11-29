@@ -24,10 +24,18 @@
   }
 
   .category-heading {
-    display: flex;
+    display: none;
     justify-content: space-evenly;
     border: none;
     padding: 0;
     margin: 0;
+  }
+}
+
+@media only screen and (min-width: 520px) {
+  .game-id-container {
+    .category-heading {
+      display: flex;
+    }
   }
 }
