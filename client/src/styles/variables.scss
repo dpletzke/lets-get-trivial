@@ -16,16 +16,28 @@ $color-primary-text: #f4a261;
 $color-secondary-text: #2a9d8f;
 $color-primary-button-background: #e76f51;
 $color-secondary-button-background: #2a9d8f;
-$color-black: rgba(5, 6, 52, 1);
+// $color-black: rgba(5, 6, 52, 1);
+
+$color-black: rgb(25, 5, 52);
+// $color-black: rgb(34, 18, 33);
+// $color-purple: rgb(46, 23, 42);
+
+$color-purple: rgb(42, 8, 85);
 $color-transparent: rgba(0, 0, 0, 0);
 $gradient-background: radial-gradient(
   circle,
-  rgba(5, 6, 52, 1) 0%,
-  rgba(22, 1, 93, 1) 100%
+  $color-black 0%,
+  $color-purple 100%
 );
+// $gradient-background: radial-gradient(
+//   circle,
+//   rgba(5, 6, 52, 1) 0%,
+//   rgba(22, 1, 93, 1) 100%
+// );
 //Trial Colors - Match home page
 $text-primary: #f4a261;
-$primary-dark: #1f203e;
+// $primary-dark: #1f203e;
+$primary-dark: rgb(25, 5, 52);
 $bg-correct: #86d5bd;
 $bg-wrong: #d98781;
 $primary-light: #fbf9fb;

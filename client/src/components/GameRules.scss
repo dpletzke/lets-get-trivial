@@ -61,7 +61,8 @@
 .credits {
   border-radius: $border-radius;
   margin-bottom: 2rem;
-  border: 1px solid $color-black;
+  // border: 1px solid $color-black;
+  border: 1px solid $primary-dark;
   padding: 0 $xtra-small-spacer;
   ul {
     list-style-type: none;
@@ -94,6 +95,9 @@ li {
     padding-left: 0;
     li {
       margin-left: 0;
+      a {
+        text-decoration: none;
+      }
     }
   }
 }
