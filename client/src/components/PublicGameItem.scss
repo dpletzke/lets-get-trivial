@@ -5,34 +5,36 @@
   border-radius: 1em;
   margin: 0.2rem auto;
   background-color: white;
-  width: 90%;
+  width: $modal-width;
+  max-width: $max-width;
 
   div {
     display: flex;
-    justify-content: space-between;
+    flex-direction: column;
+    justify-content: flex-start;
     align-items: space-between;
+    width: 90%;
 
     p {
-      padding: 0.4rem;
+      margin-top: 0;
       font-family: $FancyFont;
-      font-size: 0.6rem;
+      font-size: $font-mobile;
       color: $color-primary-background;
     }
-
-    .game-id {
-      margin: auto 0.2rem;
-      font-size: 0.8rem;
+    p:first-child {
+      margin-left: $small-spacer;
+    }
+    p:last-child {
+      font-size: $font-regular;
+      margin-top: 0;
     }
   }
 }
 
-// @media only screen and (min-width: 500px) {
-//   .player-container {
-//     .list-item-text {
-//       font-size: 1.2rem;
-//     }
-//     .id-text {
-//       font-size: 1.5rem;
-//     }
-//   }
-// }
+@media only screen and (min-width: 520px) {
+  .game-id-container div {
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+  }
+}
