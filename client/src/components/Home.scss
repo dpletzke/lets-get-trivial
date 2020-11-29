@@ -98,6 +98,10 @@ p {
   color: $color-secondary-background;
   transition: color 0.2s ease-in;
   margin: $small-spacer $small-spacer auto auto;
+  // &:hover {
+  //   color: $color-primary-text;
+  //   cursor: pointer;
+  // }
   &__public {
     margin: $small-spacer 0 0 0;
   }
@@ -109,9 +113,11 @@ p {
 
 .icon,
 .icon__public {
+  transition: all 0.2s ease-in;
   &:hover {
     color: $color-primary-text;
     cursor: pointer;
+    transform: scale(1.2);
   }
 }
 
