@@ -12,6 +12,7 @@ function Button(props) {
   const btnClass = classNames("btn", {
     "btn--home": props.home,
     "btn--game-room": props.gameRoom,
+    "btn--publicGames": props.publicGames,
   });
 
   const askForCategories = () => {
