@@ -46,11 +46,13 @@ function WaitingRoom(props) {
       return (
         <main className="box-waiting">
           <div className="box-waiting--content">
-            <div className="waiting-header">
+            <header className="waiting-header">
               <ImExit className="icon" onClick={() => onLeave()} />
-              <FaQuestion className="icon" onClick={() => openModal("rules")} />
-              <FaCog className="icon" onClick={() => openModal("config")} />
-            </div>
+              <div>
+                <FaQuestion className="icon" onClick={() => openModal("rules")} />
+                <FaCog className="icon" onClick={() => openModal("config")} />
+              </div>
+            </header>
             <h1 className="box-waiting--header">Let's Get Trivial</h1>
             <PlayerListItem className="alt-text" name={gameId} gameIdItem />
             <Button onClick={startGame} gameRoom>
