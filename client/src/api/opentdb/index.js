@@ -27,7 +27,7 @@ const getSessionToken = async function (token) {
     console.log(`Requesting a new token!`);
     url += "request";
   } else {
-    console.log("Out of questions, resetting token!");
+    console.log("Resetting token!");
     url += `reset&token=${token}`;
   }
   const { data } = await axios.get(url);

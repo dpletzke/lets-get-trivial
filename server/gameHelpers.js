@@ -6,12 +6,10 @@ const { POINTS_SYSTEM, POINT_PENALTY } = require("./constants");
 
 async function gatherAndSetGameInfo(room, params) {
   if (!room.token) {
-    console.log("starting getting session Token");
     const tokenRes = await getSessionToken();
     room.token = tokenRes.token;
   }
   room.params = params;
-  console.log("starting getting questions");
   /* request questions with token and params and add to room */
   const questionsRes = await getQuestions(params, room.token);
   room.questions = questionsRes.results;

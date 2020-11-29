@@ -64,22 +64,28 @@ io.on("connection", (socket) => {
     const { params } = data;
     const room = ds.getRoomFromUserId(socket.id);
 
-    console.log("starting info gathering");
     const gameParamsAndQuestions = await gh.gatherAndSetGameInfo(room, params);
-    /* log rooms the socket is in to server, should just be one */
-    console.log(`Server starting ${Object.values(socket.rooms)[1]} with:`);
-    console.log(`${JSON.stringify(params)}`);
-    console.log("Start game at:", new Date().getSeconds());
-    console.log("");
-
+    
+    
     handlePublicRoomInfoUpdate(room.isPublic);
-
+    
     io.in(room.roomId).emit("game_started", gameParamsAndQuestions);
+    
+    if (gameParamsAndQuestions.questions.length) {
 
-    room.timer = setTimeout(() => {
-      console.log("moving on because time ran out");
-      handleMoveOn(room);
-    }, room.params.timeLimit * 1000 + STARTPAGE_LAG);
+      /* log rooms the socket is in to server, should just be one */
+      console.log(`Server starting ${Object.values(socket.rooms)[1]} with:`);
+      console.log(`${JSON.stringify(params)}`);
+      console.log("");
+
+      room.timer = setTimeout(() => {
+        console.log("moving on because time ran out");
+        handleMoveOn(room);
+      }, room.params.timeLimit * 1000 + STARTPAGE_LAG);
+    } else {
+      console.log('Oops, the API request was empty');
+    }
+
   });
 
   socket.on("picked_answer", (answer) => {
@@ -132,6 +138,7 @@ io.on("connection", (socket) => {
 
       room.status.currentQ = null;
       room.status.started = false;
+      room.questions = [];
 
       clearTimeout(room.timer);
       room.timer = null;
