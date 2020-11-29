@@ -5,7 +5,8 @@
   border-radius: 1em;
   margin: 0.2rem auto;
   background-color: white;
-  width: $modal-width;
+  // width: $modal-width;
+  width: 98%;
   max-width: $max-width;
 
   div {
@@ -22,7 +23,7 @@
       color: $color-primary-background;
     }
     p:first-child {
-      margin-left: $small-spacer;
+      margin-left: 0;
     }
     p:last-child {
       font-size: $font-regular;
@@ -36,5 +37,8 @@
     flex-direction: row;
     justify-content: space-between;
     align-items: center;
+    p:first-child {
+      margin-left: $small-spacer;
+    }
   }
 }
