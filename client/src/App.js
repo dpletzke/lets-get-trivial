@@ -3,19 +3,18 @@ import { ConnectionProvider } from "./ConnectionContext";
 import Home from "./components/Home";
 import WaitingRoom from "./components/WaitingRoom";
 
-import "./App.css";
+// import "./App.css";
 import socketIOClient from "socket.io-client";
 
 const PORT = process.env.PORT || 8080;
 
 let ENDPOINT;
 const hostname = window && window.location && window.location.hostname;
-if(hostname === 'lets-get-trivial-game.herokuapp.com') {
-  ENDPOINT = 'https://lets-get-trivial-server.herokuapp.com/';
+if (hostname === "lets-get-trivial-game.herokuapp.com") {
+  ENDPOINT = "https://lets-get-trivial-server.herokuapp.com/";
 } else {
   ENDPOINT = `http://localhost:${PORT}`;
 }
-
 
 function App() {
   const initialState = {
@@ -64,9 +63,9 @@ function App() {
 
   const controller = (state) => {
     const { roomId, name, users } = state;
-    
-    if(roomId) {
-      return (<WaitingRoom players={users} gameId={roomId} />)
+
+    if (roomId) {
+      return <WaitingRoom players={users} gameId={roomId} />;
     } else {
       return <Home onJoin={onJoin} onCreate={onCreate} name={name} />;
     }
