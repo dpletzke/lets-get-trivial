@@ -79,11 +79,11 @@ io.on("connection", (socket) => {
       console.log("");
 
       room.timer = setTimeout(() => {
-        console.log("moving on because time ran out");
+        console.log("Moving on because time ran out.");
         handleMoveOn(room);
       }, room.params.timeLimit * 1000 + STARTPAGE_LAG);
     } else {
-      console.log('Oops, the API request was empty');
+      console.log('Oops, the API request was empty.');
     }
 
   });
@@ -94,7 +94,9 @@ io.on("connection", (socket) => {
 
     gh.recordAndAward(user, room, answer);
 
-    if (gh.weShouldMoveOn(room)) {
+    if (room.status.answers.length === room.users.length) {
+
+      console.log(`Moving on for ${room.roomId} because everybody answered`);
       handleMoveOn(room);
     }
   });
@@ -108,10 +110,9 @@ io.on("connection", (socket) => {
     /* reset answers */
     room.status.answers = [];
 
+    //if next question exists move to next question
     const nextQuestion = room.questions[room.status.currentQ + 1];
-
     if (nextQuestion) {
-      //if next question exists move to next question
 
       room.status.currentQ = room.status.currentQ + 1;
 

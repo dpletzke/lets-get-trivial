@@ -27,8 +27,6 @@ function recordAndAward(user, room, { correct, difficulty, questionIndex }) {
   if (questionIndex - 1 === room.status.currentQ) {
 
     const points = POINTS_SYSTEM[difficulty.toLowerCase()];
-    // TODO: should not be penalizing late correct
-    // const pointsEarned = correct && !enoughCorrect ? points : POINT_PENALTY;
     const pointsEarned = correct ? points : POINT_PENALTY;
     user.score += pointsEarned;
 
@@ -45,24 +43,10 @@ function recordAndAward(user, room, { correct, difficulty, questionIndex }) {
     room.status.answers.push(answer);
 
     console.log(
-      ` ${user.name} picked ${correct ? "right" : "wrong"} for ${
-        room.status.currentQ
-      } / ${answer.questionIndex - 1}`
-    );
+      ` ${user.name} picked ${correct ? "right" : "wrong"} for ${answer.qIndex}`);
   } else {
     console.log(`${user.name} was too late, they would've been ${correct ? "right" : "wrong"}.`);
   }
 }
 
-function weShouldMoveOn(room) {
-
-  /* determine if everyone has answered and we should move on */
-  const allAnswered = room.status.answers.length === room.users.length;
-
-  if (allAnswered) {
-    console.log(`Moving on for ${room.roomId} because everybody answered`);
-  }
-  return allAnswered;
-}
-
-module.exports = { gatherAndSetGameInfo, recordAndAward, weShouldMoveOn };
+module.exports = { gatherAndSetGameInfo, recordAndAward };

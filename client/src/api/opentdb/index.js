@@ -40,7 +40,7 @@ const getQuestions = async (params, token) => {
 
   // if the token is invalid...reset that thing! Would be better if it could be recursive but I can't figure out how to call functions from within this object (this.getQuestions is not working)
   if (data.response_code === 2) {
-    console.log("there were not enough questions for that category");
+    console.log("There were not enough questions for that category.");
   }
   // no need to communicate a new token to the state here, we're
   // just reactivating the original token

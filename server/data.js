@@ -4,14 +4,11 @@ const rooms = {};
 const users = {};
 
 function createUser({ socket, name, score }) {
-  if (!socket) throw new Error("tried to create user without a socket");
-  if (!name) name = "";
-  if (!score) score = 0;
 
   const user = {
     id: socket.id,
-    name,
-    score,
+    name: "",
+    score: 0,
   };
 
   users[socket.id] = user;
@@ -29,7 +26,7 @@ function createRoom({ roomId, hostId, isPublic }) {
     users: [],
     status: {
       started: false,
-      //answers: each { name, score, pointsEarned, correctAnswer }
+      //answers: each { name, score, pointsEarned, correctAnswer, qIndex }
       answers: [],
       currentQ: null,
       timer: null,
@@ -39,7 +36,6 @@ function createRoom({ roomId, hostId, isPublic }) {
       timeLimit: null,
       numQuestions: null,
       categoryId: null,
-      type: null,
       difficulty: null
     },
   };
@@ -56,12 +52,17 @@ function getRoomFromUserId(userId) {
 }
 
 function getAllPublicNonStartedGames() {
+
   return Object.values(rooms).filter(r => {
+
     return r.isPublic && !r.started;
+
   }).map((r) => {
+
     let hostName = 'No host name found';
-    if (users[r.hostId]) hostName = users[r.hostId].name; 
+    if (users[r.hostId]) hostName = users[r.hostId].name;
     return { roomId: r.roomId, hostName, numUsers: r.users.length };
+
   });
 }
 
@@ -78,7 +79,6 @@ function generateScoreboard(room) {
   });
 
   const scoreboard = [...room.status.answers, ...playersWhoDidntAnswer];
-  console.log(scoreboard);
   return scoreboard;
 }
 
