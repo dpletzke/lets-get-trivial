@@ -40,6 +40,10 @@ function WaitingRoom(props) {
     audioOn ? setAudioOn(false) : setAudioOn(true);
   };
 
+  const leaveRoom = () => {
+
+  }
+
   const controller = (game) => {
     if (!game.started) {
       return (
