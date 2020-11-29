@@ -6,10 +6,20 @@ import "./Question.scss";
 
 import ConnectionContext from "../../ConnectionContext";
 
+const shuffle = function (array){
+  let i = array.length, j, temp;
+  if ( i === 0 ) return;
+  while ( --i ) {
+      j = Math.floor( Math.random() * ( i + 1 ) );
+      temp = array[i];
+      array[i] = array[j];
+      array[j] = temp;
+  }
+};
+
 // move this into a helper file at some point? It's just changing the data structure to fit better with our component architecture
 const digestQuestionObj = (questionObject) => {
-  return {
-    // questionIndex: questionObject.questionIndex,
+  const question = {
     question: [{ questionString: questionObject.question }],
 
     answers: [
@@ -23,8 +33,10 @@ const digestQuestionObj = (questionObject) => {
         correct: true,
         selected: false,
       },
-    ].sort(() => Math.random() - 0.5),
+    ],
   };
+  shuffle(question.answers);
+  return question
 };
 
 function ActiveQuestion({ questionObj, questionIndex, timeLimit }) {
