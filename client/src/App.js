@@ -62,11 +62,17 @@ function App() {
     connection.current.emit("join_room", name, roomId, isPublic);
   };
 
+  const onLeave = () => {
+    setState((prev) => ({ ...prev, roomId: null }));
+
+    connection.current.emit('leave_room');
+  };
+
   const controller = (state) => {
     const { roomId, name, users } = state;
     
     if(roomId) {
-      return (<WaitingRoom players={users} gameId={roomId} />)
+      return (<WaitingRoom players={users} gameId={roomId} onLeave={onLeave} />)
     } else {
       return <Home onJoin={onJoin} onCreate={onCreate} name={name} />;
     }

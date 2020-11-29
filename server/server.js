@@ -164,15 +164,17 @@ io.on("connection", (socket) => {
   socket.on("leave_room", () => {
     const room = ds.getRoomFromUserId(socket.id);
 
-    if (!room) console.log('User somehow left room when they werent in one');
-
-    handleLeaveRoom(socket.id, room);
+    if (room) {
+      handleLeaveRoom(socket.id, room);
+    } else {
+      console.log('User somehow left room when they werent in one');
+    }
     
   });
 
   socket.on("disconnect", () => {
     const room = ds.getRoomFromUserId(socket.id);
-    
+
     ds.destroyUser(socket.id);
 
     if (room) {
