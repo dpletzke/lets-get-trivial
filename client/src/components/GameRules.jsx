@@ -140,7 +140,10 @@ function GameRules() {
               Game designed and built by <strong>Daniel Pletzke</strong>,{" "}
               <strong>Soren Nissen</strong>, and <strong>Sebastian Kann</strong>
             </li>
-            <li className="centered">All Rights Reserved &copy;2020 </li>
+            <li className="centered_small">
+              Fonts are 'Audiowide' by Astigmatic and 'Palanquin' by Pria Ravichandran.
+            </li>
+            <li className="centered_small">All Rights Reserved &copy;2020 </li>
           </ul>
         </div>
       </div>
