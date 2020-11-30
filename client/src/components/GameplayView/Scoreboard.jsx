@@ -1,5 +1,5 @@
 import ScoreList from "./ScoreList";
-import { useState, useEffect } from "react";
+import { useEffect } from "react";
 import GameplayHeader from "./GameplayHeader";
 import Loading from "../Loading";
 import VictoryString from "./VictoryString";
@@ -10,9 +10,7 @@ import {
 } from "./scoreHelpers";
 import classNames from "classnames";
 import "./ScoreBoard.scss";
-// import { MdPublic } from "react-icons/md";
 
-//needs to take props players and time (for timer), view (score/question),  optional isPlaying boolean which turns timer on or off
 function ScoreBoard({ players, time, view, audioOn }) {
   const orderedArray = orderByScore(players);
   console.log(orderedArray);
@@ -28,7 +26,7 @@ function ScoreBoard({ players, time, view, audioOn }) {
     .map((playerObj) => playerObj.name);
 
   console.log(winnersArray);
-  //not yet implemented - sound for losing game
+  //not yet implemented below line (sound for losing game)
   // let loserSong = new Audio("/sounds/loseGame.mp3");
   let winnerSong = new Audio("/sounds/winGame.mp3");
   winnerSong.volume = 0.12;
