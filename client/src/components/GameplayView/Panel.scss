@@ -58,7 +58,8 @@
     // transition: background-color 1s ease-in;
     transform: translateY(-$xtra-small-spacer);
     border: 0.5rem #35ce8d solid;
-    box-shadow: 10px 10px 10px black;
+    // box-shadow: 10px 10px 10px black;
+    box-shadow: 10px 10px 10px $primary-dark;
     transition: all 1s ease-in;
     .icon__correct {
       color: #35ce8d;
