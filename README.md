@@ -18,35 +18,22 @@ Lets Get Trivial is built with React. It runs on an Express server and uses Sock
 ## Finished Product
 
 
-<p align='center'>Home</p>
+<p align='center'>Home and Waiting Room</p>
+  <p align="center">
+    <img src="https://github.com/dpletzke/lets-get-trivial/blob/master/DOCS/Home.png?raw=true" height="400">
+    <img src="https://github.com/dpletzke/lets-get-trivial/blob/master/DOCS/Waiting_room.png?raw=true" height="400">
+  </p>
 <p align="center">
-<img src="https://github.com/skendanavian/jungle-app/blob/master/docs/product-home-page.png?raw=true" height="400">
+
 </p>
-<p align='center'>Waiting Room</p>
+<p align='center'>Start Game, Question, Scoreboard, Game Over</p>
 <p align="center">
-<img src="https://github.com/skendanavian/jungle-app/blob/master/docs/shopping-cart.png?raw=true" height="400">
-</p>
-<p align='center'>Start Game</p>
-<p align="center">
-<img src="https://github.com/skendanavian/jungle-app/blob/master/docs/signup-page.png?raw=true" height="400">
-</p>
-<p align='center'>Question</p>
-<p align="center">
-<img src="https://github.com/skendanavian/jungle-app/blob/master/docs/stripe-payment-page.png?raw=true" height="400">
-</p>
-<p align='center'>Scoreboard</p>
-<p align="center">
-<img src="https://github.com/skendanavian/jungle-app/blob/master/docs/order-confirmation-page.png?raw=true" height="400">
+  <img src="https://github.com/dpletzke/lets-get-trivial/blob/master/DOCS/Starting.png?raw=true" height="400">
+  <img src="https://github.com/dpletzke/lets-get-trivial/blob/master/DOCS/Question.png?raw=true" height="400">
+  <img src="https://github.com/dpletzke/lets-get-trivial/blob/master/DOCS/Score.png?raw=true" height="400">
+  <img src="https://github.com/dpletzke/lets-get-trivial/blob/master/DOCS/Finished.png?raw=true" height="400">
 </p>
 
-<p align='center'>Admin Dashboard</p>
-<p align="center">
-<img src="https://github.com/skendanavian/jungle-app/blob/master/docs/admin-dashboard.png?raw=true" height="400">
-</p>
-<p align='center'>Responsive - Mobile Example</p>
-<p align="center">
-<img src="https://github.com/skendanavian/jungle-app/blob/master/docs/responsive-mobile-view.png?raw=true" height="400">
-</p>
 
 
 
