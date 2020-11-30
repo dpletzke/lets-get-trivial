@@ -35,8 +35,11 @@ h2 {
   }
 }
 
-.score-header {
+.scoreboard-header {
+  display: flex;
+  justify-content: center;
   p {
     color: $text-primary;
+    font-size: 1rem;
   }
 }

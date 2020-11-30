@@ -55,7 +55,9 @@ function ScoreBoard({ players, time, view, audioOn }) {
     <div className="page-container">
       <div className="box-scoreboard">
         <div className={gameplayClass}>
-          <GameplayHeader time={time} view="score" />
+          <div className="scoreboard-header">
+            <GameplayHeader time={time} view="score" />
+          </div>
           <h2>Scores</h2>
 
           <p>{scoreString}</p>
