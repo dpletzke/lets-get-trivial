@@ -17,14 +17,7 @@ const settings = [
     optionsList: [15, 20, 30, 40],
     defaultTo: 15,
   },
-  
-  //bonus feature not fully implemented 
-  // {
-  //   label: "Correct Per Round",
-  //   paramsKey: "numCorrect",
-  //   optionsList: [1, 2, "25%", "50%"],
-  //   defaultTo: 1,
-  // },
+
 ];
 
 function generateDefaults(settings) {
