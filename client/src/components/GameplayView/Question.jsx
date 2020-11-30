@@ -52,12 +52,6 @@ function ActiveQuestion({ questionObj, questionIndex, timeLimit, audioOn }) {
     });
   };
 
-  // let winnerSong = new Audio("/sounds/timeUp.mp3");
-  // winnerSong.volume = 0.4;
-  // const victorySong = () => {
-  //   winnerSong.play();
-  // };
-
   useEffect(() => {
     let beep = new Audio("/sounds/timeUp.mp3");
     beep.volume = 0.4;
@@ -80,9 +74,7 @@ function ActiveQuestion({ questionObj, questionIndex, timeLimit, audioOn }) {
         questionIndex={questionIndex}
         view="question"
         time={timeLimit}
-      >
-        {/* <PanelList infoArray={question} /> */}
-      </GameplayHeader>
+      ></GameplayHeader>
       <div className="question-container">
         <PanelList infoArray={question} />
         <PanelList
