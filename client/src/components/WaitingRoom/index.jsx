@@ -1,5 +1,4 @@
 import { useContext, useState } from "react";
-
 import "./index.scss";
 import PlayerList from "./PlayerList";
 import PlayerListItem from "./PlayerListItem";
