@@ -1,4 +1,3 @@
-import { useState } from "react";
 import "./Panel.scss";
 import classNames from "classnames";
 
@@ -8,9 +7,7 @@ const Entities = require("html-entities").AllHtmlEntities;
 
 function Panel(props) {
   const entities = new Entities();
-  // replace answerObj with props
-  // const [correctSelected, setCorrectSelected] = useState(false);
-  // const [incorrectSelected, setIncorrectSelected] = useState(false);
+
   const { id, info, selected, setSelected, somethingSelected, audioOn } = props;
 
   let successSound = new Audio("/sounds/success.mp3");
@@ -25,8 +22,6 @@ function Panel(props) {
     if (audioOn) failureSound.play();
   };
 
-  //pass down checkAnswer
-  // get rid of 'selected' in the data digester in question.jsx
   const { questionString, answerString, correct } = info;
 
   const className = classNames(

@@ -26,39 +26,24 @@
   &:hover {
     cursor: pointer;
     background-color: lighten($color-secondary-background, $amount: 13%);
-    // background-color: lighten($primary-dark, $amount: 70%);
   }
 
   &--selectedFalse {
-    // background-color: lighten(#ee8478, $amount: 5%);
     border: 3px dashed red;
-    // color: $primary-light;
-    // transition: background-color 1s ease-in;
-
-    // transform: translateY(-$xtra-small-spacer);
-    // box-shadow: 10px 10px 10px black;
-
     transition: all 0.5s ease;
-    // animation: 1s ease-in infinite flashRed;
     .icon__incorrect {
       color: red;
       transition: all 1s ease-in;
-      // animation: 2.5s ease-in infinite wiggle;
     }
 
     &:hover {
       color: $primary-light;
-      // background-color: lighten(#f26e5f, $amount: 5%);
     }
   }
 
   &--selectedTrue {
-    // background-color: lighten(#80e7bc, $amount: 10%);
-    // color: $primary-light;
-    // transition: background-color 1s ease-in;
     transform: translateY(-$xtra-small-spacer);
     border: 0.5rem #35ce8d solid;
-    // box-shadow: 10px 10px 10px black;
     box-shadow: 10px 10px 10px $primary-dark;
     transition: all 1s ease-in;
     .icon__correct {
@@ -68,7 +53,6 @@
     }
     &:hover {
       color: $primary-light;
-      //   // background-color: lighten(#35ce8d, $amount: 10%);
     }
   }
   p {
@@ -89,8 +73,6 @@
     font-size: $font-mobile;
     color: $primary-dark;
     margin-bottom: 0.2;
-    // margin: auto;
-    // margin: 1rem;
   }
 }
 

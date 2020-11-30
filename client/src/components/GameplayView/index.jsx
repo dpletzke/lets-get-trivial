@@ -1,22 +1,13 @@
-// import { useState, useEffect } from "react";
-// import { FaQuestionCircle } from "react-icons/fa";
 import GameplayHeader from "./GameplayHeader";
 import ActiveQuestion from "./Question";
 import Scoreboard from "./Scoreboard";
 import StartGame from "./StartGame";
-// import useVisualMode from "../../hooks/useVisualMode";
-
-// const { SHOW_SCOREBOARD } = require("../../config/settings");
 import { SCOREBOARD_LAG, STARTPAGE_LAG, FINISHED_LAG } from "../../constants";
-// import { STARTPAGE_LAG } from "../../../../server/constants";
 
 function GameplayView(props) {
   const { questions, params, currentQ, players, view, audioOn } = props;
 
   const { timeLimit } = params;
-  // console.log("Params", params)
-
-  // const { setGameplayView } = setters;
 
   console.log("Current Q: ", currentQ);
 
