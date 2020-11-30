@@ -24,10 +24,10 @@
   &--content {
     display: flex;
     flex-direction: column;
-    background-color: rgba(3, 3, 3, 0.6);
+    background-color: transparent;
     overflow: hidden;
     width: 500px;
-    max-width: calc(max(500px, 100vw));
+    max-width: 90vw;
     padding-left: calc(min(150px));
     padding-right: calc(min(150px));
     min-height: 100vh;
@@ -70,5 +70,12 @@
 @media only screen and (min-width: 520px) {
   .box-waiting .icon {
     font-size: 2.5rem;
+  }
+}
+
+
+@media only screen and (min-width: 800px) {
+  .box-waiting--content {
+    background-color: rgba(3, 3, 3, 0.6);
   }
 }
