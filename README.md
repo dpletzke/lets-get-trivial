@@ -12,7 +12,7 @@ Fully customizable categories and game settings</br>
 ## About the app
 
 <p>
-Lets Get Trivial is built with React. It runs on an Express server and uses Socket.io as a websocket framework. The app also utilizes a public trivia api for generating questions.
+Lets Get Trivial is built with React. It runs on an Express server and uses Socket.io as a websocket API. The app also utilizes a public trivia api for generating questions and is deployed with Heroku.
 </p>
 
 ## Finished Product
@@ -23,20 +23,24 @@ Lets Get Trivial is built with React. It runs on an Express server and uses Sock
     <img src="https://github.com/dpletzke/lets-get-trivial/blob/master/DOCS/Home.png?raw=true" height="400">
     <img src="https://github.com/dpletzke/lets-get-trivial/blob/master/DOCS/Waiting_room.png?raw=true" height="400">
   </p>
-<p align="center">
-
 </p>
+
 <p align='center'>Start Game, Question, Scoreboard, Game Over</p>
 <p align="center">
   <img src="https://github.com/dpletzke/lets-get-trivial/blob/master/DOCS/Starting.png?raw=true" height="400">
   <img src="https://github.com/dpletzke/lets-get-trivial/blob/master/DOCS/Question.png?raw=true" height="400">
+</p>
+<p align="center">
   <img src="https://github.com/dpletzke/lets-get-trivial/blob/master/DOCS/Score.png?raw=true" height="400">
   <img src="https://github.com/dpletzke/lets-get-trivial/blob/master/DOCS/Finished.png?raw=true" height="400">
 </p>
 
-
-
-
+<p align='center'>Info, Settings, and Public Games</p>
+<p align="center">
+  <img src="https://github.com/dpletzke/lets-get-trivial/blob/master/DOCS/Info_modal.png?raw=true" height="400">
+  <img src="https://github.com/dpletzke/lets-get-trivial/blob/master/DOCS/Settings_modal.png?raw=true" height="400">
+  <img src="https://github.com/dpletzke/lets-get-trivial/blob/master/DOCS/Public_games.png?raw=true" height="400">
+</p>
 
 ## How to Install Locally
 
@@ -46,7 +50,7 @@ Lets Get Trivial is built with React. It runs on an Express server and uses Sock
 
 `npm start` x 2
 
-<p>If serving 'Let's Get Trivial' locally, you will <em>not</em> be able to host multiplayer games over the internet. If you want to play the multiplayer, working version of the app, visit [Let's Get Trivial](https://lets-get-trivial-game.herokuapp.com).</p>
+<p>If serving 'Let's Get Trivial' locally, you will <em>not</em> be able to host multiplayer games over the internet. If you want to play the multiplayer, working version of the app, visit <a href="https://www.lets-get-trivial-game.herokuapp.com">Let's Get Trivial</a> on Heroku.</p>
 
 ## How To Play: Game Types
 
@@ -64,7 +68,7 @@ Lets Get Trivial is built with React. It runs on an Express server and uses Sock
 
 <p>Create a public game room and wait for players to join </br>
 <strong>OR</strong> </br>
-Join a pre-existing public game from the home-page</p>
+Join a pre-existing public game from the home-page by clicking on the globe icon</p>
 
 ---
 
@@ -119,13 +123,11 @@ This app draws questions from the Open Trivia Database. [Visit their site to con
 ## Developer Credits
 
 <p>
-Game designed and built by [Daniel Pletzke](dpletzke@gmail.com), [Soren Nissen](s.nissen.bass@gmail.com), and [Sebastian Kann](sebastiankann@gmail.com).
+Game designed and built by <a href='http://github.com/dpletzke/'>Dan Pletzke</a>, <a href="https://github.com/skendanavian">Soren Nissen</a>, and <a href="sebastiankann@gmail.com">Sebastian Kann</a>.
 
-Fonts are 'Audiowide' by Astigmatic and 'Palanquin' by [Pria Ravichandran](https://www.linkedin.com/in/pria-ravichandran-7b896742) . </br>
-
-
-
+Fonts are 'Audiowide' by Astigmatic and 'Palanquin' by [Pria Ravichandran](https://linkedin.com/in/pria-ravichandran-7b896742) . </br>
 </p>
+
 
 <p>
 <strong>All Rights Reserved &copy;2020</strong>
