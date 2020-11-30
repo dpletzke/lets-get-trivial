@@ -1,4 +1,4 @@
-import { useContext } from "react";
+import { useContext, useEffect } from "react";
 import PanelList from "./PanelList";
 import GameplayHeader from "./GameplayHeader";
 import ConnectionContext from "../../ConnectionContext";
@@ -52,6 +52,27 @@ function ActiveQuestion({ questionObj, questionIndex, timeLimit, audioOn }) {
     });
   };
 
+  // let winnerSong = new Audio("/sounds/timeUp.mp3");
+  // winnerSong.volume = 0.4;
+  // const victorySong = () => {
+  //   winnerSong.play();
+  // };
+
+  useEffect(() => {
+    let winnerSong = new Audio("/sounds/timeUp.mp3");
+    winnerSong.volume = 0.4;
+
+    const victorySong = () => {
+      winnerSong.play();
+    };
+
+    const timer = setTimeout(() => {
+      victorySong();
+    }, timeLimit * 1000);
+
+    return () => clearTimeout(timer);
+  }, []);
+
   return (
     <div className="box-question">
       <GameplayHeader
@@ -62,7 +83,6 @@ function ActiveQuestion({ questionObj, questionIndex, timeLimit, audioOn }) {
         <PanelList infoArray={question} />
       </GameplayHeader>
       <div className="question-container">
-        {/* the two panels in this view can be targeted individually due to their conditional css, see PanelList component */}
         <PanelList infoArray={question} />
         <PanelList
           infoArray={answers}

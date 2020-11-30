@@ -28,8 +28,8 @@ function ScoreBoard({ players, time, view, audioOn }) {
     .map((playerObj) => playerObj.name);
 
   console.log(winnersArray);
-
-  let loserSong = new Audio("/sounds/loseGame.mp3");
+  //not yet implemented - sound for losing game
+  // let loserSong = new Audio("/sounds/loseGame.mp3");
   let winnerSong = new Audio("/sounds/winGame.mp3");
   winnerSong.volume = 0.15;
   let scoreSong = new Audio("/sounds/level-up.mp3");

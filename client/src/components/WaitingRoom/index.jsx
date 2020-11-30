@@ -9,7 +9,7 @@ import OptionsForm from "../WaitingRoom/OptionsForm/index";
 import GameRules from "../GameRules";
 
 import ModalComponent from "../Modal";
-import { FaCog, FaQuestion } from "react-icons/fa";
+import { FaCog, FaQuestion, FaVolumeMute, FaVolumeUp } from "react-icons/fa";
 import { ImExit } from "react-icons/im";
 
 import ConnectionContext from "../../ConnectionContext";
@@ -47,10 +47,25 @@ function WaitingRoom(props) {
         <main className="box-waiting">
           <div className="box-waiting--content">
             <header className="waiting-header">
-              <ImExit className="icon" onClick={() => onLeave()} />
               <div>
-                <FaQuestion className="icon" onClick={() => openModal("rules")} />
+                <ImExit className="icon" onClick={() => onLeave()} />
+                <FaQuestion
+                  className="icon"
+                  onClick={() => openModal("rules")}
+                />
+              </div>
+
+              <div>
                 <FaCog className="icon" onClick={() => openModal("config")} />
+                {!audioOn && (
+                  <FaVolumeMute
+                    className="icon"
+                    onClick={() => toggleAudio()}
+                  />
+                )}
+                {audioOn && (
+                  <FaVolumeUp className="icon" onClick={() => toggleAudio()} />
+                )}
               </div>
             </header>
             <h1 className="box-waiting--header">Waiting for Players...</h1>

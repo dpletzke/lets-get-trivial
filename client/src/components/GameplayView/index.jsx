@@ -1,10 +1,10 @@
-import { useState, useEffect } from "react";
-import { FaQuestionCircle } from "react-icons/fa";
+// import { useState, useEffect } from "react";
+// import { FaQuestionCircle } from "react-icons/fa";
 import GameplayHeader from "./GameplayHeader";
 import ActiveQuestion from "./Question";
 import Scoreboard from "./Scoreboard";
 import StartGame from "./StartGame";
-import useVisualMode from "../../hooks/useVisualMode";
+// import useVisualMode from "../../hooks/useVisualMode";
 
 // const { SHOW_SCOREBOARD } = require("../../config/settings");
 import { SCOREBOARD_LAG, STARTPAGE_LAG, FINISHED_LAG } from "../../constants";
