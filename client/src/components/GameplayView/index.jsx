@@ -1,4 +1,3 @@
-import GameplayHeader from "./GameplayHeader";
 import ActiveQuestion from "./Question";
 import Scoreboard from "./Scoreboard";
 import StartGame from "./StartGame";
