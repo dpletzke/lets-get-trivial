@@ -22,7 +22,7 @@
   display: flex;
   align-items: center;
   justify-content: space-between;
-  box-shadow: 0px 0px 0px black;
+  box-shadow: 0px 0px 0px $color-black;
   .position {
     color: $primary-dark;
     margin-left: 0.5em;
@@ -34,7 +34,7 @@
   &--firstPlace {
     transform: translateY(-$xtra-small-spacer);
     border: 0.5rem #35ce8d solid;
-    box-shadow: 10px 10px 10px black;
+    box-shadow: 10px 10px 10px $color-black;
     // transition: all 1s ease-in;
     animation: 1s ease-in winner;
   }

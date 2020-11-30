@@ -1,28 +1,28 @@
-import './VictoryString.scss';
+import "./VictoryString.scss";
 
-function VictoryString({winners, highScore}) {
-
+function VictoryString({ winners, highScore }) {
   console.log(winners.length);
   const digestWinners = (winners) => {
     if (winners.length === 2) {
-      return winners.join(' and ')
-    } else if (winners.length > 2 ) {
-      const lastWinner = winners[winners.length -1]
-      const otherWinners = winners.slice(0, winners.length-1)
-      return `${otherWinners.join(', ')}, and ${lastWinner}`
+      return winners.join(" and ");
+    } else if (winners.length > 2) {
+      const lastWinner = winners[winners.length - 1];
+      const otherWinners = winners.slice(0, winners.length - 1);
+      return `${otherWinners.join(", ")}, and ${lastWinner}`;
     }
-  }
+  };
 
   const winnersString = digestWinners(winners);
-  console.log(winners);
 
   return (
     <>
       {winners.length === 1 && <h1 className="large">{winners[0]} wins!!</h1>}
-    {winners.length === 2 && <h1 className="medium">{winnersString} win!!</h1>}
-    {winners.length > 2 && <h1 className="small">{winnersString} win!!</h1>}
+      {winners.length === 2 && (
+        <h1 className="medium">{winnersString} win!!</h1>
+      )}
+      {winners.length > 2 && <h1 className="small">{winnersString} win!!</h1>}
     </>
   );
 }
 
-export default VictoryString
+export default VictoryString;

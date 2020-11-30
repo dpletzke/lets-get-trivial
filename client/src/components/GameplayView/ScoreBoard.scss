@@ -34,3 +34,18 @@ h2 {
     display: block;
   }
 }
+
+.scoreboard-header {
+  display: flex;
+  justify-content: center;
+  p {
+    color: $text-primary;
+    font-size: 1rem;
+  }
+}
+
+.end-loading {
+  display: flex;
+  justify-content: center;
+  text-align: center;
+}

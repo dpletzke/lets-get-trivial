@@ -16,17 +16,17 @@
   from {
     transform: translateY(0, 0px);
     border: 1.7px $text-primary solid;
-    box-shadow: 0px 0px 0px black;
+    box-shadow: 0px 0px 0px $color-black;
   }
   65% {
     transform: translateY(-$xtra-small-spacer);
     border: 0.5rem #35ce8d solid;
-    box-shadow: 10px 10px 10px black;
+    box-shadow: 10px 10px 10px $color-black;
   }
   to {
     transform: translateY(-$xtra-small-spacer);
     border: 0.5rem #35ce8d solid;
-    box-shadow: 10px 10px 10px black;
+    box-shadow: 10px 10px 10px $color-black;
   }
 }
 

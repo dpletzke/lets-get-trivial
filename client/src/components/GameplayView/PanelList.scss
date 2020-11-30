@@ -21,9 +21,19 @@
   &__question {
     background-color: $primary-light;
     border-radius: $border-radius;
-    width: 400px;
+    width: 300px;
     max-width: 75vw;
     margin: 0;
     padding: 0 16px 0 16px;
+  }
+}
+
+@media only screen and (min-width: 760px) {
+  .box {
+    &__question {
+      width: 650px;
+      max-width: 90vw;
+      margin: auto;
+    }
   }
 }

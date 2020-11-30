@@ -3,6 +3,7 @@ import {
   LAG_BEFORE_SCORE_VIEW,
   SCOREBOARD_LAG,
   STARTPAGE_LAG,
+  FINISHED_LAG,
 } from "../constants.js";
 
 export default function useGameData(gameId, connection, defaults) {
@@ -37,8 +38,8 @@ export default function useGameData(gameId, connection, defaults) {
     }
     if (view === "FINISHED") {
       setTimeout(() => {
-        setGame((prev) => ({...prev,  started: false }));
-      }, SCOREBOARD_LAG);
+        setGame((prev) => ({ ...prev, started: false }));
+      }, FINISHED_LAG);
     }
   }, [view]);
 
