@@ -141,6 +141,9 @@ function GameRules() {
               <strong>Soren Nissen</strong>, and <strong>Sebastian Kann</strong>
             </li>
             <li className="centered_small">
+               <a href="https://github.com/dpletzke/lets-get-trivial/">Project Github Repository</a>.
+            </li>
+            <li className="centered_small">
               Fonts are 'Audiowide' by Astigmatic and 'Palanquin' by <a href="https://www.linkedin.com/in/pria-ravichandran-7b896742">Pria Ravichandran</a>.
             </li>
             <li className="centered_small">All Rights Reserved &copy;2020 </li>
