@@ -6,7 +6,6 @@ import Button from "../Button";
 import GameplayView from "../GameplayView";
 import OptionsForm from "../WaitingRoom/OptionsForm/index";
 import GameRules from "../GameRules";
-
 import ModalComponent from "../Modal";
 import { FaCog, FaQuestion, FaVolumeMute, FaVolumeUp } from "react-icons/fa";
 import { ImExit } from "react-icons/im";

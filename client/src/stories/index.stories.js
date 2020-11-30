@@ -1,7 +1,7 @@
 import { storiesOf } from "@storybook/react";
 import { action } from "@storybook/addon-actions";
 
-// import Loader from "react-loader-spinner";
+
 
 import Button from "../components/Button";
 import Loading from "../components/Loading";
@@ -171,8 +171,6 @@ const victoryPlayers = [
   { name: "player_6", score: 65, pointsEarned: 3, correctAnswer: false },
   { name: "player_2", score: 65, pointsEarned: -2, correctAnswer: true },
   { name: "player_3", score: 29, pointsEarned: 1, correctAnswer: false },
-  // { name: "player_4", score: 29, pointsEarned: 1, correctAnswer: false },
-  // { name: "player_5", score: 29, pointsEarned: 1, correctAnswer: true },
 ];
 
 storiesOf("Victory Score Board", module).add("Victory", () => (

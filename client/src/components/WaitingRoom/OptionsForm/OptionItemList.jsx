@@ -1,7 +1,6 @@
 import OptionItem from "./OptionItem";
 import "./OptionItemList.scss";
 
-// const options = [];
 
 function OptionItemList({ optionsList, clickHandler, label, selected }) {
   

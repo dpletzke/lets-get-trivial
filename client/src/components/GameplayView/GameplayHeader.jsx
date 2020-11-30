@@ -1,7 +1,6 @@
 import Timer from "./Timer";
 import "./GameplayHeader.scss";
 function GameplayHeader({ questionIndex, view, time }) {
-  console.log({ questionIndex });
   return (
     <div className="header header__gameplay">
       {view === "score" && <p>Next Question In...</p>}

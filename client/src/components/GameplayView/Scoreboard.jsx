@@ -13,11 +13,8 @@ import "./ScoreBoard.scss";
 
 function ScoreBoard({ players, time, view, audioOn }) {
   const orderedArray = orderByScore(players);
-  console.log(orderedArray);
   const scoresArray = findPlacements(players);
-  console.log(scoresArray);
   const scoreString = generateScoreString(players);
-  console.log(players);
 
   const highScore = scoresArray[0];
 
@@ -25,7 +22,6 @@ function ScoreBoard({ players, time, view, audioOn }) {
     .filter((playerObj) => playerObj.score === highScore)
     .map((playerObj) => playerObj.name);
 
-  console.log(winnersArray);
   //not yet implemented below line (sound for losing game)
   // let loserSong = new Audio("/sounds/loseGame.mp3");
   let winnerSong = new Audio("/sounds/winGame.mp3");
@@ -54,7 +50,6 @@ function ScoreBoard({ players, time, view, audioOn }) {
   }, []);
 
   console.log("View: ", view);
-  console.log("Time", time);
 
   const victoryClass = classNames("victory", {
     "victory--visible": view === "FINISHED",

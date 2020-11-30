@@ -22,21 +22,18 @@ function PanelList({ infoArray, pickAnswer, audioOn }) {
   const connection = useContext(ConnectionContext);
 
   useEffect(() => {
+    let timer;
     connection.current.on("next_question", () => {
-      const timer = setTimeout(() => {
+      timer = setTimeout(() => {
         setSelected("");
         clearTimeout(timer);
       }, LAG_BEFORE_SCORE_VIEW);
+     
     });
+
   }, [connection]);
 
-  useEffect(() => {
-    console.log("selected changed to: ", selected);
-  }, [selected]);
-
   const clickHandler = (id) => {
-    console.log("click id: ", id);
-    console.log("selected: ", selected);
     if (!selected) {
       pickAnswer(infoArray[id - 1].correct);
       setSelected(id);

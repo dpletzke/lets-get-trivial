@@ -14,9 +14,6 @@ export default function digestSettings(settings, setters) {
     if (paramsKey === "difficulty") {
       return { ...settingObj, clickHandler: setDifficulty };
     }
-    // if (paramsKey === "numCorrect") {
-    //   return { ...settingObj, clickHandler: setNumberCorrect };
-    // }
     if (paramsKey === "timeLimit") {
       return { ...settingObj, clickHandler: setQuestionTimeLimit };
     }

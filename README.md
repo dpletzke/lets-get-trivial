@@ -100,7 +100,7 @@ This app draws questions from the Open Trivia Database. [Visit their site to con
 
 Fonts are 'Audiowide' by Astigmatic and 'Palanquin' by [Pria Ravichandran](https://www.linkedin.com/in/pria-ravichandran-7b896742) . </br>
 
-Game designed and built by Daniel Pletzke, [Soren Nissen](s.nissen.bass@gmail.com), and [Sebastian Kann](sebastiankann@gmail.com).
+Game designed and built by [Daniel Pletzke](dpletzke@gmail.com), [Soren Nissen](s.nissen.bass@gmail.com), and [Sebastian Kann](sebastiankann@gmail.com).
 
 </p>
 

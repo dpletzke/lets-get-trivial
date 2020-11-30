@@ -10,6 +10,7 @@ export default function ModalComponent({ modalIsOpen, closeModal, children }) {
 
   return (
     <Modal
+      ariaHideApp={false}
       isOpen={modalIsOpen}
       onAfterOpen={afterOpenModal}
       onRequestClose={closeModal}

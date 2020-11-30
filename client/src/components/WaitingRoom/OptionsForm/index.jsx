@@ -15,6 +15,7 @@ function OptionsForm({ setters, params, setVolume, audioOn }) {
 
     return (
       <OptionItemList
+        key={label}
         selected={params[paramsKey]}
         label={label}
         optionsList={optionsList}

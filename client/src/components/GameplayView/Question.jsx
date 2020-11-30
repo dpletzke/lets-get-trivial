@@ -40,7 +40,6 @@ const digestQuestionObj = (questionObject) => {
 
 function ActiveQuestion({ questionObj, questionIndex, timeLimit, audioOn }) {
   const { question, answers } = digestQuestionObj(questionObj);
-  console.log({ questionObj });
 
   const connection = useContext(ConnectionContext);
 
@@ -66,7 +65,7 @@ function ActiveQuestion({ questionObj, questionIndex, timeLimit, audioOn }) {
 
       return () => clearTimeout(timer);
     }
-  }, []);
+  }, [audioOn, timeLimit]);
 
   return (
     <div className="box-question">

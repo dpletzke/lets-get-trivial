@@ -79,17 +79,17 @@ io.on("connection", (socket) => {
       console.log("");
 
       room.timer = setTimeout(() => {
-        console.log("Moving on because time ran out.");
+        console.log(`Moving on for ${room.roomId} because time ran out.`);
         handleMoveOn(room);
       }, room.params.timeLimit * 1000 + STARTPAGE_LAG);
     } else {
-      console.log('Oops, the API request was empty.');
+      console.log(`Oops, the API request for ${room.roomId} was empty.`);
     }
 
   });
 
   socket.on("picked_answer", (answer) => {
-    // user defined above
+    
     const room = ds.getRoomFromUserId(socket.id);
 
     gh.recordAndAward(user, room, answer);
@@ -121,7 +121,7 @@ io.on("connection", (socket) => {
       io.in(room.roomId).emit("next_question", payload);
 
       room.timer = setTimeout(() => {
-        console.log("Moving on because time ran out");
+        console.log(`Moving on for ${room.roomId} because time ran out`);
         handleMoveOn(room);
       }, room.params.timeLimit * 1000 + SCOREBOARD_LAG + LAG_BEFORE_SCORE_VIEW);
     } else { //if no next question end game

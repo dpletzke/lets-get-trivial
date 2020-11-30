@@ -3,11 +3,9 @@ import Button from '../components/Button';
 import {FaUser} from 'react-icons/fa';
 
 function PublicGameItem(props) {
-  console.log(props);
   const { roomId, hostName, numUsers, key, setGameId, closeModal } = props;
   const clickHandler = (id) => {
     setGameId(id);
-    console.log(id);
     closeModal();
   }
   return (

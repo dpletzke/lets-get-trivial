@@ -2,8 +2,6 @@ import React, { useEffect, useState, useRef } from "react";
 import { ConnectionProvider } from "./ConnectionContext";
 import Home from "./components/Home";
 import WaitingRoom from "./components/WaitingRoom";
-
-// import "./App.css";
 import socketIOClient from "socket.io-client";
 
 const PORT = process.env.PORT || 8080;

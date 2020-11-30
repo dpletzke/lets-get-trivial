@@ -85,7 +85,6 @@ describe("getQuestions", () => {
     const { token } = tokenObj;
     const data = await getQuestions(completeParams, token);
     const results = data.results;
-    // console.log(results);
     expect(results[0].type).toBe(completeParams.type);
   });
 });

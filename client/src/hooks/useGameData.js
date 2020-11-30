@@ -25,7 +25,6 @@ export default function useGameData(gameId, connection, defaults) {
   // create a setTimeout to change to the next view QUESTION
 
   useEffect(() => {
-    console.log(view, new Date().getSeconds());
     if (view === "SCORE") {
       setTimeout(() => {
         setView("QUESTION");
@@ -43,9 +42,9 @@ export default function useGameData(gameId, connection, defaults) {
     }
   }, [view]);
 
-  useEffect(() => {
-    console.log("game state has changed to: ", game);
-  }, [game]);
+  // useEffect(() => {
+  //   console.log("game state has changed to: ", game);
+  // }, [game]);
 
   const setOptions = (options) => {
     setGame({ ...game, params: { ...options } });
@@ -103,7 +102,6 @@ export default function useGameData(gameId, connection, defaults) {
   useEffect(() => {
     connection.current.on("game_started", (data) => {
       const { questions, params } = data;
-      console.log("Hey its the data:", data);
       if (questions.length === 0 || !questions) {
         alert(
           "We were unable to generate enough questions with your specified settings. Please try changing the settings."
@@ -123,17 +121,14 @@ export default function useGameData(gameId, connection, defaults) {
     });
 
     const handleSetView = (string) => {
-      console.log("The view is being reset!");
       setView(string);
     };
 
     connection.current.on("next_question", async (data) => {
-      console.log("Next question!");
       const { players, currentQ } = data;
 
       console.log(`${gameId} moved to question ${currentQ}, starting Timeout`);
       const timer = await setTimeout(() => {
-        // setView("SCORE");
         handleSetView("SCORE");
         setGame((prev) => {
           return { ...prev, currentQ, players };

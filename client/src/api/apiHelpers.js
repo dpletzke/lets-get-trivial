@@ -1,7 +1,7 @@
 const { defaults } = require("../config/settings");
 
 const validate = {
-  // this is hardcoded. Stretch: pull the length of the categories array and use that to validate the categoryId
+
   categoryId: (id) => {
     if (id < 9 || 32 < id) {
       return null;
