@@ -66,9 +66,9 @@ Lets Get Trivial is built with React. It runs on an Express server and uses Sock
 
 ### Public
 
-<p>Create a public game room and wait for players to join </br>
+<p>Create a public game room and wait for players to join. </br>
 <strong>OR</strong> </br>
-Join a pre-existing public game from the home-page by clicking on the globe icon</p>
+Join a pre-existing public game from the home-page by clicking on the globe icon.</p>
 
 ---
 
@@ -80,7 +80,7 @@ answers.</li>
 <li>The number of points for each question is based on the
 difficulty of the question.
 </li>
-<li>Your updated score and points earned for will be shown at the
+<li>Your updated score and points earned will be shown at the
 end of each question.</li>
 </ol>
  
@@ -88,21 +88,21 @@ ______________________________________________________________________
 
 ## Customizable Game Settings
 
-Access game settings upon creating or joining a game
+Access game settings upon creating or joining a game.
 
 ### Category
 
 Select from over 20 categories or leave the category unselected to
-generate random categories for each question
+generate random categories for each question.
 
 ### Number of Questions
 
-Decide how many questions you want for each round
+Decide how many questions you want for each round.
 
 ### Difficulty
 
 Choose between easy, medium,
-hard or mixed
+hard or mixed.
 
 ### Time Limit
 
