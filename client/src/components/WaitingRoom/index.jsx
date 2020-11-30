@@ -53,9 +53,9 @@ function WaitingRoom(props) {
                 <FaCog className="icon" onClick={() => openModal("config")} />
               </div>
             </header>
-            <h1 className="box-waiting--header">Let's Get Trivial</h1>
+            <h1 className="box-waiting--header">Waiting for Players...</h1>
             <PlayerListItem className="alt-text" name={gameId} gameIdItem />
-            <Button onClick={startGame} gameRoom>
+            <Button className="pulse" onClick={startGame} gameRoom>
               Start Game >>
             </Button>
             <PlayerList players={players} />

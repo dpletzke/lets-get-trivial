@@ -5,26 +5,35 @@
   flex-direction: column;
   align-items: center;
   justify-content: space-around;
-  height: 100vh;
+  min-height: 100vh;
+  overflow-x: hidden;
   // background-color: $color-primary-background;
   background: linear-gradient(rgba(3, 3, 3, 0.95), rgba(35, 34, 34, 0.6)),
     //   // url("https://i.pinimg.com/originals/56/58/6c/56586c83d06a53b3c25ce54bb4278f62.jpg")
       //     // url("https://images.unsplash.com/photo-1532033373539-6c4b2235e05a?ixlib=rb-1.2.1&ixid=MXwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHw%3D&auto=format&fit=crop&w=1500&q=80");
-      //     // url("https://c4.wallpaperflare.com/wallpaper/7/102/424/music-background-80s-neon-wallpaper-preview.jpg");
+          // url("https://c4.wallpaperflare.com/wallpaper/7/102/424/music-background-80s-neon-wallpaper-preview.jpg");
       url("../../components/images/bg4.jpeg");
   background-attachment: fixed;
   background-size: cover;
   background-position: center;
   background-repeat: no-repeat;
-  padding: 3em;
+  // padding-bottom: 3em;
   p {
     color: $color-secondary-background;
   }
   &--content {
     display: flex;
     flex-direction: column;
+    background-color: rgba(3, 3, 3, 0.6);
+    overflow: hidden;
+    width: 500px;
+    max-width: calc(max(500px, 100vw));
+    padding-left: calc(min(150px));
+    padding-right: calc(min(150px));
+    min-height: 100vh;
   }
   &--header {
+    margin-top: calc(min(100px, 30%));
     font-family: $Audiowide;
     color: $color-primary-text;
     text-align: center;
@@ -42,14 +51,18 @@
   }
 
   .waiting-header {
+    width: 100%;
+    max-width: calc(min(800px, calc(100vw - 1em)));
     display: flex;
     justify-content: space-between;
-    align-items: space-between;
     font-size: $font-large;
-    width: 100%;
-    position: fixed;
+    position: absolute;
     top: 0;
     right: 0;
+    left: 0;
+    padding: 0.5em 0 0 0;
+    margin-left: auto;
+    margin-right: auto;
     text-align: right;
   }
 }
