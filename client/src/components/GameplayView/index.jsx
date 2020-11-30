@@ -7,7 +7,7 @@ import StartGame from "./StartGame";
 import useVisualMode from "../../hooks/useVisualMode";
 
 // const { SHOW_SCOREBOARD } = require("../../config/settings");
-import { SCOREBOARD_LAG, STARTPAGE_LAG } from "../../constants";
+import { SCOREBOARD_LAG, STARTPAGE_LAG, FINISHED_LAG } from "../../constants";
 // import { STARTPAGE_LAG } from "../../../../server/constants";
 
 function GameplayView(props) {
@@ -53,7 +53,7 @@ function GameplayView(props) {
   if (view === FINISHED) {
     return (
       <Scoreboard
-        time={SCOREBOARD_LAG * 0.001}
+        time={FINISHED_LAG * 0.001}
         view={view}
         players={players}
         audioOn={audioOn}
