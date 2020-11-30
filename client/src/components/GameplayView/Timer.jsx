@@ -2,8 +2,7 @@ import { CountdownCircleTimer } from "react-countdown-circle-timer";
 import "./Timer.scss";
 import "./Timer";
 
-// Timer Reference Sandbox - CountdownCircleTimer npm package - See Doc for props that it can take
-//https://codesandbox.io/s/silly-night-d3s70?fontsize=14&hidenavigation=1&theme=dark&file=/src/styles.css:79-642
+// Timer from CountdownCircleTimer npm package
 
 const renderTime = ({ remainingTime }) => {
   if (remainingTime === 0) {
@@ -12,9 +11,7 @@ const renderTime = ({ remainingTime }) => {
 
   return (
     <div className="timer">
-      {/* <div className="timer-text">Remaining</div> */}
       <div className="value">{remainingTime}</div>
-      {/* <div className="timer-text">seconds</div> */}
     </div>
   );
 };

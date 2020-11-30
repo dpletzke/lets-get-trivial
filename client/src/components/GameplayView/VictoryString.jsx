@@ -1,6 +1,6 @@
 import "./VictoryString.scss";
 
-function VictoryString({ winners, highScore }) {
+function VictoryString({ winners }) {
   console.log(winners.length);
   const digestWinners = (winners) => {
     if (winners.length === 2) {
