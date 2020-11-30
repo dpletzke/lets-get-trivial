@@ -1,8 +1,7 @@
-import { useState, useContext, useEffect } from "react";
+import { useContext } from "react";
 import Button from "./Button";
 import ModalComponent from "./Modal";
 import GameRules from "./GameRules";
-import Dropdown from "./Dropdown";
 import PublicGames from "./PublicGames";
 import "./Button.scss";
 import "./Home.scss";
@@ -118,7 +117,10 @@ function Home(props) {
         modalIsOpen={publicModalIsOpen}
         closeModal={() => closeModal("public")}
       >
-        <PublicGames setGameId={setGameId} closeModal={()=>closeModal("public")}/>
+        <PublicGames
+          setGameId={setGameId}
+          closeModal={() => closeModal("public")}
+        />
       </ModalComponent>
     </main>
   );

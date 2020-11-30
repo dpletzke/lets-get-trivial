@@ -12,15 +12,8 @@ h1 {
   align-items: center;
   justify-content: space-around;
   height: 100vh;
-
-  // background: linear-gradient(180deg, $color-primary-background 0%, $color-secondary-text 35%, $color-primary-text 100%);
-  // background-color: $color-primary-background;
   background: linear-gradient(rgba(3, 3, 3, 0.95), rgba(35, 34, 34, 0.6)),
-    //   // url("https://i.pinimg.com/originals/56/58/6c/56586c83d06a53b3c25ce54bb4278f62.jpg")
-      //     // url("https://images.unsplash.com/photo-1532033373539-6c4b2235e05a?ixlib=rb-1.2.1&ixid=MXwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHw%3D&auto=format&fit=crop&w=1500&q=80");
-      //     // url("https://c4.wallpaperflare.com/wallpaper/7/102/424/music-background-80s-neon-wallpaper-preview.jpg");
-      url("./images/bg4.jpeg");
-
+    url("./images/bg4.jpeg");
   background-attachment: fixed;
   background-size: cover;
   background-position: center;
@@ -99,10 +92,6 @@ p {
   color: $color-secondary-background;
   transition: color 0.2s ease-in;
   margin: $small-spacer $small-spacer auto auto;
-  // &:hover {
-  //   color: $color-primary-text;
-  //   cursor: pointer;
-  // }
   &__public {
     margin: $small-spacer 0 0 0;
   }

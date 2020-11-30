@@ -4,7 +4,7 @@ import PublicGameItem from "./PublicGameItem";
 import { FaUsers } from "react-icons/fa";
 import "./PublicGames.scss";
 
-function PublicGames({setGameId, closeModal}) {
+function PublicGames({ setGameId, closeModal }) {
   const [publicGames, setPublicGames] = useState([]);
 
   const connection = useContext(ConnectionContext);
@@ -24,7 +24,13 @@ function PublicGames({setGameId, closeModal}) {
   }, [connection]);
 
   const output = publicGames.map((publicGame) => {
-    return <PublicGameItem {...publicGame} setGameId={setGameId} closeModal={closeModal}/>;
+    return (
+      <PublicGameItem
+        {...publicGame}
+        setGameId={setGameId}
+        closeModal={closeModal}
+      />
+    );
   });
 
   return (
@@ -33,12 +39,9 @@ function PublicGames({setGameId, closeModal}) {
         <FaUsers className="user-icon" /> Public Games
       </h2>
       <h3 className="heading__seconday">Click to access the game ID!</h3>
-      <h4 className="heading__tertiary">Then enter your name and join the game room</h4>
-      {/* <div className="category-heading">
-        <p>Host Name</p>
-        <p># of Players </p>
-        <p>Game ID</p>
-      </div> */}
+      <h4 className="heading__tertiary">
+        Then enter your name and join the game room
+      </h4>
       {output}
     </div>
   );

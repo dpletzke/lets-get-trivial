@@ -8,7 +8,6 @@ import digestSettings from "./optionsHelpers";
 const { settings } = require("../../../config/settings");
 
 function OptionsForm({ setters, params, setVolume, audioOn }) {
-  //setters is coming from hooks/useGameData
   const { setCategory } = setters;
 
   const optionGroups = digestSettings(settings, setters).map((elm) => {
