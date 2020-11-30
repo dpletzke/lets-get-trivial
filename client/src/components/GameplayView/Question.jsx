@@ -81,7 +81,7 @@ function ActiveQuestion({ questionObj, questionIndex, timeLimit, audioOn }) {
         view="question"
         time={timeLimit}
       >
-        <PanelList infoArray={question} />
+        {/* <PanelList infoArray={question} /> */}
       </GameplayHeader>
       <div className="question-container">
         <PanelList infoArray={question} />

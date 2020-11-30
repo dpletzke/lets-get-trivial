@@ -78,15 +78,19 @@
 }
 
 .panel__question {
-  font-size: 0.9rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 0.8rem;
   background-color: $primary-light;
+  max-height: 99%;
   p {
     background-color: $primary-light;
     font-size: $font-mobile;
     color: $primary-dark;
-    padding: 0 0.2em;
+    margin-bottom: 0.2;
     // margin: auto;
-    margin: 1rem;
+    // margin: 1rem;
   }
 }
 
