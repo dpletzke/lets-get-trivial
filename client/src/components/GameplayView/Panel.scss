@@ -90,6 +90,20 @@
   }
 }
 
+.panel__skip {
+  font-size: 0.9rem;
+  background-color: $primary-light;
+  width: 67%;
+  p {
+    background-color: $primary-light;
+    font-size: $font-mobile;
+    color: $primary-dark;
+    padding: 0 0.2em;
+    // margin: auto;
+    margin: 1rem;
+  }
+}
+
 @media only screen and (min-width: 520px) {
   .panel__answer,
   .panel__question {

@@ -88,6 +88,29 @@ io.on("connection", (socket) => {
 
   });
 
+  socket.on("skip_question", (questionIndex) => {
+    // user defined above
+    const room = ds.getRoomFromUserId(socket.id);
+
+    const blankAnswer = {
+      userId: user.id,
+      qIndex: questionIndex - 1,
+      name: user.name,
+      score: user.score,
+      pointsEarned: 0,
+      correctAnswer: false
+    };
+    
+    room.status.answers.push(blankAnswer);
+
+    if (room.status.answers.length === room.users.length) {
+
+      console.log(`Moving on for ${room.roomId} because everybody answered or skipped`);
+      handleMoveOn(room);
+    }
+
+  });
+
   socket.on("picked_answer", (answer) => {
     // user defined above
     const room = ds.getRoomFromUserId(socket.id);

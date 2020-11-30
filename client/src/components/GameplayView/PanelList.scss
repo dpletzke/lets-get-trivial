@@ -12,7 +12,7 @@
   margin-top: $medium-spacer;
   &__answer {
     background-color: $color-secondary-text;
-    height: 50vh;
+    height: 40vh;
     max-height: 24rem;
     max-width: $max-width;
     border-radius: $border-radius;
@@ -25,6 +25,15 @@
     max-width: 75vw;
     margin: 0;
     padding: 0 16px 0 16px;
+    &__hard {
+      border: 5px solid orangered;
+    }
+    &__medium {
+      border: 5px solid goldenrod;
+    }
+    &__easy {
+      border: 5px solid lightblue;
+    }
   }
 }
 

@@ -1,6 +1,7 @@
 import { useContext } from "react";
 
 import PanelList from "./PanelList";
+import Panel from "./Panel";
 import GameplayHeader from "./GameplayHeader";
 import "./Question.scss";
 
@@ -72,6 +73,7 @@ function ActiveQuestion({ questionObj, questionIndex, timeLimit, audioOn }) {
           audioOn={audioOn}
         />
       </div>
+      <Panel className="panel panel__skip" info={{answerString:'Skip >>>>', correct:false}}/>
     </div>
   );
 }
