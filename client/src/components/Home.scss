@@ -70,7 +70,7 @@ form {
   }
 }
 p {
-  margin-bottom: 0.4rem;
+  // margin-bottom: 0.4rem;
   text-align: center;
   color: $color-primary-background;
 }
@@ -88,7 +88,7 @@ p {
   position: fixed;
   top: 0;
   left: 0;
-  width:100%;
+  width: 100%;
   font-size: 3rem;
   text-align: right;
   margin-right: $small-spacer;
