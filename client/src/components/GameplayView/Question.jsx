@@ -59,18 +59,19 @@ function ActiveQuestion({ questionObj, questionIndex, timeLimit, audioOn }) {
   // };
 
   useEffect(() => {
-    let winnerSong = new Audio("/sounds/timeUp.mp3");
-    winnerSong.volume = 0.4;
+    let beep = new Audio("/sounds/timeUp.mp3");
+    beep.volume = 0.4;
 
     const victorySong = () => {
-      winnerSong.play();
+      beep.play().catch((err) => console.log(err));
     };
+    if (audioOn) {
+      const timer = setTimeout(() => {
+        victorySong();
+      }, timeLimit * 1000);
 
-    const timer = setTimeout(() => {
-      victorySong();
-    }, timeLimit * 1000);
-
-    return () => clearTimeout(timer);
+      return () => clearTimeout(timer);
+    }
   }, []);
 
   return (

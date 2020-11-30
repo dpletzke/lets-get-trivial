@@ -31,20 +31,20 @@ function ScoreBoard({ players, time, view, audioOn }) {
   //not yet implemented - sound for losing game
   // let loserSong = new Audio("/sounds/loseGame.mp3");
   let winnerSong = new Audio("/sounds/winGame.mp3");
-  winnerSong.volume = 0.15;
+  winnerSong.volume = 0.12;
   let scoreSong = new Audio("/sounds/level-up.mp3");
-  scoreSong.volume = 0.6;
+  scoreSong.volume = 0.7;
 
   const gameplayClass = classNames("gamePlay", {
     "gamePlay--visible": view === "SCORE",
   });
 
   const victorySong = () => {
-    winnerSong.play();
+    winnerSong.play().catch((err) => console.log(err));
   };
 
   const scoreAlert = () => {
-    scoreSong.play();
+    scoreSong.play().catch((err) => console.log(err));
   };
 
   useEffect(() => {

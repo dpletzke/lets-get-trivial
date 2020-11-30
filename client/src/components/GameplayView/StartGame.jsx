@@ -9,7 +9,7 @@ function StartGame({ time, audioOn }) {
   gameThemeSong.volume = 0.08;
 
   const themeSong = () => {
-    gameThemeSong.play();
+    gameThemeSong.play().catch((err) => console.log(err));
   };
 
   useEffect(() => {
