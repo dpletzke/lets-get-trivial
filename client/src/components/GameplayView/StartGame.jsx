@@ -1,7 +1,5 @@
 import { useEffect } from "react";
 import { CountdownCircleTimer } from "react-countdown-circle-timer";
-import Loading from "../Loading";
-
 import "./StartGame.scss";
 
 function StartGame({ time, audioOn }) {
@@ -48,21 +46,6 @@ function StartGame({ time, audioOn }) {
         >
           {renderTime}
         </CountdownCircleTimer>
-
-        {/* <CountdownCircleTimer
-          isPlaying
-          duration={50000}
-          size={400}
-          strokeWidth={10}
-          ariaLabel={"Time Remaining"}
-          colors={[
-            ["#f4a261", 0.33],
-            ["#e9c46a", 0.33],
-            ["#2a9d8f", 0.33],
-          ]}
-        >
-          {({ remainingTime }) => remainingTime}
-        </CountdownCircleTimer> */}
       </div>
     </div>
   );
