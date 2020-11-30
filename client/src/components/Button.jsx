@@ -1,13 +1,10 @@
 import "./Button.scss";
 import { useContext } from "react";
-import ConnectionContext from '../ConnectionContext'
+import ConnectionContext from "../ConnectionContext";
 
 const classNames = require("classnames");
 
-
-
 function Button(props) {
-
   const connection = useContext(ConnectionContext);
   const btnClass = classNames("btn", {
     "btn--home": props.home,
@@ -16,18 +13,14 @@ function Button(props) {
   });
 
   const askForCategories = () => {
-    // console.log(connection.current);
-    connection.current.emit('get_roomIds');
-  }
+    connection.current.emit("get_roomIds");
+  };
 
   return (
     <>
       <button onClick={props.onClick} className={btnClass}>
         {props.children}
       </button>
-      {/* <button onClick={askForCategories}>
-        Get Categories
-      </button> */}
     </>
   );
 }
