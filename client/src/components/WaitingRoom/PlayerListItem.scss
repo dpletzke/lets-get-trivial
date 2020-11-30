@@ -37,6 +37,33 @@
     font-size: 2rem;
     text-align: center;
   }
+
+  .clipboard-content {
+    justify-content: center;
+    h2{
+      display:flex;
+      justify-content: center;
+      align-items: center;
+      margin: 0 0 0 2.8rem;
+    }
+    .clipboard-icon{
+      margin: 0 0 0 0.5rem;
+      font-size: 1.2rem;
+      align-self: center;
+      
+    }
+  }
+  .copy-message{
+    font-size:0.2rem;
+    visibility: hidden;
+    opacity: 0;
+    transition: opacity 1s ease;
+    &--show{
+
+      opacity: 1;
+      visibility: visible;
+    }
+  }
 }
 
 @media only screen and (min-width: 520px) {

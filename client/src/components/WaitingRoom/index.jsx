@@ -10,6 +10,8 @@ import GameRules from "../GameRules";
 import ModalComponent from "../Modal";
 import { FaCog, FaQuestion, FaVolumeMute, FaVolumeUp } from "react-icons/fa";
 import { ImExit } from "react-icons/im";
+import { IoIosCopy } from "react-icons/io";
+import { CopyToClipboard } from 'react-copy-to-clipboard';
 
 import ConnectionContext from "../../ConnectionContext";
 
