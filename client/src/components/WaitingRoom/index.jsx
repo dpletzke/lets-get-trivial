@@ -10,6 +10,7 @@ import GameRules from "../GameRules";
 import ModalComponent from "../Modal";
 import { FaCog, FaQuestion, FaVolumeMute, FaVolumeUp } from "react-icons/fa";
 import { ImExit } from "react-icons/im";
+import { IoIosCopy } from "react-icons/io";
 import { CopyToClipboard } from 'react-copy-to-clipboard';
 
 import ConnectionContext from "../../ConnectionContext";
@@ -70,9 +71,6 @@ function WaitingRoom(props) {
             </header>
             <h1 className="box-waiting--header">Waiting for Players...</h1>
             <PlayerListItem className="alt-text" name={gameId} gameIdItem />
-            <CopyToClipboard text={gameId}>
-              <button>stuff</button>
-            </CopyToClipboard>
             <Button className="pulse" onClick={startGame} gameRoom>
               Start Game >>
             </Button>
