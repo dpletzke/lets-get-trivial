@@ -1,23 +1,22 @@
 import { useContext } from "react";
-
 import PanelList from "./PanelList";
 import GameplayHeader from "./GameplayHeader";
+import ConnectionContext from "../../ConnectionContext";
 import "./Question.scss";
 
-import ConnectionContext from "../../ConnectionContext";
-
-const shuffle = function (array){
-  let i = array.length, j, temp;
-  if ( i === 0 ) return;
-  while ( --i ) {
-      j = Math.floor( Math.random() * ( i + 1 ) );
-      temp = array[i];
-      array[i] = array[j];
-      array[j] = temp;
+const shuffle = function (array) {
+  let i = array.length,
+    j,
+    temp;
+  if (i === 0) return;
+  while (--i) {
+    j = Math.floor(Math.random() * (i + 1));
+    temp = array[i];
+    array[i] = array[j];
+    array[j] = temp;
   }
 };
 
-// move this into a helper file at some point? It's just changing the data structure to fit better with our component architecture
 const digestQuestionObj = (questionObject) => {
   const question = {
     question: [{ questionString: questionObject.question }],
@@ -36,12 +35,12 @@ const digestQuestionObj = (questionObject) => {
     ],
   };
   shuffle(question.answers);
-  return question
+  return question;
 };
 
 function ActiveQuestion({ questionObj, questionIndex, timeLimit, audioOn }) {
   const { question, answers } = digestQuestionObj(questionObj);
-  console.log(questionObj);
+  console.log({ questionObj });
 
   const connection = useContext(ConnectionContext);
 
@@ -53,7 +52,6 @@ function ActiveQuestion({ questionObj, questionIndex, timeLimit, audioOn }) {
     });
   };
 
-  //GameplayHeader needs to take the following props: {questionIndex, view, time (question/score)-hardCoded} - optional boolean (isPlaying -> This turns timer on or off)
   return (
     <div className="box-question">
       <GameplayHeader
