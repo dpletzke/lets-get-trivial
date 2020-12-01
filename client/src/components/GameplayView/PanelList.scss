@@ -9,14 +9,15 @@
   width: 90%;
   padding: 0 1rem;
 
-  margin-top: $medium-spacer;
   &__answer {
     background-color: $color-secondary-text;
-    height: 50vh;
-    max-height: 24rem;
+    min-height: 14rem;
+    // height: 50vh;
+    // max-height: 24rem;
     max-width: $max-width;
     border-radius: $border-radius;
     box-shadow: 10px 15px 5px rgba(0, 0, 0, 0.3);
+    margin-top: $xtra-small-spacer;
   }
   &__question {
     background-color: $primary-light;
@@ -28,12 +29,24 @@
   }
 }
 
+@media only screen and (min-width: 375px) {
+  .box {
+    &__answer {
+      min-height: 17rem;
+    }
+    &__question {
+      margin: $medium-spacer 0;
+    }
+  }
+}
 @media only screen and (min-width: 760px) {
   .box {
     &__question {
       width: 650px;
       max-width: 90vw;
-      margin: auto;
+    }
+    &__answer {
+      min-height: 23rem;
     }
   }
 }

@@ -3,7 +3,6 @@
 .question-container {
   display: flex;
   flex-direction: column;
-  justify-content: center;
   align-items: center;
 }
 
@@ -14,4 +13,11 @@
   justify-content: center;
   align-items: center;
   height: 100vh;
+}
+
+@media only screen and (min-width: 400px) {
+  .question-container {
+    justify-content: center;
+    align-items: center;
+  }
 }

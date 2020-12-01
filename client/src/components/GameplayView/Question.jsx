@@ -51,6 +51,8 @@ function ActiveQuestion({ questionObj, questionIndex, timeLimit, audioOn }) {
     });
   };
 
+
+
   useEffect(() => {
     let beep = new Audio("/sounds/timeUp.mp3");
     beep.volume = 0.4;

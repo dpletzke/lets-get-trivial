@@ -21,6 +21,7 @@ function PanelList({ infoArray, pickAnswer, audioOn }) {
 
   const connection = useContext(ConnectionContext);
 
+  
   useEffect(() => {
     let timer;
     connection.current.on("next_question", () => {

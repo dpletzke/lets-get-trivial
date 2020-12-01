@@ -1,8 +1,6 @@
 import { storiesOf } from "@storybook/react";
 import { action } from "@storybook/addon-actions";
 
-
-
 import Button from "../components/Button";
 import Loading from "../components/Loading";
 import Timer from "../components/GameplayView/Timer";
@@ -98,17 +96,23 @@ storiesOf("GameplayHeader", module).add("Gameplay Header", () => (
 
 const questionObj = {
   questionIndex: 3,
-  question: "Who wrote the novel &quot;Moby-Dick&quot;?",
+  question:
+    "Who wrote the novel &quot;Moby-Dick&quot;? Its a really important question because Western culture is good for getting jobs duhhhh bro",
   correct_answer: "Herman Melville",
   incorrect_answers: [
-    "William Golding",
-    "William Shakespeare",
+    " It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum.",
+    "Will",
     "J. R. R. Tolkien",
   ],
 };
 
 storiesOf("Question View", module).add("Active Question View", () => (
-  <ActiveQuestion questionObj={questionObj} />
+  <ActiveQuestion
+    questionObj={questionObj}
+    questionIndex={3}
+    timeLimit={30}
+    audioOn={true}
+  />
 ));
 
 storiesOf("Home View", module).add("Landing Page", () => <Home />);
