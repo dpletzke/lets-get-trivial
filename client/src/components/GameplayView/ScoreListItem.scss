@@ -10,6 +10,7 @@
   margin: auto;
 }
 .player-heading {
+  height: $font-mobile + 1;
   background: white;
   width: 70%;
   background-color: $primary-light;
@@ -76,6 +77,7 @@
 
 @media only screen and (min-width: 520px) {
   .player-heading {
+    height: $font-regular + 1;
     p {
       font-size: $font-regular;
     }

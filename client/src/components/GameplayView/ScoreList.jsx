@@ -2,10 +2,12 @@ import ScoreListItem from "./ScoreListItem";
 import "./ScoreListItem.scss";
 
 function ScoreList({ orderedArray, scoresArray }) {
+  
+
   return (
     <div>
       {orderedArray &&
-        orderedArray.map((player, index) => (
+        orderedArray.slice(0,5).map((player, index) => (
           <ScoreListItem
             key={index}
             name={player.name}
