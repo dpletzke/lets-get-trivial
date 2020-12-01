@@ -10,7 +10,7 @@ const app = express();
 const server = http.createServer(app);
 
 // STEP 4 wrap socket with server above
-const io = socketio(server);
+const io = socketio(server, { origins: '*:*'});
 
 // reference to in-memory database, helpers and constants file
 const ds = require("./data");
@@ -28,7 +28,7 @@ app.get("/", (req, res) => {
 io.on("connection", (socket) => {
   const user = ds.createUser({ socket });
 
-  socket.on("join_room", function (name, roomId, isPublic) {
+  socket.on("join_room", function(name, roomId, isPublic) {
     user.name = name;
     user.roomId = roomId;
 
