@@ -136,6 +136,8 @@ io.on("connection", (socket) => {
       console.log(`${room.roomId} ended`);
       io.in(room.roomId).emit("game_ended", payload);
 
+      ds.clearScores(room);
+
       handlePublicRoomInfoUpdate(room.isPublic);
     }
   };

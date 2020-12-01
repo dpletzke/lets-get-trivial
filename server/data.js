@@ -82,7 +82,11 @@ function generateScoreboard(room) {
   return scoreboard;
 }
 
-
+function clearScores(room) {
+  room.users.forEach(userId => {
+    users[userId].score = 0;
+  });
+}
 
 function createOrRefRoom(userId, roomId, isPublic) {
   return rooms[roomId] || createRoom({ roomId, hostId: userId, isPublic });
@@ -124,6 +128,7 @@ module.exports = {
   createRoom,
   getRoomFromUserId,
   generateScoreboard,
+  clearScores,
   getUsersInRoom,
   createOrRefRoom,
   removeUserFromRoom,
