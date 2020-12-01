@@ -10,7 +10,7 @@ const app = express();
 const server = http.createServer(app);
 
 // STEP 4 wrap socket with server above
-const io = socketio(server, { origins: '*:*'});
+const io = socketio(server, { origins: '*:*', pingTimeout: 10000});
 
 // reference to in-memory database, helpers and constants file
 const ds = require("./data");

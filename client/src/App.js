@@ -43,6 +43,11 @@ function App() {
     connection.current.on("user_disconnected", (data) => {
       setState((prev) => ({ ...prev, users: data.users }));
     });
+
+    connection.current.on('disconnect', (reason) => {
+      setState((prev) => ({ ...prev, roomId: null }));
+    });
+    
   }, []);
 
   const onJoin = (name, roomId) => {
