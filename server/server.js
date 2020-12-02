@@ -64,28 +64,31 @@ io.on("connection", (socket) => {
     const { params } = data;
     const room = ds.getRoomFromUserId(socket.id);
 
-    const gameParamsAndQuestions = await gh.gatherAndSetGameInfo(room, params);
-    
-    
-    handlePublicRoomInfoUpdate(room.isPublic);
-    
-    io.in(room.roomId).emit("game_started", gameParamsAndQuestions);
-    
-    if (gameParamsAndQuestions.questions.length) {
-
-      /* log rooms the socket is in to server, should just be one */
-      console.log(`Server starting ${Object.values(socket.rooms)[1]} with:`);
-      console.log(`${JSON.stringify(params)}`);
-      console.log("");
-
-      room.timer = setTimeout(() => {
-        console.log(`Moving on for ${room.roomId} because time ran out.`);
-        handleMoveOn(room);
-      }, room.params.timeLimit * 1000 + STARTPAGE_LAG);
+    /* verify the user is in a room. they were probably disconnected if not */
+    if (room) {
+      const gameParamsAndQuestions = await gh.gatherAndSetGameInfo(room, params);
+      
+      handlePublicRoomInfoUpdate(room.isPublic);
+      
+      io.in(room.roomId).emit("game_started", gameParamsAndQuestions);
+      
+      if (gameParamsAndQuestions.questions.length) {
+  
+        /* log rooms the socket is in to server, should just be one */
+        console.log(`Server starting ${Object.values(socket.rooms)[1]} with:`);
+        console.log(`${JSON.stringify(params)}`);
+        console.log("");
+  
+        room.timer = setTimeout(() => {
+          console.log(`Moving on for ${room.roomId} because time ran out.`);
+          handleMoveOn(room);
+        }, room.params.timeLimit * 1000 + STARTPAGE_LAG);
+      } else {
+        console.log(`Oops, the API request for ${room.roomId} was empty.`);
+      }
     } else {
-      console.log(`Oops, the API request for ${room.roomId} was empty.`);
+      console.log(`${user.name} tried to start a game while not being in a room`);
     }
-
   });
 
   socket.on("picked_answer", (answer) => {
