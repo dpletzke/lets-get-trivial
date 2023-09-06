@@ -1,4 +1,4 @@
-const { getCategories, getQuestions, getSessionToken, getNumQuestionsForCategory } = require(".");
+import { getCategories, getQuestions, getSessionToken, getNumQuestionsForCategory } from (".");
 
 describe("getCategories", () => {
   test("should return categories", async () => {

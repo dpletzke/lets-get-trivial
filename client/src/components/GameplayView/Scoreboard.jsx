@@ -1,7 +1,7 @@
 import ScoreList from "./ScoreList";
 import { useEffect } from "react";
 import GameplayHeader from "./GameplayHeader";
-import Loading from "../Loading";
+// import Loading from "../Loading";
 import VictoryString from "./VictoryString";
 import {
   generateScoreString,
@@ -66,7 +66,7 @@ function ScoreBoard({ players, time, view, audioOn }) {
 
           <p>{scoreString}</p>
         </div>
-        <div className="end-loading">{view === "FINISHED" && <Loading />}</div>
+        <div className="end-loading">{view === "FINISHED" && <span>Loading</span>}</div>
 
         <div className={victoryClass}>
           <VictoryString winners={winnersArray} highScore={highScore} />

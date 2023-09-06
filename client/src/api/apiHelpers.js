@@ -1,4 +1,4 @@
-const { defaults } = require("../config/settings");
+import { defaults } from "../config/settings";
 
 const validate = {
 

@@ -3,7 +3,7 @@ import { FaArrowUp, FaArrowDown } from "react-icons/fa";
 
 import classNames from "classnames";
 
-const converter = require("number-to-words");
+import converter from "number-to-words";
 
 function ScoreListItem({ name, score, position, pointsEarned }) {
   const upArrow = classNames("upArrow", { "upArrow--show": pointsEarned > 0 });

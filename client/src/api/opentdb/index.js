@@ -1,5 +1,5 @@
-const axios = require("axios");
-const { urlConstructor } = require("../apiHelpers.js");
+import axios from "axios";
+import { urlConstructor } from "../apiHelpers.js";
 
 // Using OpenTDB trivia database API
 // Information taken from https://opentdb.com/api_config.php

@@ -1,6 +1,5 @@
-import Button from './Button';
+import Button from "./Button";
 import "./GameRules.scss";
-
 
 function GameRules() {
   return (
@@ -10,14 +9,14 @@ function GameRules() {
           <em> Let's Get Trivial</em> brings the fun back to trivia!
         </h2>
         <ul>
-          <li className="mb-small"> >> Challenge your friends online</li>
+          <li className="mb-small"> {">>"} Challenge your friends online</li>
           <li className="mb-small">
             {" "}
-            >> Play opponents from around the globe in a public room
+            {">>"} Play opponents from around the globe in a public room
           </li>
           <li className="mb-small">
             {" "}
-            >> Fully customizable categories and game settings
+            {">>"} Fully customizable categories and game settings
           </li>
         </ul>
       </div>
@@ -74,7 +73,6 @@ function GameRules() {
             </li>
           </ul>
         </div>
- 
 
         <div className="customizeable_game_settings">
           <h3 className="text-bright">Customizable Game Settings</h3>
@@ -119,18 +117,17 @@ function GameRules() {
             </li>
           </ul>
         </div>
-               <div className="contribute">
+        <div className="contribute">
           <h3 className="text-bright">Contribute Questions</h3>
           <ul className="dev">
             <li className="centered">
-             This app draws questions from the Open Trivia Database.
+              This app draws questions from the Open Trivia Database.
             </li>
             <li className="centered">
               <a href="https://opentdb.com/login.php">
-              <Button home>Contribute a Question</Button>
-
+                <Button home>Contribute a Question</Button>
               </a>
-              </li>
+            </li>
           </ul>
         </div>
         <div className="credits">
@@ -141,10 +138,17 @@ function GameRules() {
               <strong>Soren Nissen</strong>, and <strong>Sebastian Kann</strong>
             </li>
             <li className="centered_small">
-               <a href="https://github.com/dpletzke/lets-get-trivial/">Project Github Repository</a>.
+              <a href="https://github.com/dpletzke/lets-get-trivial/">
+                Project Github Repository
+              </a>
+              .
             </li>
             <li className="centered_small">
-              Fonts are 'Audiowide' by Astigmatic and 'Palanquin' by <a href="https://www.linkedin.com/in/pria-ravichandran-7b896742">Pria Ravichandran</a>.
+              Fonts are 'Audiowide' by Astigmatic and 'Palanquin' by{" "}
+              <a href="https://www.linkedin.com/in/pria-ravichandran-7b896742">
+                Pria Ravichandran
+              </a>
+              .
             </li>
             <li className="centered_small">All Rights Reserved &copy;2020 </li>
           </ul>

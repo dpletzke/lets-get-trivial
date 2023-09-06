@@ -4,7 +4,7 @@ import Home from "./components/Home";
 import WaitingRoom from "./components/WaitingRoom";
 import socketIOClient from "socket.io-client";
 
-const PORT = process.env.PORT || 8080;
+const PORT = import.meta.env.PORT || 8080;
 
 let ENDPOINT;
 const hostname = window && window.location && window.location.hostname;

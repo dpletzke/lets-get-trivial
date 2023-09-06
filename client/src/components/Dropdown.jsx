@@ -4,7 +4,7 @@ import Button from "./Button";
 import DropdownListItem from "./DropdownListItem";
 import "./Dropdown.scss";
 
-const classNames = require("classnames");
+// const classNames = require("classnames");
 
 export default function Dropdown({
   clickHandler,

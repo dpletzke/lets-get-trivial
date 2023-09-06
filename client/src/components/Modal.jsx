@@ -1,7 +1,7 @@
 import Modal from "react-modal";
 import { BsFillXCircleFill } from "react-icons/bs";
 
-const { modalStyles } = require("./modalStyles");
+import modalStyles from "./modalStyles";
 
 export default function ModalComponent({ modalIsOpen, closeModal, children }) {
   function afterOpenModal() {

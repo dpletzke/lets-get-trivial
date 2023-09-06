@@ -5,7 +5,7 @@ import { FaCog, FaVolumeMute, FaVolumeUp } from "react-icons/fa";
 import "./index.scss";
 import digestSettings from "./optionsHelpers";
 
-const { settings } = require("../../../config/settings");
+import { settings } from "../../../config/settings";
 
 function OptionsForm({ setters, params, setVolume, audioOn }) {
   const { setCategory } = setters;

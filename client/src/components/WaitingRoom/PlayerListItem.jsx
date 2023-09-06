@@ -4,8 +4,7 @@ import { FaUser } from "react-icons/fa";
 
 import { IoIosCopy } from "react-icons/io";
 import { CopyToClipboard } from 'react-copy-to-clipboard';
-
-const classNames = require('classnames');
+import  classNames from 'classnames';
 
 function PlayerListItem(props) {
   const [copied, setCopied] = useState(false)

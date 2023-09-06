@@ -15,19 +15,15 @@ import ConnectionContext from "../../ConnectionContext";
 import useGameData from "../../hooks/useGameData";
 import useModal from "../../hooks/useModal";
 
-const { settings, defaults } = require("../../config/settings");
+import { settings, defaults } from "../../config/settings";
 
 function WaitingRoom(props) {
   const { players, gameId, onLeave } = props;
   const [audioOn, setAudioOn] = useState(false);
   const connection = useContext(ConnectionContext);
 
-  const {
-    configModalIsOpen,
-    rulesModalIsOpen,
-    closeModal,
-    openModal,
-  } = useModal();
+  const { configModalIsOpen, rulesModalIsOpen, closeModal, openModal } =
+    useModal();
 
   const { game, startGame, setters, view, setView } = useGameData(
     gameId,
@@ -69,7 +65,7 @@ function WaitingRoom(props) {
             <h1 className="box-waiting--header">Waiting for Players...</h1>
             <PlayerListItem className="alt-text" name={gameId} gameIdItem />
             <Button className="pulse" onClick={startGame} gameRoom>
-              Start Game >>
+              Start Game {">>"}
             </Button>
             <PlayerList players={players} />
 

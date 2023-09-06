@@ -9,28 +9,29 @@
     "@testing-library/jest-dom": "^5.11.6",
     "@testing-library/react": "^11.2.1",
     "@testing-library/user-event": "^12.2.2",
+    "@vitejs/plugin-react": "^4.0.4",
     "axios": "^0.21.0",
     "classnames": "^2.2.6",
     "dotenv": "^8.2.0",
-    "html-entities": "^1.3.1",
-    "node-sass": "^4.14.1",
+    "html-entities": "^2.3.3",
+    "node-sass": "^7.0.3",
     "number-to-words": "^1.2.4",
     "react": "^17.0.1",
     "react-copy-to-clipboard": "^5.0.2",
     "react-countdown-circle-timer": "^2.3.7",
     "react-dom": "^17.0.1",
     "react-icons": "^3.11.0",
-    "react-loader-spinner": "^3.1.14",
+    "react-loader-spinner": "^5.4.5",
     "react-modal": "^3.12.1",
-    "react-scripts": "4.0.0",
     "socket.io-client": "^2.3.0",
+    "vite": "^4.4.9",
+    "vite-plugin-svgr": "^3.2.0",
     "web-vitals": "^0.2.4"
   },
   "scripts": {
-    "start": "react-scripts start",
-    "build": "react-scripts build",
-    "test": "react-scripts test",
-    "eject": "react-scripts eject",
+    "start": "vite",
+    "build": "tsc && vite build",
+    "serve": "vite preview",
     "storybook": "start-storybook -p 6006 -s public",
     "build-storybook": "build-storybook -s public",
     "test:mocha": "mocha"
@@ -60,6 +61,7 @@
     "@storybook/addon-links": "^6.1.1",
     "@storybook/node-logger": "^6.1.1",
     "@storybook/preset-create-react-app": "^3.1.5",
-    "@storybook/react": "^6.1.1"
+    "@storybook/react": "^6.1.1",
+    "sass": "^1.66.1"
   }
 }

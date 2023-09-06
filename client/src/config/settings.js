@@ -31,4 +31,4 @@ function generateDefaults(settings) {
 
 const defaults = generateDefaults(settings);
 
-module.exports = { settings, defaults };
+export { settings, defaults };

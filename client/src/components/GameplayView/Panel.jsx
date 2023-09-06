@@ -3,11 +3,9 @@ import classNames from "classnames";
 
 import { FaCheck, FaRegSadTear } from "react-icons/fa";
 
-const Entities = require("html-entities").AllHtmlEntities;
+import { decodeEntity } from "html-entities";
 
 function Panel(props) {
-  const entities = new Entities();
-
   const { id, info, selected, setSelected, somethingSelected, audioOn } = props;
 
   let successSound = new Audio("/sounds/success.mp3");
@@ -48,13 +46,13 @@ function Panel(props) {
           onMouseDown={correct ? success : failure}
         >
           <FaRegSadTear className="icon__incorrect" />
-          <p>{entities.decode(answerString)}</p>
+          <p>{decodeEntity(answerString)}</p>
           <FaCheck className="icon__correct" />
         </div>
       )}
       {questionString && (
         <div className={className}>
-          <p>{entities.decode(questionString)}</p>
+          <p>{decodeEntity(questionString)}</p>
         </div>
       )}
     </>

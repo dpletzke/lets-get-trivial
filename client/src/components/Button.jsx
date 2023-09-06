@@ -1,6 +1,6 @@
 import "./Button.scss";
 
-const classNames = require("classnames");
+import classNames from "classnames";
 
 function Button(props) {
   const btnClass = classNames("btn", {
