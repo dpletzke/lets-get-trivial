@@ -51,8 +51,6 @@ function ActiveQuestion({ questionObj, questionIndex, timeLimit, audioOn }) {
     });
   };
 
-
-
   useEffect(() => {
     let beep = new Audio("/sounds/timeUp.mp3");
     beep.volume = 0.4;
@@ -60,13 +58,13 @@ function ActiveQuestion({ questionObj, questionIndex, timeLimit, audioOn }) {
     const victorySong = () => {
       beep.play().catch((err) => console.log(err));
     };
+    let timer;
     if (audioOn) {
-      const timer = setTimeout(() => {
+      timer = setTimeout(() => {
         victorySong();
       }, timeLimit * 1000);
-
-      return () => clearTimeout(timer);
     }
+    return () => clearTimeout(timer);
   }, [audioOn, timeLimit]);
 
   return (

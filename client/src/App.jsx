@@ -4,15 +4,7 @@ import Home from "./components/Home";
 import WaitingRoom from "./components/WaitingRoom";
 import socketIOClient from "socket.io-client";
 
-const PORT = import.meta.env.PORT || 8080;
-
-let ENDPOINT;
-const hostname = window && window.location && window.location.hostname;
-if (hostname === "lets-get-trivial-game.herokuapp.com") {
-  ENDPOINT = "https://lets-get-trivial-server.herokuapp.com/";
-} else {
-  ENDPOINT = `http://localhost:${PORT}`;
-}
+const serverUrl = import.meta.env.VITE_SERVER_URL;
 
 function App() {
   const initialState = {
@@ -34,7 +26,7 @@ function App() {
   };
 
   useEffect(() => {
-    connection.current = socketIOClient(ENDPOINT);
+    connection.current = socketIOClient(serverUrl);
 
     connection.current.on("user_connected", (data) => {
       setState((prev) => ({ ...prev, users: data.users }));
@@ -44,10 +36,9 @@ function App() {
       setState((prev) => ({ ...prev, users: data.users }));
     });
 
-    connection.current.on('disconnect', (reason) => {
+    connection.current.on("disconnect", (reason) => {
       setState((prev) => ({ ...prev, roomId: null }));
     });
-    
   }, []);
 
   const onJoin = (name, roomId) => {

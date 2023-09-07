@@ -3,7 +3,7 @@ import classNames from "classnames";
 
 import { FaCheck, FaRegSadTear } from "react-icons/fa";
 
-import { decodeEntity } from "html-entities";
+import { decode } from "html-entities";
 
 function Panel(props) {
   const { id, info, selected, setSelected, somethingSelected, audioOn } = props;
@@ -46,13 +46,13 @@ function Panel(props) {
           onMouseDown={correct ? success : failure}
         >
           <FaRegSadTear className="icon__incorrect" />
-          <p>{decodeEntity(answerString)}</p>
+          <p>{decode(answerString)}</p>
           <FaCheck className="icon__correct" />
         </div>
       )}
       {questionString && (
         <div className={className}>
-          <p>{decodeEntity(questionString)}</p>
+          <p>{decode(questionString)}</p>
         </div>
       )}
     </>

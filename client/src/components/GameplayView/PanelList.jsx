@@ -21,7 +21,6 @@ function PanelList({ infoArray, pickAnswer, audioOn }) {
 
   const connection = useContext(ConnectionContext);
 
-  
   useEffect(() => {
     let timer;
     connection.current.on("next_question", () => {
@@ -29,9 +28,11 @@ function PanelList({ infoArray, pickAnswer, audioOn }) {
         setSelected("");
         clearTimeout(timer);
       }, LAG_BEFORE_SCORE_VIEW);
-     
     });
 
+    return () => {
+      clearTimeout(timer);
+    };
   }, [connection]);
 
   const clickHandler = (id) => {
